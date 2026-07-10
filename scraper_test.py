@@ -46,7 +46,7 @@ try:
     print("Driver started")
     time.sleep(2)
 
-    url = "https://clashroyale.fandom.com/wiki/Lumberjack/Evolution"
+    url = "https://clashroyale.fandom.com/wiki/Inferno_Dragon/Evolution"
     driver.get(url)
     print("Page loaded")
 
@@ -57,24 +57,34 @@ try:
     print("Got page source")
 
     soup = BeautifulSoup(source, "html.parser")
-    table = soup.find("table", class_="wikitable", id="unit-statistics-table")
 
-    header_row = table.find("tr")
+    card = {}
 
-    headers = []
-    for th in header_row.find_all("th"):
-        headers.append(th.text.strip())
+    attrs = soup.find("table", class_="wikitable", id="unit-attributes-table")
+    stats = soup.find("table", class_="wikitable", id="unit-statistics-table")
 
-    row11 = {}
+    # Get the attributes
+    attrs_header_row = attrs.find("tr")
+    attr_row = attrs_header_row.find_next_sibling("tr").find_all("td")
 
-    for row in table.find("tbody").find_all("tr"):
+    for index, th in enumerate(attrs_header_row.find_all("th")):
+        if th.text.strip() in ("Cost", "Target", "Type", "Rarity"):
+            card[th.text.strip()] = attr_row[index].text.strip()
+
+    # Get the stats
+    stats_header_row = stats.find("tr")
+    stats_headers = []
+    for th in stats_header_row.find_all("th"):
+        stats_headers.append(th.text.strip())
+
+    for row in stats.find("tbody").find_all("tr"):
         cells = row.find_all("td")
         if cells and cells[0].text == "11":
-            for i in range(len(headers)):
-                row11[headers[i]] = cells[i].text.strip()
+            for index, th in enumerate(stats_headers[1:], start=1):
+                card[th] = cells[index].text.strip()
             break
 
-    print(row11)
+    print(card)
 
 except Exception as e:
     print(f"Error scraping {url}: {e}")
