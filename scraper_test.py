@@ -2,9 +2,7 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from itertools import islice
 import time
 import os
 
@@ -18,6 +16,39 @@ options.add_argument(r"--user-data-dir=C:\Users\danie\chrome-selenium-profile")
 
 url = None
 driver = None
+
+def get_card_info(url):
+    driver.get(url)
+    source = driver.page_source
+    soup = BeautifulSoup(source, "html.parser")
+
+    card_info = {}
+
+    attrs = soup.find("table", class_="wikitable", id="unit-attributes-table")
+    stats = soup.find("table", class_="wikitable", id="unit-statistics-table")
+
+    # Get the attributes
+    attrs_header_row = attrs.find("tr")
+    attr_row = attrs_header_row.find_next_sibling("tr").find_all("td")
+
+    for index, th in enumerate(attrs_header_row.find_all("th")):
+        if th.text.strip() in ("Cost", "Target", "Type", "Rarity"):
+            card[th.text.strip()] = attr_row[index].text.strip()
+
+    # Get the stats
+    stats_header_row = stats.find("tr")
+    stats_headers = []
+    for th in stats_header_row.find_all("th"):
+        stats_headers.append(th.text.strip())
+
+    for row in stats.find("tbody").find_all("tr"):
+        cells = row.find_all("td")
+        if cells and cells[0].text == "11":
+            for index, th in enumerate(stats_headers[1:], start=1):
+                card_info[th] = cells[index].text.strip()
+            break
+
+    return card_info
 
 try:
     driver = webdriver.Chrome(service=Service(r"C:\Users\danie\.wdm\drivers\chromedriver\win64\150.0.7871.115\chromedriver-win64\chromedriver.exe"), options=options)
@@ -72,16 +103,18 @@ try:
         cards = soup.find("table", id=f"tpt-{i}").find("tbody").find_all("tr")
         for card in cards:
             link = card.find("a")
+            if link is None:
+                continue
             links[link.text] = link["href"]
 
     # Get the links for all the Evos
 
-    time.sleep(3)
+    time.sleep(2)
     evos_url = "https://clashroyale.fandom.com/wiki/Card_Evolution"
     driver.get(evos_url)
     print("Page loaded")
 
-    # Uncomment this if the CAPTCHA appears again
+    # Uncomment this if the CAPTCHA appears again ********************************
     # time.sleep(5)
 
     source = driver.page_source
@@ -90,7 +123,6 @@ try:
     soup = BeautifulSoup(source, "html.parser")
 
     evos = soup.find("table", class_="fandom-table").find("tbody").find_all("tr")
-    print("done)")
     for evo in evos[1:]:
         link = evo.find("a")
         links["Evolution " + link.text] = link["href"]
@@ -98,7 +130,7 @@ try:
 
     # Get all the links for the Heroes
 
-    time.sleep(3)
+    time.sleep(2)
     heroes_url = "https://clashroyale.fandom.com/wiki/Heroes"
     driver.get(heroes_url)
     print("Page loaded")
@@ -112,40 +144,21 @@ try:
     soup = BeautifulSoup(source, "html.parser")
 
     heroes = soup.find("table", class_="fandom-table").find("tbody").find_all("tr")
-    print("done)")
     for hero in heroes[1:]:
         link = hero.find("a")
         links["Hero " + link.text] = link["href"]
 
     print(links)
 
-    # card = {}
+    # Scrape all the cards
+    cards = {}
+    for name, link in islice(links.items(), 10):
+        url = "https://clashroyale.fandom.com" + link
+        print(url)
+        cards[name] = get_card_info(url)
+        time.sleep(1)
 
-    # attrs = soup.find("table", class_="wikitable", id="unit-attributes-table")
-    # stats = soup.find("table", class_="wikitable", id="unit-statistics-table")
-
-    # # Get the attributes
-    # attrs_header_row = attrs.find("tr")
-    # attr_row = attrs_header_row.find_next_sibling("tr").find_all("td")
-
-    # for index, th in enumerate(attrs_header_row.find_all("th")):
-    #     if th.text.strip() in ("Cost", "Target", "Type", "Rarity"):
-    #         card[th.text.strip()] = attr_row[index].text.strip()
-
-    # # Get the stats
-    # stats_header_row = stats.find("tr")
-    # stats_headers = []
-    # for th in stats_header_row.find_all("th"):
-    #     stats_headers.append(th.text.strip())
-
-    # for row in stats.find("tbody").find_all("tr"):
-    #     cells = row.find_all("td")
-    #     if cells and cells[0].text == "11":
-    #         for index, th in enumerate(stats_headers[1:], start=1):
-    #             card[th] = cells[index].text.strip()
-    #         break
-
-    # print(card)
+    print(cards)
 
 except Exception as e:
     print(f"Error scraping {url}: {e}")
