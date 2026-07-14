@@ -2,7 +2,11 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
-from itertools import islice
+# from selenium.webdriver.support.ui import WebDriverWait
+# from selenium.webdriver.support import expected_conditions as EC
+# from selenium.webdriver.common.by import By
+# from selenium.common.exceptions import TimeoutException
+# from itertools import islice
 import time
 import os
 
@@ -17,39 +21,64 @@ options.add_argument(r"--user-data-dir=C:\Users\danie\chrome-selenium-profile")
 url = None
 driver = None
 
-def get_card_info(url):
-    driver.get(url)
-    source = driver.page_source
-    soup = BeautifulSoup(source, "html.parser")
+SPECIAL_DAMAGE_LABELS = ("Charge ", "Dash ", "Spawn ", "Death ", "Crown Tower ", "Jump", "Reflected ", "Lightning Link ", "Royal Rescue ", "Melee ", "Explosive Escape ", "Impact ", "Tornado ")
 
-    card_info = {}
+def get_card_info(url, retries=2):
+    for attempt in range(retries + 1):
+        try:
+            driver.get(url)
+                
+            source = driver.page_source
+            soup = BeautifulSoup(source, "html.parser")
+            driver.get(url)
 
-    attrs = soup.find("table", class_="wikitable", id="unit-attributes-table")
-    stats = soup.find("table", class_="wikitable", id="unit-statistics-table")
+            card_info = {}
 
-    # Get the attributes
-    attrs_header_row = attrs.find("tr")
-    attr_row = attrs_header_row.find_next_sibling("tr").find_all("td")
+            attrs = soup.find("table", class_="wikitable", id="unit-attributes-table")
+            stats = soup.find("table", class_="wikitable", id="unit-statistics-table")
 
-    for index, th in enumerate(attrs_header_row.find_all("th")):
-        if th.text.strip() in ("Cost", "Target", "Type", "Rarity"):
-            card[th.text.strip()] = attr_row[index].text.strip()
+            # Get the attributes
+            if attrs != None:
+                attrs_header_row = attrs.find("tr")
+                attr_row = attrs_header_row.find_next_sibling("tr").find_all("td")
 
-    # Get the stats
-    stats_header_row = stats.find("tr")
-    stats_headers = []
-    for th in stats_header_row.find_all("th"):
-        stats_headers.append(th.text.strip())
+                for index, th in enumerate(attrs_header_row.find_all("th")):
+                    if th.text.strip() in ("Cost", "Target", "Type", "Rarity"):
+                        card_info[th.text.strip()] = attr_row[index].text.strip()
 
-    for row in stats.find("tbody").find_all("tr"):
-        cells = row.find_all("td")
-        if cells and cells[0].text == "11":
-            for index, th in enumerate(stats_headers[1:], start=1):
-                card_info[th] = cells[index].text.strip()
-            break
+            # Get the stats
+            if stats != None:
+                stats_header_row = stats.find("tr")
+                stats_headers = []
+                for th in stats_header_row.find_all("th"):
+                    stats_headers.append(th.text.strip())
 
-    return card_info
+                for row in stats.find("tbody").find_all("tr"):
+                    cells = row.find_all("td")
+                    if cells and cells[0].text == "11":
+                        for index, th in enumerate(stats_headers[1:], start=1):
 
+                            # Shields
+                            if th == "Shield Hitpoints":
+                                card_info["Hitpoints"] = str(int(card_info["Hitpoints"].replace(",", "")) + int(cells[index].text.strip()))
+                                continue
+                            
+                            # Special Damage
+                            match = next((x for x in SPECIAL_DAMAGE_LABELS if x in th), None)
+                            if match:
+                                card_info[f"Special Damage ({th})"] = cells[index].text.strip()
+                                continue
+
+                            card_info[th] = cells[index].text.strip()
+                        break
+
+            return card_info
+        except Exception as e:
+            if attempt == retries:
+                raise
+            print(f"Retry {attempt + 1} for {url}: {e}")
+            time.sleep(2)
+    
 try:
     driver = webdriver.Chrome(service=Service(r"C:\Users\danie\.wdm\drivers\chromedriver\win64\150.0.7871.115\chromedriver-win64\chromedriver.exe"), options=options)
     
@@ -152,10 +181,10 @@ try:
 
     # Scrape all the cards
     cards = {}
-    for name, link in islice(links.items(), 10):
+    for name, link in links.items():
         url = "https://clashroyale.fandom.com" + link
         print(url)
-        cards[name] = get_card_info(url)
+        cards[name] = get_card_info(url, 2)
         time.sleep(1)
 
     print(cards)
