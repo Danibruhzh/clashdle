@@ -70,7 +70,6 @@ def get_card_info(url, retries: int, name: str):
                 
             source = driver.page_source
             soup = BeautifulSoup(source, "html.parser")
-            driver.get(url)
 
             card_info = {}
 
