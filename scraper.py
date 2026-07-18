@@ -9,6 +9,8 @@ from selenium.webdriver.chrome.options import Options
 # from itertools import islice
 import time
 import os
+import json
+import re
 
 os.environ['WDM_LOCAL'] = '1'
 
@@ -62,6 +64,15 @@ CHECK_LABELS = (
     "Air Form",
     "Ground Form",
 )
+REQUIRED_STATS = (
+    "Cost",
+    "Type",
+    "Rarity",
+    "Target",
+    "Hitpoints",
+    "Damage",
+    "Damage Per Second",
+)
 
 def get_card_info(url, retries: int, name: str):
     for attempt in range(retries + 1):
@@ -73,17 +84,23 @@ def get_card_info(url, retries: int, name: str):
 
             card_info = {}
 
-            attrs = soup.find("table", class_="wikitable", id="unit-attributes-table")
+            attrs_tables = soup.find_all("table", class_="wikitable", style=re.compile(r"width:\s*100%;\s*text-align:\s*center;"))[:-2]
+            titles = soup.find_all("h3", style=re.compile(r"display:\s*block;\s*text-align:\s*center;\s*color:\s*white;"))
             stats = soup.find("table", class_="wikitable", id="unit-statistics-table")
 
             # Get the attributes
-            if attrs != None:
+            i = 0
+            for attrs in attrs_tables:
                 attrs_header_row = attrs.find("tr")
                 attr_row = attrs_header_row.find_next_sibling("tr").find_all("td")
-
                 for index, th in enumerate(attrs_header_row.find_all("th")):
-                    if th.text.strip() in ("Cost", "Target", "Type", "Rarity"):
-                        card_info[th.text.strip()] = attr_row[index].text.strip()
+                    label = th.text.strip()
+                    if label in ("Cost", "Target", "Type", "Rarity"):
+                        key = label
+                        while key in card_info:
+                            key = f"{titles[i].find("span").text.removesuffix("Attributes")}{label}"
+                        card_info[key] = attr_row[index].text.strip()
+                i += 1
 
             # Get the stats
             if stats != None:
@@ -105,7 +122,7 @@ def get_card_info(url, retries: int, name: str):
                                 continue
 
                             # Damage
-                            if th == name + " Damage" or "Area Damage" in th:
+                            if th == name + " Damage" or th == "Damage" or "Area Damage" in th:
                                 card_info["Damage"] = cells[index].text.strip()
                                 continue
 
@@ -119,7 +136,7 @@ def get_card_info(url, retries: int, name: str):
                                 continue
 
                             # Damage per second
-                            if th == name + " Damage per second" or th == name + " Damage Per Second" or th == " Damage per second" or th == " Damage Per Second":
+                            if th == name + " Damage per second" or th == name + " Damage Per Second" or th == name + " Damage per Second" or th == "Damage per second" or th == "Damage Per Second" or th == "Damage per Second":
                                 card_info["Damage Per Second"] = cells[index].text.strip()
                                 continue
 
@@ -145,6 +162,12 @@ def get_card_info(url, retries: int, name: str):
                         chosen = special_damage_exact or special_damage_candidate
                         if chosen:
                             card_info[f"Special Damage ({chosen[0]})"] = chosen[1]
+                        else:
+                            card_info["Special Damage"] = "N/A"
+
+                        for stat in REQUIRED_STATS:
+                            if stat not in card_info:
+                                card_info[stat] = "N/A"
 
                         break
 
@@ -266,7 +289,10 @@ try:
         cards[name] = get_card_info(url, 2, name) # 2 retries
         time.sleep(1)
 
-    print(cards)
+    # print(cards)
+    with open("all_cards.json", "w", encoding="utf-8") as f:
+        json.dump(cards, f, indent=2)
+    print("Saved to all_cards.json")
 
 except Exception as e:
     print(f"Error scraping {url}: {e}")
