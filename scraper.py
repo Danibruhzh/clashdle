@@ -63,6 +63,7 @@ CHECK_LABELS = (
     "Broken Cannon Cart",
     "Air Form",
     "Ground Form",
+    "Goblin Brawler"
 )
 REQUIRED_STATS = (
     "Cost",
@@ -74,6 +75,17 @@ REQUIRED_STATS = (
     "Damage Per Second",
 )
 
+def get_name_variants(name):
+    variants = {name, ""}
+    base = name.removeprefix("Evolution ").removeprefix("Hero ")
+    variants.add(base)
+    if name.startswith("Evolution "):
+        variants.add("Evolved " + base)
+    return variants
+
+def build_targets(variants, suffixes):
+    return {f"{v} {suf}".strip() for v in variants for suf in suffixes}
+
 def get_card_info(url, retries: int, name: str):
     for attempt in range(retries + 1):
         try:
@@ -84,9 +96,17 @@ def get_card_info(url, retries: int, name: str):
 
             card_info = {}
 
-            attrs_tables = soup.find_all("table", class_="wikitable", style=re.compile(r"width:\s*100%;\s*text-align:\s*center;"))[:-2]
-            titles = soup.find_all("h3", style=re.compile(r"display:\s*block;\s*text-align:\s*center;\s*color:\s*white;"))
+            attrs_tables_all = soup.find_all("table", class_="wikitable", style=re.compile(r"width:\s*100%;\s*text-align:\s*center;"))
+            titles_all = soup.find_all("h3", style=re.compile(r"display:\s*block;\s*text-align:\s*center;\s*color:\s*white;"))
             stats = soup.find("table", class_="wikitable", id="unit-statistics-table")
+
+            attrs_tables = []
+            titles = []
+            for index, table in enumerate(attrs_tables_all):
+                if table.find("th").text.strip() == "Level":
+                    break
+                attrs_tables.append(table)
+                titles.append(titles_all[index])
 
             # Get the attributes
             i = 0
@@ -122,7 +142,7 @@ def get_card_info(url, retries: int, name: str):
                                 continue
 
                             # Damage
-                            if th == name + " Damage" or th == "Damage" or "Area Damage" in th:
+                            if th == name + " Damage" or th == "Damage" or "Area Damage" in th or th == "Single Target Damage":
                                 card_info["Damage"] = cells[index].text.strip()
                                 continue
 
@@ -130,7 +150,7 @@ def get_card_info(url, retries: int, name: str):
                             if th == "Damage (Stage 3)":
                                 card_info["Damage (Stage 3)"] = cells[index].text.strip()
                                 continue
-                            if th == "Damage (Stage 4)":
+                            if th == "4 stage Damage":
                                 del card_info["Damage (Stage 3)"]
                                 card_info["Damage (Stage 4)"] = cells[index].text.strip()
                                 continue
@@ -286,6 +306,8 @@ try:
     for name, link in links.items():
         url = "https://clashroyale.fandom.com" + link
         print(url)
+        name = name.removeprefix("Evolution ")
+        name = name.removeprefix("Hero ")
         cards[name] = get_card_info(url, 2, name) # 2 retries
         time.sleep(1)
 
