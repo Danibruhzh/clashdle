@@ -1,0 +1,13 @@
+# Virtual environment
+.venv/
+
+# Python
+__pycache__/
+*.pyc
+
+# Env files (secrets, API keys, DB credentials)
+.env
+.env.local
+
+# Claude Code project context (keep local, don't share)
+CLAUDE.md
