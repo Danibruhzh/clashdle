@@ -63,7 +63,8 @@ CHECK_LABELS = (
     "Broken Cannon Cart",
     "Air Form",
     "Ground Form",
-    "Goblin Brawler"
+    "Goblin Brawler",
+    "Souldeiers",
 )
 REQUIRED_STATS = (
     "Cost",
@@ -86,6 +87,22 @@ def get_name_variants(name):
 def build_targets(variants, suffixes):
     return {f"{v} {suf}".strip() for v in variants for suf in suffixes}
 
+def get_matched_variant(name_variants, stats_headers):
+    non_blank = [v for v in name_variants if v != ""]
+
+    # Check every non-blank variant first, longest/most specific before shorter ones
+    for variant in sorted(non_blank, key=len, reverse=True):
+        if any(
+            th == f"{variant} Hitpoints" or th == f"{variant} Damage" or th == f"{variant} Area Damage"
+            or th == f"{variant} Damage per second" or th == f"{variant} Damage Per Second"
+            or th == f"{variant} Damage per Second"
+            for th in stats_headers
+        ):
+            return variant
+
+    # if NO non-blank variant matched anything, anywhere
+    return ""
+
 def get_card_info(url, retries: int, name: str):
     for attempt in range(retries + 1):
         try:
@@ -103,22 +120,37 @@ def get_card_info(url, retries: int, name: str):
             attrs_tables = []
             titles = []
             for index, table in enumerate(attrs_tables_all):
+                #print(table.find("th").text.strip())
                 if table.find("th").text.strip() == "Level":
+                    #print("found")
                     break
+                #print("append")
                 attrs_tables.append(table)
-                titles.append(titles_all[index])
+                if index < len(titles_all):
+                    titles.append(titles_all[index])
+
+            #print(titles)
+
+            name_variants = get_name_variants(name)
+            #print(name_variants)
 
             # Get the attributes
             i = 0
             for attrs in attrs_tables:
                 attrs_header_row = attrs.find("tr")
                 attr_row = attrs_header_row.find_next_sibling("tr").find_all("td")
+                #print(attrs_header_row)
                 for index, th in enumerate(attrs_header_row.find_all("th")):
                     label = th.text.strip()
                     if label in ("Cost", "Target", "Type", "Rarity"):
                         key = label
+                        #print(key)
                         while key in card_info:
-                            key = f"{titles[i].find("span").text.removesuffix("Attributes")}{label}"
+                            #print(i)
+                            if i >= len(titles):
+                                key = f"Ability {label}"
+                            else:
+                                key = f"{titles[i].find("span").text.removesuffix("Attributes")}{label}"
                         card_info[key] = attr_row[index].text.strip()
                 i += 1
 
@@ -129,40 +161,80 @@ def get_card_info(url, retries: int, name: str):
                 for th in stats_header_row.find_all("th"):
                     stats_headers.append(th.text.strip())
 
+                # new
+                name_exact = get_matched_variant(name_variants, stats_headers)
+                if name_exact:
+                    hitpoint_targets = {f"{name_exact} Hitpoints", "Max Hitpoints"}
+                    damage_targets = {f"{name_exact} Damage", f"{name_exact} Area Damage", "Single Target Damage"}
+                    dps_targets = {f"{name_exact} Damage per second",
+                                    f"{name_exact} Damage per Second",
+                                    f"{name_exact} Damage Per Second",}
+                else:
+                    hitpoint_targets = {"Hitpoints", "Max Hitpoints"}
+                    damage_targets = {"Damage", "Area Damage", "Single Target Damage"}
+                    dps_targets = {"Damage per second", "Damage Per Second", "Damage per Second"}
+
+                #print(f"name: {name_exact}")
+                
                 for row in stats.find("tbody").find_all("tr"):
                     cells = row.find_all("td")
                     if cells and cells[0].text == "11":
                         special_damage_exact = None
                         special_damage_candidate = None
                         for index, th in enumerate(stats_headers[1:], start=1):
-
+                            #print(th)
                             # Hitpoints
-                            if th == name + " Hitpoints" or th == "Max Hitpoints" or th == "Hitpoints":
-                                card_info["Hitpoints"] = cells[index].text.strip()
-                                continue
+                            if th in hitpoint_targets:
+                                if th == "Max Hitpoints":
+                                    #print("got max hp")
+                                    card_info["Hitpoints"] = cells[index].text.strip()
+                                    continue
+                                if "Hitpoints" not in card_info:
+                                    #print("got hp")
+                                    card_info["Hitpoints"] = cells[index].text.strip()
+                                    continue
 
                             # Damage
-                            if th == name + " Damage" or th == "Damage" or "Area Damage" in th or th == "Single Target Damage":
-                                card_info["Damage"] = cells[index].text.strip()
+                            if th in damage_targets:
+                                if "Damage" not in card_info:
+                                    #print("got dmg")
+                                    card_info["Damage"] = cells[index].text.strip()
                                 continue
 
                             # Stage Damage
-                            if th == "Damage (Stage 3)":
+                            if th == "Damage (Stage 3)" or th == "3 stage Damage":
+                                #print("got dmg 3")
                                 card_info["Damage (Stage 3)"] = cells[index].text.strip()
                                 continue
                             if th == "4 stage Damage":
                                 del card_info["Damage (Stage 3)"]
+                                #print("got dmg 4")
                                 card_info["Damage (Stage 4)"] = cells[index].text.strip()
                                 continue
 
+                            # Stage Damage Per Second
+                            if th == "3 stage Damage Per Second" or th == f"{name_exact} Damage per Second (Stage 3)":
+                                #print("got dps 3")
+                                card_info["Damage Per Second (Stage 3)"] = cells[index].text.strip()
+                                continue
+                            if th == "4 stage Damage Per Second":
+                                del card_info["Damage Per Second (Stage 3)"]
+                                #print("got dps 4")
+                                card_info["Damage Per Second (Stage 4)"] = cells[index].text.strip()
+                                continue
+
                             # Damage per second
-                            if th == name + " Damage per second" or th == name + " Damage Per Second" or th == name + " Damage per Second" or th == "Damage per second" or th == "Damage Per Second" or th == "Damage per Second":
-                                card_info["Damage Per Second"] = cells[index].text.strip()
+                            if th in dps_targets:
+                                if "Damage Per Second" not in card_info:
+                                    #print("got dps")
+                                    card_info["Damage Per Second"] = cells[index].text.strip()
                                 continue
 
                             # Shields
                             if th == "Shield Hitpoints":
-                                card_info["Hitpoints"] = str(int(card_info["Hitpoints"].replace(",", "")) + int(cells[index].text.strip()))
+                                #print("got shield")
+                                if "Hitpoints" in card_info:
+                                    card_info["Hitpoints"] = str(int(card_info["Hitpoints"].replace(",", "")) + int(cells[index].text.strip()))
                                 continue
 
                             # Special Damage
@@ -177,10 +249,14 @@ def get_card_info(url, retries: int, name: str):
                             # Check these later
                             pity = next((y for y in CHECK_LABELS if y in th), None)
                             if pity and ("lost per second" not in th and "lost per Second" not in th):
+                                #print(f"pity {pity}, {th}")
                                 card_info[th] = cells[index].text.strip()
+
+                            #print("done iteration")
 
                         chosen = special_damage_exact or special_damage_candidate
                         if chosen:
+                            #print("got special")
                             card_info[f"Special Damage ({chosen[0]})"] = chosen[1]
                         else:
                             card_info["Special Damage"] = "N/A"
@@ -234,10 +310,12 @@ try:
     })
     
     print("Driver started")
+    links = {}
 
     cards_url = "https://clashroyale.fandom.com/wiki/Cards"
     driver.get(cards_url)
 
+    # UNCOMMENT IF CAPTCHA ***************************************
     time.sleep(10)
 
     print("Page loaded")
@@ -248,7 +326,6 @@ try:
     soup = BeautifulSoup(source, "html.parser")
 
     # Get the links for all the cards
-    links = {}
 
     for i in range(1, 7):
         cards = soup.find("table", id=f"tpt-{i}").find("tbody").find_all("tr")
@@ -287,7 +364,7 @@ try:
     print("Page loaded")
 
     # Uncomment this if the CAPTCHA appears again
-    # time.sleep(5)
+    #time.sleep(5)
 
     source = driver.page_source
     print("Got page source")
@@ -306,8 +383,6 @@ try:
     for name, link in links.items():
         url = "https://clashroyale.fandom.com" + link
         print(url)
-        name = name.removeprefix("Evolution ")
-        name = name.removeprefix("Hero ")
         cards[name] = get_card_info(url, 2, name) # 2 retries
         time.sleep(1)
 
