@@ -1,0 +1,8 @@
+.app-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  min-height: 100vh;
+  justify-content: center;
+}
