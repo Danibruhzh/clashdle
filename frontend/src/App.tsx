@@ -1,5 +1,6 @@
 import Background from './components/Background'
 import SearchBar from './components/SearchBar'
+import CardDisplay from './components/CardDisplay'
 import './App.css'
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
     <div className="app-content">
       <h3>Clashdle</h3>
       <SearchBar />
+      <CardDisplay cardName="Evolution Knight" />
     </div>
     </>
   )
