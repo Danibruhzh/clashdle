@@ -3,8 +3,13 @@ import allCards from '../data/all_cards.json'
 import './SearchBar.css'
 
 const cardNames = Object.keys(allCards)
+const cardNameByLower = new Map(cardNames.map((name) => [name.toLowerCase(), name]))
 
-function SearchBar() {
+interface SearchBarProps {
+  onSelectCard: (cardName: string) => void
+}
+
+function SearchBar({ onSelectCard }: SearchBarProps) {
   const [query, setQuery] = useState('')
   const [showMatches, setShowMatches] = useState(false)
 
@@ -18,13 +23,26 @@ function SearchBar() {
             .some((word) => word.startsWith(query.toLowerCase()))
         )
 
+  const handleChange = (value: string) => {
+    setQuery(value)
+    const match = cardNameByLower.get(value.trim().toLowerCase())
+    if (match) {
+      onSelectCard(match)
+    }
+  }
+
+  const handleSelect = (name: string) => {
+    setQuery(name)
+    onSelectCard(name)
+  }
+
   return (
     <div className="search-bar-container">
       <input
         className="search-bar"
         type="text"
         value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        onChange={(e) => handleChange(e.target.value)}
         onFocus={() => setShowMatches(true)}
         onBlur={() => setShowMatches(false)}
         placeholder="Guess a card..."
@@ -34,7 +52,7 @@ function SearchBar() {
           {matches.map((name) => (
             <li
               key={name}
-              onMouseDown={() => setQuery(name)}
+              onMouseDown={() => handleSelect(name)}
             >
               {name}
             </li>

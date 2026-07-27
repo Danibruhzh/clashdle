@@ -219,6 +219,16 @@
     "Damage Per Second": "145",
     "Special Damage": "N/A"
   },
+  "Clone": {
+    "Cost": "3",
+    "Type": "Spell",
+    "Rarity": "Epic",
+    "Target": "Friendly Troops",
+    "Hitpoints": "N/A",
+    "Damage": "N/A",
+    "Damage Per Second": "N/A",
+    "Special Damage": "N/A"
+  },
   "Cursed Hog": {
     "Cost": "4",
     "Type": "Troop",
@@ -767,6 +777,16 @@
     "Hitpoints": "1748",
     "Damage (Stage 3)": "847",
     "Damage Per Second (Stage 3)": "2117",
+    "Special Damage": "N/A"
+  },
+  "King Tower": {
+    "Cost": "N/A",
+    "Type": "Tower Troop",
+    "Rarity": "N/A",
+    "Target": "Air & Ground",
+    "Hitpoints": "4,824",
+    "Damage": "109",
+    "Damage Per Second": "109",
     "Special Damage": "N/A"
   },
   "Knight": {
@@ -1354,10 +1374,10 @@
     "Type": "Spell",
     "Rarity": "Epic",
     "Target": "Air & Ground",
-    "Special Damage (Single Target Crown Tower Damage)": "48 x3 (144)",
     "Hitpoints": "N/A",
     "Damage": "340 x3 (1020)",
-    "Damage Per Second": "N/A"
+    "Damage Per Second": "N/A",
+    "Special Damage (Single Target Crown Tower Damage)": "48 x3 (144)"
   },
   "Wall Breakers": {
     "Cost": "2",
