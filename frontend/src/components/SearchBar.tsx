@@ -3,11 +3,15 @@ import type { KeyboardEvent } from 'react'
 import { cardNames } from '../data/cards'
 import './SearchBar.css'
 
-const cardNameByLower = new Map(cardNames.map((name) => [name.toLowerCase(), name]))
+function normalize(value: string): string {
+  return value.toLowerCase().replace(/[.-]/g, '')
+}
+
+const cardNameByLower = new Map(cardNames.map((name) => [normalize(name), name]))
 
 function matchesQuery(name: string, query: string): boolean {
-  const nameWords = name.toLowerCase().split(' ')
-  const queryWords = query.trim().toLowerCase().split(/\s+/)
+  const nameWords = normalize(name).split(' ')
+  const queryWords = normalize(query.trim()).split(/\s+/)
 
   for (let i = 0; i <= nameWords.length - queryWords.length; i++) {
     const isMatchAt = queryWords.every((queryWord, j) =>
@@ -21,14 +25,15 @@ function matchesQuery(name: string, query: string): boolean {
 interface SearchBarProps {
   onSelectCard: (cardName: string) => void
   guessedNames: Set<string>
+  disabled?: boolean
 }
 
-function SearchBar({ onSelectCard, guessedNames }: SearchBarProps) {
+function SearchBar({ onSelectCard, guessedNames, disabled = false }: SearchBarProps) {
   const [query, setQuery] = useState('')
   const [showMatches, setShowMatches] = useState(false)
 
   const matches =
-    query.trim().length === 0
+    disabled || query.trim().length === 0
       ? []
       : cardNames.filter((name) => !guessedNames.has(name) && matchesQuery(name, query))
 
@@ -39,8 +44,8 @@ function SearchBar({ onSelectCard, guessedNames }: SearchBarProps) {
   }
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key !== 'Enter') return
-    const match = cardNameByLower.get(query.trim().toLowerCase())
+    if (disabled || e.key !== 'Enter') return
+    const match = cardNameByLower.get(normalize(query.trim()))
     if (match && !guessedNames.has(match)) {
       handleSelect(match)
     }
@@ -56,7 +61,8 @@ function SearchBar({ onSelectCard, guessedNames }: SearchBarProps) {
         onKeyDown={handleKeyDown}
         onFocus={() => setShowMatches(true)}
         onBlur={() => setShowMatches(false)}
-        placeholder="Guess a card..."
+        disabled={disabled}
+        placeholder={disabled ? 'You win! Press reset to play again.' : 'Guess a card...'}
       />
       {showMatches && matches.length > 0 && (
         <ul className="search-bar-matches">

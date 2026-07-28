@@ -4,6 +4,7 @@ import SearchBar from './components/SearchBar'
 import CardDisplay from './components/CardDisplay'
 import StatsHeader from './components/StatsHeader'
 import ResetButton from './components/ResetButton'
+import WinPopup from './components/WinPopup'
 import { cardNames } from './data/cards'
 import './App.css'
 
@@ -34,14 +35,21 @@ function App() {
   }
 
   const guessedNames = new Set(guesses.map((guess) => guess.cardName))
+  const hasWon = guessedNames.has(secretCard)
 
   return (
     <>
     <Background />
     <ResetButton onReset={handleReset} />
+    {hasWon && <WinPopup guessCount={guesses.length} />}
     <div className="app-content">
       <h1 className="app-title">Clashdle</h1>
-      <SearchBar key={resetCount} onSelectCard={handleSelectCard} guessedNames={guessedNames} />
+      <SearchBar
+        key={resetCount}
+        onSelectCard={handleSelectCard}
+        guessedNames={guessedNames}
+        disabled={hasWon}
+      />
       <StatsHeader />
       {guesses.map((guess) => (
         <CardDisplay key={guess.id} cardName={guess.cardName} secretCardName={secretCard} />
