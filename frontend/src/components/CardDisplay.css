@@ -42,6 +42,32 @@
   }
 }
 
+.card-display-stat--match {
+  background: #3aa655;
+  border-color: #3aa655;
+}
+
+.card-display-stat--mismatch {
+  background: #c0392b;
+  border-color: #c0392b;
+}
+
+.card-display-stat--higher,
+.card-display-stat--lower {
+  background: #c0392b;
+  border-color: #c0392b;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 40%;
+}
+
+.card-display-stat--match .card-display-stat-value,
+.card-display-stat--match .card-display-stat-sublabel,
+.card-display-stat--mismatch .card-display-stat-value,
+.card-display-stat--mismatch .card-display-stat-sublabel {
+  color: #fff;
+}
+
 .card-display-stat-sublabel {
   font-size: 12px;
   color: var(--text);

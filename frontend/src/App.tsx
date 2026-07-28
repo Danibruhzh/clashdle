@@ -4,6 +4,7 @@ import SearchBar from './components/SearchBar'
 import CardDisplay from './components/CardDisplay'
 import StatsHeader from './components/StatsHeader'
 import ResetButton from './components/ResetButton'
+import { cardNames } from './data/cards'
 import './App.css'
 
 interface Guess {
@@ -11,10 +12,16 @@ interface Guess {
   cardName: string
 }
 
+function pickSecretCard() {
+  return cardNames[Math.floor(Math.random() * cardNames.length)]
+}
+
 function App() {
   const [guesses, setGuesses] = useState<Guess[]>([])
   const [resetCount, setResetCount] = useState(0)
+  const [secretCard, setSecretCard] = useState(pickSecretCard)
   const nextId = useRef(0)
+  //console.log(secretCard)
 
   const handleSelectCard = (cardName: string) => {
     setGuesses((prev) => [{ id: nextId.current++, cardName }, ...prev])
@@ -23,6 +30,7 @@ function App() {
   const handleReset = () => {
     setGuesses([])
     setResetCount((prev) => prev + 1)
+    setSecretCard(pickSecretCard())
   }
 
   const guessedNames = new Set(guesses.map((guess) => guess.cardName))
@@ -36,7 +44,7 @@ function App() {
       <SearchBar key={resetCount} onSelectCard={handleSelectCard} guessedNames={guessedNames} />
       <StatsHeader />
       {guesses.map((guess) => (
-        <CardDisplay key={guess.id} cardName={guess.cardName} />
+        <CardDisplay key={guess.id} cardName={guess.cardName} secretCardName={secretCard} />
       ))}
     </div>
     </>

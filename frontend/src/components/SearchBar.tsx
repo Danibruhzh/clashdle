@@ -1,9 +1,8 @@
 import { useState } from 'react'
 import type { KeyboardEvent } from 'react'
-import allCards from '../data/all_cards.json'
+import { cardNames } from '../data/cards'
 import './SearchBar.css'
 
-const cardNames = Object.keys(allCards)
 const cardNameByLower = new Map(cardNames.map((name) => [name.toLowerCase(), name]))
 
 function matchesQuery(name: string, query: string): boolean {
