@@ -35,9 +35,11 @@
     "Rarity": "Common",
     "Target": "Air & Ground",
     "Hitpoints": "N/A",
-    "Damage": "122 x3 (366)",
+    "Damage": "366 (122 x3)",
     "Damage Per Second": "N/A",
-    "Special Damage (Crown Tower Damage)": "31 x3 (93)"
+    "Special Damage": {
+      "Crown Tower Damage": "93 (31 x3)"
+    }
   },
   "Baby Dragon": {
     "Cost": "4",
@@ -57,7 +59,9 @@
     "Hitpoints": "1679",
     "Damage": "640",
     "Damage Per Second": "320",
-    "Special Damage (Death Damage)": "240"
+    "Special Damage": {
+      "Death Damage": "240"
+    }
   },
   "Bandit": {
     "Cost": "3",
@@ -67,7 +71,9 @@
     "Hitpoints": "906",
     "Damage": "194",
     "Damage Per Second": "194",
-    "Special Damage (Dash Damage)": "389"
+    "Special Damage": {
+      "Dash Damage": "389"
+    }
   },
   "Barbarian Barrel": {
     "Cost": "2",
@@ -127,7 +133,9 @@
     "Hitpoints": "967",
     "Damage": "286",
     "Damage Per Second": "N/A",
-    "Special Damage (Battle Ram Charge Damage)": "573"
+    "Special Damage": {
+      "Battle Ram Charge Damage": "573"
+    }
   },
   "Berserker": {
     "Cost": "2",
@@ -147,7 +155,9 @@
     "Hitpoints": "1356",
     "Damage": "222",
     "Damage Per Second": "123",
-    "Special Damage (Death Damage)": "222"
+    "Special Damage": {
+      "Death Damage": "222"
+    }
   },
   "Bomber": {
     "Cost": "2",
@@ -167,7 +177,9 @@
     "Hitpoints": "2624",
     "Damage": "268",
     "Damage Per Second": "223",
-    "Special Damage (Dash Damage)": "537"
+    "Special Damage": {
+      "Dash Damage": "537"
+    }
   },
   "Bowler": {
     "Cost": "5",
@@ -257,7 +269,9 @@
     "Hitpoints": "1440",
     "Damage": "266",
     "Damage Per Second": "204",
-    "Special Damage (Charge Damage)": "532"
+    "Special Damage": {
+      "Charge Damage": "532"
+    }
   },
   "Dart Goblin": {
     "Cost": "3",
@@ -285,9 +299,11 @@
     "Rarity": "Rare",
     "Target": "Ground",
     "Hitpoints": "N/A",
-    "Damage": "84 x3 (252)",
+    "Damage": "252 (84 x3)",
     "Damage Per Second": "N/A",
-    "Special Damage (Crown Tower Damage)": "53 x3 (159)"
+    "Special Damage": {
+      "Crown Tower Damage": "159 (53 x3)"
+    }
   },
   "Electro Dragon": {
     "Cost": "5",
@@ -307,7 +323,9 @@
     "Hitpoints": "3952",
     "Damage": "163",
     "Damage Per Second": "77",
-    "Special Damage (Reflected Damage)": "192"
+    "Special Damage": {
+      "Reflected Damage": "192"
+    }
   },
   "Electro Spirit": {
     "Cost": "1",
@@ -325,9 +343,11 @@
     "Rarity": "Legendary",
     "Target": "Air & Ground",
     "Hitpoints": "714",
-    "Damage": "115 x2 (230)",
+    "Damage": "230 (115 x2)",
     "Damage Per Second": "126",
-    "Special Damage (Zap Damage)": "192"
+    "Special Damage": {
+      "Zap Damage": "192"
+    }
   },
   "Elite Barbarians": {
     "Cost": "6",
@@ -385,7 +405,7 @@
     "Rarity": "Epic",
     "Target": "Air & Ground",
     "Hitpoints": "1280",
-    "Damage": "168 x2 (336)",
+    "Damage": "336 (168 x2)",
     "Damage Per Second": "140",
     "Special Damage": "N/A"
   },
@@ -407,7 +427,9 @@
     "Hitpoints": "N/A",
     "Damage": "688",
     "Damage Per Second": "N/A",
-    "Special Damage (Crown Tower Damage)": "207"
+    "Special Damage": {
+      "Crown Tower Damage": "207"
+    }
   },
   "Firecracker": {
     "Cost": "3",
@@ -415,7 +437,7 @@
     "Rarity": "Common",
     "Target": "Air & Ground",
     "Hitpoints": "304",
-    "Damage": "64 x5 (320)",
+    "Damage": "320 (64 x5)",
     "Damage Per Second": "105",
     "Special Damage": "N/A"
   },
@@ -447,7 +469,9 @@
     "Hitpoints": "N/A",
     "Damage": "115",
     "Damage Per Second": "N/A",
-    "Special Damage (Crown Tower Damage)": "35"
+    "Special Damage": {
+      "Crown Tower Damage": "35"
+    }
   },
   "Furnace": {
     "Cost": "4",
@@ -497,7 +521,9 @@
     "Hitpoints": "3361",
     "Damage": "276",
     "Damage Per Second": "197",
-    "Special Damage (Death Damage)": "688"
+    "Special Damage": {
+      "Death Damage": "688"
+    }
   },
   "Giant Snowball": {
     "Cost": "2",
@@ -507,7 +533,9 @@
     "Hitpoints": "N/A",
     "Damage": "179",
     "Damage Per Second": "N/A",
-    "Special Damage (Crown Tower Damage)": "54"
+    "Special Damage": {
+      "Crown Tower Damage": "54"
+    }
   },
   "Goblin Barrel": {
     "Cost": "3",
@@ -545,9 +573,11 @@
     "Rarity": "Epic",
     "Target": "Air & Ground",
     "Hitpoints": "N/A",
-    "Damage": "35 x6 (210)",
+    "Damage": "210 (35 x6)",
     "Damage Per Second": "N/A",
-    "Special Damage (Crown Tower Damage)": "10 x6 (60)"
+    "Special Damage": {
+      "Crown Tower Damage": "60 (10 x6)"
+    }
   },
   "Goblin Demolisher": {
     "Cost": "4",
@@ -557,7 +587,9 @@
     "Hitpoints": "1300",
     "Damage": "186",
     "Damage Per Second": "155",
-    "Special Damage (Death Damage)": "404"
+    "Special Damage": {
+      "Death Damage": "404"
+    }
   },
   "Goblin Drill": {
     "Cost": "4",
@@ -567,7 +599,9 @@
     "Hitpoints": "1313",
     "Damage": "N/A",
     "Damage Per Second": "N/A",
-    "Special Damage (Goblin Drill Spawn Damage)": "84"
+    "Special Damage": {
+      "Goblin Drill Spawn Damage": "84"
+    }
   },
   "Goblin Giant": {
     "Cost": "6",
@@ -597,7 +631,9 @@
     "Hitpoints": "2150",
     "Damage": "212",
     "Damage Per Second": "176",
-    "Special Damage (Rocket Launcher Damage)": "304"
+    "Special Damage": {
+      "Rocket Launcher Damage": "304"
+    }
   },
   "Goblins": {
     "Cost": "2",
@@ -617,7 +653,9 @@
     "Hitpoints": "721",
     "Damage": "92",
     "Damage Per Second": "51",
-    "Special Damage (Lightning Link Damage)": "107"
+    "Special Damage": {
+      "Lightning Link Damage": "107"
+    }
   },
   "Goblinstein Monster": {
     "Cost": "5",
@@ -627,7 +665,9 @@
     "Hitpoints": "2393",
     "Damage": "128",
     "Damage Per Second": "85",
-    "Special Damage (Lightning Link Damage)": "107"
+    "Special Damage": {
+      "Lightning Link Damage": "107"
+    }
   },
   "Golden Knight": {
     "Cost": "4",
@@ -637,7 +677,9 @@
     "Hitpoints": "1799",
     "Damage": "161",
     "Damage Per Second": "178",
-    "Special Damage (Dashing Dash Damage)": "335"
+    "Special Damage": {
+      "Dashing Dash Damage": "335"
+    }
   },
   "Golem": {
     "Cost": "8",
@@ -647,7 +689,9 @@
     "Hitpoints": "5120",
     "Damage": "312",
     "Damage Per Second": "124",
-    "Special Damage (Golem Death Damage)": "225"
+    "Special Damage": {
+      "Golem Death Damage": "225"
+    }
   },
   "Golemite": {
     "Cost": "8",
@@ -657,7 +701,9 @@
     "Hitpoints": "1039",
     "Damage": "84",
     "Damage Per Second": "33",
-    "Special Damage (Golemite Death Damage)": "99"
+    "Special Damage": {
+      "Golemite Death Damage": "99"
+    }
   },
   "Graveyard": {
     "Cost": "5",
@@ -687,7 +733,9 @@
     "Hitpoints": "1600",
     "Damage": "217",
     "Damage Per Second": "180",
-    "Special Damage (Royal Rescue Damage)": "256"
+    "Special Damage": {
+      "Royal Rescue Damage": "256"
+    }
   },
   "Guards": {
     "Cost": "3",
@@ -725,7 +773,7 @@
     "Rarity": "Epic",
     "Target": "Air & Ground",
     "Hitpoints": "885",
-    "Damage": "84 x10 (840)",
+    "Damage": "840 (84 x10)",
     "Damage Per Second": "380",
     "Special Damage": "N/A"
   },
@@ -737,7 +785,9 @@
     "Hitpoints": "1315",
     "Damage": "84",
     "Damage Per Second": "33",
-    "Special Damage (Death Damage)": "84"
+    "Special Damage": {
+      "Death Damage": "84"
+    }
   },
   "Ice Spirit": {
     "Cost": "1",
@@ -757,7 +807,9 @@
     "Hitpoints": "688",
     "Damage": "89",
     "Damage Per Second": "52",
-    "Special Damage (Spawn Damage)": "84"
+    "Special Damage": {
+      "Spawn Damage": "84"
+    }
   },
   "Inferno Dragon": {
     "Cost": "4",
@@ -827,7 +879,9 @@
     "Hitpoints": "N/A",
     "Damage": "1057",
     "Damage Per Second": "N/A",
-    "Special Damage (Crown Tower Damage)": "286"
+    "Special Damage": {
+      "Crown Tower Damage": "286"
+    }
   },
   "Little Prince": {
     "Cost": "3",
@@ -837,7 +891,9 @@
     "Hitpoints": "698",
     "Damage": "104",
     "Damage Per Second (Stage 3)": "260",
-    "Special Damage (Royal Rescue Damage)": "256"
+    "Special Damage": {
+      "Royal Rescue Damage": "256"
+    }
   },
   "Lumberjack": {
     "Cost": "4",
@@ -847,7 +903,9 @@
     "Hitpoints": "N/A",
     "Damage": "256",
     "Damage Per Second": "320",
-    "Special Damage (Rage Damage)": "179"
+    "Special Damage": {
+      "Rage Damage": "179"
+    }
   },
   "Magic Archer": {
     "Cost": "4",
@@ -867,7 +925,9 @@
     "Hitpoints": "3993",
     "Damage": "268",
     "Damage Per Second": "157",
-    "Special Damage (Spawn Damage)": "430"
+    "Special Damage": {
+      "Spawn Damage": "430"
+    }
   },
   "Mega Minion": {
     "Cost": "3",
@@ -887,7 +947,9 @@
     "Hitpoints": "2250",
     "Damage (Stage 3)": "409",
     "Damage Per Second (Stage 3)": "1022",
-    "Special Damage (Explosive Escape Damage)": "332"
+    "Special Damage": {
+      "Explosive Escape Damage": "332"
+    }
   },
   "Miner": {
     "Cost": "3",
@@ -897,7 +959,9 @@
     "Hitpoints": "1210",
     "Damage": "194",
     "Damage Per Second": "149",
-    "Special Damage (Crown Tower Damage)": "48"
+    "Special Damage": {
+      "Crown Tower Damage": "48"
+    }
   },
   "Mini P.E.K.K.A.": {
     "Cost": "4",
@@ -937,7 +1001,9 @@
     "Hitpoints": "2214",
     "Damage": "140",
     "Damage Per Second": "175",
-    "Special Damage (Combo Damage)": "422"
+    "Special Damage": {
+      "Combo Damage": "422"
+    }
   },
   "Mortar": {
     "Cost": "4",
@@ -997,7 +1063,9 @@
     "Hitpoints": "1052",
     "Damage": "217",
     "Damage Per Second": "217",
-    "Special Damage (Death Damage)": "163"
+    "Special Damage": {
+      "Death Damage": "163"
+    }
   },
   "Phoenix Egg": {
     "Cost": "4",
@@ -1007,7 +1075,9 @@
     "Hitpoints": "240",
     "Damage": "N/A",
     "Damage Per Second": "N/A",
-    "Special Damage (Death Damage)": "163"
+    "Special Damage": {
+      "Death Damage": "163"
+    }
   },
   "Poison": {
     "Cost": "4",
@@ -1015,9 +1085,11 @@
     "Rarity": "Epic",
     "Target": "Air & Ground",
     "Hitpoints": "N/A",
-    "Damage": "92 x8 (736)",
+    "Damage": "736 (92 x8)",
     "Damage Per Second": "N/A",
-    "Special Damage (Crown Tower Damage)": "23 x8 (184)"
+    "Special Damage": {
+      "Crown Tower Damage": "184 (23 x8)"
+    }
   },
   "Prince": {
     "Cost": "5",
@@ -1027,7 +1099,9 @@
     "Hitpoints": "1920",
     "Damage": "391",
     "Damage Per Second": "279",
-    "Special Damage (Charge Damage)": "783"
+    "Special Damage": {
+      "Charge Damage": "783"
+    }
   },
   "Princess": {
     "Cost": "3",
@@ -1047,7 +1121,9 @@
     "Hitpoints": "N/A",
     "Damage": "179",
     "Damage Per Second": "N/A",
-    "Special Damage (Crown Tower Damage)": "54"
+    "Special Damage": {
+      "Crown Tower Damage": "54"
+    }
   },
   "Ram": {
     "Cost": "5",
@@ -1057,7 +1133,9 @@
     "Hitpoints": "1697",
     "Damage": "250",
     "Damage Per Second": "138",
-    "Special Damage (Ram Charge Damage)": "501"
+    "Special Damage": {
+      "Ram Charge Damage": "501"
+    }
   },
   "Ram Rider": {
     "Cost": "5",
@@ -1097,7 +1175,9 @@
     "Hitpoints": "1052",
     "Damage": "217",
     "Damage Per Second": "217",
-    "Special Damage (Death Damage)": "163"
+    "Special Damage": {
+      "Death Damage": "163"
+    }
   },
   "Rocket": {
     "Cost": "6",
@@ -1107,7 +1187,9 @@
     "Hitpoints": "N/A",
     "Damage": "1484",
     "Damage Per Second": "N/A",
-    "Special Damage (Crown Tower Damage)": "371"
+    "Special Damage": {
+      "Crown Tower Damage": "371"
+    }
   },
   "Royal Chef": {
     "Cost": "N/A",
@@ -1127,7 +1209,9 @@
     "Hitpoints": "787",
     "Damage": "437",
     "Damage Per Second": "102",
-    "Special Damage (Royal Recruit Damage)": "133"
+    "Special Damage": {
+      "Royal Recruit Damage": "133"
+    }
   },
   "Royal Ghost": {
     "Cost": "3",
@@ -1177,7 +1261,9 @@
     "Hitpoints": "2662",
     "Damage": "120",
     "Damage Per Second": "80",
-    "Special Damage (Bonus Damage)": "220"
+    "Special Damage": {
+      "Bonus Damage": "220"
+    }
   },
   "Runner": {
     "Cost": "2",
@@ -1207,7 +1293,9 @@
     "Hitpoints": "532",
     "Damage": "N/A",
     "Damage Per Second": "N/A",
-    "Special Damage (Skeleton Barrel Death Damage)": "145"
+    "Special Damage": {
+      "Skeleton Barrel Death Damage": "145"
+    }
   },
   "Skeleton Dragons": {
     "Cost": "4",
@@ -1247,7 +1335,9 @@
     "Hitpoints": "81",
     "Damage": "81",
     "Damage Per Second": "45",
-    "Special Damage (Spawn Damage)": "81"
+    "Special Damage": {
+      "Spawn Damage": "81"
+    }
   },
   "Sparky": {
     "Cost": "6",
@@ -1297,7 +1387,9 @@
     "Hitpoints": "N/A",
     "Damage": "266",
     "Damage Per Second": "N/A",
-    "Special Damage (Crown Tower Damage)": "40"
+    "Special Damage": {
+      "Crown Tower Damage": "40"
+    }
   },
   "Three Musketeers": {
     "Cost": "9",
@@ -1307,7 +1399,9 @@
     "Hitpoints": "883",
     "Damage": "204",
     "Damage Per Second": "156",
-    "Special Damage (Melee Damage)": "314"
+    "Special Damage": {
+      "Melee Damage": "314"
+    }
   },
   "Tombstone": {
     "Cost": "3",
@@ -1327,7 +1421,9 @@
     "Hitpoints": "N/A",
     "Damage": "84",
     "Damage Per Second": "N/A",
-    "Special Damage (Crown Tower Damage)": "29"
+    "Special Damage": {
+      "Crown Tower Damage": "29"
+    }
   },
   "Tower Princess": {
     "Cost": "N/A",
@@ -1347,7 +1443,9 @@
     "Hitpoints": "721",
     "Damage": "140",
     "Damage Per Second": "280",
-    "Special Damage (Spawn Damage)": "204"
+    "Special Damage": {
+      "Spawn Damage": "204"
+    }
   },
   "Valkyrie": {
     "Cost": "4",
@@ -1365,9 +1463,11 @@
     "Rarity": "Epic",
     "Target": "Air & Ground",
     "Hitpoints": "N/A",
-    "Damage": "153 x2 (306)",
+    "Damage": "306 (153 x2)",
     "Damage Per Second": "N/A",
-    "Special Damage (Crown Tower Damage)": "39 x2 (78)"
+    "Special Damage": {
+      "Crown Tower Damage": "78 (39 x2)"
+    }
   },
   "Void": {
     "Cost": "3",
@@ -1375,9 +1475,11 @@
     "Rarity": "Epic",
     "Target": "Air & Ground",
     "Hitpoints": "N/A",
-    "Damage": "340 x3 (1020)",
+    "Damage": "1020 (340 x3)",
     "Damage Per Second": "N/A",
-    "Special Damage (Single Target Crown Tower Damage)": "48 x3 (144)"
+    "Special Damage": {
+      "Single Target Crown Tower Damage": "144 (48 x3)"
+    }
   },
   "Wall Breakers": {
     "Cost": "2",
@@ -1427,7 +1529,9 @@
     "Hitpoints": "N/A",
     "Damage": "192",
     "Damage Per Second": "N/A",
-    "Special Damage (Crown Tower Damage)": "58"
+    "Special Damage": {
+      "Crown Tower Damage": "58"
+    }
   },
   "Zappies": {
     "Cost": "4",
@@ -1447,7 +1551,9 @@
     "Hitpoints": "304",
     "Damage": "112",
     "Damage Per Second": "124",
-    "Special Damage (Power Shot Damage)": "168"
+    "Special Damage": {
+      "Power Shot Damage": "168"
+    }
   },
   "Evolution Baby Dragon": {
     "Cost": "4",
@@ -1487,7 +1593,9 @@
     "Hitpoints": "967",
     "Damage": "286",
     "Damage Per Second": "N/A",
-    "Special Damage (Evolved Battle Ram Charge Damage)": "573"
+    "Special Damage": {
+      "Evolved Battle Ram Charge Damage": "573"
+    }
   },
   "Evolution Bomber": {
     "Cost": "2",
@@ -1497,7 +1605,9 @@
     "Hitpoints": "332",
     "Damage": "225",
     "Damage Per Second": "125",
-    "Special Damage (Bounce Damage)": "225"
+    "Special Damage": {
+      "Bounce Damage": "225"
+    }
   },
   "Evolution Cannon": {
     "Cost": "3",
@@ -1507,7 +1617,9 @@
     "Hitpoints": "824",
     "Damage": "212",
     "Damage Per Second": "212",
-    "Special Damage (Barrage Crown Tower Damage)": "89"
+    "Special Damage": {
+      "Barrage Crown Tower Damage": "89"
+    }
   },
   "Evolution Dart Goblin": {
     "Cost": "3",
@@ -1517,7 +1629,9 @@
     "Hitpoints": "261",
     "Damage": "156",
     "Damage Per Second": "195",
-    "Special Damage (Poison Crown Tower Damage per second (Stage 1))": "13"
+    "Special Damage": {
+      "Poison Crown Tower Damage per second (Stage 1)": "13"
+    }
   },
   "Evolution Electro Dragon": {
     "Cost": "5",
@@ -1535,9 +1649,11 @@
     "Rarity": "Epic",
     "Target": "Air & Ground",
     "Hitpoints": "1280",
-    "Damage": "168 x2 (336)",
+    "Damage": "336 (168 x2)",
     "Damage Per Second": "140",
-    "Special Damage (Axe Smash Damage)": "294 x2 (588)"
+    "Special Damage": {
+      "Axe Smash Damage": "588 (294 x2)"
+    }
   },
   "Evolution Firecracker": {
     "Cost": "3",
@@ -1547,7 +1663,9 @@
     "Hitpoints": "304",
     "Damage": "N/A",
     "Damage Per Second": "105",
-    "Special Damage (Big Spark Damage)": "x12 (576)"
+    "Special Damage": {
+      "Big Spark Damage": "x12 (576)"
+    }
   },
   "Evolution Furnace": {
     "Cost": "4",
@@ -1567,7 +1685,9 @@
     "Hitpoints": "N/A",
     "Damage": "179",
     "Damage Per Second": "N/A",
-    "Special Damage (Crown Tower Damage)": "54"
+    "Special Damage": {
+      "Crown Tower Damage": "54"
+    }
   },
   "Evolution Goblin Barrel": {
     "Cost": "3",
@@ -1597,7 +1717,9 @@
     "Hitpoints": "202",
     "Damage": "N/A",
     "Damage Per Second": "N/A",
-    "Special Damage (Goblin Drill Spawn Damage)": "84"
+    "Special Damage": {
+      "Goblin Drill Spawn Damage": "84"
+    }
   },
   "Evolution Goblin Giant": {
     "Cost": "6",
@@ -1615,7 +1737,7 @@
     "Rarity": "Epic",
     "Target": "Air & Ground",
     "Hitpoints": "885",
-    "Damage": "84 x10 (840)",
+    "Damage": "840 (84 x10)",
     "Damage Per Second": "380",
     "Special Damage": "N/A"
   },
@@ -1627,7 +1749,9 @@
     "Hitpoints": "230",
     "Damage": "110",
     "Damage Per Second": "N/A",
-    "Special Damage (Ice Blast Damage)": "110"
+    "Special Damage": {
+      "Ice Blast Damage": "110"
+    }
   },
   "Evolution Inferno Dragon": {
     "Cost": "4",
@@ -1657,7 +1781,9 @@
     "Hitpoints": "N/A",
     "Damage": "256",
     "Damage Per Second": "320",
-    "Special Damage (Rage Damage)": "179"
+    "Special Damage": {
+      "Rage Damage": "179"
+    }
   },
   "Evolution Mega Knight": {
     "Cost": "7",
@@ -1667,7 +1793,9 @@
     "Hitpoints": "3993",
     "Damage": "268",
     "Damage Per Second": "157",
-    "Special Damage (Spawn Damage)": "430"
+    "Special Damage": {
+      "Spawn Damage": "430"
+    }
   },
   "Evolution Minion Horde": {
     "__NOTE__": "!!!!! WARNING: THIS CARD IS NOT UPDATED ON THE WIKI - ALL STATS ARE MISSING !!!!!",
@@ -1729,7 +1857,9 @@
     "Hitpoints": "1210",
     "Damage": "261",
     "Damage Per Second": "145",
-    "Special Damage (Souldeiers Spawn Damage)": "81"
+    "Special Damage": {
+      "Souldeiers Spawn Damage": "81"
+    }
   },
   "Evolution Royal Giant": {
     "Cost": "6",
@@ -1739,7 +1869,9 @@
     "Hitpoints": "3164",
     "Damage": "307",
     "Damage Per Second": "180",
-    "Special Damage (Recoil Damage)": "81"
+    "Special Damage": {
+      "Recoil Damage": "81"
+    }
   },
   "Evolution Royal Hogs": {
     "Cost": "5",
@@ -1749,7 +1881,9 @@
     "Hitpoints": "837",
     "Damage": "74",
     "Damage Per Second": "61",
-    "Special Damage (Landing Damage)": "115"
+    "Special Damage": {
+      "Landing Damage": "115"
+    }
   },
   "Evolution Royal Recruits": {
     "Cost": "7",
@@ -1759,7 +1893,9 @@
     "Hitpoints": "787",
     "Damage": "133",
     "Damage Per Second": "102",
-    "Special Damage (Charge Damage)": "266"
+    "Special Damage": {
+      "Charge Damage": "266"
+    }
   },
   "Evolution Skeleton Army": {
     "Cost": "3",
@@ -1779,7 +1915,9 @@
     "Hitpoints": "665",
     "Damage": "N/A",
     "Damage Per Second": "N/A",
-    "Special Damage (Skeleton Barrel Death Damage)": "238 x2 (476)"
+    "Special Damage": {
+      "Skeleton Barrel Death Damage": "476 (238 x2)"
+    }
   },
   "Evolution Skeletons": {
     "Cost": "1",
@@ -1799,7 +1937,9 @@
     "Hitpoints": "1152",
     "Damage": "220",
     "Damage Per Second": "199",
-    "Special Damage (Pulse Damage)": "174"
+    "Special Damage": {
+      "Pulse Damage": "174"
+    }
   },
   "Evolution Valkyrie": {
     "Cost": "4",
@@ -1809,7 +1949,9 @@
     "Hitpoints": "1907",
     "Damage": "266",
     "Damage Per Second": "177",
-    "Special Damage (Tornado Damage)": "84"
+    "Special Damage": {
+      "Tornado Damage": "84"
+    }
   },
   "Evolution Wall Breakers": {
     "Cost": "2",
@@ -1819,7 +1961,9 @@
     "Hitpoints": "330",
     "Damage": "391",
     "Damage Per Second": "N/A",
-    "Special Damage (Death Damage)": "291"
+    "Special Damage": {
+      "Death Damage": "291"
+    }
   },
   "Evolution Witch": {
     "Cost": "5",
@@ -1839,7 +1983,9 @@
     "Hitpoints": "947",
     "Damage": "281",
     "Damage Per Second": "200",
-    "Special Damage (Shield Death Damage)": "281"
+    "Special Damage": {
+      "Shield Death Damage": "281"
+    }
   },
   "Evolution Zap": {
     "Cost": "2",
@@ -1847,9 +1993,11 @@
     "Rarity": "Common",
     "Target": "Air & Ground",
     "Hitpoints": "N/A",
-    "Damage": "192 x2 (384)",
+    "Damage": "384 (192 x2)",
     "Damage Per Second": "N/A",
-    "Special Damage (Crown Tower Damage)": "58 x2 (116)"
+    "Special Damage": {
+      "Crown Tower Damage": "116 (58 x2)"
+    }
   },
   "Hero Balloon": {
     "__NOTE__": "!!!!! WARNING: THIS CARD IS NOT UPDATED ON THE WIKI - ALL STATS ARE MISSING !!!!!",
@@ -1903,7 +2051,9 @@
     "Hitpoints": "4090",
     "Damage": "253",
     "Damage Per Second": "168",
-    "Special Damage (Impact Damage)": "135"
+    "Special Damage": {
+      "Impact Damage": "135"
+    }
   },
   "Hero Goblins": {
     "__NOTE__": "!!!!! WARNING: THIS CARD IS NOT UPDATED ON THE WIKI - ALL STATS ARE MISSING !!!!!",
@@ -1924,7 +2074,9 @@
     "Hitpoints": "1315",
     "Damage": "84",
     "Damage Per Second": "33",
-    "Special Damage (Death Damage)": "84"
+    "Special Damage": {
+      "Death Damage": "84"
+    }
   },
   "Hero Knight": {
     "Cost": "3",
@@ -1976,7 +2128,9 @@
     "Hitpoints": "721",
     "Damage": "217",
     "Damage Per Second": "217",
-    "Special Damage (Turret Spawn Damage)": "204"
+    "Special Damage": {
+      "Turret Spawn Damage": "204"
+    }
   },
   "Hero Tombstone": {
     "__NOTE__": "!!!!! WARNING: THIS CARD IS NOT UPDATED ON THE WIKI - ALL STATS ARE MISSING !!!!!",
@@ -1997,6 +2151,8 @@
     "Hitpoints": "755",
     "Damage": "281",
     "Damage Per Second": "200",
-    "Special Damage (Tornado Damage)": "43"
+    "Special Damage": {
+      "Tornado Damage": "43"
+    }
   }
 }

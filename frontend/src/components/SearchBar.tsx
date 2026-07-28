@@ -1,39 +1,50 @@
 import { useState } from 'react'
+import type { KeyboardEvent } from 'react'
 import allCards from '../data/all_cards.json'
 import './SearchBar.css'
 
 const cardNames = Object.keys(allCards)
 const cardNameByLower = new Map(cardNames.map((name) => [name.toLowerCase(), name]))
 
-interface SearchBarProps {
-  onSelectCard: (cardName: string) => void
+function matchesQuery(name: string, query: string): boolean {
+  const nameWords = name.toLowerCase().split(' ')
+  const queryWords = query.trim().toLowerCase().split(/\s+/)
+
+  for (let i = 0; i <= nameWords.length - queryWords.length; i++) {
+    const isMatchAt = queryWords.every((queryWord, j) =>
+      nameWords[i + j].startsWith(queryWord)
+    )
+    if (isMatchAt) return true
+  }
+  return false
 }
 
-function SearchBar({ onSelectCard }: SearchBarProps) {
+interface SearchBarProps {
+  onSelectCard: (cardName: string) => void
+  guessedNames: Set<string>
+}
+
+function SearchBar({ onSelectCard, guessedNames }: SearchBarProps) {
   const [query, setQuery] = useState('')
   const [showMatches, setShowMatches] = useState(false)
 
   const matches =
     query.trim().length === 0
       ? []
-      : cardNames.filter((name) =>
-          name
-            .toLowerCase()
-            .split(' ')
-            .some((word) => word.startsWith(query.toLowerCase()))
-        )
-
-  const handleChange = (value: string) => {
-    setQuery(value)
-    const match = cardNameByLower.get(value.trim().toLowerCase())
-    if (match) {
-      onSelectCard(match)
-    }
-  }
+      : cardNames.filter((name) => !guessedNames.has(name) && matchesQuery(name, query))
 
   const handleSelect = (name: string) => {
     setQuery(name)
     onSelectCard(name)
+    setQuery('')
+  }
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key !== 'Enter') return
+    const match = cardNameByLower.get(query.trim().toLowerCase())
+    if (match && !guessedNames.has(match)) {
+      handleSelect(match)
+    }
   }
 
   return (
@@ -42,7 +53,8 @@ function SearchBar({ onSelectCard }: SearchBarProps) {
         className="search-bar"
         type="text"
         value={query}
-        onChange={(e) => handleChange(e.target.value)}
+        onChange={(e) => setQuery(e.target.value)}
+        onKeyDown={handleKeyDown}
         onFocus={() => setShowMatches(true)}
         onBlur={() => setShowMatches(false)}
         placeholder="Guess a card..."

@@ -1,0 +1,10 @@
+.stats-header-cell {
+  aspect-ratio: unset;
+  padding: 10px 8px;
+  background: var(--accent-bg);
+  border-color: var(--accent-border);
+}
+
+.stats-header-cell .card-display-stat-value {
+  font-size: 13px;
+}

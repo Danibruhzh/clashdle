@@ -1,8 +1,6 @@
 .card-display {
-  padding: 16px;
+  padding: 5px;
   border-radius: 12px;
-  border: 2px solid var(--border);
-  background: var(--bg);
 }
 
 .card-display-name {
@@ -14,7 +12,7 @@
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
-  gap: 8px;
+  gap: 10px;
 }
 
 .card-display-stat {
@@ -30,11 +28,24 @@
   border: 2px solid var(--border);
   background: var(--code-bg);
   text-align: center;
+  animation: flip-in 0.2s ease-out backwards;
 }
 
-.card-display-stat-label {
+@keyframes flip-in {
+  from {
+    transform: rotateX(90deg);
+    opacity: 0;
+  }
+  to {
+    transform: rotateX(0deg);
+    opacity: 1;
+  }
+}
+
+.card-display-stat-sublabel {
   font-size: 12px;
   color: var(--text);
+  font-style: italic;
 }
 
 .card-display-stat-value {

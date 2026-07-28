@@ -4,5 +4,10 @@
   align-items: center;
   gap: 16px;
   min-height: 100vh;
-  justify-content: center;
+  padding-top: 48px;
+  padding-bottom: 48px;
+}
+
+.app-title {
+  margin: 10px;
 }

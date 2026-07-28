@@ -1,7 +1,9 @@
 import allCards from '../data/all_cards.json'
 import './CardDisplay.css'
 
-const cards = allCards as Record<string, Record<string, string>>
+type StatValue = string | Record<string, string>
+
+const cards = allCards as Record<string, Record<string, StatValue>>
 
 interface CardDisplayProps {
   cardName: string
@@ -17,17 +19,30 @@ function CardDisplay({ cardName }: CardDisplayProps) {
   return (
     <div className="card-display">
       <div className="card-display-stats">
-        <div className="card-display-stat card-display-name">
+        <div className="card-display-stat card-display-name" style={{ animationDelay: '0s' }}>
           <span className="card-display-stat-value">{cardName}</span>
         </div>
         {Object.entries(stats)
           .filter(([stat]) => stat !== '__NOTE__')
-          .map(([stat, value]) => (
-            <div className="card-display-stat" key={stat}>
-              <span className="card-display-stat-label">{stat}</span>
-              <span className="card-display-stat-value">{value}</span>
-            </div>
-          ))}
+          .map(([stat, value], index) => {
+            const animationDelay = `${(index + 1) * 0.2}s`
+
+            if (typeof value === 'string') {
+              return (
+                <div className="card-display-stat" key={stat} style={{ animationDelay }}>
+                  <span className="card-display-stat-value">{value}</span>
+                </div>
+              )
+            }
+
+            const [subLabel, subValue] = Object.entries(value)[0]
+            return (
+              <div className="card-display-stat" key={stat} style={{ animationDelay }}>
+                <span className="card-display-stat-sublabel">{subLabel}</span>
+                <span className="card-display-stat-value">{subValue}</span>
+              </div>
+            )
+          })}
       </div>
     </div>
   )
