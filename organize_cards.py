@@ -4,6 +4,7 @@ or editing entries in all_cards.json.
 """
 import json
 import re
+from collections import defaultdict
 
 SPECIAL_DAMAGE_PATTERN = re.compile(r"^Special Damage \((.+)\)$")
 MULTIPLIER_PATTERN = re.compile(r"^(\d+) x(\d+) \((\d+)\)$")
@@ -82,6 +83,31 @@ def sort_stats(stats: dict) -> dict:
     ordered_keys = sorted(stats.keys(), key=lambda k: (categorize(k), k))
     return {key: stats[key] for key in ordered_keys}
 
+def remove_duplicate_variants(cards: dict) -> dict:
+    groups = defaultdict(list)
+    for name, stats in cards.items():
+        key = json.dumps(stats, sort_keys=True)
+        groups[key].append(name)
+
+    # A name is a removable variant of another name in its duplicate group
+    # if it's literally "<modifier> " + that other name (e.g. "Evolution
+    # Knight" / "Hero Ice Golem" / "Reborn Phoenix" all end with their base
+    # card's name). The base name itself is kept.
+    to_remove = set()
+    for names in groups.values():
+        if len(names) < 2:
+            continue
+        for name in names:
+            for other in names:
+                if other == name:
+                    continue
+                prefix = name[: -len(other)] if name.endswith(other) else ""
+                if prefix.strip():
+                    to_remove.add(name)
+                    break
+
+    return {name: stats for name, stats in cards.items() if name not in to_remove}
+
 def tier(name: str) -> int:
     if name.startswith("Evolution "):
         return 1
@@ -93,9 +119,12 @@ def main():
     with open("all_cards.json", encoding="utf-8") as f:
         cards = json.load(f)
 
-    ordered_names = sorted(cards, key=lambda n: (tier(n), n.lower()))
+    deduped_cards = remove_duplicate_variants(cards)
+    removed_count = len(cards) - len(deduped_cards)
+
+    ordered_names = sorted(deduped_cards, key=lambda n: (tier(n), n.lower()))
     sorted_cards = {
-        name: sort_stats(reformat_damage_values(nest_special_damage(cards[name])))
+        name: sort_stats(reformat_damage_values(nest_special_damage(deduped_cards[name])))
         for name in ordered_names
     }
 
@@ -103,7 +132,7 @@ def main():
         json.dump(sorted_cards, f, indent=2)
         f.write("\n")
 
-    print(f"Organized {len(sorted_cards)} cards.")
+    print(f"Organized {len(sorted_cards)} cards. Removed {removed_count} duplicate variant(s).")
 
 if __name__ == "__main__":
     main()

@@ -611,7 +611,9 @@
     "Hitpoints": "3022",
     "Damage": "176",
     "Damage Per Second": "117",
-    "Special Damage": "N/A"
+    "Special Damage": {
+      "Spear Goblins": "81"
+    }
   },
   "Goblin Hut": {
     "Cost": "4",
@@ -1125,7 +1127,7 @@
       "Crown Tower Damage": "54"
     }
   },
-  "Ram": {
+  "Ram Rider (Ram)": {
     "Cost": "5",
     "Type": "Troop",
     "Rarity": "Legendary",
@@ -1137,7 +1139,7 @@
       "Ram Charge Damage": "501"
     }
   },
-  "Ram Rider": {
+  "Ram Rider (Rider)": {
     "Cost": "5",
     "Type": "Troop",
     "Rarity": "Legendary",
@@ -1166,18 +1168,6 @@
     "Damage": "125",
     "Damage Per Second": "125",
     "Special Damage": "N/A"
-  },
-  "Reborn Phoenix": {
-    "Cost": "4",
-    "Type": "Troop",
-    "Rarity": "Legendary",
-    "Target": "Air & Ground",
-    "Hitpoints": "1052",
-    "Damage": "217",
-    "Damage Per Second": "217",
-    "Special Damage": {
-      "Death Damage": "163"
-    }
   },
   "Rocket": {
     "Cost": "6",
@@ -1555,16 +1545,6 @@
       "Power Shot Damage": "168"
     }
   },
-  "Evolution Baby Dragon": {
-    "Cost": "4",
-    "Type": "Troop",
-    "Rarity": "Epic",
-    "Target": "Air & Ground",
-    "Hitpoints": "1152",
-    "Damage": "168",
-    "Damage Per Second": "112",
-    "Special Damage": "N/A"
-  },
   "Evolution Barbarians": {
     "Cost": "5",
     "Type": "Troop",
@@ -1594,7 +1574,7 @@
     "Damage": "286",
     "Damage Per Second": "N/A",
     "Special Damage": {
-      "Evolved Battle Ram Charge Damage": "573"
+      "Charge Pushback Damage": "212"
     }
   },
   "Evolution Bomber": {
@@ -1618,7 +1598,7 @@
     "Damage": "212",
     "Damage Per Second": "212",
     "Special Damage": {
-      "Barrage Crown Tower Damage": "89"
+      "Barrage Damage": "304"
     }
   },
   "Evolution Dart Goblin": {
@@ -1630,7 +1610,7 @@
     "Damage": "156",
     "Damage Per Second": "195",
     "Special Damage": {
-      "Poison Crown Tower Damage per second (Stage 1)": "13"
+      "Poison Damage (Stage 3)": "307"
     }
   },
   "Evolution Electro Dragon": {
@@ -1661,43 +1641,11 @@
     "Rarity": "Common",
     "Target": "Air & Ground",
     "Hitpoints": "304",
-    "Damage": "N/A",
+    "Damage": "320 (64 x5)",
     "Damage Per Second": "105",
     "Special Damage": {
-      "Big Spark Damage": "x12 (576)"
+      "Big Spark Damage": "576 (48 x12)"
     }
-  },
-  "Evolution Furnace": {
-    "Cost": "4",
-    "Type": "Troop",
-    "Rarity": "Rare",
-    "Target": "Air & Ground",
-    "Hitpoints": "727",
-    "Damage": "179",
-    "Damage Per Second": "99",
-    "Special Damage": "N/A"
-  },
-  "Evolution Giant Snowball": {
-    "Cost": "2",
-    "Type": "Spell",
-    "Rarity": "Common",
-    "Target": "Air & Ground",
-    "Hitpoints": "N/A",
-    "Damage": "179",
-    "Damage Per Second": "N/A",
-    "Special Damage": {
-      "Crown Tower Damage": "54"
-    }
-  },
-  "Evolution Goblin Barrel": {
-    "Cost": "3",
-    "Type": "Spell",
-    "Rarity": "Epic",
-    "Target": "Ground",
-    "Hitpoints": "202",
-    "Damage": "120",
-    "Damage Per Second": "109",
-    "Special Damage": "N/A"
   },
   "Evolution Goblin Cage": {
     "Cost": "4",
@@ -1707,38 +1655,6 @@
     "Hitpoints": "780",
     "Damage": "337",
     "Damage Per Second": "337",
-    "Special Damage": "N/A"
-  },
-  "Evolution Goblin Drill": {
-    "Cost": "4",
-    "Type": "Building",
-    "Rarity": "Epic",
-    "Target": "Ground",
-    "Hitpoints": "202",
-    "Damage": "N/A",
-    "Damage Per Second": "N/A",
-    "Special Damage": {
-      "Goblin Drill Spawn Damage": "84"
-    }
-  },
-  "Evolution Goblin Giant": {
-    "Cost": "6",
-    "Type": "Troop",
-    "Rarity": "Epic",
-    "Target": "Buildings",
-    "Hitpoints": "3223",
-    "Damage": "176",
-    "Damage Per Second": "117",
-    "Special Damage": "N/A"
-  },
-  "Evolution Hunter": {
-    "Cost": "4",
-    "Type": "Troop",
-    "Rarity": "Epic",
-    "Target": "Air & Ground",
-    "Hitpoints": "885",
-    "Damage": "840 (84 x10)",
-    "Damage Per Second": "380",
     "Special Damage": "N/A"
   },
   "Evolution Ice Spirit": {
@@ -1762,40 +1678,6 @@
     "Damage (Stage 4)": "844",
     "Damage Per Second (Stage 4)": "2110",
     "Special Damage": "N/A"
-  },
-  "Evolution Knight": {
-    "Cost": "3",
-    "Type": "Troop",
-    "Rarity": "Common",
-    "Target": "Ground",
-    "Hitpoints": "1766",
-    "Damage": "202",
-    "Damage Per Second": "168",
-    "Special Damage": "N/A"
-  },
-  "Evolution Lumberjack": {
-    "Cost": "4",
-    "Type": "Troop",
-    "Rarity": "Legendary",
-    "Target": "Ground",
-    "Hitpoints": "N/A",
-    "Damage": "256",
-    "Damage Per Second": "320",
-    "Special Damage": {
-      "Rage Damage": "179"
-    }
-  },
-  "Evolution Mega Knight": {
-    "Cost": "7",
-    "Type": "Troop",
-    "Rarity": "Legendary",
-    "Target": "Ground",
-    "Hitpoints": "3993",
-    "Damage": "268",
-    "Damage Per Second": "157",
-    "Special Damage": {
-      "Spawn Damage": "430"
-    }
   },
   "Evolution Minion Horde": {
     "__NOTE__": "!!!!! WARNING: THIS CARD IS NOT UPDATED ON THE WIKI - ALL STATS ARE MISSING !!!!!",
@@ -1826,7 +1708,9 @@
     "Hitpoints": "721",
     "Damage": "217",
     "Damage Per Second": "217",
-    "Special Damage": "N/A"
+    "Special Damage": {
+      "Sniper": "390"
+    }
   },
   "Evolution P.E.K.K.A.": {
     "Cost": "7",
@@ -1897,16 +1781,6 @@
       "Charge Damage": "266"
     }
   },
-  "Evolution Skeleton Army": {
-    "Cost": "3",
-    "Type": "Troop",
-    "Rarity": "Epic",
-    "Target": "Ground",
-    "Hitpoints": "81",
-    "Damage": "81",
-    "Damage Per Second": "73",
-    "Special Damage": "N/A"
-  },
   "Evolution Skeleton Barrel": {
     "Cost": "3",
     "Type": "Troop",
@@ -1918,16 +1792,6 @@
     "Special Damage": {
       "Skeleton Barrel Death Damage": "476 (238 x2)"
     }
-  },
-  "Evolution Skeletons": {
-    "Cost": "1",
-    "Type": "Troop",
-    "Rarity": "Common",
-    "Target": "Ground",
-    "Hitpoints": "81",
-    "Damage": "81",
-    "Damage Per Second": "73",
-    "Special Damage": "N/A"
   },
   "Evolution Tesla": {
     "Cost": "4",
@@ -2066,18 +1930,6 @@
     "Damage Per Second": "N/A",
     "Special Damage": "N/A"
   },
-  "Hero Ice Golem": {
-    "Cost": "2",
-    "Type": "Troop",
-    "Rarity": "Rare",
-    "Target": "Buildings",
-    "Hitpoints": "1315",
-    "Damage": "84",
-    "Damage Per Second": "33",
-    "Special Damage": {
-      "Death Damage": "84"
-    }
-  },
   "Hero Knight": {
     "Cost": "3",
     "Type": "Troop",
@@ -2108,16 +1960,6 @@
     "Hitpoints": "N/A",
     "Damage": "N/A",
     "Damage Per Second": "N/A",
-    "Special Damage": "N/A"
-  },
-  "Hero Mini P.E.K.K.A.": {
-    "Cost": "4",
-    "Type": "Troop",
-    "Rarity": "Rare",
-    "Target": "Ground",
-    "Hitpoints": "1433",
-    "Damage": "755",
-    "Damage Per Second": "471",
     "Special Damage": "N/A"
   },
   "Hero Musketeer": {

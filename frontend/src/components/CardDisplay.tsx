@@ -17,6 +17,10 @@ function arrowStyle(comparison: StatComparison | undefined) {
   return {}
 }
 
+// function getCardImagePath(cardName: string): string {
+//   const normalized = cardName.replace(/ /g, "_")
+// }
+
 function CardDisplay({ cardName, secretCardName }: CardDisplayProps) {
   const stats = cards[cardName]
   const secretStats = cards[secretCardName]

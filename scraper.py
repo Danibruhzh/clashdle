@@ -50,6 +50,11 @@ SPECIAL_DAMAGE_LABELS = (
     "Combo ",
     "Zap ",
     "Rocket Launcher ",
+    "Sniper ",
+    "Spear Goblin ",
+    "Poison ",
+    "Barrage ",
+    "Charge Pushback ",
 )
 CHECK_LABELS = (
     "Bush Goblin",
@@ -165,13 +170,13 @@ def get_card_info(url, retries: int, name: str):
                 name_exact = get_matched_variant(name_variants, stats_headers)
                 if name_exact:
                     hitpoint_targets = {f"{name_exact} Hitpoints", "Max Hitpoints"}
-                    damage_targets = {f"{name_exact} Damage", f"{name_exact} Area Damage", "Single Target Damage"}
+                    damage_targets = {f"{name_exact} Damage", f"{name_exact} Area Damage", f"{name_exact} Ranged Damage", "Single Target Damage"}
                     dps_targets = {f"{name_exact} Damage per second",
                                     f"{name_exact} Damage per Second",
                                     f"{name_exact} Damage Per Second",}
                 else:
                     hitpoint_targets = {"Hitpoints", "Max Hitpoints"}
-                    damage_targets = {"Damage", "Area Damage", "Single Target Damage"}
+                    damage_targets = {"Damage", "Area Damage", "Ranged Damage", "Single Target Damage"}
                     dps_targets = {"Damage per second", "Damage Per Second", "Damage per Second"}
 
                 #print(f"name: {name_exact}")
@@ -257,7 +262,7 @@ def get_card_info(url, retries: int, name: str):
                         chosen = special_damage_exact or special_damage_candidate
                         if chosen:
                             #print("got special")
-                            card_info[f"Special Damage ({chosen[0]})"] = chosen[1]
+                            card_info[f"Special Damage ({chosen[0].removeprefix(name_exact).strip()})"] = chosen[1]
                         else:
                             card_info["Special Damage"] = "N/A"
 
