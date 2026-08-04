@@ -5,7 +5,7 @@ prefixes, and underscores become spaces (e.g. "Baby_Dragon_Evolution.png"
 
 import os
 
-IMAGE_DIR = "frontend/src/card_images"
+IMAGE_DIR = "frontend/public/card_images"
 
 def main():
     renamed = 0
