@@ -6,6 +6,8 @@
 .card-display-name {
   background: var(--accent-bg);
   border-color: var(--accent-border);
+  overflow: hidden;
+  justify-content: flex-start;
 }
 
 .card-display-stats {
@@ -78,4 +80,11 @@
   font-size: 16px;
   font-weight: 600;
   color: var(--text-h);
+}
+
+.card-image {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  object-fit: contain;
 }

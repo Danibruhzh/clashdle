@@ -17,9 +17,10 @@ function arrowStyle(comparison: StatComparison | undefined) {
   return {}
 }
 
-// function getCardImagePath(cardName: string): string {
-//   const normalized = cardName.replace(/ /g, "_")
-// }
+function getCardImagePath(cardName: string): string {
+  const normalized = cardName.replace(/\./g, "")
+  return `/card_images_trimmed/${normalized}.png`;
+}
 
 function CardDisplay({ cardName, secretCardName }: CardDisplayProps) {
   const stats = cards[cardName]
@@ -40,6 +41,7 @@ function CardDisplay({ cardName, secretCardName }: CardDisplayProps) {
       <div className="card-display-stats">
         <div className="card-display-stat card-display-name" style={{ animationDelay: '0s' }}>
           <span className="card-display-stat-value">{cardName}</span>
+          <img className="card-image" src={getCardImagePath(cardName)} alt={cardName} />
         </div>
         {Object.entries(stats)
           .filter(([stat]) => stat !== '__NOTE__')
