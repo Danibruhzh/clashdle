@@ -346,7 +346,7 @@
     "Damage": "230 (115 x2)",
     "Damage Per Second": "126",
     "Special Damage": {
-      "Zap Damage": "192"
+      "Spawn Damage": "192"
     }
   },
   "Elite Barbarians": {

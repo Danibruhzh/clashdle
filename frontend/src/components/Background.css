@@ -6,4 +6,5 @@
   background-size: 100%;
   background-repeat: repeat;
   z-index: -10000;
+  border: none;
 }

@@ -3,15 +3,23 @@
   flex-wrap: nowrap;
   align-items: center;
   gap: 10px;
-  padding: 0 5px 8px;
-  border-bottom: 2px solid var(--border);
+  padding-bottom: 8px;
 }
 
 .stats-header-cell {
   box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex: 0 0 130px;
-  font-size: 13px;
+  width: 130px;
+  height: 80px;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  font-size: 15px;
   font-weight: 600;
   color: var(--text-h);
   text-align: center;
+  border-bottom: 2px solid var(--border);
 }

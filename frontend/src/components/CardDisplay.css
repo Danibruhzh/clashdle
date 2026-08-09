@@ -18,6 +18,29 @@
   height: 100%;
 }
 
+.card-display-name-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  transition: opacity 0.15s ease-out;
+  pointer-events: none;
+}
+
+.card-display-name:hover .card-display-name-overlay {
+  opacity: 1;
+}
+
 .card-display-stats {
   display: flex;
   flex-wrap: nowrap;

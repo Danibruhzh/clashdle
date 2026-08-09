@@ -56,6 +56,7 @@ function CardDisplay({ cardName, secretCardName }: CardDisplayProps) {
       <div className="card-display-stats">
         <div className="card-display-stat card-display-name" style={{ animationDelay: '0s' }}>
           <img className="card-image" src={getCardImagePath(cardName)} alt={cardName} />
+          <span className="card-display-name-overlay">{cardName}</span>
         </div>
         {Object.entries(stats)
           .filter(([stat]) => stat !== '__NOTE__')

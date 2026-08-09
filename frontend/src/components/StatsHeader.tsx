@@ -1,3 +1,4 @@
+import './CardDisplay.css'
 import './StatsHeader.css'
 
 const STAT_LABELS = [
@@ -14,12 +15,14 @@ const STAT_LABELS = [
 
 function StatsHeader() {
   return (
-    <div className="stats-header">
-      {STAT_LABELS.map((label) => (
-        <span className="stats-header-cell" key={label}>
-          {label}
-        </span>
-      ))}
+    <div className="card-display">
+      <div className="stats-header">
+        {STAT_LABELS.map((label) => (
+          <span className="stats-header-cell" key={label}>
+            {label}
+          </span>
+        ))}
+      </div>
     </div>
   )
 }
