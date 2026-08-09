@@ -1,10 +1,17 @@
-.stats-header-cell {
-  aspect-ratio: unset;
-  padding: 10px 8px;
-  background: var(--accent-bg);
-  border-color: var(--accent-border);
+.stats-header {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 10px;
+  padding: 0 5px 8px;
+  border-bottom: 2px solid var(--border);
 }
 
-.stats-header-cell .card-display-stat-value {
+.stats-header-cell {
+  box-sizing: border-box;
+  flex: 0 0 130px;
   font-size: 13px;
+  font-weight: 600;
+  color: var(--text-h);
+  text-align: center;
 }

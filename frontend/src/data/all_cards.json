@@ -311,7 +311,7 @@
     "Rarity": "Epic",
     "Target": "Air & Ground",
     "Hitpoints": "949",
-    "Damage": "192 x3",
+    "Damage": "192",
     "Damage Per Second": "91",
     "Special Damage": "N/A"
   },
@@ -1619,7 +1619,7 @@
     "Rarity": "Epic",
     "Target": "Air & Ground",
     "Hitpoints": "998",
-    "Damage": "192 x3",
+    "Damage": "192",
     "Damage Per Second": "91",
     "Special Damage": "N/A"
   },

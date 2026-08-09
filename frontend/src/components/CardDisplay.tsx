@@ -22,6 +22,21 @@ function getCardImagePath(cardName: string): string {
   return `/card_images_trimmed/${normalized}.png`;
 }
 
+// Splits values like "384 (192 x2)" into a main number and a smaller,
+// separately-lined bracketed part.
+function renderStatValue(value: string) {
+  const match = value.match(/^(\d+) (\(.+\))$/)
+  if (!match) return value
+
+  const [, main, bracket] = match
+  return (
+    <>
+      {main}
+      <span className="card-display-stat-bracket">{bracket}</span>
+    </>
+  )
+}
+
 function CardDisplay({ cardName, secretCardName }: CardDisplayProps) {
   const stats = cards[cardName]
   const secretStats = cards[secretCardName]
@@ -40,7 +55,6 @@ function CardDisplay({ cardName, secretCardName }: CardDisplayProps) {
     <div className="card-display">
       <div className="card-display-stats">
         <div className="card-display-stat card-display-name" style={{ animationDelay: '0s' }}>
-          <span className="card-display-stat-value">{cardName}</span>
           <img className="card-image" src={getCardImagePath(cardName)} alt={cardName} />
         </div>
         {Object.entries(stats)
@@ -58,7 +72,7 @@ function CardDisplay({ cardName, secretCardName }: CardDisplayProps) {
             if (typeof value === 'string') {
               return (
                 <div className={className} key={stat} style={style}>
-                  <span className="card-display-stat-value">{value}</span>
+                  <span className="card-display-stat-value">{renderStatValue(value)}</span>
                 </div>
               )
             }
@@ -67,7 +81,7 @@ function CardDisplay({ cardName, secretCardName }: CardDisplayProps) {
             return (
               <div className={className} key={stat} style={style}>
                 <span className="card-display-stat-sublabel">{subLabel}</span>
-                <span className="card-display-stat-value">{subValue}</span>
+                <span className="card-display-stat-value">{renderStatValue(subValue)}</span>
               </div>
             )
           })}

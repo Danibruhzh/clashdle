@@ -1,8 +1,7 @@
-import './CardDisplay.css'
 import './StatsHeader.css'
 
 const STAT_LABELS = [
-  'Name',
+  'Card',
   'Cost',
   'Type',
   'Rarity',
@@ -15,14 +14,12 @@ const STAT_LABELS = [
 
 function StatsHeader() {
   return (
-    <div className="card-display stats-header">
-      <div className="card-display-stats">
-        {STAT_LABELS.map((label) => (
-          <div className="card-display-stat stats-header-cell" key={label}>
-            <span className="card-display-stat-value">{label}</span>
-          </div>
-        ))}
-      </div>
+    <div className="stats-header">
+      {STAT_LABELS.map((label) => (
+        <span className="stats-header-cell" key={label}>
+          {label}
+        </span>
+      ))}
     </div>
   )
 }

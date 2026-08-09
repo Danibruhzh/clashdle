@@ -4,10 +4,18 @@
 }
 
 .card-display-name {
-  background: var(--accent-bg);
+  background: transparent;
   border-color: var(--accent-border);
   overflow: hidden;
-  justify-content: flex-start;
+  position: relative;
+  padding: 0;
+}
+
+.card-display-name .card-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .card-display-stats {
@@ -21,16 +29,20 @@
 }
 
 .card-display-stat {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 4px;
-  flex: 0 0 110px;
-  aspect-ratio: 1;
+  flex: 0 0 130px;
+  width: 130px;
+  height: 130px;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
   padding: 8px;
   border-radius: 8px;
-  border: 2px solid var(--border);
   background: var(--code-bg);
   text-align: center;
   animation: flip-in 0.2s ease-out backwards;
@@ -68,21 +80,32 @@
 
 .card-display-stat--match .card-display-stat-value,
 .card-display-stat--match .card-display-stat-sublabel,
+.card-display-stat--match .card-display-stat-bracket,
 .card-display-stat--mismatch .card-display-stat-value,
-.card-display-stat--mismatch .card-display-stat-sublabel {
+.card-display-stat--mismatch .card-display-stat-sublabel,
+.card-display-stat--mismatch .card-display-stat-bracket {
   color: #fff;
 }
 
 .card-display-stat-sublabel {
-  font-size: 12px;
+  font-size: 10px;
+  line-height: 1.3;
   color: var(--text);
   font-style: italic;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .card-display-stat-value {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--text-h);
+}
+
+.card-display-stat-bracket {
+  display: block;
+  font-size: 10px;
+  font-weight: 400;
 }
 
 .card-image {

@@ -8,6 +8,7 @@
 .search-bar {
   width: 100%;
   padding: 10px 16px;
+  font-family: inherit;
   font-size: 16px;
   border-radius: 8px;
   border: 2px solid var(--border);
