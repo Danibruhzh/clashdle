@@ -91,8 +91,8 @@
     "Rarity": "Rare",
     "Target": "Ground",
     "Hitpoints": "1164",
-    "Damage": "192",
-    "Damage Per Second": "147",
+    "Damage": "N/A",
+    "Damage Per Second": "N/A",
     "Special Damage": "N/A"
   },
   "Barbarians": {
@@ -226,7 +226,7 @@
     "Type": "Tower Troop",
     "Rarity": "Epic",
     "Target": "Air & Ground",
-    "Hitpoints": "2,616",
+    "Hitpoints": "2616",
     "Damage": "320",
     "Damage Per Second": "145",
     "Special Damage": "N/A"
@@ -256,7 +256,7 @@
     "Type": "Tower Troop",
     "Rarity": "Legendary",
     "Target": "Air & Ground",
-    "Hitpoints": "2,768",
+    "Hitpoints": "2768",
     "Damage": "107",
     "Damage Per Second": "214",
     "Special Damage": "N/A"
@@ -621,8 +621,8 @@
     "Rarity": "Rare",
     "Target": "Air & Ground",
     "Hitpoints": "1228",
-    "Damage": "81",
-    "Damage Per Second": "47",
+    "Damage": "N/A",
+    "Damage Per Second": "N/A",
     "Special Damage": "N/A"
   },
   "Goblin Machine": {
@@ -838,7 +838,7 @@
     "Type": "Tower Troop",
     "Rarity": "N/A",
     "Target": "Air & Ground",
-    "Hitpoints": "4,824",
+    "Hitpoints": "4824",
     "Damage": "109",
     "Damage Per Second": "109",
     "Special Damage": "N/A"
@@ -1078,7 +1078,7 @@
     "Damage": "N/A",
     "Damage Per Second": "N/A",
     "Special Damage": {
-      "Death Damage": "163"
+      "Spawn Damage": "163"
     }
   },
   "Poison": {
@@ -1186,7 +1186,7 @@
     "Type": "Tower Troop",
     "Rarity": "Legendary",
     "Target": "Air & Ground",
-    "Hitpoints": "2,703",
+    "Hitpoints": "2703",
     "Damage": "109",
     "Damage Per Second": "109",
     "Special Damage": "N/A"
@@ -1399,8 +1399,8 @@
     "Rarity": "Rare",
     "Target": "Ground",
     "Hitpoints": "529",
-    "Damage": "81",
-    "Damage Per Second": "73",
+    "Damage": "N/A",
+    "Damage Per Second": "N/A",
     "Special Damage": "N/A"
   },
   "Tornado": {
@@ -1420,14 +1420,14 @@
     "Type": "Tower Troop",
     "Rarity": "Common",
     "Target": "Air & Ground",
-    "Hitpoints": "3,052",
+    "Hitpoints": "3052",
     "Damage": "109",
     "Damage Per Second": "136",
     "Special Damage": "N/A"
   },
   "Trusty Turret": {
     "Cost": "3",
-    "Type": "Troop",
+    "Type": "Building",
     "Rarity": "Rare",
     "Target": "Air & Ground",
     "Hitpoints": "721",

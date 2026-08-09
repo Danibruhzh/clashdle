@@ -22,7 +22,7 @@ function App() {
   const [resetCount, setResetCount] = useState(0)
   const [secretCard, setSecretCard] = useState(pickSecretCard)
   const nextId = useRef(0)
-  //console.log(secretCard)
+  console.log(secretCard)
 
   const handleSelectCard = (cardName: string) => {
     setGuesses((prev) => [{ id: nextId.current++, cardName }, ...prev])
@@ -50,10 +50,12 @@ function App() {
         guessedNames={guessedNames}
         disabled={hasWon}
       />
-      <StatsHeader />
-      {guesses.map((guess) => (
-        <CardDisplay key={guess.id} cardName={guess.cardName} secretCardName={secretCard} />
-      ))}
+      <div className="guesses-scroll">
+        <StatsHeader />
+        {guesses.map((guess) => (
+          <CardDisplay key={guess.id} cardName={guess.cardName} secretCardName={secretCard} />
+        ))}
+      </div>
     </div>
     </>
   )

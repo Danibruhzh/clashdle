@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'You Blockhead';
+  src: url('/fonts/YouBlockhead.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .app-content {
   display: flex;
   flex-direction: column;
@@ -10,4 +17,13 @@
 
 .app-title {
   margin: 10px;
+  font-family: 'You Blockhead';
+}
+
+.guesses-scroll {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  overflow-x: auto;
 }

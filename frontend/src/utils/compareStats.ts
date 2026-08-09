@@ -33,11 +33,7 @@ function parseStatNumber(value: StatValue): number | null {
   return match ? Number(match[0]) : null
 }
 
-export function compareStat(
-  category: string,
-  secretValue: StatValue,
-  guessValue: StatValue
-): StatComparison {
+export function compareStat(category: string, secretValue: StatValue, guessValue: StatValue): StatComparison {
   if (NUMERIC_CATEGORIES.has(category)) {
     const secretNumber = parseStatNumber(secretValue)
     const guessNumber = parseStatNumber(guessValue)
@@ -45,7 +41,11 @@ export function compareStat(
     if (secretNumber === null || guessNumber === null) {
       return secretNumber === guessNumber ? 'match' : 'mismatch'
     }
-    if (secretNumber === guessNumber) return 'match'
+
+    if (secretNumber === guessNumber) {
+      return 'match'
+    }
+
     return secretNumber > guessNumber ? 'higher' : 'lower'
   }
 

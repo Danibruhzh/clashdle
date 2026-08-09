@@ -13,7 +13,10 @@
 .card-display-stats {
   display: flex;
   flex-wrap: nowrap;
-  overflow-x: auto;
+  /* Scrolling always happens on the shared .guesses-scroll wrapper in
+     App.css instead, so every row (header + each CardDisplay) scrolls
+     together as one, rather than each row getting its own scrollbar. */
+  overflow-x: visible;
   gap: 10px;
 }
 
