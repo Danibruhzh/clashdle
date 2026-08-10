@@ -42,26 +42,26 @@ function App() {
 
   return (
     <>
-    <Background />
-    <ResetButton onReset={handleReset} />
-    <CardBrowserButton onOpen={() => setShowCardBrowser(true)} />
-    {showCardBrowser && <CardBrowser onClose={() => setShowCardBrowser(false)} />}
-    {hasWon && <WinPopup guessCount={guesses.length} />}
-    <div className="app-content">
-      <h1 className="app-title">Clashdle</h1>
-      <SearchBar
-        key={resetCount}
-        onSelectCard={handleSelectCard}
-        guessedNames={guessedNames}
-        disabled={hasWon}
-      />
-      <div className="guesses-scroll">
-        <StatsHeader />
-        {guesses.map((guess) => (
-          <CardDisplay key={guess.id} cardName={guess.cardName} secretCardName={secretCard} />
-        ))}
+      <Background />
+      <ResetButton onReset={handleReset} />
+      <CardBrowserButton onOpen={() => setShowCardBrowser(true)} />
+      {showCardBrowser && <CardBrowser onClose={() => setShowCardBrowser(false)} />}
+      {hasWon && <WinPopup guessCount={guesses.length} />}
+      <div className="app-content">
+        <h1 className="app-title">Clashdle</h1>
+        <SearchBar
+          key={resetCount}
+          onSelectCard={handleSelectCard}
+          guessedNames={guessedNames}
+          disabled={hasWon}
+        />
+        <div className="guesses-scroll">
+          <StatsHeader />
+          {guesses.map((guess) => (
+            <CardDisplay key={guess.id} cardName={guess.cardName} secretCardName={secretCard} />
+          ))}
+        </div>
       </div>
-    </div>
     </>
   )
 }

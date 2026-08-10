@@ -19,7 +19,7 @@ function CardBrowser({ onClose }: CardBrowserProps) {
         <div className="card-browser-grid">
           {cardNames.map((name) => (
             <div className="card-browser-item" key={name}>
-              <img className="card-browser-image" src={getCardImagePath(name)} alt={name} />
+              <img className="card-browser-image" src={getCardImagePath(name)} alt={name}/>
               <span className="card-browser-name">{name}</span>
             </div>
           ))}

@@ -191,7 +191,7 @@
     "Damage Per Second": "115",
     "Special Damage": "N/A"
   },
-  "Bush Goblins": {
+  "Bush Goblin": {
     "Cost": "2",
     "Type": "Troop",
     "Rarity": "Rare",
@@ -1317,7 +1317,7 @@
     "Damage Per Second": "73",
     "Special Damage": "N/A"
   },
-  "Souldeiers": {
+  "Souldeier": {
     "Cost": "3",
     "Type": "Troop",
     "Rarity": "Legendary",
