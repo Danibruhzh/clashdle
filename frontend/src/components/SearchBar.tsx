@@ -62,7 +62,7 @@ function SearchBar({ onSelectCard, guessedNames, disabled = false }: SearchBarPr
         onFocus={() => setShowMatches(true)}
         onBlur={() => setShowMatches(false)}
         disabled={disabled}
-        placeholder={disabled ? 'You win! Press reset to play again.' : 'Guess a card...'}
+        placeholder={disabled ? 'You win! Press reset.' : 'Guess a card...'}
       />
       {showMatches && matches.length > 0 && (
         <ul className="search-bar-matches">

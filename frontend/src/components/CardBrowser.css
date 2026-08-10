@@ -1,0 +1,85 @@
+.card-browser-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.card-browser-panel {
+  width: 100%;
+  max-width: 1200px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: var(--bg);
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: var(--shadow);
+  box-sizing: border-box;
+}
+
+.card-browser-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.card-browser-header h2 {
+  margin: 0;
+  font-size: 18px;
+  color: var(--text-h);
+}
+
+.card-browser-close {
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: 16px;
+  cursor: pointer;
+  color: var(--text-h);
+  line-height: 1;
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+
+.card-browser-close:hover {
+  background: var(--code-bg);
+}
+
+.card-browser-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+  gap: 4px;
+}
+
+.card-browser-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.card-browser-image {
+  width: 100%;
+  aspect-ratio: 255 / 319;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: var(--code-bg);
+}
+
+.card-browser-name {
+  font-size: 7px;
+  line-height: 1.1;
+  text-align: center;
+  color: var(--text);
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

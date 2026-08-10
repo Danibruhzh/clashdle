@@ -2,6 +2,7 @@ import { cards } from '../data/cards'
 import type { StatValue } from '../data/cards'
 import { compareStat, statCategory } from '../utils/compareStats'
 import type { StatComparison } from '../utils/compareStats'
+import { getCardImagePath } from '../utils/cardImage'
 import upArrow from '../images/up-arrow.png'
 import downArrow from '../images/down-arrow.png'
 import './CardDisplay.css'
@@ -15,11 +16,6 @@ function arrowStyle(comparison: StatComparison | undefined) {
   if (comparison === 'higher') return { backgroundImage: `url(${upArrow})` }
   if (comparison === 'lower') return { backgroundImage: `url(${downArrow})` }
   return {}
-}
-
-function getCardImagePath(cardName: string): string {
-  const normalized = cardName.replace(/\./g, "")
-  return `/card_images_trimmed/${normalized}.png`;
 }
 
 // Splits values like "384 (192 x2)" into a main number and a smaller,

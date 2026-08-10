@@ -5,6 +5,8 @@ import CardDisplay from './components/CardDisplay'
 import StatsHeader from './components/StatsHeader'
 import ResetButton from './components/ResetButton'
 import WinPopup from './components/WinPopup'
+import CardBrowserButton from './components/CardBrowserButton'
+import CardBrowser from './components/CardBrowser'
 import { cardNames } from './data/cards'
 import './App.css'
 
@@ -21,6 +23,7 @@ function App() {
   const [guesses, setGuesses] = useState<Guess[]>([])
   const [resetCount, setResetCount] = useState(0)
   const [secretCard, setSecretCard] = useState(pickSecretCard)
+  const [showCardBrowser, setShowCardBrowser] = useState(false)
   const nextId = useRef(0)
   console.log(secretCard)
 
@@ -41,6 +44,8 @@ function App() {
     <>
     <Background />
     <ResetButton onReset={handleReset} />
+    <CardBrowserButton onOpen={() => setShowCardBrowser(true)} />
+    {showCardBrowser && <CardBrowser onClose={() => setShowCardBrowser(false)} />}
     {hasWon && <WinPopup guessCount={guesses.length} />}
     <div className="app-content">
       <h1 className="app-title">Clashdle</h1>
