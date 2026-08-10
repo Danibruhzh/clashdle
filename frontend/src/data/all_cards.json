@@ -285,7 +285,7 @@
   },
   "Decoy Goblin": {
     "Cost": "3",
-    "Type": "Spell",
+    "Type": "Troop",
     "Rarity": "Epic",
     "Target": "Ground",
     "Hitpoints": "81",

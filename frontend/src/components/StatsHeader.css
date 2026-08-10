@@ -23,3 +23,18 @@
   text-align: center;
   border-bottom: 2px solid var(--border);
 }
+
+/* Matches the compact breakpoint in CardDisplay.css so the header stays
+   aligned with the (now smaller) stat box columns below it. */
+@media (max-width: 1260px) {
+  .stats-header {
+    gap: 6px;
+  }
+
+  .stats-header-cell {
+    flex: 0 0 78px;
+    width: 78px;
+    height: 48px;
+    font-size: 9px;
+  }
+}

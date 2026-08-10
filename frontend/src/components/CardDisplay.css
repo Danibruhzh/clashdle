@@ -1,6 +1,8 @@
 .card-display {
   padding: 5px;
   border-radius: 12px;
+  width: fit-content;
+  margin: 0 auto;
 }
 
 .card-display-name {
@@ -136,4 +138,43 @@
   min-height: 0;
   width: 100%;
   object-fit: contain;
+}
+
+/* Once the viewport can no longer fit a full-size row (9 boxes @ 130px +
+   gaps + padding = 1260px), shrink everything to 60% instead of scrolling.
+   Scrolling only kicks back in (via .guesses-scroll in App.css) once even
+   this compact row, at a fixed 756px, no longer fits either. */
+@media (max-width: 1260px) {
+  .card-display {
+    padding: 3px;
+  }
+
+  .card-display-stats {
+    gap: 6px;
+  }
+
+  .card-display-stat {
+    flex: 0 0 78px;
+    width: 78px;
+    height: 78px;
+    padding: 4.8px;
+    gap: 2.4px;
+  }
+
+  .card-display-stat-sublabel {
+    font-size: 6px;
+  }
+
+  .card-display-stat-value {
+    font-size: 9px;
+  }
+
+  .card-display-stat-bracket {
+    font-size: 6px;
+  }
+
+  .card-display-name-overlay {
+    font-size: 8px;
+    padding: 2.4px;
+  }
 }
