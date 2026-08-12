@@ -8,6 +8,7 @@ from collections import defaultdict
 
 SPECIAL_DAMAGE_PATTERN = re.compile(r"^Special Damage \((.+)\)$")
 MULTIPLIER_PATTERN = re.compile(r"^(\d+) x(\d+) \((\d+)\)$")
+NUMBER_COMMA_PATTERN = re.compile(r"(?<=\d),(?=\d)")
 
 CATEGORY_ORDER = [
     "__NOTE__",
@@ -79,6 +80,18 @@ def reformat_damage_values(stats: dict) -> dict:
             reformatted[key] = reformat_multiplier(value)
     return reformatted
 
+def strip_number_commas(stats: dict) -> dict:
+    stripped = {}
+    for key, value in stats.items():
+        if isinstance(value, dict):
+            stripped[key] = {
+                sub_key: NUMBER_COMMA_PATTERN.sub("", sub_value)
+                for sub_key, sub_value in value.items()
+            }
+        else:
+            stripped[key] = NUMBER_COMMA_PATTERN.sub("", value)
+    return stripped
+
 def sort_stats(stats: dict) -> dict:
     ordered_keys = sorted(stats.keys(), key=lambda k: (categorize(k), k))
     return {key: stats[key] for key in ordered_keys}
@@ -116,7 +129,7 @@ def tier(name: str) -> int:
     return 0
 
 def main():
-    with open("all_cards.json", encoding="utf-8") as f:
+    with open("./frontend/src/data/all_cards.json", encoding="utf-8") as f:
         cards = json.load(f)
 
     deduped_cards = remove_duplicate_variants(cards)
@@ -124,13 +137,21 @@ def main():
 
     ordered_names = sorted(deduped_cards, key=lambda n: (tier(n), n.lower()))
     sorted_cards = {
-        name: sort_stats(reformat_damage_values(nest_special_damage(deduped_cards[name])))
+        name: sort_stats(
+            reformat_damage_values(
+                nest_special_damage(strip_number_commas(deduped_cards[name]))
+            )
+        )
         for name in ordered_names
     }
 
-    with open("all_cards.json", "w", encoding="utf-8") as f:
+    with open("./frontend/src/data/all_cards.json", "w", encoding="utf-8") as f:
         json.dump(sorted_cards, f, indent=2)
         f.write("\n")
+
+    with open("all_cards.json", "w", encoding="utf-8") as f:
+            json.dump(sorted_cards, f, indent=2)
+            f.write("\n")
 
     print(f"Organized {len(sorted_cards)} cards. Removed {removed_count} duplicate variant(s).")
 

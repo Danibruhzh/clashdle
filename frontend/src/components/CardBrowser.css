@@ -53,11 +53,12 @@
 
 .card-browser-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(42px, 1fr));
-  gap: 4px;
+  grid-template-columns: repeat(auto-fill, minmax(46.2px, 1fr));
+  gap: 4.4px;
 }
 
 .card-browser-item {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -73,13 +74,28 @@
   background: var(--code-bg);
 }
 
-.card-browser-name {
-  font-size: 7.35px;
+.card-browser-name-overlay {
+  font-size: 8px;
   line-height: 1.1;
+  inset: 0;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  color: var(--text);
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.45);
   width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  box-sizing: border-box;
+  padding: 2px;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  opacity: 0;
+  transition: opacity 0.15s ease-out;
+  pointer-events: none;
+}
+
+.card-browser-item:hover .card-browser-name-overlay {
+  opacity: 1;
 }

@@ -549,7 +549,7 @@
   },
   "Goblin Brawler": {
     "Cost": "4",
-    "Type": "Building",
+    "Type": "Troop",
     "Rarity": "Rare",
     "Target": "Ground",
     "Hitpoints": "1080",
@@ -902,7 +902,7 @@
     "Type": "Troop",
     "Rarity": "Legendary",
     "Target": "Ground",
-    "Hitpoints": "N/A",
+    "Hitpoints": "1282",
     "Damage": "256",
     "Damage Per Second": "320",
     "Special Damage": {
@@ -1393,6 +1393,16 @@
       "Melee Damage": "314"
     }
   },
+  "Tomb Queen": {
+    "Cost": "5",
+    "Type": "Troop",
+    "Rarity": "Rare",
+    "Target": "Buildings",
+    "Hitpoints": "4224",
+    "Damage": "422",
+    "Damage Per Second": "201",
+    "Special Damage": "N/A"
+  },
   "Tombstone": {
     "Cost": "3",
     "Type": "Building",
@@ -1723,15 +1733,16 @@
     "Special Damage": "N/A"
   },
   "Evolution Princess": {
-    "__NOTE__": "!!!!! WARNING: THIS CARD IS NOT UPDATED ON THE WIKI - ALL STATS ARE MISSING !!!!!",
-    "Cost": "N/A",
-    "Type": "N/A",
-    "Rarity": "N/A",
-    "Target": "N/A",
-    "Hitpoints": "N/A",
-    "Damage": "N/A",
-    "Damage Per Second": "N/A",
-    "Special Damage": "N/A"
+    "Cost": "3",
+    "Type": "Troop",
+    "Rarity": "Legendary",
+    "Target": "Air & Ground",
+    "Hitpoints": "261",
+    "Damage": "168",
+    "Damage Per Second": "56",
+    "Special Damage": {
+      "Death Damage": "168"
+    }
   },
   "Evolution Royal Ghost": {
     "Cost": "3",
@@ -1766,7 +1777,7 @@
     "Damage": "74",
     "Damage Per Second": "61",
     "Special Damage": {
-      "Landing Damage": "115"
+      "Landing Damage": "43"
     }
   },
   "Evolution Royal Recruits": {
@@ -1887,14 +1898,16 @@
   },
   "Hero Bowler": {
     "__NOTE__": "!!!!! WARNING: THIS CARD IS NOT UPDATED ON THE WIKI - ALL STATS ARE MISSING !!!!!",
-    "Cost": "N/A",
-    "Type": "N/A",
-    "Rarity": "N/A",
-    "Target": "N/A",
-    "Hitpoints": "N/A",
-    "Damage": "N/A",
-    "Damage Per Second": "N/A",
-    "Special Damage": "N/A"
+    "Cost": "5",
+    "Type": "Troop",
+    "Rarity": "Epic",
+    "Target": "Ground",
+    "Hitpoints": "2081",
+    "Damage": "289",
+    "Damage Per Second": "115",
+    "Special Damage": {
+      "Stone Swish Damage": "384"
+    }
   },
   "Hero Dark Prince": {
     "__NOTE__": "!!!!! WARNING: THIS CARD IS NOT UPDATED ON THE WIKI - ALL STATS ARE MISSING !!!!!",
