@@ -6,6 +6,10 @@ interface CardBrowserProps {
   onClose: () => void
 }
 
+function displayName(name: string): string {
+  return name.replace('Evolution', 'Evo')
+}
+
 function CardBrowser({ onClose }: CardBrowserProps) {
   return (
     <div className="card-browser-backdrop" onClick={onClose}>
@@ -20,7 +24,16 @@ function CardBrowser({ onClose }: CardBrowserProps) {
           {cardNames.map((name) => (
             <div className="card-browser-item" key={name}>
               <img className="card-browser-image" src={getCardImagePath(name)} alt={name}/>
-              <span className="card-browser-name-overlay">{name}</span>
+              <div className="card-browser-image-dim" />
+              <div className="card-browser-name-overlay">
+                {displayName(name)
+                  .split(' ')
+                  .map((word, i) => (
+                    <span className="card-browser-name-word" key={i}>
+                      {word}
+                    </span>
+                  ))}
+              </div>
             </div>
           ))}
         </div>

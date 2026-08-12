@@ -74,28 +74,46 @@
   background: var(--code-bg);
 }
 
-.card-browser-name-overlay {
-  font-size: 8px;
-  line-height: 1.1;
-  inset: 0;
+.card-browser-image-dim {
   position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: #fff;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+  inset: 0;
+  border-radius: 4px;
   background: rgba(0, 0, 0, 0.45);
-  width: 100%;
-  box-sizing: border-box;
-  padding: 2px;
-  overflow-wrap: break-word;
-  word-break: break-word;
   opacity: 0;
   transition: opacity 0.15s ease-out;
   pointer-events: none;
 }
 
+.card-browser-name-overlay {
+  font-size: 8px;
+  line-height: 1.1;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+  width: max-content;
+  box-sizing: border-box;
+  padding: 2px 4px;
+  opacity: 0;
+  transition: opacity 0.15s ease-out;
+  pointer-events: none;
+}
+
+.card-browser-name-word {
+  white-space: nowrap;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.card-browser-item:hover .card-browser-image-dim,
 .card-browser-item:hover .card-browser-name-overlay {
   opacity: 1;
 }
