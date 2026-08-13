@@ -283,6 +283,16 @@
     "Damage Per Second": "195",
     "Special Damage": "N/A"
   },
+  "Decoy": {
+    "Cost": "2",
+    "Type": "Troop",
+    "Rarity": "Legendary",
+    "Target": "N/A",
+    "Hitpoints": "297",
+    "Damage": "N/A",
+    "Damage Per Second": "N/A",
+    "Special Damage": "N/A"
+  },
   "Decoy Goblin": {
     "Cost": "3",
     "Type": "Troop",
@@ -1897,7 +1907,6 @@
     "Special Damage": "N/A"
   },
   "Hero Bowler": {
-    "__NOTE__": "!!!!! WARNING: THIS CARD IS NOT UPDATED ON THE WIKI - ALL STATS ARE MISSING !!!!!",
     "Cost": "5",
     "Type": "Troop",
     "Rarity": "Epic",
@@ -1954,15 +1963,16 @@
     "Special Damage": "N/A"
   },
   "Hero Magic Archer": {
-    "__NOTE__": "!!!!! WARNING: THIS CARD IS NOT UPDATED ON THE WIKI - ALL STATS ARE MISSING !!!!!",
-    "Cost": "N/A",
-    "Type": "N/A",
-    "Rarity": "N/A",
-    "Target": "N/A",
-    "Hitpoints": "N/A",
-    "Damage": "N/A",
-    "Damage Per Second": "N/A",
-    "Special Damage": "N/A"
+    "Cost": "4",
+    "Type": "Troop",
+    "Rarity": "Legendary",
+    "Target": "Air & Ground",
+    "Hitpoints": "529",
+    "Damage": "133",
+    "Damage Per Second": "120",
+    "Special Damage": {
+      "Triple Shot Damage": "159 (53 x3)"
+    }
   },
   "Hero Mega Minion": {
     "__NOTE__": "!!!!! WARNING: THIS CARD IS NOT UPDATED ON THE WIKI - ALL STATS ARE MISSING !!!!!",
