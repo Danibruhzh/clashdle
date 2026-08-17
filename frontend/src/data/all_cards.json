@@ -731,7 +731,7 @@
     "Cost": "3",
     "Type": "Troop",
     "Rarity": "Legendary",
-    "Ground Form Target": "Ground",
+    "Target": "Ground",
     "Hitpoints": "1121",
     "Damage": "309",
     "Damage Per Second": "257",
@@ -829,8 +829,12 @@
     "Rarity": "Legendary",
     "Target": "Air & Ground",
     "Hitpoints": "1295",
-    "Damage (Stage 3)": "422",
-    "Damage Per Second (Stage 3)": "1055",
+    "Damage": {
+      "Stage 3": "422"
+    },
+    "Damage Per Second": {
+      "Stage 3": "1055"
+    },
     "Special Damage": "N/A"
   },
   "Inferno Tower": {
@@ -839,8 +843,12 @@
     "Rarity": "Rare",
     "Target": "Air & Ground",
     "Hitpoints": "1748",
-    "Damage (Stage 3)": "847",
-    "Damage Per Second (Stage 3)": "2117",
+    "Damage": {
+      "Stage 3": "847"
+    },
+    "Damage Per Second": {
+      "Stage 3": "2117"
+    },
     "Special Damage": "N/A"
   },
   "King Tower": {
@@ -902,7 +910,9 @@
     "Target": "Air & Ground",
     "Hitpoints": "698",
     "Damage": "104",
-    "Damage Per Second (Stage 3)": "260",
+    "Damage Per Second": {
+      "Stage 3": "260"
+    },
     "Special Damage": {
       "Royal Rescue Damage": "256"
     }
@@ -957,8 +967,12 @@
     "Rarity": "Champion",
     "Target": "Ground",
     "Hitpoints": "2250",
-    "Damage (Stage 3)": "409",
-    "Damage Per Second (Stage 3)": "1022",
+    "Damage": {
+      "Stage 3": "409"
+    },
+    "Damage Per Second": {
+      "Stage 3": "1022"
+    },
     "Special Damage": {
       "Explosive Escape Damage": "332"
     }
@@ -1173,7 +1187,7 @@
     "Cost": "5",
     "Type": "Troop",
     "Rarity": "Common",
-    "Rascal Girl Target": "Air & Ground",
+    "Target": "Air & Ground",
     "Hitpoints": "261",
     "Damage": "125",
     "Damage Per Second": "125",
@@ -1695,8 +1709,12 @@
     "Rarity": "Legendary",
     "Target": "Air & Ground",
     "Hitpoints": "1295",
-    "Damage (Stage 4)": "844",
-    "Damage Per Second (Stage 4)": "2110",
+    "Damage": {
+      "Stage 4": "844"
+    },
+    "Damage Per Second": {
+      "Stage 4": "2110"
+    },
     "Special Damage": "N/A"
   },
   "Evolution Minion Horde": {

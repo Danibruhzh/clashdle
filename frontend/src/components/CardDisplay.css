@@ -96,7 +96,7 @@
 
 .card-display-stat--higher,
 .card-display-stat--lower {
-  background: #c0392b;
+  background-color: #c0392b;
   border-color: #c0392b;
   background-repeat: no-repeat;
   background-position: center;

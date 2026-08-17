@@ -283,6 +283,16 @@
     "Damage Per Second": "195",
     "Special Damage": "N/A"
   },
+  "Decoy": {
+    "Cost": "2",
+    "Type": "Troop",
+    "Rarity": "Legendary",
+    "Target": "N/A",
+    "Hitpoints": "297",
+    "Damage": "N/A",
+    "Damage Per Second": "N/A",
+    "Special Damage": "N/A"
+  },
   "Decoy Goblin": {
     "Cost": "3",
     "Type": "Troop",
@@ -721,7 +731,7 @@
     "Cost": "3",
     "Type": "Troop",
     "Rarity": "Legendary",
-    "Ground Form Target": "Ground",
+    "Target": "Ground",
     "Hitpoints": "1121",
     "Damage": "309",
     "Damage Per Second": "257",
@@ -819,8 +829,12 @@
     "Rarity": "Legendary",
     "Target": "Air & Ground",
     "Hitpoints": "1295",
-    "Damage (Stage 3)": "422",
-    "Damage Per Second (Stage 3)": "1055",
+    "Damage": {
+      "Stage 3": "422"
+    },
+    "Damage Per Second": {
+      "Stage 3": "1055"
+    },
     "Special Damage": "N/A"
   },
   "Inferno Tower": {
@@ -829,8 +843,12 @@
     "Rarity": "Rare",
     "Target": "Air & Ground",
     "Hitpoints": "1748",
-    "Damage (Stage 3)": "847",
-    "Damage Per Second (Stage 3)": "2117",
+    "Damage": {
+      "Stage 3": "847"
+    },
+    "Damage Per Second": {
+      "Stage 3": "2117"
+    },
     "Special Damage": "N/A"
   },
   "King Tower": {
@@ -892,7 +910,9 @@
     "Target": "Air & Ground",
     "Hitpoints": "698",
     "Damage": "104",
-    "Damage Per Second (Stage 3)": "260",
+    "Damage Per Second": {
+      "Stage 3": "260"
+    },
     "Special Damage": {
       "Royal Rescue Damage": "256"
     }
@@ -947,8 +967,12 @@
     "Rarity": "Champion",
     "Target": "Ground",
     "Hitpoints": "2250",
-    "Damage (Stage 3)": "409",
-    "Damage Per Second (Stage 3)": "1022",
+    "Damage": {
+      "Stage 3": "409"
+    },
+    "Damage Per Second": {
+      "Stage 3": "1022"
+    },
     "Special Damage": {
       "Explosive Escape Damage": "332"
     }
@@ -1163,7 +1187,7 @@
     "Cost": "5",
     "Type": "Troop",
     "Rarity": "Common",
-    "Rascal Girl Target": "Air & Ground",
+    "Target": "Air & Ground",
     "Hitpoints": "261",
     "Damage": "125",
     "Damage Per Second": "125",
@@ -1392,6 +1416,16 @@
     "Special Damage": {
       "Melee Damage": "314"
     }
+  },
+  "Tomb Queen": {
+    "Cost": "5",
+    "Type": "Troop",
+    "Rarity": "Rare",
+    "Target": "Buildings",
+    "Hitpoints": "4224",
+    "Damage": "422",
+    "Damage Per Second": "201",
+    "Special Damage": "N/A"
   },
   "Tombstone": {
     "Cost": "3",
@@ -1675,8 +1709,12 @@
     "Rarity": "Legendary",
     "Target": "Air & Ground",
     "Hitpoints": "1295",
-    "Damage (Stage 4)": "844",
-    "Damage Per Second (Stage 4)": "2110",
+    "Damage": {
+      "Stage 4": "844"
+    },
+    "Damage Per Second": {
+      "Stage 4": "2110"
+    },
     "Special Damage": "N/A"
   },
   "Evolution Minion Horde": {
@@ -1723,15 +1761,16 @@
     "Special Damage": "N/A"
   },
   "Evolution Princess": {
-    "__NOTE__": "!!!!! WARNING: THIS CARD IS NOT UPDATED ON THE WIKI - ALL STATS ARE MISSING !!!!!",
-    "Cost": "N/A",
-    "Type": "N/A",
-    "Rarity": "N/A",
-    "Target": "N/A",
-    "Hitpoints": "N/A",
-    "Damage": "N/A",
-    "Damage Per Second": "N/A",
-    "Special Damage": "N/A"
+    "Cost": "3",
+    "Type": "Troop",
+    "Rarity": "Legendary",
+    "Target": "Air & Ground",
+    "Hitpoints": "261",
+    "Damage": "168",
+    "Damage Per Second": "56",
+    "Special Damage": {
+      "Death Damage": "168"
+    }
   },
   "Evolution Royal Ghost": {
     "Cost": "3",
@@ -1766,7 +1805,7 @@
     "Damage": "74",
     "Damage Per Second": "61",
     "Special Damage": {
-      "Landing Damage": "115"
+      "Landing Damage": "43"
     }
   },
   "Evolution Royal Recruits": {
@@ -1886,15 +1925,16 @@
     "Special Damage": "N/A"
   },
   "Hero Bowler": {
-    "__NOTE__": "!!!!! WARNING: THIS CARD IS NOT UPDATED ON THE WIKI - ALL STATS ARE MISSING !!!!!",
-    "Cost": "N/A",
-    "Type": "N/A",
-    "Rarity": "N/A",
-    "Target": "N/A",
-    "Hitpoints": "N/A",
-    "Damage": "N/A",
-    "Damage Per Second": "N/A",
-    "Special Damage": "N/A"
+    "Cost": "5",
+    "Type": "Troop",
+    "Rarity": "Epic",
+    "Target": "Ground",
+    "Hitpoints": "2081",
+    "Damage": "289",
+    "Damage Per Second": "115",
+    "Special Damage": {
+      "Stone Swish Damage": "384"
+    }
   },
   "Hero Dark Prince": {
     "__NOTE__": "!!!!! WARNING: THIS CARD IS NOT UPDATED ON THE WIKI - ALL STATS ARE MISSING !!!!!",
@@ -1941,15 +1981,16 @@
     "Special Damage": "N/A"
   },
   "Hero Magic Archer": {
-    "__NOTE__": "!!!!! WARNING: THIS CARD IS NOT UPDATED ON THE WIKI - ALL STATS ARE MISSING !!!!!",
-    "Cost": "N/A",
-    "Type": "N/A",
-    "Rarity": "N/A",
-    "Target": "N/A",
-    "Hitpoints": "N/A",
-    "Damage": "N/A",
-    "Damage Per Second": "N/A",
-    "Special Damage": "N/A"
+    "Cost": "4",
+    "Type": "Troop",
+    "Rarity": "Legendary",
+    "Target": "Air & Ground",
+    "Hitpoints": "529",
+    "Damage": "133",
+    "Damage Per Second": "120",
+    "Special Damage": {
+      "Triple Shot Damage": "159 (53 x3)"
+    }
   },
   "Hero Mega Minion": {
     "__NOTE__": "!!!!! WARNING: THIS CARD IS NOT UPDATED ON THE WIKI - ALL STATS ARE MISSING !!!!!",

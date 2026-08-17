@@ -6,7 +6,11 @@ import json
 import re
 from collections import defaultdict
 
-SPECIAL_DAMAGE_PATTERN = re.compile(r"^Special Damage \((.+)\)$")
+NEST_PATTERNS = [
+    (re.compile(r"^Damage \((.+)\)$"), "Damage"),
+    (re.compile(r"^Damage Per Second \((.+)\)$"), "Damage Per Second"),
+    (re.compile(r"^Special Damage \((.+)\)$"), "Special Damage"),
+]
 MULTIPLIER_PATTERN = re.compile(r"^(\d+) x(\d+) \((\d+)\)$")
 NUMBER_COMMA_PATTERN = re.compile(r"(?<=\d),(?=\d)")
 
@@ -46,12 +50,14 @@ def categorize(key: str) -> int:
         return 5
     return len(CATEGORY_ORDER)
 
-def nest_special_damage(stats: dict) -> dict:
+def nest_stat_variants(stats: dict) -> dict:
     restructured = {}
     for key, value in stats.items():
-        match = SPECIAL_DAMAGE_PATTERN.match(key)
-        if match:
-            restructured["Special Damage"] = {match.group(1): value}
+        for pattern, target_key in NEST_PATTERNS:
+            match = pattern.match(key)
+            if match:
+                restructured[target_key] = {match.group(1): value}
+                break
         else:
             restructured[key] = value
     return restructured
@@ -139,7 +145,7 @@ def main():
     sorted_cards = {
         name: sort_stats(
             reformat_damage_values(
-                nest_special_damage(strip_number_commas(deduped_cards[name]))
+                nest_stat_variants(strip_number_commas(deduped_cards[name]))
             )
         )
         for name in ordered_names
