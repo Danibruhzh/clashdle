@@ -135,7 +135,7 @@ def tier(name: str) -> int:
     return 0
 
 def main():
-    with open("./frontend/src/data/all_cards.json", encoding="utf-8") as f:
+    with open("all_cards.json", encoding="utf-8") as f:
         cards = json.load(f)
 
     deduped_cards = remove_duplicate_variants(cards)
@@ -151,13 +151,13 @@ def main():
         for name in ordered_names
     }
 
-    with open("./frontend/src/data/all_cards.json", "w", encoding="utf-8") as f:
-        json.dump(sorted_cards, f, indent=2)
-        f.write("\n")
+    # with open("./frontend/src/data/all_cards.json", "w", encoding="utf-8") as f:
+    #     json.dump(sorted_cards, f, indent=2)
+    #     f.write("\n")
 
     with open("all_cards.json", "w", encoding="utf-8") as f:
-            json.dump(sorted_cards, f, indent=2)
-            f.write("\n")
+        json.dump(sorted_cards, f, indent=2)
+        f.write("\n")
 
     print(f"Organized {len(sorted_cards)} cards. Removed {removed_count} duplicate variant(s).")
 

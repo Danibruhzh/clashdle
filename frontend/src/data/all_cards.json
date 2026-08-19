@@ -4,9 +4,9 @@
     "Type": "Troop",
     "Rarity": "Legendary",
     "Target": "Air & Ground",
-    "Hitpoints": "1121",
+    "Hitpoints": "1798",
     "Damage": "309",
-    "Damage Per Second": "220",
+    "Damage per second": "193",
     "Special Damage": "N/A"
   },
   "Archer Queen": {
@@ -91,8 +91,8 @@
     "Rarity": "Rare",
     "Target": "Ground",
     "Hitpoints": "1164",
-    "Damage": "N/A",
-    "Damage Per Second": "N/A",
+    "Damage": "192",
+    "Damage Per Second": "147",
     "Special Damage": "N/A"
   },
   "Barbarians": {
@@ -100,9 +100,9 @@
     "Type": "Troop",
     "Rarity": "Common",
     "Target": "Ground",
-    "Hitpoints": "670",
+    "Hitpoints": "691",
     "Damage": "191",
-    "Damage Per Second": "146",
+    "Damage Per Second": "136",
     "Special Damage": "N/A"
   },
   "Bats": {
@@ -120,9 +120,9 @@
     "Type": "Troop",
     "Rarity": "Rare",
     "Target": "Ground",
-    "Hitpoints": "1717",
-    "Damage": "148",
-    "Damage Per Second": "98",
+    "Hitpoints": "1920",
+    "Damage": "268",
+    "Damage Per Second": "134",
     "Special Damage": "N/A"
   },
   "Battle Ram": {
@@ -134,7 +134,7 @@
     "Damage": "286",
     "Damage Per Second": "N/A",
     "Special Damage": {
-      "Battle Ram Charge Damage": "573"
+      "Charge Damage": "573"
     }
   },
   "Berserker": {
@@ -147,18 +147,7 @@
     "Damage Per Second": "170",
     "Special Damage": "N/A"
   },
-  "Bomb Tower": {
-    "Cost": "4",
-    "Type": "Building",
-    "Rarity": "Rare",
-    "Target": "Ground",
-    "Hitpoints": "1356",
-    "Damage": "222",
-    "Damage Per Second": "123",
-    "Special Damage": {
-      "Death Damage": "222"
-    }
-  },
+  "Bomb Tower": {},
   "Bomber": {
     "Cost": "2",
     "Type": "Troop",
@@ -175,10 +164,10 @@
     "Rarity": "Champion",
     "Target": "Ground",
     "Hitpoints": "2624",
-    "Damage": "268",
-    "Damage Per Second": "223",
+    "Damage": "244",
+    "Damage Per Second": "221",
     "Special Damage": {
-      "Dash Damage": "537"
+      "Dash Damage": "489"
     }
   },
   "Bowler": {
@@ -198,7 +187,7 @@
     "Target": "Ground",
     "Hitpoints": "304",
     "Damage": "256",
-    "Damage Per Second": "182",
+    "Damage per second": "182",
     "Special Damage": "N/A"
   },
   "Cannon": {
@@ -245,7 +234,7 @@
     "Cost": "4",
     "Type": "Troop",
     "Rarity": "Legendary",
-    "Target": "Buildings",
+    "Target": "Air & Ground",
     "Hitpoints": "629",
     "Damage": "53",
     "Damage Per Second": "44",
@@ -266,7 +255,7 @@
     "Type": "Troop",
     "Rarity": "Epic",
     "Target": "Ground",
-    "Hitpoints": "1440",
+    "Hitpoints": "1456",
     "Damage": "266",
     "Damage Per Second": "204",
     "Special Damage": {
@@ -300,7 +289,7 @@
     "Target": "Ground",
     "Hitpoints": "81",
     "Damage": "89",
-    "Damage Per Second": "80",
+    "Damage per second": "80",
     "Special Damage": "N/A"
   },
   "Earthquake": {
@@ -320,9 +309,9 @@
     "Type": "Troop",
     "Rarity": "Epic",
     "Target": "Air & Ground",
-    "Hitpoints": "949",
-    "Damage": "192",
-    "Damage Per Second": "91",
+    "Hitpoints": "1451",
+    "Damage": "267 x3",
+    "Damage Per Second": "116",
     "Special Damage": "N/A"
   },
   "Electro Giant": {
@@ -342,7 +331,7 @@
     "Type": "Troop",
     "Rarity": "Common",
     "Target": "Air & Ground",
-    "Hitpoints": "230",
+    "Hitpoints": "215",
     "Damage": "99 x9",
     "Damage Per Second": "N/A",
     "Special Damage": "N/A"
@@ -424,7 +413,7 @@
     "Type": "Troop",
     "Rarity": "Common",
     "Target": "Air & Ground",
-    "Hitpoints": "230",
+    "Hitpoints": "215",
     "Damage": "207",
     "Damage Per Second": "N/A",
     "Special Damage": "N/A"
@@ -511,14 +500,16 @@
     "Hitpoints": "N/A",
     "Damage": "256",
     "Damage Per Second": "320",
-    "Special Damage": "N/A"
+    "Special Damage": {
+      "Crown Damage": "128"
+    }
   },
   "Giant": {
     "Cost": "5",
     "Type": "Troop",
     "Rarity": "Rare",
     "Target": "Buildings",
-    "Hitpoints": "4090",
+    "Hitpoints": "3968",
     "Damage": "253",
     "Damage Per Second": "168",
     "Special Damage": "N/A"
@@ -610,7 +601,7 @@
     "Damage": "N/A",
     "Damage Per Second": "N/A",
     "Special Damage": {
-      "Goblin Drill Spawn Damage": "84"
+      "Spawn Damage": "84"
     }
   },
   "Goblin Giant": {
@@ -622,7 +613,7 @@
     "Damage": "176",
     "Damage Per Second": "117",
     "Special Damage": {
-      "Spear Goblins": "81"
+      "Spear Goblin Damage": "81"
     }
   },
   "Goblin Hut": {
@@ -631,8 +622,8 @@
     "Rarity": "Rare",
     "Target": "Air & Ground",
     "Hitpoints": "1228",
-    "Damage": "N/A",
-    "Damage Per Second": "N/A",
+    "Damage": "81",
+    "Damage Per Second": "47",
     "Special Damage": "N/A"
   },
   "Goblin Machine": {
@@ -653,8 +644,8 @@
     "Rarity": "Common",
     "Target": "Ground",
     "Hitpoints": "202",
-    "Damage": "120",
-    "Damage Per Second": "109",
+    "Damage": "125",
+    "Damage Per Second": "113",
     "Special Damage": "N/A"
   },
   "Goblinstein Doctor": {
@@ -702,7 +693,7 @@
     "Damage": "312",
     "Damage Per Second": "124",
     "Special Damage": {
-      "Golem Death Damage": "225"
+      "Death Damage": "225"
     }
   },
   "Golemite": {
@@ -714,7 +705,7 @@
     "Damage": "84",
     "Damage Per Second": "33",
     "Special Damage": {
-      "Golemite Death Damage": "99"
+      "Death Damage": "99"
     }
   },
   "Graveyard": {
@@ -732,9 +723,9 @@
     "Type": "Troop",
     "Rarity": "Legendary",
     "Target": "Ground",
-    "Hitpoints": "1121",
+    "Hitpoints": "1798",
     "Damage": "309",
-    "Damage Per Second": "257",
+    "Damage per second": "257",
     "Special Damage": "N/A"
   },
   "Guardienne": {
@@ -764,7 +755,7 @@
     "Type": "Troop",
     "Rarity": "Rare",
     "Target": "Air & Ground",
-    "Hitpoints": "230",
+    "Hitpoints": "215",
     "Damage": "110",
     "Damage Per Second": "N/A",
     "Special Damage": "N/A"
@@ -806,7 +797,7 @@
     "Type": "Troop",
     "Rarity": "Common",
     "Target": "Air & Ground",
-    "Hitpoints": "230",
+    "Hitpoints": "215",
     "Damage": "110",
     "Damage Per Second": "N/A",
     "Special Damage": "N/A"
@@ -885,7 +876,7 @@
     "Cost": "7",
     "Type": "Troop",
     "Rarity": "Legendary",
-    "Target": "Air & Ground",
+    "Target": "Buildings",
     "Hitpoints": "217",
     "Damage": "81",
     "Damage Per Second": "47",
@@ -1112,7 +1103,7 @@
     "Target": "Air & Ground",
     "Hitpoints": "N/A",
     "Damage": "736 (92 x8)",
-    "Damage Per Second": "N/A",
+    "Damage Per Second": "92",
     "Special Damage": {
       "Crown Tower Damage": "184 (23 x8)"
     }
@@ -1158,20 +1149,20 @@
     "Target": "Buildings",
     "Hitpoints": "1697",
     "Damage": "250",
-    "Damage Per Second": "138",
+    "Damage per second": "138",
     "Special Damage": {
-      "Ram Charge Damage": "501"
+      "Charge Damage": "501"
     }
   },
   "Ram Rider (Rider)": {
     "Cost": "5",
     "Type": "Troop",
     "Rarity": "Legendary",
-    "Target": "Air & Ground (Troops only)",
+    "Rider Target": "Air & Ground",
+    "Target": "Buildings",
     "Hitpoints": "1697",
     "Damage": "104",
-    "Damage Per Second": "94",
-    "Special Damage": "N/A"
+    "Damage per second": "94"
   },
   "Rascal Boy": {
     "Cost": "5",
@@ -1192,6 +1183,18 @@
     "Damage": "125",
     "Damage Per Second": "125",
     "Special Damage": "N/A"
+  },
+  "Rhino": {
+    "Cost": "3",
+    "Type": "Troop",
+    "Rarity": "Epic",
+    "Target": "Buildings",
+    "Hitpoints": "1356",
+    "Damage": "179",
+    "Damage Per Second": "N/A",
+    "Special Damage": {
+      "Charge Damage": "358"
+    }
   },
   "Rocket": {
     "Cost": "6",
@@ -1220,12 +1223,10 @@
     "Type": "Spell",
     "Rarity": "Common",
     "Target": "Air & Ground",
-    "Hitpoints": "787",
+    "Hitpoints": "N/A",
     "Damage": "437",
-    "Damage Per Second": "102",
-    "Special Damage": {
-      "Royal Recruit Damage": "133"
-    }
+    "Damage Per Second": "N/A",
+    "Special Damage": "N/A"
   },
   "Royal Ghost": {
     "Cost": "3",
@@ -1244,7 +1245,7 @@
     "Target": "Buildings",
     "Hitpoints": "3164",
     "Damage": "307",
-    "Damage Per Second": "180",
+    "Damage Per Second": "170",
     "Special Damage": "N/A"
   },
   "Royal Hogs": {
@@ -1284,10 +1285,12 @@
     "Type": "Troop",
     "Rarity": "Epic",
     "Target": "Buildings",
-    "Hitpoints": "164",
-    "Damage": "196",
+    "Runner Hitpoints": "164",
+    "Runner Damage": "196",
     "Damage Per Second": "N/A",
-    "Special Damage": "N/A"
+    "Special Damage": {
+      "Death Damage": "291"
+    }
   },
   "Skeleton Army": {
     "Cost": "3",
@@ -1308,7 +1311,7 @@
     "Damage": "N/A",
     "Damage Per Second": "N/A",
     "Special Damage": {
-      "Skeleton Barrel Death Damage": "145"
+      "Death Damage": "145"
     }
   },
   "Skeleton Dragons": {
@@ -1340,6 +1343,18 @@
     "Damage": "81",
     "Damage Per Second": "73",
     "Special Damage": "N/A"
+  },
+  "Skeletrooper": {
+    "Cost": "2",
+    "Type": "Troop",
+    "Rarity": "Epic",
+    "Target": "Ground",
+    "Skeletrooper Hitpoints": "473",
+    "Skeletrooper Damage": "204",
+    "Damage Per Second": "N/A",
+    "Special Damage": {
+      "Landing Damage": "318"
+    }
   },
   "Souldeier": {
     "Cost": "3",
@@ -1378,7 +1393,7 @@
     "Type": "Troop",
     "Rarity": "Rare",
     "Target": "Buildings",
-    "Hitpoints": "81",
+    "Hitpoints": "N/A",
     "Damage": "N/A",
     "Damage Per Second": "N/A",
     "Special Damage": "N/A"
@@ -1412,7 +1427,7 @@
     "Target": "Air & Ground",
     "Hitpoints": "883",
     "Damage": "204",
-    "Damage Per Second": "156",
+    "Damage Per Second": "N/A",
     "Special Damage": {
       "Melee Damage": "314"
     }
@@ -1433,8 +1448,8 @@
     "Rarity": "Rare",
     "Target": "Ground",
     "Hitpoints": "529",
-    "Damage": "N/A",
-    "Damage Per Second": "N/A",
+    "Damage": "81",
+    "Damage Per Second": "73",
     "Special Damage": "N/A"
   },
   "Tornado": {
@@ -1494,15 +1509,15 @@
     }
   },
   "Void": {
-    "Cost": "3",
+    "Cost": "5",
     "Type": "Spell",
     "Rarity": "Epic",
     "Target": "Air & Ground",
     "Hitpoints": "N/A",
-    "Damage": "1020 (340 x3)",
+    "Damage": "2088 (696 x3)",
     "Damage Per Second": "N/A",
     "Special Damage": {
-      "Single Target Crown Tower Damage": "144 (48 x3)"
+      "Single Target Crown Tower Damage": "291 (97 x3)"
     }
   },
   "Wall Breakers": {
@@ -1530,7 +1545,7 @@
     "Type": "Troop",
     "Rarity": "Rare",
     "Target": "Air & Ground",
-    "Hitpoints": "755",
+    "Hitpoints": "832",
     "Damage": "281",
     "Damage Per Second": "200",
     "Special Damage": "N/A"
@@ -1564,7 +1579,7 @@
     "Target": "Air & Ground",
     "Hitpoints": "529",
     "Damage": "117",
-    "Damage Per Second": "55",
+    "Damage Per Second": "53",
     "Special Damage": "N/A"
   },
   "Evolution Archers": {
@@ -1584,9 +1599,9 @@
     "Type": "Troop",
     "Rarity": "Common",
     "Target": "Ground",
-    "Hitpoints": "737",
+    "Hitpoints": "716",
     "Damage": "192",
-    "Damage Per Second": "147",
+    "Damage Per Second": "137",
     "Special Damage": "N/A"
   },
   "Evolution Bats": {
@@ -1647,16 +1662,7 @@
       "Poison Damage (Stage 3)": "307"
     }
   },
-  "Evolution Electro Dragon": {
-    "Cost": "5",
-    "Type": "Troop",
-    "Rarity": "Epic",
-    "Target": "Air & Ground",
-    "Hitpoints": "998",
-    "Damage": "192",
-    "Damage Per Second": "91",
-    "Special Damage": "N/A"
-  },
+  "Evolution Elite Barbarians": {},
   "Evolution Executioner": {
     "Cost": "5",
     "Type": "Troop",
@@ -1678,7 +1684,7 @@
     "Damage": "320 (64 x5)",
     "Damage Per Second": "105",
     "Special Damage": {
-      "Big Spark Damage": "576 (48 x12)"
+      "Big Spark Damage": "x12 (576)"
     }
   },
   "Evolution Goblin Cage": {
@@ -1696,7 +1702,7 @@
     "Type": "Troop",
     "Rarity": "Common",
     "Target": "Air & Ground",
-    "Hitpoints": "230",
+    "Hitpoints": "215",
     "Damage": "110",
     "Damage Per Second": "N/A",
     "Special Damage": {
@@ -1717,17 +1723,7 @@
     },
     "Special Damage": "N/A"
   },
-  "Evolution Minion Horde": {
-    "__NOTE__": "!!!!! WARNING: THIS CARD IS NOT UPDATED ON THE WIKI - ALL STATS ARE MISSING !!!!!",
-    "Cost": "N/A",
-    "Type": "N/A",
-    "Rarity": "N/A",
-    "Target": "N/A",
-    "Hitpoints": "N/A",
-    "Damage": "N/A",
-    "Damage Per Second": "N/A",
-    "Special Damage": "N/A"
-  },
+  "Evolution Minion Horde": {},
   "Evolution Mortar": {
     "Cost": "4",
     "Type": "Building",
@@ -1747,7 +1743,7 @@
     "Damage": "217",
     "Damage Per Second": "217",
     "Special Damage": {
-      "Sniper": "390"
+      "Sniper Damage": "1170 (390 x3)"
     }
   },
   "Evolution P.E.K.K.A.": {
@@ -1805,7 +1801,7 @@
     "Damage": "74",
     "Damage Per Second": "61",
     "Special Damage": {
-      "Landing Damage": "43"
+      "Landing Damage": "115"
     }
   },
   "Evolution Royal Recruits": {
@@ -1829,7 +1825,7 @@
     "Damage": "N/A",
     "Damage Per Second": "N/A",
     "Special Damage": {
-      "Skeleton Barrel Death Damage": "476 (238 x2)"
+      "Death Damage": "476 (238 x2)"
     }
   },
   "Evolution Tesla": {
@@ -1883,7 +1879,7 @@
     "Type": "Troop",
     "Rarity": "Rare",
     "Target": "Air & Ground",
-    "Hitpoints": "947",
+    "Hitpoints": "1024",
     "Damage": "281",
     "Damage Per Second": "200",
     "Special Damage": {
@@ -1902,27 +1898,29 @@
       "Crown Tower Damage": "116 (58 x2)"
     }
   },
-  "Hero Balloon": {
-    "__NOTE__": "!!!!! WARNING: THIS CARD IS NOT UPDATED ON THE WIKI - ALL STATS ARE MISSING !!!!!",
-    "Cost": "N/A",
-    "Type": "N/A",
-    "Rarity": "N/A",
-    "Target": "N/A",
-    "Hitpoints": "N/A",
-    "Damage": "N/A",
-    "Damage Per Second": "N/A",
-    "Special Damage": "N/A"
-  },
   "Hero Barbarian Barrel": {
-    "__NOTE__": "!!!!! WARNING: THIS CARD IS NOT UPDATED ON THE WIKI - ALL STATS ARE MISSING !!!!!",
-    "Cost": "N/A",
-    "Type": "N/A",
-    "Rarity": "N/A",
-    "Target": "N/A",
+    "Cost": "2",
+    "Type": "Spell",
+    "Rarity": "Epic",
+    "Target": "Ground",
     "Hitpoints": "N/A",
-    "Damage": "N/A",
+    "Damage": "230",
     "Damage Per Second": "N/A",
-    "Special Damage": "N/A"
+    "Special Damage": {
+      "Crown Tower Damage": "116"
+    }
+  },
+  "Hero Berserker": {
+    "Cost": "2",
+    "Type": "Troop",
+    "Rarity": "Common",
+    "Target": "Ground",
+    "Hitpoints": "896",
+    "Damage": "102",
+    "Damage Per Second": "170",
+    "Special Damage": {
+      "Bear Damage": "167"
+    }
   },
   "Hero Bowler": {
     "Cost": "5",
@@ -1937,38 +1935,40 @@
     }
   },
   "Hero Dark Prince": {
-    "__NOTE__": "!!!!! WARNING: THIS CARD IS NOT UPDATED ON THE WIKI - ALL STATS ARE MISSING !!!!!",
-    "Cost": "N/A",
-    "Type": "N/A",
-    "Rarity": "N/A",
-    "Target": "N/A",
-    "Hitpoints": "N/A",
-    "Damage": "N/A",
-    "Damage Per Second": "N/A",
-    "Special Damage": "N/A"
+    "Cost": "4",
+    "Type": "Troop",
+    "Rarity": "Epic",
+    "Target": "Ground",
+    "Hitpoints": "1456",
+    "Damage": "266",
+    "Damage Per Second": "204",
+    "Special Damage": {
+      "Rhino Spawn Damage": "307"
+    }
   },
   "Hero Giant": {
     "Cost": "5",
     "Type": "Troop",
     "Rarity": "Rare",
     "Target": "Buildings",
-    "Hitpoints": "4090",
+    "Hitpoints": "3968",
     "Damage": "253",
     "Damage Per Second": "168",
     "Special Damage": {
       "Impact Damage": "135"
     }
   },
-  "Hero Goblins": {
-    "__NOTE__": "!!!!! WARNING: THIS CARD IS NOT UPDATED ON THE WIKI - ALL STATS ARE MISSING !!!!!",
-    "Cost": "N/A",
-    "Type": "N/A",
-    "Rarity": "N/A",
-    "Target": "N/A",
-    "Hitpoints": "N/A",
-    "Damage": "N/A",
-    "Damage Per Second": "N/A",
-    "Special Damage": "N/A"
+  "Hero Ice Golem": {
+    "Cost": "2",
+    "Type": "Troop",
+    "Rarity": "Rare",
+    "Target": "Buildings",
+    "Hitpoints": "1315",
+    "Damage": "84",
+    "Damage Per Second": "33",
+    "Special Damage": {
+      "Snowstorm Pulse Damage": "84"
+    }
   },
   "Hero Knight": {
     "Cost": "3",
@@ -1989,19 +1989,20 @@
     "Damage": "133",
     "Damage Per Second": "120",
     "Special Damage": {
-      "Triple Shot Damage": "159 (53 x3)"
+      "Triple Shot Damage": "48"
     }
   },
   "Hero Mega Minion": {
-    "__NOTE__": "!!!!! WARNING: THIS CARD IS NOT UPDATED ON THE WIKI - ALL STATS ARE MISSING !!!!!",
-    "Cost": "N/A",
-    "Type": "N/A",
-    "Rarity": "N/A",
-    "Target": "N/A",
-    "Hitpoints": "N/A",
-    "Damage": "N/A",
-    "Damage Per Second": "N/A",
-    "Special Damage": "N/A"
+    "Cost": "3",
+    "Type": "Troop",
+    "Rarity": "Rare",
+    "Target": "Air & Ground",
+    "Hitpoints": "837",
+    "Damage": "312",
+    "Damage Per Second": "208",
+    "Special Damage": {
+      "Warp Damage": "399"
+    }
   },
   "Hero Musketeer": {
     "Cost": "4",
@@ -2015,23 +2016,24 @@
       "Turret Spawn Damage": "204"
     }
   },
-  "Hero Tombstone": {
-    "__NOTE__": "!!!!! WARNING: THIS CARD IS NOT UPDATED ON THE WIKI - ALL STATS ARE MISSING !!!!!",
-    "Cost": "N/A",
-    "Type": "N/A",
-    "Rarity": "N/A",
-    "Target": "N/A",
-    "Hitpoints": "N/A",
-    "Damage": "N/A",
-    "Damage Per Second": "N/A",
-    "Special Damage": "N/A"
+  "Hero Valkyrie": {
+    "Cost": "4",
+    "Type": "Troop",
+    "Rarity": "Rare",
+    "Target": "Ground",
+    "Hitpoints": "1907",
+    "Damage": "266",
+    "Damage Per Second": "177",
+    "Special Damage": {
+      "Ability Damage": "97"
+    }
   },
   "Hero Wizard": {
     "Cost": "5",
     "Type": "Troop",
     "Rarity": "Rare",
     "Target": "Air & Ground",
-    "Hitpoints": "755",
+    "Hitpoints": "832",
     "Damage": "281",
     "Damage Per Second": "200",
     "Special Damage": {

@@ -29,7 +29,7 @@ SPECIAL_DAMAGE_LABELS = (
     "Spawn Damage",
     "Death Damage",
     "Crown Tower ",
-    "Jump",
+    "Jump ",
     "Reflected ",
     "Lightning Link ",
     "Royal Rescue ",
@@ -51,10 +51,16 @@ SPECIAL_DAMAGE_LABELS = (
     "Zap ",
     "Rocket Launcher ",
     "Sniper ",
-    "Spear Goblin ",
+    "Spear Goblin Damage",
     "Poison ",
     "Barrage ",
     "Charge Pushback ",
+    "Ability ",
+    "Bear ",
+    "Every Blizzard ",
+    "Landing ",
+    "Warp ",
+    "Triple Shot ",
 )
 CHECK_LABELS = (
     "Bush Goblin",
@@ -70,6 +76,10 @@ CHECK_LABELS = (
     "Ground Form",
     "Goblin Brawler",
     "Souldeiers",
+    "Skeletrooper",
+    "Rhino",
+    "Queen",
+    "Decoy",
 )
 REQUIRED_STATS = (
     "Cost",
@@ -183,7 +193,7 @@ def get_card_info(url, retries: int, name: str):
                 
                 for row in stats.find("tbody").find_all("tr"):
                     cells = row.find_all("td")
-                    if cells and cells[0].text == "11":
+                    if cells and cells[0].text.strip() == "11":
                         special_damage_exact = None
                         special_damage_candidate = None
                         for index, th in enumerate(stats_headers[1:], start=1):
