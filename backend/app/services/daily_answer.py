@@ -7,7 +7,6 @@ from app.models.card import Card
 from app.models.daily_answer import DailyAnswer
 from app.models.answer_pool import AnswerPool
 
-
 # daily answer will cycle through the whole bank once, then allow repeats
 
 def get_or_create_daily_answer(db: Session, today: date) -> DailyAnswer:

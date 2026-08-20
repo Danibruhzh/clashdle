@@ -6,7 +6,7 @@
     "Target": "Air & Ground",
     "Hitpoints": "1798",
     "Damage": "309",
-    "Damage per second": "193",
+    "Damage Per Second": "193",
     "Special Damage": "N/A"
   },
   "Archer Queen": {
@@ -147,7 +147,18 @@
     "Damage Per Second": "170",
     "Special Damage": "N/A"
   },
-  "Bomb Tower": {},
+  "Bomb Tower": {
+    "Cost": "4",
+    "Type": "Building",
+    "Rarity": "Rare",
+    "Target": "Ground",
+    "Hitpoints": "1356",
+    "Damage": "222",
+    "Damage Per Second": "123",
+    "Special Damage": {
+      "Death Damage": "222"
+    }
+  },
   "Bomber": {
     "Cost": "2",
     "Type": "Troop",
@@ -187,7 +198,7 @@
     "Target": "Ground",
     "Hitpoints": "304",
     "Damage": "256",
-    "Damage per second": "182",
+    "Damage Per Second": "182",
     "Special Damage": "N/A"
   },
   "Cannon": {
@@ -289,7 +300,7 @@
     "Target": "Ground",
     "Hitpoints": "81",
     "Damage": "89",
-    "Damage per second": "80",
+    "Damage Per Second": "80",
     "Special Damage": "N/A"
   },
   "Earthquake": {
@@ -310,7 +321,7 @@
     "Rarity": "Epic",
     "Target": "Air & Ground",
     "Hitpoints": "1451",
-    "Damage": "267 x3",
+    "Damage": "267",
     "Damage Per Second": "116",
     "Special Damage": "N/A"
   },
@@ -332,7 +343,7 @@
     "Rarity": "Common",
     "Target": "Air & Ground",
     "Hitpoints": "215",
-    "Damage": "99 x9",
+    "Damage": "99",
     "Damage Per Second": "N/A",
     "Special Damage": "N/A"
   },
@@ -725,7 +736,7 @@
     "Target": "Ground",
     "Hitpoints": "1798",
     "Damage": "309",
-    "Damage per second": "257",
+    "Damage Per Second": "257",
     "Special Damage": "N/A"
   },
   "Guardienne": {
@@ -1149,7 +1160,7 @@
     "Target": "Buildings",
     "Hitpoints": "1697",
     "Damage": "250",
-    "Damage per second": "138",
+    "Damage Per Second": "138",
     "Special Damage": {
       "Charge Damage": "501"
     }
@@ -1158,11 +1169,11 @@
     "Cost": "5",
     "Type": "Troop",
     "Rarity": "Legendary",
-    "Rider Target": "Air & Ground",
-    "Target": "Buildings",
+    "Target": "Air & Ground",
     "Hitpoints": "1697",
     "Damage": "104",
-    "Damage per second": "94"
+    "Damage Per Second": "94",
+    "Special Damage": "N/A"
   },
   "Rascal Boy": {
     "Cost": "5",
@@ -1285,12 +1296,10 @@
     "Type": "Troop",
     "Rarity": "Epic",
     "Target": "Buildings",
-    "Runner Hitpoints": "164",
-    "Runner Damage": "196",
+    "Hitpoints": "164",
+    "Damage": "196",
     "Damage Per Second": "N/A",
-    "Special Damage": {
-      "Death Damage": "291"
-    }
+    "Special Damage": "N/A"
   },
   "Skeleton Army": {
     "Cost": "3",
@@ -1349,8 +1358,8 @@
     "Type": "Troop",
     "Rarity": "Epic",
     "Target": "Ground",
-    "Skeletrooper Hitpoints": "473",
-    "Skeletrooper Damage": "204",
+    "Hitpoints": "473",
+    "Damage": "204",
     "Damage Per Second": "N/A",
     "Special Damage": {
       "Landing Damage": "318"
@@ -1684,7 +1693,7 @@
     "Damage": "320 (64 x5)",
     "Damage Per Second": "105",
     "Special Damage": {
-      "Big Spark Damage": "x12 (576)"
+      "Big Spark Damage": "576 (48 x12)"
     }
   },
   "Evolution Goblin Cage": {
