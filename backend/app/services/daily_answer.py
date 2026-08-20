@@ -19,7 +19,7 @@ def get_or_create_daily_answer(db: Session, today: date) -> DailyAnswer:
 
     if not remaining:
         current_cycle += 1
-        eligible_cards = db.query(Card).filter(Card.is_playable == 1).all()
+        eligible_cards = db.query(Card).filter(Card.is_playable.is_(True)).all()
         shuffled = random.sample(eligible_cards, len(eligible_cards))
         for card in shuffled:
             db.add(AnswerPool(card_id=card.id, cycle_number=current_cycle))
