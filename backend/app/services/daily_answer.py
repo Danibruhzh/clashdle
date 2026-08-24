@@ -1,7 +1,7 @@
 import random
 from datetime import date
 from sqlalchemy import func
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 
 from app.models.card import Card
 from app.models.daily_answer import DailyAnswer
@@ -10,7 +10,15 @@ from app.models.answer_pool import AnswerPool
 # daily answer will cycle through the whole bank once, then allow repeats
 
 def get_or_create_daily_answer(db: Session, today: date) -> DailyAnswer:
-    existing = db.query(DailyAnswer).filter(DailyAnswer.date == today).first()
+    # joinedload fetches the related Card in the same query (one JOIN) instead
+    # of the relationship lazy-loading it as a separate round-trip the first
+    # time .card is accessed — each round-trip to a remote DB costs real time.
+    existing = (
+        db.query(DailyAnswer)
+        .options(joinedload(DailyAnswer.card))
+        .filter(DailyAnswer.date == today)
+        .first()
+    )
     if existing:
         return existing
 

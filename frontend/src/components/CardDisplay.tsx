@@ -1,7 +1,6 @@
 import { cards } from '../data/cards'
-import type { StatValue } from '../data/cards'
-import { compareStat, statCategory } from '../utils/compareStats'
-import type { StatComparison } from '../utils/compareStats'
+import { statCategory } from '../utils/compareStats'
+import type { StatComparison } from '../api/game'
 import { getCardImagePath } from '../utils/cardImage'
 import upArrow from '../images/up-arrow.png'
 import downArrow from '../images/down-arrow.png'
@@ -9,7 +8,7 @@ import './CardDisplay.css'
 
 interface CardDisplayProps {
   cardName: string
-  secretCardName: string
+  comparisons: Record<string, StatComparison>
 }
 
 function arrowStyle(comparison: StatComparison | undefined) {
@@ -33,19 +32,12 @@ function renderStatValue(value: string) {
   )
 }
 
-function CardDisplay({ cardName, secretCardName }: CardDisplayProps) {
+function CardDisplay({ cardName, comparisons }: CardDisplayProps) {
   const stats = cards[cardName]
-  const secretStats = cards[secretCardName]
 
   if (!stats) {
     return <div className="card-display">No card found for "{cardName}"</div>
   }
-
-  const secretByCategory = new Map<string, StatValue>(
-    Object.entries(secretStats)
-      .filter(([stat]) => stat !== '__NOTE__')
-      .map(([stat, value]) => [statCategory(stat), value])
-  )
 
   return (
     <div className="card-display">
@@ -58,11 +50,7 @@ function CardDisplay({ cardName, secretCardName }: CardDisplayProps) {
           .filter(([stat]) => stat !== '__NOTE__')
           .map(([stat, value], index) => {
             const animationDelay = `${(index + 1) * 0.2}s`
-            const secretValue = secretByCategory.get(statCategory(stat))
-            const comparison =
-              secretValue !== undefined
-                ? compareStat(statCategory(stat), secretValue, value)
-                : undefined
+            const comparison = comparisons[statCategory(stat)]
             const className = `card-display-stat${comparison ? ` card-display-stat--${comparison}` : ''}`
             const style = { animationDelay, ...arrowStyle(comparison) }
 

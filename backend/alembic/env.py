@@ -9,6 +9,7 @@ from app.db.base import Base
 from app.models.answer_pool import AnswerPool
 from app.models.card import Card
 from app.models.daily_answer import DailyAnswer
+from app.models.guess import Guess
 from app.models.user import User
 from app.core.config import settings
 

@@ -7,38 +7,42 @@ import ResetButton from './components/ResetButton'
 import WinPopup from './components/WinPopup'
 import CardBrowserButton from './components/CardBrowserButton'
 import CardBrowser from './components/CardBrowser'
-import { cardNames } from './data/cards'
+import { submitGuess } from './api/game'
+import type { GuessResult } from './api/game'
 import './App.css'
 
 interface Guess {
   id: number
   cardName: string
-}
-
-function pickSecretCard() {
-  return cardNames[Math.floor(Math.random() * cardNames.length)]
+  result: GuessResult
 }
 
 function App() {
   const [guesses, setGuesses] = useState<Guess[]>([])
   const [resetCount, setResetCount] = useState(0)
-  const [secretCard, setSecretCard] = useState(pickSecretCard)
   const [showCardBrowser, setShowCardBrowser] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const nextId = useRef(0)
-  console.log(secretCard)
 
-  const handleSelectCard = (cardName: string) => {
-    setGuesses((prev) => [{ id: nextId.current++, cardName }, ...prev])
+  const handleSelectCard = async (cardName: string) => {
+    setIsSubmitting(true)
+    try {
+      const result = await submitGuess(cardName)
+      setGuesses((prev) => [{ id: nextId.current++, cardName, result }, ...prev])
+    } catch (err) {
+      console.error('Guess failed:', err)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleReset = () => {
     setGuesses([])
     setResetCount((prev) => prev + 1)
-    setSecretCard(pickSecretCard())
   }
 
   const guessedNames = new Set(guesses.map((guess) => guess.cardName))
-  const hasWon = guessedNames.has(secretCard)
+  const hasWon = guesses.some((guess) => guess.result.is_correct)
 
   return (
     <>
@@ -53,12 +57,12 @@ function App() {
           key={resetCount}
           onSelectCard={handleSelectCard}
           guessedNames={guessedNames}
-          disabled={hasWon}
+          disabled={hasWon || isSubmitting}
         />
         <div className="guesses-scroll">
           <StatsHeader />
           {guesses.map((guess) => (
-            <CardDisplay key={guess.id} cardName={guess.cardName} secretCardName={secretCard} />
+            <CardDisplay key={guess.id} cardName={guess.cardName} comparisons={guess.result.comparisons} />
           ))}
         </div>
       </div>
