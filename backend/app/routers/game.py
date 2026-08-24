@@ -2,12 +2,12 @@ import uuid
 from datetime import date
 
 from fastapi import APIRouter, Depends, HTTPException, Request, Response
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 
 from app.db.session import get_db
 from app.models.card import Card
 from app.models.guess import Guess
-from app.schemas.guess import GuessRequest, GuessResponse
+from app.schemas.guess import GuessRequest, GuessResponse, PastGuess, TodayGuessesResponse
 from app.services.daily_answer import get_or_create_daily_answer
 from app.services.game import compare_cards, is_correct_guess
 
@@ -55,3 +55,61 @@ def guess(payload: GuessRequest, request: Request, response: Response, db: Sessi
     db.commit()
 
     return GuessResponse(comparisons=comparisons, is_correct=correct)
+
+
+@router.get("/today", response_model=TodayGuessesResponse)
+def today_guesses(request: Request, db: Session = Depends(get_db)):
+    """Replays this browser's guesses for today's answer, so a page refresh
+    doesn't lose progress. Comparisons aren't stored on the Guess row — they're
+    just recomputed here the same way /guess computed them originally, since
+    they're a pure function of (secret card, guessed card)."""
+    guest_session_id = request.cookies.get(GUEST_SESSION_COOKIE)
+    if not guest_session_id:
+        # Never guessed on this browser before — nothing to restore, and
+        # nothing worth creating a cookie or touching the DB for yet.
+        return TodayGuessesResponse(guesses=[])
+
+    daily_answer = get_or_create_daily_answer(db, date.today())
+    secret_card = daily_answer.card
+
+    past_guesses = (
+        db.query(Guess)
+        .options(joinedload(Guess.guessed_card))
+        .filter(
+            Guess.daily_answer_id == daily_answer.id,
+            Guess.guest_session_id == guest_session_id,
+        )
+        .order_by(Guess.created_at.asc())
+        .all()
+    )
+
+    return TodayGuessesResponse(
+        guesses=[
+            PastGuess(
+                card_name=g.guessed_card.name,
+                comparisons=compare_cards(secret_card, g.guessed_card),
+                is_correct=g.is_correct,
+            )
+            for g in past_guesses
+        ]
+    )
+
+
+@router.delete("/today", status_code=204)
+def reset_today(request: Request, db: Session = Depends(get_db)):
+    """Dev-only for now, wired to the Reset button. Previews what the
+    automatic midnight reset will eventually do for every player: clears
+    this session's guesses against today's still-current secret card,
+    without changing what that secret is — a real day change is what
+    actually rotates the secret, not this."""
+    guest_session_id = request.cookies.get(GUEST_SESSION_COOKIE)
+    if not guest_session_id:
+        return
+
+    daily_answer = get_or_create_daily_answer(db, date.today())
+
+    db.query(Guess).filter(
+        Guess.daily_answer_id == daily_answer.id,
+        Guess.guest_session_id == guest_session_id,
+    ).delete()
+    db.commit()
