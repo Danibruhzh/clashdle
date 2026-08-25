@@ -4,12 +4,28 @@
   align-items: center;
   gap: 16px;
   min-height: 100vh;
-  padding-top: 48px;
+  padding-top: 16px;
   padding-bottom: 48px;
 }
 
+.app-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.app-toolbar-group {
+  display: flex;
+  gap: 12px;
+}
+
 .app-title {
-  margin: 10px;
+  /* negative top margin cancels out the toolbar row's own height + the
+     flex gap above it, so the title lands at the same spot it was at
+     before the toolbar existed */
+  margin: -10px 10px 10px;
   font-family: 'You Blockhead';
 }
 

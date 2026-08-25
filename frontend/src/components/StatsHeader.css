@@ -19,7 +19,7 @@
   overflow: hidden;
   font-size: 15px;
   font-weight: 600;
-  color: var(--text-h);
+  color: var(--header);
   text-align: center;
   border-bottom: 2px solid var(--border);
 }

@@ -99,13 +99,17 @@ function App() {
   return (
     <>
       <Background />
-      <ResetButton onReset={handleReset} />
-      <CardBrowserButton onOpen={() => setShowCardBrowser(true)} />
-      <StatsButton onOpen={() => setShowStats(true)} />
       {showCardBrowser && <CardBrowser onClose={() => setShowCardBrowser(false)} />}
       {showStats && <StatsPanel onClose={() => setShowStats(false)} />}
       {hasWon && <WinPopup guessCount={guesses.length} />}
       <div className="app-content">
+        <div className="app-toolbar">
+          <div className="app-toolbar-group">
+            <CardBrowserButton onOpen={() => setShowCardBrowser(true)} />
+            <StatsButton onOpen={() => setShowStats(true)} />
+          </div>
+          <ResetButton onReset={handleReset} />
+        </div>
         <h1 className="app-title">Clashdle</h1>
         {!hasWon && (
           <SearchBar

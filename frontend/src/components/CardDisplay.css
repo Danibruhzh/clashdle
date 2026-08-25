@@ -103,15 +103,6 @@
   background-size: 40%;
 }
 
-.card-display-stat--match .card-display-stat-value,
-.card-display-stat--match .card-display-stat-sublabel,
-.card-display-stat--match .card-display-stat-bracket,
-.card-display-stat--mismatch .card-display-stat-value,
-.card-display-stat--mismatch .card-display-stat-sublabel,
-.card-display-stat--mismatch .card-display-stat-bracket {
-  color: #fff;
-}
-
 .card-display-stat-sublabel {
   font-size: 10px;
   line-height: 1.3;
@@ -124,7 +115,7 @@
 .card-display-stat-value {
   font-size: 15px;
   font-weight: 600;
-  color: var(--text-h);
+  color: var(--text);
 }
 
 .card-display-stat-bracket {

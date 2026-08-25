@@ -1,4 +1,4 @@
-import clashBackground from '../images/clash background.png'
+import clashBackground from '../images/clash background2.jpg'
 import './Background.css'
 
 function Background() {

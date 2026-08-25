@@ -1,5 +1,13 @@
 :root {
-  --text: #6b6375;
+  /* --header: title + statsheader text, always black — both sit on the
+     fixed background image, which never changes with system theme, so
+     this is intentionally constant rather than flipping in dark mode.
+     --text: the rest of the game-view text (stat values/sublabels inside
+     the colored comparison boxes) — always white, same reasoning.
+     --text-h: text on the app's white/dark UI surfaces (buttons, modals,
+     search bar) — this one DOES need to flip with theme, see below. */
+  --header: #08060d;
+  --text: #fff;
   --text-h: #08060d;
   --bg: #fff;
   --border: #e5e4e7;
@@ -39,7 +47,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --text: #f3f4f6;
+    /* --header and --text intentionally not overridden here — see the
+       comment on their definitions above. */
     --text-h: #f3f4f6;
     --bg: #16171d;
     --border: #9093a4;
@@ -76,10 +85,10 @@ h1,
 h2 {
   font-family: var(--heading);
   font-weight: 500;
-  color: var(--text-h);
 }
 
 h1 {
+  color: var(--header);
   font-size: 56px;
   letter-spacing: -1.68px;
   margin: 32px 0;
@@ -89,6 +98,7 @@ h1 {
   }
 }
 h2 {
+  color: var(--text-h);
   font-size: 24px;
   line-height: 118%;
   letter-spacing: -0.24px;
