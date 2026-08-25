@@ -120,7 +120,22 @@
   background: rgba(0, 0, 0, 0.2);
 }
 
-.card-browser-item:hover .card-browser-image-dim,
-.card-browser-item:hover .card-browser-name-overlay {
-  opacity: 1;
+/* Devices with a real cursor (hover: hover) — reveal on hover, same as
+   before. Touch-only devices (hover: none) get a tap-to-toggle instead,
+   driven by CardBrowser.tsx's tappedCard state — see the --tapped rule
+   below. A :hover rule left unscoped would otherwise "stick" oddly on
+   touch after a tap in many mobile browsers, which is exactly what the
+   media-query split avoids. */
+@media (hover: hover) {
+  .card-browser-item:hover .card-browser-image-dim,
+  .card-browser-item:hover .card-browser-name-overlay {
+    opacity: 1;
+  }
+}
+
+@media (hover: none) {
+  .card-browser-item--tapped .card-browser-image-dim,
+  .card-browser-item--tapped .card-browser-name-overlay {
+    opacity: 1;
+  }
 }

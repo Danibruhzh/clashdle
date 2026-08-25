@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { cardNames } from '../data/cards'
 import { getCardImagePath } from '../utils/cardImage'
 import './CardBrowser.css'
@@ -11,6 +12,15 @@ function displayName(name: string): string {
 }
 
 function CardBrowser({ onClose }: CardBrowserProps) {
+  // Only affects touch devices (hover: none) — see CardBrowser.css. Tapping
+  // the same card again clears it; tapping a different card switches to it,
+  // so at most one name is pinned open at a time.
+  const [tappedCard, setTappedCard] = useState<string | null>(null)
+
+  const handleCardTap = (name: string) => {
+    setTappedCard((prev) => (prev === name ? null : name))
+  }
+
   return (
     <div className="card-browser-backdrop" onClick={onClose}>
       <div className="card-browser-panel" onClick={(e) => e.stopPropagation()}>
@@ -22,7 +32,11 @@ function CardBrowser({ onClose }: CardBrowserProps) {
         </div>
         <div className="card-browser-grid">
           {cardNames.map((name) => (
-            <div className="card-browser-item" key={name}>
+            <div
+              className={`card-browser-item${tappedCard === name ? ' card-browser-item--tapped' : ''}`}
+              key={name}
+              onClick={() => handleCardTap(name)}
+            >
               <img className="card-browser-image" src={getCardImagePath(name)} alt={name}/>
               <div className="card-browser-image-dim" />
               <div className="card-browser-name-overlay">

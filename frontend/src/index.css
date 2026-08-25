@@ -1,23 +1,28 @@
 :root {
-  /* --header: title + statsheader text, always black — both sit on the
-     fixed background image, which never changes with system theme, so
-     this is intentionally constant rather than flipping in dark mode.
-     --text: the rest of the game-view text (stat values/sublabels inside
-     the colored comparison boxes) — always white, same reasoning.
-     --text-h: text on the app's white/dark UI surfaces (buttons, modals,
-     search bar) — this one DOES need to flip with theme, see below. */
+  /* One fixed appearance for every device, no system-theme branching — the
+     app's background is a single fixed image that never changes, so the
+     UI chrome on top of it shouldn't either. This is the dark-surface
+     variant (what used to only show under prefers-color-scheme: dark).
+     --header: title + statsheader text — always black, sits directly on
+     the background image itself, unrelated to the dark UI surfaces below.
+     --text: stat values/sublabels inside the colored comparison boxes —
+     always white, same reasoning.
+     --text-h: text on the app's (now permanently dark) UI surfaces —
+     buttons, modals, search bar, WinPopup. */
   --header: #08060d;
   --text: #fff;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
+  --text-h: #f3f4f6;
+  --bg: #16171d;
+  --border: #9093a4;
+  /* Fully transparent (alpha 00) — nothing rendering behind the card PNGs'
+     own transparency, on the buttons/modals/stat boxes that use this. */
+  --code-bg: #ffffff00;
+  --accent: #c084fc;
+  --accent-bg: rgba(192, 132, 252, 0.15);
+  --accent-border: rgba(192, 132, 252, 0.5);
+  --social-bg: rgba(47, 48, 58, 0.5);
   --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+    rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
 
   --sans: 'You Blockhead', sans-serif;
   --heading: 'You Blockhead', sans-serif;
@@ -25,7 +30,11 @@
 
   font: 15px/135% var(--sans);
   letter-spacing: 0.18px;
-  color-scheme: light dark;
+  /* dark only, deliberately (matches the permanent dark UI chrome above) —
+     not "light dark", which would let the browser's native UI (scrollbars,
+     form controls) branch off system theme independently of everything
+     else here. */
+  color-scheme: dark;
   color: var(--text);
   background: var(--bg);
   font-synthesis: none;
@@ -43,27 +52,6 @@
   src: url('/fonts/YouBlockhead.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* --header and --text intentionally not overridden here — see the
-       comment on their definitions above. */
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #9093a4;
-    --code-bg: #ffffff00;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
 }
 
 #root {
