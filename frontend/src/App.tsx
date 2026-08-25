@@ -7,8 +7,11 @@ import ResetButton from './components/ResetButton'
 import WinPopup from './components/WinPopup'
 import CardBrowserButton from './components/CardBrowserButton'
 import CardBrowser from './components/CardBrowser'
+import StatsButton from './components/StatsButton'
+import StatsPanel from './components/StatsPanel'
 import { submitGuess, fetchTodayGuesses, resetTodayGuesses } from './api/game'
 import type { GuessResult } from './api/game'
+import { recordWin } from './utils/guessHistogram'
 import './App.css'
 
 interface Guess {
@@ -21,6 +24,7 @@ function App() {
   const [guesses, setGuesses] = useState<Guess[]>([])
   const [resetCount, setResetCount] = useState(0)
   const [showCardBrowser, setShowCardBrowser] = useState(false)
+  const [showStats, setShowStats] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isRestoring, setIsRestoring] = useState(true)
   const nextId = useRef(0)
@@ -59,7 +63,15 @@ function App() {
     setIsSubmitting(true)
     try {
       const result = await submitGuess(cardName)
+      // Read before the state update so this reflects "guesses so far,
+      // including this one" — not affected by React 18 Strict Mode
+      // double-invoking a setState updater, since this runs once as a
+      // plain side effect rather than inside setGuesses itself.
+      const newGuessCount = guesses.length + 1
       setGuesses((prev) => [{ id: nextId.current++, cardName, result }, ...prev])
+      if (result.is_correct) {
+        recordWin(newGuessCount)
+      }
     } catch (err) {
       console.error('Guess failed:', err)
     } finally {
@@ -89,7 +101,9 @@ function App() {
       <Background />
       <ResetButton onReset={handleReset} />
       <CardBrowserButton onOpen={() => setShowCardBrowser(true)} />
+      <StatsButton onOpen={() => setShowStats(true)} />
       {showCardBrowser && <CardBrowser onClose={() => setShowCardBrowser(false)} />}
+      {showStats && <StatsPanel onClose={() => setShowStats(false)} />}
       {hasWon && <WinPopup guessCount={guesses.length} />}
       <div className="app-content">
         <h1 className="app-title">Clashdle</h1>
