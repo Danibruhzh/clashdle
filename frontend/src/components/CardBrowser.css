@@ -14,6 +14,13 @@
   max-width: 1200px;
   max-height: 90vh;
   overflow-y: auto;
+  /* Explicit, not left to default: setting only overflow-y otherwise makes
+     the browser silently treat overflow-x as auto too (per the CSS
+     Overflow spec), which lets the grid's occasional few-px rounding
+     overflow (see .card-browser-grid) turn into real horizontal scroll —
+     very noticeable on mobile touch-drag even when barely visible on
+     desktop. */
+  overflow-x: hidden;
   background: var(--bg);
   border: 2px solid var(--border);
   border-radius: 12px;
