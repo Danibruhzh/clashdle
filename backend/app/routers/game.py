@@ -1,13 +1,21 @@
 import uuid
-from datetime import date
+from datetime import date, timedelta
 
 from fastapi import APIRouter, Depends, HTTPException, Request, Response
 from sqlalchemy.orm import Session, joinedload
 
 from app.db.session import get_db
 from app.models.card import Card
+from app.models.daily_answer import DailyAnswer
 from app.models.guess import Guess
-from app.schemas.guess import GuessRequest, GuessResponse, PastGuess, TodayGuessesResponse
+from app.schemas.guess import (
+    GuessRequest,
+    GuessResponse,
+    PastGuess,
+    PreviousAnswerResponse,
+    TodayGuessesResponse,
+    TodayWinnersResponse,
+)
 from app.services.daily_answer import get_or_create_daily_answer
 from app.services.game import compare_cards, is_correct_guess
 
@@ -93,6 +101,40 @@ def today_guesses(request: Request, db: Session = Depends(get_db)):
             for g in past_guesses
         ]
     )
+
+
+@router.get("/today/winners", response_model=TodayWinnersResponse)
+def today_winners(db: Session = Depends(get_db)):
+    """How many distinct guest sessions have correctly guessed today's secret
+    card so far — public, not tied to this browser's own cookie. Counts
+    distinct guest_session_id rather than distinct Guess rows so someone who
+    somehow submits the correct guess more than once still only counts once."""
+    daily_answer = get_or_create_daily_answer(db, date.today())
+
+    winners_count = (
+        db.query(Guess.guest_session_id)
+        .filter(Guess.daily_answer_id == daily_answer.id, Guess.is_correct.is_(True))
+        .distinct()
+        .count()
+    )
+
+    return TodayWinnersResponse(winners_count=winners_count)
+
+
+@router.get("/previous-answer", response_model=PreviousAnswerResponse)
+def previous_answer(db: Session = Depends(get_db)):
+    """Yesterday's secret card, for the small footer line. Looked up directly
+    rather than via get_or_create_daily_answer — a missing row here just means
+    nothing to show, not something to generate (unlike today's answer, which
+    the game needs to exist)."""
+    yesterday = date.today() - timedelta(days=1)
+    daily_answer = (
+        db.query(DailyAnswer)
+        .options(joinedload(DailyAnswer.card))
+        .filter(DailyAnswer.date == yesterday)
+        .first()
+    )
+    return PreviousAnswerResponse(card_name=daily_answer.card.name if daily_answer else None)
 
 
 @router.delete("/today", status_code=204)

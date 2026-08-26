@@ -17,6 +17,14 @@ export interface TodayGuesses {
   guesses: PastGuess[]
 }
 
+export interface PreviousAnswer {
+  card_name: string | null
+}
+
+export interface TodayWinners {
+  winners_count: number
+}
+
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8000'
 
 export async function submitGuess(cardName: string): Promise<GuessResult> {
@@ -46,6 +54,29 @@ export async function fetchTodayGuesses(): Promise<TodayGuesses> {
 
   if (!response.ok) {
     throw new Error(`Failed to load today's guesses (${response.status})`)
+  }
+
+  return response.json()
+}
+
+export async function fetchPreviousAnswer(): Promise<PreviousAnswer> {
+  const response = await fetch(`${API_BASE_URL}/game/previous-answer`, {
+    credentials: 'include',
+  })
+
+  if (!response.ok) {
+    throw new Error(`Failed to load previous answer (${response.status})`)
+  }
+
+  return response.json()
+}
+
+export async function fetchTodayWinners(): Promise<TodayWinners> {
+  // Public count, not tied to this browser's guest session — no cookie needed.
+  const response = await fetch(`${API_BASE_URL}/game/today/winners`)
+
+  if (!response.ok) {
+    throw new Error(`Failed to load today's winners count (${response.status})`)
   }
 
   return response.json()

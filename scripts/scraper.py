@@ -12,6 +12,8 @@ import os
 import json
 import re
 
+from organize_cards import strip_number_commas, nest_stat_variants, reformat_damage_values
+
 os.environ['WDM_LOCAL'] = '1'
 
 options = Options()
@@ -90,6 +92,53 @@ REQUIRED_STATS = (
     "Damage",
     "Damage Per Second",
 )
+
+def normalize_card(stats: dict) -> dict:
+    """Runs the same per-card transforms organize_cards.py applies (strip
+    number commas, nest "X (Y)"-style keys like Special Damage into a sub-
+    dict, reformat multiplier values) so a freshly-scraped raw card can be
+    diffed against the already-organized all_cards.json on equal footing.
+    Without this, e.g. raw "Special Damage (Death Damage)": "225" would
+    never match the organized {"Special Damage": {"Death Damage": "225"}},
+    since they're different keys/shapes for the same field — every card
+    would look "changed" even when nothing actually is."""
+    return reformat_damage_values(nest_stat_variants(strip_number_commas(stats)))
+
+def merge_cards(old_cards: dict, new_cards: dict) -> tuple[dict, int, int, int]:
+    """Merges freshly-scraped data into the existing all_cards.json instead
+    of overwriting it wholesale — only fields that actually differ get
+    updated. A card scraped this run but missing from the old file gets
+    added in full; a card in the old file but not scraped this run (e.g. a
+    transient failure, or a wiki page that's gone) is left untouched rather
+    than dropped. Returns (merged, cards_added, cards_updated, fields_changed).
+    """
+    merged = dict(old_cards)
+    cards_added = 0
+    cards_updated = 0
+    fields_changed = 0
+
+    for name, raw_info in new_cards.items():
+        new_info = normalize_card(raw_info)
+
+        if name not in merged:
+            merged[name] = new_info
+            cards_added += 1
+            continue
+
+        old_info = merged[name]
+        updated_info = dict(old_info)
+        card_changed = False
+        for key, value in new_info.items():
+            if old_info.get(key) != value:
+                updated_info[key] = value
+                fields_changed += 1
+                card_changed = True
+
+        if card_changed:
+            merged[name] = updated_info
+            cards_updated += 1
+
+    return merged, cards_added, cards_updated, fields_changed
 
 def get_name_variants(name):
     variants = {name, ""}
@@ -402,9 +451,22 @@ try:
         time.sleep(1)
 
     # print(cards)
+    # Update the existing file in place instead of overwriting it wholesale
+    # — only fields that actually changed get touched.
+    try:
+        with open("all_cards.json", encoding="utf-8") as f:
+            existing_cards = json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        existing_cards = {}
+
+    merged_cards, cards_added, cards_updated, fields_changed = merge_cards(existing_cards, cards)
+
     with open("all_cards.json", "w", encoding="utf-8") as f:
-        json.dump(cards, f, indent=2)
-    print("Saved to all_cards.json")
+        json.dump(merged_cards, f, indent=2)
+    print(
+        f"Saved to all_cards.json — {cards_added} new card(s), "
+        f"{cards_updated} card(s) updated ({fields_changed} field(s) changed)"
+    )
 
 except Exception as e:
     print(f"Error scraping {url}: {e}")

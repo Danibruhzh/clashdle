@@ -8,7 +8,9 @@ import CardBrowserButton from './components/CardBrowserButton'
 import CardBrowser from './components/CardBrowser'
 import StatsButton from './components/StatsButton'
 import StatsPanel from './components/StatsPanel'
-import { submitGuess, fetchTodayGuesses, resetTodayGuesses } from './api/game'
+import PreviousAnswerFooter from './components/PreviousAnswerFooter'
+import TodayWinnersCount from './components/TodayWinnersCount'
+import { submitGuess, fetchTodayGuesses, resetTodayGuesses, fetchPreviousAnswer, fetchTodayWinners } from './api/game'
 import type { GuessResult } from './api/game'
 import { recordWin } from './utils/guessHistogram'
 import './App.css'
@@ -26,6 +28,8 @@ function App() {
   const [showStats, setShowStats] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isRestoring, setIsRestoring] = useState(true)
+  const [previousAnswer, setPreviousAnswer] = useState<string | null>(null)
+  const [winnersCount, setWinnersCount] = useState<number | null>(null)
   const nextId = useRef(0)
 
   // Refresh-proof guesses: on load, replay whatever this browser already
@@ -58,6 +62,18 @@ function App() {
     }
   }, [])
 
+  useEffect(() => {
+    fetchPreviousAnswer()
+      .then(({ card_name }) => setPreviousAnswer(card_name))
+      .catch((err) => console.error('Failed to load previous answer:', err))
+  }, [])
+
+  useEffect(() => {
+    fetchTodayWinners()
+      .then(({ winners_count }) => setWinnersCount(winners_count))
+      .catch((err) => console.error('Failed to load today\'s winners count:', err))
+  }, [])
+
   const handleSelectCard = async (cardName: string) => {
     setIsSubmitting(true)
     try {
@@ -71,6 +87,9 @@ function App() {
       if (result.is_correct) {
         recordWin(newGuessCount)
         setShowStats(true)
+        // Optimistic — this browser's own win just happened server-side, no
+        // need to round-trip and refetch the count for it to show up.
+        setWinnersCount((prev) => (prev === null ? prev : prev + 1))
       }
     } catch (err) {
       console.error('Guess failed:', err)
@@ -118,12 +137,14 @@ function App() {
             disabled={isSubmitting || isRestoring}
           />
         )}
+        <TodayWinnersCount count={winnersCount} />
         <div className="guesses-scroll">
           <StatsHeader />
           {guesses.map((guess) => (
             <CardDisplay key={guess.id} cardName={guess.cardName} comparisons={guess.result.comparisons} />
           ))}
         </div>
+        <PreviousAnswerFooter cardName={previousAnswer} />
       </div>
     </>
   )

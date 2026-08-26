@@ -1,0 +1,7 @@
+.previous-answer-footer {
+  width: 100%;
+  text-align: center;
+  color: var(--accent-dark);
+  font-size: 13px;
+  opacity: 0.75;
+}
