@@ -22,7 +22,8 @@
   color: var(--header);
   text-align: center;
   text-shadow: var(--text-shad);
-  border-bottom: 2px solid var(--border);
+  border-bottom: 3px solid var(--bg);
+  box-shadow: var(--cell-bottom-shadow);
 }
 
 /* Matches the compact breakpoint in CardDisplay.css so the header stays

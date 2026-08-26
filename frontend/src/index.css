@@ -18,13 +18,14 @@
      own transparency, on the buttons/modals/stat boxes that use this. */
   --code-bg: #ffffff00;
   --accent: #c084fc;
-  --accent-dark: #670fbe;
+  --accent-dark: #5f0580;
   --accent-bg: rgba(192, 132, 252, 0.15);
   --accent-border: rgba(192, 132, 252, 0.5);
   --social-bg: rgba(47, 48, 58, 0.5);
   --shadow:
     rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
   --text-shad: 0 1px 3px rgb(215, 215, 215);
+  --cell-bottom-shadow: 0px 1px 0px 0px rgba(88, 41, 41, 0.5);
 
   --sans: 'You Blockhead', sans-serif;
   --heading: 'You Blockhead', sans-serif;
