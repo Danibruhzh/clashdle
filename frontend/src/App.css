@@ -27,6 +27,7 @@
      before the toolbar existed */
   margin: 10px 10px 10px;
   font-family: 'You Blockhead';
+  text-shadow: var(--text-shad);
 }
 
 .guesses-scroll {

@@ -4,4 +4,5 @@
   color: var(--accent-dark);
   font-size: 13px;
   opacity: 0.75;
+  text-shadow: var(--text-shad);
 }

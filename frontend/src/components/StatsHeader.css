@@ -21,6 +21,7 @@
   font-weight: 600;
   color: var(--header);
   text-align: center;
+  text-shadow: var(--text-shad);
   border-bottom: 2px solid var(--border);
 }
 

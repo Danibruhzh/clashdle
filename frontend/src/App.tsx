@@ -134,7 +134,8 @@ function App() {
             key={resetCount}
             onSelectCard={handleSelectCard}
             guessedNames={guessedNames}
-            disabled={isSubmitting || isRestoring}
+            disabled={isSubmitting}
+            loading={isRestoring}
           />
         )}
         <TodayWinnersCount count={winnersCount} />
