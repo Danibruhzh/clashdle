@@ -4,7 +4,6 @@ import SearchBar from './components/SearchBar'
 import CardDisplay from './components/CardDisplay'
 import StatsHeader from './components/StatsHeader'
 import ResetButton from './components/ResetButton'
-import WinPopup from './components/WinPopup'
 import CardBrowserButton from './components/CardBrowserButton'
 import CardBrowser from './components/CardBrowser'
 import StatsButton from './components/StatsButton'
@@ -71,6 +70,7 @@ function App() {
       setGuesses((prev) => [{ id: nextId.current++, cardName, result }, ...prev])
       if (result.is_correct) {
         recordWin(newGuessCount)
+        setShowStats(true)
       }
     } catch (err) {
       console.error('Guess failed:', err)
@@ -100,8 +100,7 @@ function App() {
     <>
       <Background />
       {showCardBrowser && <CardBrowser onClose={() => setShowCardBrowser(false)} />}
-      {showStats && <StatsPanel onClose={() => setShowStats(false)} />}
-      {hasWon && <WinPopup guessCount={guesses.length} />}
+      {showStats && <StatsPanel onClose={() => setShowStats(false)} guessCount={hasWon ? guesses.length : undefined} />}
       <div className="app-content">
         <div className="app-toolbar">
           <div className="app-toolbar-group">

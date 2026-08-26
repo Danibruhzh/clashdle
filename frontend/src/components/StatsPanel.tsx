@@ -3,9 +3,13 @@ import './StatsPanel.css'
 
 interface StatsPanelProps {
   onClose: () => void
+  // Set whenever today's game is already won — shows the win message above
+  // the histogram, whether the panel just auto-opened from that win or was
+  // reopened manually afterward.
+  guessCount?: number
 }
 
-function StatsPanel({ onClose }: StatsPanelProps) {
+function StatsPanel({ onClose, guessCount }: StatsPanelProps) {
   const histogram = getHistogram()
   const entries = Object.entries(histogram)
     .map(([guesses, count]) => ({ guesses: Number(guesses), count }))
@@ -23,6 +27,11 @@ function StatsPanel({ onClose }: StatsPanelProps) {
             ✕
           </button>
         </div>
+        {guessCount !== undefined && (
+          <p className="stats-panel-win-message">
+            You guessed the card correctly in {guessCount} guess{guessCount === 1 ? '' : 'es'}!
+          </p>
+        )}
         {entries.length === 0 ? (
           <p className="stats-panel-empty">No completed games yet — win your first one to start your stats!</p>
         ) : (

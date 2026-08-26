@@ -8,7 +8,7 @@
      --text: stat values/sublabels inside the colored comparison boxes —
      always white, same reasoning.
      --text-h: text on the app's (now permanently dark) UI surfaces —
-     buttons, modals, search bar, WinPopup. */
+     buttons, modals, search bar. */
   --header: #08060d;
   --text: #fff;
   --text-h: #f3f4f6;
