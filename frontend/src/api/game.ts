@@ -81,16 +81,3 @@ export async function fetchTodayWinners(): Promise<TodayWinners> {
 
   return response.json()
 }
-
-// Dev-only for now, wired to the Reset button — see routers/game.py's
-// reset_today for what this previews.
-export async function resetTodayGuesses(): Promise<void> {
-  const response = await fetch(`${API_BASE_URL}/game/today`, {
-    method: 'DELETE',
-    credentials: 'include',
-  })
-
-  if (!response.ok) {
-    throw new Error(`Failed to reset today's guesses (${response.status})`)
-  }
-}

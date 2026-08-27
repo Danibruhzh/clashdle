@@ -1,5 +1,5 @@
 import { cards } from '../data/cards'
-import { statCategory } from '../utils/compareStats'
+import { statCategory } from '../utils/statCategory'
 import type { StatComparison } from '../api/game'
 import { getCardImagePath } from '../utils/cardImage'
 import upArrow from '../images/up-arrow.png'

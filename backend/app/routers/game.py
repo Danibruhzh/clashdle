@@ -135,23 +135,3 @@ def previous_answer(db: Session = Depends(get_db)):
         .first()
     )
     return PreviousAnswerResponse(card_name=daily_answer.card.name if daily_answer else None)
-
-
-@router.delete("/today", status_code=204)
-def reset_today(request: Request, db: Session = Depends(get_db)):
-    """Dev-only for now, wired to the Reset button. Previews what the
-    automatic midnight reset will eventually do for every player: clears
-    this session's guesses against today's still-current secret card,
-    without changing what that secret is — a real day change is what
-    actually rotates the secret, not this."""
-    guest_session_id = request.cookies.get(GUEST_SESSION_COOKIE)
-    if not guest_session_id:
-        return
-
-    daily_answer = get_or_create_daily_answer(db, date.today())
-
-    db.query(Guess).filter(
-        Guess.daily_answer_id == daily_answer.id,
-        Guess.guest_session_id == guest_session_id,
-    ).delete()
-    db.commit()

@@ -7,6 +7,16 @@
   align-items: center;
   justify-content: center;
   padding: 24px;
+  animation: stats-panel-backdrop-fade-in 0.5s ease-out;
+}
+
+@keyframes stats-panel-backdrop-fade-in {
+  from {
+    background: rgba(0, 0, 0, 0);
+  }
+  to {
+    background: rgba(0, 0, 0, 0.6);
+  }
 }
 
 .stats-panel {
@@ -21,6 +31,18 @@
   box-shadow: var(--shadow);
   box-sizing: border-box;
   text-align: left;
+  animation: stats-panel-float-up 0.5s ease-out;
+}
+
+@keyframes stats-panel-float-up {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .stats-panel-header {
