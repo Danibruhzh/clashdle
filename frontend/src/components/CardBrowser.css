@@ -7,6 +7,16 @@
   align-items: center;
   justify-content: center;
   padding: 24px;
+  animation: card-browser-backdrop-fade-in 0.5s ease-out;
+}
+
+@keyframes card-browser-backdrop-fade-in {
+  from {
+    background: rgba(0, 0, 0, 0);
+  }
+  to {
+    background: rgba(0, 0, 0, 0.6);
+  }
 }
 
 .card-browser-panel {
@@ -14,6 +24,7 @@
   max-width: 1200px;
   max-height: 90vh;
   overflow-y: auto;
+  animation: card-browser-panel-float-up 0.5s ease-out;
   /* Explicit, not left to default: setting only overflow-y otherwise makes
      the browser silently treat overflow-x as auto too (per the CSS
      Overflow spec), which lets the grid's occasional few-px rounding
@@ -27,6 +38,17 @@
   padding: 16px;
   box-shadow: var(--shadow);
   box-sizing: border-box;
+}
+
+@keyframes card-browser-panel-float-up {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .card-browser-header {

@@ -1,15 +1,43 @@
 .stats-button {
-  padding: 8px 16px;
-  font-family: inherit;
-  font-size: 14px;
-  border-radius: 8px;
-  border: 2px solid var(--border);
-  background: var(--bg);
-  color: var(--text-h);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  background: transparent;
   cursor: pointer;
-  transition: border-color 0.3s;
 }
 
-.stats-button:hover {
-  border-color: var(--accent);
+.stats-button-icon {
+  display: block;
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.stats-button-tooltip {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: var(--bg);
+  border: 2px solid var(--border);
+  color: var(--text-h);
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease-out;
+  z-index: 1;
+}
+
+/* Hover-capable devices only — matches CardBrowser's hover/tap split
+   elsewhere in the app (computers have cursors, phones don't). */
+@media (hover: hover) {
+  .stats-button:hover .stats-button-tooltip {
+    opacity: 1;
+  }
 }
