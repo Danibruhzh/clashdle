@@ -20,6 +20,11 @@ import './App.css'
 // panel before then would visibly cut the winning row's flip animation off.
 const FLIP_ANIMATION_TOTAL_MS = 1800
 
+// Hidden for now — numbers are still low enough that showing them undersells
+// the game. Flip back to true once there's a healthier player count. Fetch
+// still runs underneath so the count stays accurate whenever this flips.
+const SHOW_WINNERS_COUNT = false
+
 interface Guess {
   id: number
   cardName: string
@@ -128,7 +133,7 @@ function App() {
             loading={isRestoring}
           />
         )}
-        <TodayWinnersCount count={winnersCount} />
+        {SHOW_WINNERS_COUNT && <TodayWinnersCount count={winnersCount} />}
         <div className="guesses-scroll">
           <StatsHeader />
           {guesses.map((guess) => (
