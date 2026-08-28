@@ -1995,7 +1995,7 @@
     "Rarity": "Legendary",
     "Target": "Air & Ground",
     "Hitpoints": "529",
-    "Damage": "133",
+    "Damage": "135",
     "Damage Per Second": "120",
     "Special Damage": {
       "Triple Shot Damage": "48"
@@ -2042,7 +2042,7 @@
     "Type": "Troop",
     "Rarity": "Rare",
     "Target": "Air & Ground",
-    "Hitpoints": "832",
+    "Hitpoints": "755",
     "Damage": "281",
     "Damage Per Second": "200",
     "Special Damage": {

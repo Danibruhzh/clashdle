@@ -1,6 +1,7 @@
 import random
 from datetime import date
 from sqlalchemy import func
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session, joinedload
 
 from app.models.card import Card
@@ -40,5 +41,20 @@ def get_or_create_daily_answer(db: Session, today: date) -> DailyAnswer:
     db.delete(chosen_entry)
     new_answer = DailyAnswer(date=today, card_id=chosen_card_id)
     db.add(new_answer)
-    db.commit()
+    try:
+        db.commit()
+    except IntegrityError:
+        # Someone else's request for this same date won the race and
+        # committed first — daily_answers.date is unique, so ours just
+        # failed instead of creating a duplicate. Not an error from the
+        # caller's point of view: their request just arrived a moment too
+        # late to be the one that creates the row, and the actual row is
+        # already sitting there for us to return like `existing` above.
+        db.rollback()
+        return (
+            db.query(DailyAnswer)
+            .options(joinedload(DailyAnswer.card))
+            .filter(DailyAnswer.date == today)
+            .one()
+        )
     return new_answer
