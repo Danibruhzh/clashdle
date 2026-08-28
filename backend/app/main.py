@@ -16,6 +16,8 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:5173",
         "https://clashdle-navy.vercel.app",
+        "https://clashdle.app",
+        "https://www.clashdle.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
