@@ -80,6 +80,30 @@
   background: var(--code-bg);
 }
 
+.card-browser-controls {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+.card-browser-sort {
+  padding: 6px 10px;
+  font-family: inherit;
+  font-size: 13px;
+  border-radius: 6px;
+  border: 2px solid var(--border);
+  background: var(--bg);
+  color: var(--text-h);
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.card-browser-sort:hover,
+.card-browser-sort:focus {
+  border-color: var(--accent);
+}
+
 .card-browser-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(46.2px, 1fr));

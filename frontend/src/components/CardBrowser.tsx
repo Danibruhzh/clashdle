@@ -1,6 +1,8 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { cardNames } from '../data/cards'
 import { getCardImagePath } from '../utils/cardImage'
+import { SORT_OPTIONS, sortCardNames } from '../utils/cardSort'
+import type { SortOption } from '../utils/cardSort'
 import './CardBrowser.css'
 
 interface CardBrowserProps {
@@ -16,10 +18,13 @@ function CardBrowser({ onClose }: CardBrowserProps) {
   // the same card again clears it; tapping a different card switches to it,
   // so at most one name is pinned open at a time.
   const [tappedCard, setTappedCard] = useState<string | null>(null)
+  const [sortOption, setSortOption] = useState<SortOption>('name-asc')
 
   const handleCardTap = (name: string) => {
     setTappedCard((prev) => (prev === name ? null : name))
   }
+
+  const sortedNames = useMemo(() => sortCardNames(cardNames, sortOption), [sortOption])
 
   return (
     <div className="card-browser-backdrop" onClick={onClose}>
@@ -30,8 +35,22 @@ function CardBrowser({ onClose }: CardBrowserProps) {
             ✕
           </button>
         </div>
+        <div className="card-browser-controls">
+          <select
+            className="card-browser-sort"
+            value={sortOption}
+            onChange={(e) => setSortOption(e.target.value as SortOption)}
+            aria-label="Sort cards by"
+          >
+            {SORT_OPTIONS.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </div>
         <div className="card-browser-grid">
-          {cardNames.map((name) => (
+          {sortedNames.map((name) => (
             <div
               className={`card-browser-item${tappedCard === name ? ' card-browser-item--tapped' : ''}`}
               key={name}
