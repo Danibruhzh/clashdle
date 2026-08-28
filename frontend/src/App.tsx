@@ -60,6 +60,12 @@ function App() {
           }))
           .reverse()
         setGuesses(restored)
+        // Already won today, before this reload — reopen the stats panel
+        // the same way a live win does, once the restored rows' flip
+        // animations (which replay on every mount, restored or not) finish.
+        if (restored.some((g) => g.result.is_correct)) {
+          window.setTimeout(() => setShowStats(true), FLIP_ANIMATION_TOTAL_MS)
+        }
       })
       .catch((err) => console.error('Failed to restore past guesses:', err))
       .finally(() => {
