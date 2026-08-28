@@ -5,20 +5,27 @@ so anything reachable over HTTP that can delete data is reachable by anyone
 who finds it. This only runs when you run it, against whatever DB
 SessionLocal / DATABASE_URL points at.
 
+Players are now on whatever date their own timezone reports (see
+core/time.py's get_client_today), not one shared server date — so "today"
+below just means the fallback timezone's date. Pass --date explicitly if
+you're targeting a specific player's card and it might be a different date
+where they are.
+
 Usage (from backend/, with .venv active):
-    python scripts/reset_guesses.py                             # today, all players
+    python scripts/reset_guesses.py                             # today (fallback tz), all players
     python scripts/reset_guesses.py --date 2026-08-25            # a specific date, all players
     python scripts/reset_guesses.py --guest-session-id <uuid>    # today, one player only
     python scripts/reset_guesses.py --date 2026-08-25 --yes      # skip the confirmation prompt
 """
 import argparse
 import sys
-from datetime import date, datetime
+from datetime import datetime
 from pathlib import Path
 
 # allow `from app...` imports when this file is run directly as a script
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+from app.core.time import default_today
 from app.db.session import SessionLocal
 from app.models.daily_answer import DailyAnswer
 from app.models.guess import Guess
@@ -42,7 +49,7 @@ def parse_args():
 def main():
     args = parse_args()
     target_date = (
-        datetime.strptime(args.date, "%Y-%m-%d").date() if args.date else date.today()
+        datetime.strptime(args.date, "%Y-%m-%d").date() if args.date else default_today()
     )
 
     db = SessionLocal()

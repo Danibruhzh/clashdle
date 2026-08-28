@@ -4,6 +4,7 @@ from datetime import date, timedelta
 from fastapi import APIRouter, Depends, HTTPException, Request, Response
 from sqlalchemy.orm import Session, joinedload
 
+from app.core.time import get_client_today
 from app.db.session import get_db
 from app.models.card import Card
 from app.models.daily_answer import DailyAnswer
@@ -26,7 +27,13 @@ GUEST_SESSION_MAX_AGE = 60 * 60 * 24 * 400  # ~400 days; browsers cap cookie lif
 
 
 @router.post("/guess", response_model=GuessResponse)
-def guess(payload: GuessRequest, request: Request, response: Response, db: Session = Depends(get_db)):
+def guess(
+    payload: GuessRequest,
+    request: Request,
+    response: Response,
+    db: Session = Depends(get_db),
+    today: date = Depends(get_client_today),
+):
     # Identify this browser without requiring login. The cookie is set once
     # on the player's first-ever guess and reused after that; it's how a
     # Guess row gets attributed to "this device" without a users row.
@@ -46,7 +53,7 @@ def guess(payload: GuessRequest, request: Request, response: Response, db: Sessi
     if guessed_card is None:
         raise HTTPException(status_code=404, detail=f"No card named '{payload.guess_name}'")
 
-    daily_answer = get_or_create_daily_answer(db, date.today())
+    daily_answer = get_or_create_daily_answer(db, today)
     secret_card = daily_answer.card
 
     comparisons = compare_cards(secret_card, guessed_card)
@@ -66,7 +73,9 @@ def guess(payload: GuessRequest, request: Request, response: Response, db: Sessi
 
 
 @router.get("/today", response_model=TodayGuessesResponse)
-def today_guesses(request: Request, db: Session = Depends(get_db)):
+def today_guesses(
+    request: Request, db: Session = Depends(get_db), today: date = Depends(get_client_today)
+):
     """Replays this browser's guesses for today's answer, so a page refresh
     doesn't lose progress. Comparisons aren't stored on the Guess row — they're
     just recomputed here the same way /guess computed them originally, since
@@ -77,7 +86,7 @@ def today_guesses(request: Request, db: Session = Depends(get_db)):
         # nothing worth creating a cookie or touching the DB for yet.
         return TodayGuessesResponse(guesses=[])
 
-    daily_answer = get_or_create_daily_answer(db, date.today())
+    daily_answer = get_or_create_daily_answer(db, today)
     secret_card = daily_answer.card
 
     past_guesses = (
@@ -104,12 +113,16 @@ def today_guesses(request: Request, db: Session = Depends(get_db)):
 
 
 @router.get("/today/winners", response_model=TodayWinnersResponse)
-def today_winners(db: Session = Depends(get_db)):
+def today_winners(db: Session = Depends(get_db), today: date = Depends(get_client_today)):
     """How many distinct guest sessions have correctly guessed today's secret
     card so far — public, not tied to this browser's own cookie. Counts
     distinct guest_session_id rather than distinct Guess rows so someone who
-    somehow submits the correct guess more than once still only counts once."""
-    daily_answer = get_or_create_daily_answer(db, date.today())
+    somehow submits the correct guess more than once still only counts once.
+    "Today" is this requesting client's own timezone (see core/time.py), so
+    this is specifically "winners of the card you're playing", not a single
+    worldwide count — players in other timezones may be on a different card
+    entirely right now."""
+    daily_answer = get_or_create_daily_answer(db, today)
 
     winners_count = (
         db.query(Guess.guest_session_id)
@@ -122,12 +135,12 @@ def today_winners(db: Session = Depends(get_db)):
 
 
 @router.get("/previous-answer", response_model=PreviousAnswerResponse)
-def previous_answer(db: Session = Depends(get_db)):
+def previous_answer(db: Session = Depends(get_db), today: date = Depends(get_client_today)):
     """Yesterday's secret card, for the small footer line. Looked up directly
     rather than via get_or_create_daily_answer — a missing row here just means
     nothing to show, not something to generate (unlike today's answer, which
     the game needs to exist)."""
-    yesterday = date.today() - timedelta(days=1)
+    yesterday = today - timedelta(days=1)
     daily_answer = (
         db.query(DailyAnswer)
         .options(joinedload(DailyAnswer.card))
