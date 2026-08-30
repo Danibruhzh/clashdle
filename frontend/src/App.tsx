@@ -12,7 +12,7 @@ import TodayWinnersCount from './components/TodayWinnersCount'
 import { submitGuess, fetchTodayGuesses, fetchPreviousAnswer, fetchTodayWinners } from './api/game'
 import type { GuessResult } from './api/game'
 import { recordWin } from './utils/guessHistogram'
-import { playSound } from './utils/sound'
+import { playSound, preloadSounds } from './utils/sound'
 import './App.css'
 
 // Matches CardDisplay.css's flip-in animation: 9 cells (name + 8 stats),
@@ -41,6 +41,14 @@ function App() {
   const [previousAnswer, setPreviousAnswer] = useState<string | null>(null)
   const [winnersCount, setWinnersCount] = useState<number | null>(null)
   const nextId = useRef(0)
+
+  // Start fetching the sound files immediately instead of waiting for the
+  // first hover/flip/win to trigger it — otherwise that first play has to
+  // queue behind everything else the page is loading at once (card images,
+  // fonts, etc.), which is what made sounds feel laggy right after a load.
+  useEffect(() => {
+    preloadSounds()
+  }, [])
 
   // Refresh-proof guesses: on load, replay whatever this browser already
   // guessed today (tracked server-side via the guest-session cookie) before
