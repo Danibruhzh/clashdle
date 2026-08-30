@@ -30,13 +30,6 @@ interface Guess {
   id: number
   cardName: string
   result: GuessResult
-  // Restored rows all mount at once on page load, so their flip animations
-  // — and per-box sounds — would otherwise all fire simultaneously across
-  // every row, layering into a jumbled mess instead of one row's worth of
-  // staggered flips. CardDisplay uses this to mute its own per-box sound on
-  // restored rows; the restore effect below plays one flip sound instead,
-  // just to mark that something loaded.
-  isRestored: boolean
 }
 
 function App() {
@@ -65,16 +58,9 @@ function App() {
             id: nextId.current++,
             cardName: g.card_name,
             result: { comparisons: g.comparisons, is_correct: g.is_correct },
-            isRestored: true,
           }))
           .reverse()
         setGuesses(restored)
-        if (restored.length > 0) {
-          // One sound for the whole restored batch instead of each row's
-          // per-box sounds all firing in parallel — see the Guess interface
-          // comment on isRestored above.
-          playSound('/flip%20sound.mp3')
-        }
         // Already won today, before this reload — reopen the stats panel
         // the same way a live win does, once the restored rows' flip
         // animations (which replay on every mount, restored or not) finish.
@@ -113,7 +99,7 @@ function App() {
       // double-invoking a setState updater, since this runs once as a
       // plain side effect rather than inside setGuesses itself.
       const newGuessCount = guesses.length + 1
-      setGuesses((prev) => [{ id: nextId.current++, cardName, result, isRestored: false }, ...prev])
+      setGuesses((prev) => [{ id: nextId.current++, cardName, result }, ...prev])
       if (result.is_correct) {
         recordWin(newGuessCount)
         // Let the winning row's flip animation finish before the stats
@@ -162,12 +148,7 @@ function App() {
         <div className="guesses-scroll">
           <StatsHeader />
           {guesses.map((guess) => (
-            <CardDisplay
-              key={guess.id}
-              cardName={guess.cardName}
-              comparisons={guess.result.comparisons}
-              playFlipSounds={!guess.isRestored}
-            />
+            <CardDisplay key={guess.id} cardName={guess.cardName} comparisons={guess.result.comparisons} />
           ))}
         </div>
         <PreviousAnswerFooter cardName={previousAnswer} />

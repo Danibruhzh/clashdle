@@ -18,10 +18,6 @@ function playFlipSound() {
 interface CardDisplayProps {
   cardName: string
   comparisons: Record<string, StatComparison>
-  // False for rows restored in a batch on page load — App.tsx plays one
-  // flip sound for the whole batch instead, so every row's per-box sounds
-  // don't all fire at once. Defaults to true for a normal live guess.
-  playFlipSounds?: boolean
 }
 
 function arrowStyle(comparison: StatComparison | undefined) {
@@ -45,14 +41,12 @@ function renderStatValue(value: string) {
   )
 }
 
-function CardDisplay({ cardName, comparisons, playFlipSounds = true }: CardDisplayProps) {
+function CardDisplay({ cardName, comparisons }: CardDisplayProps) {
   const stats = cards[cardName]
 
   if (!stats) {
     return <div className="card-display">No card found for "{cardName}"</div>
   }
-
-  const handleFlip = playFlipSounds ? playFlipSound : undefined
 
   return (
     <div className="card-display">
@@ -60,7 +54,7 @@ function CardDisplay({ cardName, comparisons, playFlipSounds = true }: CardDispl
         <div
           className="card-display-stat card-display-name"
           style={{ animationDelay: '0s' }}
-          onAnimationStart={handleFlip}
+          onAnimationStart={playFlipSound}
         >
           <img className="card-image" src={getCardImagePath(cardName)} alt={cardName} />
           <span className="card-display-name-overlay">{cardName}</span>
@@ -75,7 +69,7 @@ function CardDisplay({ cardName, comparisons, playFlipSounds = true }: CardDispl
 
             if (typeof value === 'string') {
               return (
-                <div className={className} key={stat} style={style} onAnimationStart={handleFlip}>
+                <div className={className} key={stat} style={style} onAnimationStart={playFlipSound}>
                   <span className="card-display-stat-value">{renderStatValue(value)}</span>
                 </div>
               )
@@ -83,7 +77,7 @@ function CardDisplay({ cardName, comparisons, playFlipSounds = true }: CardDispl
 
             const [subLabel, subValue] = Object.entries(value)[0]
             return (
-              <div className={className} key={stat} style={style} onAnimationStart={handleFlip}>
+              <div className={className} key={stat} style={style} onAnimationStart={playFlipSound}>
                 <span className="card-display-stat-sublabel">{subLabel}</span>
                 <span className="card-display-stat-value">{renderStatValue(subValue)}</span>
               </div>
