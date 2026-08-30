@@ -3,6 +3,7 @@ import { cardNames } from '../data/cards'
 import { getCardImagePath } from '../utils/cardImage'
 import { SORT_OPTIONS, sortCardNames } from '../utils/cardSort'
 import type { SortOption } from '../utils/cardSort'
+import { playSound } from '../utils/sound'
 import './CardBrowser.css'
 
 interface CardBrowserProps {
@@ -13,6 +14,18 @@ function displayName(name: string): string {
   return name.replace('Evolution', 'Evo')
 }
 
+// Same hover-capability check CardBrowser.css already splits behavior on
+// (computers have cursors, phones don't) — used here to decide whether a
+// card's sound plays on mouse-enter (desktop) or on tap (touch), not both,
+// so a desktop click right after a hover doesn't double it up.
+function isHoverCapable(): boolean {
+  return window.matchMedia('(hover: hover)').matches
+}
+
+function playCardSound() {
+  playSound('/grabcard.mp3')
+}
+
 function CardBrowser({ onClose }: CardBrowserProps) {
   // Only affects touch devices (hover: none) — see CardBrowser.css. Tapping
   // the same card again clears it; tapping a different card switches to it,
@@ -21,6 +34,10 @@ function CardBrowser({ onClose }: CardBrowserProps) {
   const [sortOption, setSortOption] = useState<SortOption>('name-asc')
 
   const handleCardTap = (name: string) => {
+    // Touch devices have no hover to play the sound on, so the tap itself
+    // does it instead. Desktop already gets it from onMouseEnter below —
+    // skip it here so a click right after a hover doesn't play it twice.
+    if (!isHoverCapable()) playCardSound()
     setTappedCard((prev) => (prev === name ? null : name))
   }
 
@@ -55,6 +72,9 @@ function CardBrowser({ onClose }: CardBrowserProps) {
               className={`card-browser-item${tappedCard === name ? ' card-browser-item--tapped' : ''}`}
               key={name}
               onClick={() => handleCardTap(name)}
+              onMouseEnter={() => {
+                if (isHoverCapable()) playCardSound()
+              }}
             >
               <img className="card-browser-image" src={getCardImagePath(name)} alt={name}/>
               <div className="card-browser-image-dim" />

@@ -1996,7 +1996,7 @@
     "Target": "Air & Ground",
     "Hitpoints": "529",
     "Damage": "135",
-    "Damage Per Second": "120",
+    "Damage Per Second": "123",
     "Special Damage": {
       "Triple Shot Damage": "48"
     }
