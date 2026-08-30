@@ -5,20 +5,9 @@
 export function playSound(path: string): void {
   new Audio(path).play().catch(() => {
     // Browsers require a real user gesture (click/tap/keypress) before any
-    // audio can play at all — hovering doesn't count, so the very first
-    // sound after a fresh page load (e.g. hovering a card before clicking
-    // anything) gets silently blocked. Rather than losing it, queue it to
-    // fire on the next real interaction instead.
-    queueForNextInteraction(path)
+    // audio can play at all — hovering doesn't count, so sounds triggered
+    // before the page's first interaction are silently blocked. Once one
+    // real interaction happens anywhere on the page, this stops failing on
+    // its own; nothing to recover here.
   })
-}
-
-function queueForNextInteraction(path: string): void {
-  const playQueued = () => {
-    window.removeEventListener('pointerdown', playQueued)
-    window.removeEventListener('keydown', playQueued)
-    new Audio(path).play().catch(() => {})
-  }
-  window.addEventListener('pointerdown', playQueued, { once: true })
-  window.addEventListener('keydown', playQueued, { once: true })
 }
