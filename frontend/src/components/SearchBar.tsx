@@ -2,6 +2,7 @@ import { useState } from 'react'
 import type { KeyboardEvent } from 'react'
 import { cardNames } from '../data/cards'
 import { getCardImagePath } from '../utils/cardImage'
+import { playSound } from '../utils/sound'
 import './SearchBar.css'
 
 function normalize(value: string): string {
@@ -89,6 +90,7 @@ function SearchBar({ onSelectCard, guessedNames, disabled = false, loading = fal
                 e.preventDefault()
                 handleSelect(name)
               }}
+              onMouseEnter={() => playSound('/grabcard.mp3')}
             >
               <img className="search-bar-match-image" src={getCardImagePath(name)} alt="" />
               {name}

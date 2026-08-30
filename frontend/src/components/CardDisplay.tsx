@@ -55,6 +55,7 @@ function CardDisplay({ cardName, comparisons }: CardDisplayProps) {
           className="card-display-stat card-display-name"
           style={{ animationDelay: '0s' }}
           onAnimationStart={playFlipSound}
+          onMouseEnter={() => playSound('/grabcard.mp3')}
         >
           <img className="card-image" src={getCardImagePath(cardName)} alt={cardName} />
           <span className="card-display-name-overlay">{cardName}</span>
