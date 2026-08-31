@@ -18,6 +18,9 @@ function playFlipSound() {
 interface CardDisplayProps {
   cardName: string
   comparisons: Record<string, StatComparison>
+  // False for a row restored from a page reload — only a live, first-time
+  // guess should sound its flip. Defaults to true for a normal live guess.
+  playFlipSounds?: boolean
 }
 
 function arrowStyle(comparison: StatComparison | undefined) {
@@ -41,12 +44,14 @@ function renderStatValue(value: string) {
   )
 }
 
-function CardDisplay({ cardName, comparisons }: CardDisplayProps) {
+function CardDisplay({ cardName, comparisons, playFlipSounds = true }: CardDisplayProps) {
   const stats = cards[cardName]
 
   if (!stats) {
     return <div className="card-display">No card found for "{cardName}"</div>
   }
+
+  const handleFlip = playFlipSounds ? playFlipSound : undefined
 
   return (
     <div className="card-display">
@@ -54,7 +59,7 @@ function CardDisplay({ cardName, comparisons }: CardDisplayProps) {
         <div
           className="card-display-stat card-display-name"
           style={{ animationDelay: '0s' }}
-          onAnimationStart={playFlipSound}
+          onAnimationStart={handleFlip}
           onMouseEnter={() => playSound('/grabcard.mp3')}
         >
           <img className="card-image" src={getCardImagePath(cardName)} alt={cardName} />
@@ -70,7 +75,7 @@ function CardDisplay({ cardName, comparisons }: CardDisplayProps) {
 
             if (typeof value === 'string') {
               return (
-                <div className={className} key={stat} style={style} onAnimationStart={playFlipSound}>
+                <div className={className} key={stat} style={style} onAnimationStart={handleFlip}>
                   <span className="card-display-stat-value">{renderStatValue(value)}</span>
                 </div>
               )
@@ -78,7 +83,7 @@ function CardDisplay({ cardName, comparisons }: CardDisplayProps) {
 
             const [subLabel, subValue] = Object.entries(value)[0]
             return (
-              <div className={className} key={stat} style={style} onAnimationStart={playFlipSound}>
+              <div className={className} key={stat} style={style} onAnimationStart={handleFlip}>
                 <span className="card-display-stat-sublabel">{subLabel}</span>
                 <span className="card-display-stat-value">{renderStatValue(subValue)}</span>
               </div>

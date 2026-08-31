@@ -30,6 +30,9 @@ interface Guess {
   id: number
   cardName: string
   result: GuessResult
+  // True for a row loaded from a page reload rather than just guessed live
+  // — CardDisplay uses this to skip its flip sound for restored rows.
+  isRestored: boolean
 }
 
 function App() {
@@ -66,6 +69,7 @@ function App() {
             id: nextId.current++,
             cardName: g.card_name,
             result: { comparisons: g.comparisons, is_correct: g.is_correct },
+            isRestored: true,
           }))
           .reverse()
         setGuesses(restored)
@@ -107,7 +111,7 @@ function App() {
       // double-invoking a setState updater, since this runs once as a
       // plain side effect rather than inside setGuesses itself.
       const newGuessCount = guesses.length + 1
-      setGuesses((prev) => [{ id: nextId.current++, cardName, result }, ...prev])
+      setGuesses((prev) => [{ id: nextId.current++, cardName, result, isRestored: false }, ...prev])
       if (result.is_correct) {
         recordWin(newGuessCount)
         // Let the winning row's flip animation finish before the stats
@@ -156,7 +160,12 @@ function App() {
         <div className="guesses-scroll">
           <StatsHeader />
           {guesses.map((guess) => (
-            <CardDisplay key={guess.id} cardName={guess.cardName} comparisons={guess.result.comparisons} />
+            <CardDisplay
+              key={guess.id}
+              cardName={guess.cardName}
+              comparisons={guess.result.comparisons}
+              playFlipSounds={!guess.isRestored}
+            />
           ))}
         </div>
         <PreviousAnswerFooter cardName={previousAnswer} />
