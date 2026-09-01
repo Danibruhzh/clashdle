@@ -82,8 +82,79 @@
 
 .card-browser-controls {
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
   margin-bottom: 10px;
+}
+
+.card-browser-dropdowns {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.card-browser-easy-mode {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-h);
+  cursor: pointer;
+}
+
+.card-browser-toggle {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+/* The real checkbox stays in place (and keyboard/screen-reader accessible)
+   but invisible — .card-browser-toggle-track is the visible track/thumb,
+   styled purely off the checkbox's :checked state next to it. */
+.card-browser-toggle input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.card-browser-toggle-track {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: var(--code-bg);
+  border: 2px solid var(--border);
+  transition: background 0.2s, border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.card-browser-toggle-track::before {
+  content: '';
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--text-h);
+  transition: transform 0.2s;
+}
+
+.card-browser-toggle input:checked ~ .card-browser-toggle-track {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.card-browser-toggle input:checked ~ .card-browser-toggle-track::before {
+  transform: translateX(16px);
+  background: var(--bg);
 }
 
 .card-browser-sort {
@@ -102,6 +173,43 @@
 .card-browser-sort:hover,
 .card-browser-sort:focus {
   border-color: var(--accent);
+}
+
+.card-browser-sort option {
+  padding: 10px 12px;
+}
+
+.card-browser-sort-direction {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  font-size: 15px;
+  line-height: 1;
+  border-radius: 6px;
+  border: 2px solid var(--border);
+  background: var(--bg);
+  color: var(--text-h);
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.3s;
+  flex-shrink: 0;
+}
+
+.card-browser-sort-direction:hover,
+.card-browser-sort-direction:focus {
+  border-color: var(--accent);
+}
+
+.card-browser-category {
+  margin-bottom: 18px;
+}
+
+.card-browser-category-title {
+  margin: 0 0 8px;
+  padding-bottom: 4px;
+  font-size: 14px;
+  color: var(--text-h);
+  border-bottom: 2px solid var(--border);
 }
 
 .card-browser-grid {
