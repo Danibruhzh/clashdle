@@ -46,10 +46,9 @@ function CardBrowser({ onClose }: CardBrowserProps) {
     setTappedCard((prev) => (prev === name ? null : name))
   }
 
-  const sortedNames = useMemo(
-    () => sortCardNames(cardNames, sortField, sortDirection),
-    [sortField, sortDirection]
-  )
+  // Sort field/direction only matter in Easy Mode now — with it off there's
+  // no grouping to sort within, so the flat list is just fixed alphabetical.
+  const sortedNames = useMemo(() => sortCardNames(cardNames, 'name', 'asc'), [])
 
   // Easy Mode: same card list, split into visually separate categories along
   // one dimension (Elixir Cost/Type/Rarity/Target) — every card still lands
@@ -113,8 +112,8 @@ function CardBrowser({ onClose }: CardBrowserProps) {
               <span className="card-browser-toggle-track" />
             </span>
           </label>
-          <div className="card-browser-dropdowns">
-            {easyMode && (
+          {easyMode && (
+            <div className="card-browser-dropdowns">
               <select
                 className="card-browser-sort"
                 value={categoryDimension}
@@ -127,28 +126,28 @@ function CardBrowser({ onClose }: CardBrowserProps) {
                   </option>
                 ))}
               </select>
-            )}
-            <select
-              className="card-browser-sort"
-              value={sortField}
-              onChange={(e) => setSortField(e.target.value as SortField)}
-              aria-label="Sort cards by"
-            >
-              {SORT_FIELDS.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-            <button
-              type="button"
-              className="card-browser-sort-direction"
-              onClick={() => setSortDirection((prev) => (prev === 'asc' ? 'desc' : 'asc'))}
-              aria-label={sortDirection === 'asc' ? 'Ascending — click for descending' : 'Descending — click for ascending'}
-            >
-              {sortDirection === 'asc' ? '↑' : '↓'}
-            </button>
-          </div>
+              <select
+                className="card-browser-sort"
+                value={sortField}
+                onChange={(e) => setSortField(e.target.value as SortField)}
+                aria-label="Sort cards by"
+              >
+                {SORT_FIELDS.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+              <button
+                type="button"
+                className="card-browser-sort-direction"
+                onClick={() => setSortDirection((prev) => (prev === 'asc' ? 'desc' : 'asc'))}
+                aria-label={sortDirection === 'asc' ? 'Ascending — click for descending' : 'Descending — click for ascending'}
+              >
+                {sortDirection === 'asc' ? '↑' : '↓'}
+              </button>
+            </div>
+          )}
         </div>
         {easyMode ? (
           categories.map((category) => (
