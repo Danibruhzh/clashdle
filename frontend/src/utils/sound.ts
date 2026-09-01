@@ -7,16 +7,33 @@ const SOUND_PATHS = ['/grabcard.mp3', '/flip%20sound.mp3', '/win%20sound.mp3']
 const AudioContextClass: typeof AudioContext =
   window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext
 
+// Applied to every sound effect in the app.
+const MASTER_VOLUME = 0.5
+
 // One shared context for the whole app, created lazily (not at module load)
 // since constructing it before any user gesture just leaves it stuck
 // "suspended" regardless.
 let audioContext: AudioContext | null = null
+let masterGain: GainNode | null = null
 
 function getAudioContext(): AudioContext {
   if (!audioContext) {
     audioContext = new AudioContextClass()
   }
   return audioContext
+}
+
+// One shared GainNode every source routes through instead of straight to
+// destination — a single volume knob for every sound, rather than setting
+// it on each transient source node individually.
+function getMasterGain(): GainNode {
+  if (!masterGain) {
+    const ctx = getAudioContext()
+    masterGain = ctx.createGain()
+    masterGain.gain.value = MASTER_VOLUME
+    masterGain.connect(ctx.destination)
+  }
+  return masterGain
 }
 
 // Each file is fetched and decoded into a raw AudioBuffer exactly once —
@@ -70,7 +87,7 @@ export function playSound(path: string): void {
     .then((buffer) => {
       const source = ctx.createBufferSource()
       source.buffer = buffer
-      source.connect(ctx.destination)
+      source.connect(getMasterGain())
       source.start()
     })
     .catch(() => {

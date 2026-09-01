@@ -183,6 +183,10 @@
   width: 32px;
   height: 32px;
   padding: 0;
+  padding-bottom: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 15px;
   line-height: 1;
   border-radius: 6px;

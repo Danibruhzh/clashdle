@@ -62,7 +62,7 @@ function elixirCategories(names: string[]): Category[] {
       return Number(a) - Number(b)
     })
     .map(([cost, groupNames]) => ({
-      label: cost === MISSING_LABEL ? 'Unknown Cost' : `${cost} Elixir`,
+      label: cost === MISSING_LABEL ? 'N/A' : `${cost} Elixir`,
       names: groupNames,
     }))
 }
