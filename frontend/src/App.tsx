@@ -14,7 +14,7 @@ import PreviousAnswerFooter from './components/PreviousAnswerFooter'
 import TodayWinnersCount from './components/TodayWinnersCount'
 import { submitGuess, fetchTodayGuesses, fetchPreviousAnswer, fetchTodayWinners } from './api/game'
 import type { GuessResult } from './api/game'
-import { recordWin } from './utils/guessHistogram'
+import { recordWin, recordLoss } from './utils/guessHistogram'
 import { getStreak, recordStreakWin } from './utils/streak'
 import { playSound, preloadSounds } from './utils/sound'
 import './App.css'
@@ -146,7 +146,8 @@ function App() {
         setWinnersCount((prev) => (prev === null ? prev : prev + 1))
       } else if (result.reveal_answer) {
         // This guess used up the last try — same reveal, same delay, just
-        // no win sound/streak/histogram update.
+        // no win sound/streak, and a loss (not a win) recorded to stats.
+        recordLoss()
         setLossAnswer(result.reveal_answer)
         window.setTimeout(() => setShowStats(true), FLIP_ANIMATION_TOTAL_MS)
       }

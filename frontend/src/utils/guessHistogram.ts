@@ -1,8 +1,10 @@
 // Guest all-time stats: a histogram of "how many guesses it took to win",
-// stored client-side only (no backend, no dates — matches CLAUDE.md's guest
-// design). {4: 2} means "won in 4 guesses, twice, ever."
+// plus a running count of losses, stored client-side only (no backend, no
+// dates — matches CLAUDE.md's guest design). {4: 2} means "won in 4 guesses,
+// twice, ever."
 
 const HISTOGRAM_KEY = 'clashdle-guess-histogram'
+const LOSS_COUNT_KEY = 'clashdle-loss-count'
 
 export type Histogram = Record<number, number>
 
@@ -31,5 +33,27 @@ export function recordWin(guessCount: number): void {
   } catch {
     // Storage full, private-browsing restrictions, etc. — the histogram is
     // a nice-to-have and never worth breaking the game over.
+  }
+}
+
+function readLossCount(): number {
+  try {
+    const raw = localStorage.getItem(LOSS_COUNT_KEY)
+    const parsed = raw === null ? 0 : Number(raw)
+    return Number.isFinite(parsed) && parsed >= 0 ? parsed : 0
+  } catch {
+    return 0
+  }
+}
+
+export function getLossCount(): number {
+  return readLossCount()
+}
+
+export function recordLoss(): void {
+  try {
+    localStorage.setItem(LOSS_COUNT_KEY, String(readLossCount() + 1))
+  } catch {
+    // Same tradeoff as recordWin — never worth breaking the game over.
   }
 }

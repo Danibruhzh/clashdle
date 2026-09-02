@@ -1,5 +1,13 @@
-import { getHistogram } from '../utils/guessHistogram'
+import { getHistogram, getLossCount } from '../utils/guessHistogram'
 import './StatsPanel.css'
+
+// Mirrors backend/app/services/game.py's MAX_GUESSES (see also App.tsx's own
+// copy of this constant). The histogram is keyed by raw guess count, and a
+// handful of localStorage entries predate the guess cap entirely — someone
+// who played before it existed can have a stray {15: 1} in there. Clamping
+// the chart to 1..MAX_GUESSES hides those now-impossible entries instead of
+// stretching the chart to fit them.
+const MAX_GUESSES = 8
 
 interface StatsPanelProps {
   onClose: () => void
@@ -15,12 +23,17 @@ interface StatsPanelProps {
 
 function StatsPanel({ onClose, guessCount, lossAnswer }: StatsPanelProps) {
   const histogram = getHistogram()
-  const entries = Object.entries(histogram)
-    .map(([guesses, count]) => ({ guesses: Number(guesses), count }))
-    .sort((a, b) => a.guesses - b.guesses)
+  const lossCount = getLossCount()
 
-  const totalGames = entries.reduce((sum, e) => sum + e.count, 0)
-  const maxCount = Math.max(1, ...entries.map((e) => e.count))
+  const bars = Array.from({ length: MAX_GUESSES }, (_, i) => {
+    const guesses = i + 1
+    return { guesses, count: histogram[guesses] ?? 0 }
+  })
+
+  const totalWins = bars.reduce((sum, b) => sum + b.count, 0)
+  const gamesPlayed = totalWins + lossCount
+  const winRate = gamesPlayed === 0 ? null : Math.round((totalWins / gamesPlayed) * 100)
+  const maxCount = Math.max(1, ...bars.map((b) => b.count))
 
   return (
     <div className="stats-panel-backdrop" onClick={onClose}>
@@ -41,26 +54,29 @@ function StatsPanel({ onClose, guessCount, lossAnswer }: StatsPanelProps) {
             Out of guesses! Today's card was <strong>{lossAnswer}</strong>.
           </p>
         )}
-        {entries.length === 0 ? (
-          <p className="stats-panel-empty">No completed games yet — win your first one to start your stats!</p>
-        ) : (
-          <>
-            <p className="stats-panel-total">
-              {totalGames} game{totalGames === 1 ? '' : 's'} completed
-            </p>
-            <div className="stats-panel-rows">
-              {entries.map(({ guesses, count }) => (
-                <div className="stats-panel-row" key={guesses}>
-                  <span className="stats-panel-label">{guesses}</span>
-                  <div className="stats-panel-bar-track">
-                    <div className="stats-panel-bar" style={{ width: `${(count / maxCount) * 100}%` }} />
-                  </div>
-                  <span className="stats-panel-count">{count}</span>
-                </div>
-              ))}
+
+        <div className="stats-panel-summary">
+          <div className="stats-panel-summary-stat">
+            <span className="stats-panel-summary-value">{gamesPlayed}</span>
+            <span className="stats-panel-summary-label">Games Played</span>
+          </div>
+          <div className="stats-panel-summary-stat">
+            <span className="stats-panel-summary-value">{winRate === null ? '—' : `${winRate}%`}</span>
+            <span className="stats-panel-summary-label">Win Rate</span>
+          </div>
+        </div>
+
+        <div className="stats-panel-chart">
+          {bars.map(({ guesses, count }) => (
+            <div className="stats-panel-bar-col" key={guesses}>
+              <span className="stats-panel-bar-count">{count}</span>
+              <div className="stats-panel-bar-track">
+                <div className="stats-panel-bar" style={{ height: `${(count / maxCount) * 100}%` }} />
+              </div>
+              <span className="stats-panel-bar-label">{guesses}</span>
             </div>
-          </>
-        )}
+          ))}
+        </div>
       </div>
     </div>
   )
