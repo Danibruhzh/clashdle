@@ -8,14 +8,14 @@ interface HowToPlayModalProps {
 }
 
 const STAT_GLOSSARY = [
-  { name: 'Cost', description: 'How much Elixir it takes to play the card.' },
+  { name: 'Cost', description: 'The Elixir needed to play the card. If a card contains multiple entities (like Elixir Golem or Rascals), each entity keeps the same cost as the original card. For entities summoned by an ability, the cost is the ability\'s cost instead.' },
   { name: 'Type', description: 'Troop, Building, Spell, or Tower Troop.' },
   { name: 'Rarity', description: 'Common, Rare, Epic, Legendary, or Champion.' },
-  { name: 'Target', description: "What it's able to attack — Ground, Air & Ground, Buildings, or Friendly troops." },
-  { name: 'Hitpoints', description: 'How much damage it can take before dying.' },
-  { name: 'Damage', description: 'Damage dealt per hit.' },
+  { name: 'Target', description: "Ground, Air & Ground, Buildings, or Friendly." },
+  { name: 'Hitpoints', description: 'How much damage it can take before dying. This always refers to Max Hitpoints.' },
+  { name: 'Damage', description: 'Damage dealt per hit, assuming it\'s attacking a single target.' },
   { name: 'Damage Per Second', description: 'Damage output per second, accounting for attack speed.' },
-  { name: 'Special Damage', description: 'Extra effects some cards have, like Death Damage or Charge Damage.' },
+  { name: 'Special Damage', description: 'Any extra damage effects a card has, like Death Damage or Charge Damage.' },
 ]
 
 // A real example — guessing Knight when the secret card is Archers — using
@@ -57,27 +57,10 @@ function HowToPlayModal({ onClose }: HowToPlayModalProps) {
         </div>
 
         <p className="how-to-play-intro">
-          Guess today's secret Clash Royale card. Each guess compares it against the answer
-          across 8 stats.
+          Guess today's secret character from Supercell's "Clash Royale".
+          <br/>
+          Each guess compares it against the answer across 8 stats.
         </p>
-
-        <div className="how-to-play-legend">
-          <div className="how-to-play-legend-box how-to-play-legend-box--match">
-            <span className="how-to-play-legend-label">Cost</span>
-            <span className="how-to-play-legend-value">4</span>
-          </div>
-          <div
-            className="how-to-play-legend-box how-to-play-legend-box--higher"
-            style={{ backgroundImage: `url(${upArrow})` }}
-          >
-            <span className="how-to-play-legend-label">Hitpoints</span>
-            <span className="how-to-play-legend-value">1200</span>
-          </div>
-          <div className="how-to-play-legend-box how-to-play-legend-box--mismatch">
-            <span className="how-to-play-legend-label">Type</span>
-            <span className="how-to-play-legend-value">Spell</span>
-          </div>
-        </div>
 
         <div className="how-to-play-legend-rules">
           <div className="how-to-play-legend-rule">
@@ -104,8 +87,10 @@ function HowToPlayModal({ onClose }: HowToPlayModalProps) {
           </div>
         </div>
         <p className="how-to-play-legend-note">
-          Arrows only show up on number stats — Cost, Hitpoints, Damage, Damage Per Second,
-          Special Damage, and Rarity. Type and Target are always just a match or not.
+          Arrows only show up on number stats (Cost, Hitpoints, Damage, Damage Per Second,
+          Special Damage, and Rarity). 
+          <br/>
+          Type and Target are always just a match or not.
         </p>
 
         <h3 className="how-to-play-section-title">What Each Stat Means</h3>
@@ -120,7 +105,6 @@ function HowToPlayModal({ onClose }: HowToPlayModalProps) {
 
         <ul className="how-to-play-rules">
           <li>A new card every day, at your own local midnight.</li>
-          <li>Can't guess the same card twice.</li>
         </ul>
 
         <div className="how-to-play-divider" />
@@ -154,7 +138,7 @@ function HowToPlayModal({ onClose }: HowToPlayModalProps) {
         </div>
 
         <p className="how-to-play-example-intro">
-          In this example, the secret card was actually <strong>Archers</strong> — here's what
+          In this example, the secret card was actually <strong>Archers</strong>. Here's what
           it looks like once you guess it correctly:
         </p>
         <div className="how-to-play-example-card">
@@ -171,11 +155,6 @@ function HowToPlayModal({ onClose }: HowToPlayModalProps) {
             </div>
           ))}
         </div>
-
-        <p className="how-to-play-example-summary">
-          Cost, Type, Rarity, and Special Damage all matched — you're close! Target didn't
-          match, and Archers has less Hitpoints, Damage, and Damage Per Second than Knight.
-        </p>
       </div>
     </div>
   )

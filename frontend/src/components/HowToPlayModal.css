@@ -75,7 +75,7 @@
 .how-to-play-intro {
   color: var(--text-h);
   font-size: 14px;
-  line-height: 1.4;
+  line-height: 1.7;
   margin: 0 0 16px;
 }
 
@@ -162,7 +162,7 @@
 .how-to-play-legend-note {
   color: var(--text-h);
   font-size: 12px;
-  line-height: 1.4;
+  line-height: 1.7;
   opacity: 0.85;
   margin: 0 0 16px;
 }
@@ -176,13 +176,13 @@
 .how-to-play-glossary {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
   margin: 0 0 16px;
 }
 
 .how-to-play-glossary-item {
   font-size: 12px;
-  line-height: 1.4;
+  line-height: 1.7;
 }
 
 .how-to-play-glossary-item dt {
@@ -208,11 +208,11 @@
   padding-left: 18px;
   color: var(--text-h);
   font-size: 13px;
-  line-height: 1.5;
+  line-height: 1.8;
 }
 
 .how-to-play-rules li {
-  margin-bottom: 4px;
+  margin-bottom: 8px;
 }
 
 .how-to-play-divider {
@@ -227,17 +227,18 @@
   padding-left: 18px;
   color: var(--text-h);
   font-size: 12px;
-  line-height: 1.5;
+  line-height: 1.8;
   opacity: 0.85;
 }
 
 .how-to-play-footnotes li {
-  margin-bottom: 4px;
+  margin-bottom: 8px;
 }
 
 .how-to-play-example-intro {
   color: var(--text-h);
   font-size: 13px;
+  line-height: 1.6;
   margin: 0 0 10px;
 }
 
@@ -276,15 +277,14 @@
   text-align: center;
 }
 
-/* The box already stacks a label + value in the middle — unlike the real
-   (bigger) CardDisplay boxes, there's no room to center an arrow behind
-   that without it hiding under the text, so it sits as a small corner
-   badge instead. */
+/* Matches CardDisplay.css's real --higher/--lower treatment exactly — now
+   that these boxes are full 84px squares, centered-behind-the-text is the
+   same arrow-in-the-background look the real game actually has. */
 .how-to-play-mini-stat--higher,
 .how-to-play-mini-stat--lower {
   background-repeat: no-repeat;
-  background-position: top 4px right 4px;
-  background-size: 14px;
+  background-position: center;
+  background-size: 40%;
 }
 
 .how-to-play-mini-stat--name {
@@ -347,6 +347,6 @@
 .how-to-play-example-summary {
   color: var(--text-h);
   font-size: 13px;
-  line-height: 1.4;
+  line-height: 1.7;
   margin: 0;
 }
