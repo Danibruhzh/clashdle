@@ -1,0 +1,67 @@
+.streak-display {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38.4px;
+  height: 38.4px;
+}
+
+.streak-display-icon {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* brightness(0) turns every visible pixel black while leaving the PNG's
+   transparency alone — a silhouette without needing a separate black asset. */
+.streak-display--inactive .streak-display-icon {
+  filter: brightness(0);
+}
+
+.streak-display-count {
+  position: absolute;
+  top: 63%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+  pointer-events: none;
+}
+
+/* Black-on-black would disappear on the inactive silhouette, so this only
+   applies once the icon is actually showing its real color. */
+.streak-display--active .streak-display-count {
+  color: #000;
+  text-shadow: none;
+}
+
+.streak-display-tooltip {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: var(--bg);
+  border: 2px solid var(--border);
+  color: var(--text-h);
+  font-family: var(--sans);
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease-out;
+  z-index: 1;
+}
+
+/* Hover-capable devices only — matches StatsButton/CardBrowserButton's
+   tooltip split elsewhere in the app (computers have cursors, phones don't). */
+@media (hover: hover) {
+  .streak-display:hover .streak-display-tooltip {
+    opacity: 1;
+  }
+}

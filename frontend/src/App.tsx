@@ -7,11 +7,15 @@ import CardBrowserButton from './components/CardBrowserButton'
 import CardBrowser from './components/CardBrowser'
 import StatsButton from './components/StatsButton'
 import StatsPanel from './components/StatsPanel'
+import HowToPlayButton from './components/HowToPlayButton'
+import HowToPlayModal from './components/HowToPlayModal'
+import StreakDisplay from './components/StreakDisplay'
 import PreviousAnswerFooter from './components/PreviousAnswerFooter'
 import TodayWinnersCount from './components/TodayWinnersCount'
 import { submitGuess, fetchTodayGuesses, fetchPreviousAnswer, fetchTodayWinners } from './api/game'
 import type { GuessResult } from './api/game'
 import { recordWin } from './utils/guessHistogram'
+import { getStreak, recordStreakWin } from './utils/streak'
 import { playSound, preloadSounds } from './utils/sound'
 import './App.css'
 
@@ -39,10 +43,12 @@ function App() {
   const [guesses, setGuesses] = useState<Guess[]>([])
   const [showCardBrowser, setShowCardBrowser] = useState(false)
   const [showStats, setShowStats] = useState(false)
+  const [showHowToPlay, setShowHowToPlay] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isRestoring, setIsRestoring] = useState(true)
   const [previousAnswer, setPreviousAnswer] = useState<string | null>(null)
   const [winnersCount, setWinnersCount] = useState<number | null>(null)
+  const [streak, setStreak] = useState(() => getStreak())
   const nextId = useRef(0)
 
   // Start fetching the sound files immediately instead of waiting for the
@@ -114,6 +120,7 @@ function App() {
       setGuesses((prev) => [{ id: nextId.current++, cardName, result, isRestored: false }, ...prev])
       if (result.is_correct) {
         recordWin(newGuessCount)
+        setStreak(recordStreakWin())
         // Let the winning row's flip animation finish before the stats
         // panel covers it (and the win sound plays), instead of cutting
         // either off mid-flip.
@@ -140,9 +147,12 @@ function App() {
       <Background />
       {showCardBrowser && <CardBrowser onClose={() => setShowCardBrowser(false)} />}
       {showStats && <StatsPanel onClose={() => setShowStats(false)} guessCount={hasWon ? guesses.length : undefined} />}
+      {showHowToPlay && <HowToPlayModal onClose={() => setShowHowToPlay(false)} />}
       <div className="app-content">
         <div className="app-toolbar">
           <div className="app-toolbar-group">
+            <HowToPlayButton onOpen={() => setShowHowToPlay(true)} />
+            <StreakDisplay streak={streak} />
             <CardBrowserButton onOpen={() => setShowCardBrowser(true)} />
             <StatsButton onOpen={() => setShowStats(true)} />
           </div>

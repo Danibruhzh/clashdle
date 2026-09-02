@@ -1,0 +1,52 @@
+.how-to-play-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38.4px;
+  height: 38.4px;
+  padding: 0;
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+
+/* No icon asset yet (see the other menu buttons' PNGs) — this is styled to
+   sit at the same size/weight as them in the meantime, swappable for a real
+   image later the same way stats-icon.png/cards-icon.png were added. */
+.how-to-play-button-glyph {
+  font-family: var(--sans);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--header);
+  text-shadow: var(--text-shad);
+}
+
+.how-to-play-button-tooltip {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: var(--bg);
+  border: 2px solid var(--border);
+  color: var(--text-h);
+  font-family: var(--sans);
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease-out;
+  z-index: 1;
+}
+
+/* Hover-capable devices only — matches every other menu icon's tooltip
+   split elsewhere in the app (computers have cursors, phones don't). */
+@media (hover: hover) {
+  .how-to-play-button:hover .how-to-play-button-tooltip {
+    opacity: 1;
+  }
+}

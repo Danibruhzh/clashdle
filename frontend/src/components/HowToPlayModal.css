@@ -1,0 +1,352 @@
+.how-to-play-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: how-to-play-backdrop-fade-in 0.5s ease-out;
+}
+
+@keyframes how-to-play-backdrop-fade-in {
+  from {
+    background: rgba(0, 0, 0, 0);
+  }
+  to {
+    background: rgba(0, 0, 0, 0.6);
+  }
+}
+
+.how-to-play-panel {
+  width: 100%;
+  max-width: 860px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: var(--bg);
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+  box-sizing: border-box;
+  text-align: left;
+  animation: how-to-play-panel-float-up 0.5s ease-out;
+}
+
+@keyframes how-to-play-panel-float-up {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.how-to-play-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.how-to-play-header h2 {
+  margin: 0;
+}
+
+.how-to-play-close {
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: 16px;
+  cursor: pointer;
+  color: var(--text-h);
+  line-height: 1;
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+
+.how-to-play-close:hover {
+  background: var(--code-bg);
+}
+
+.how-to-play-intro {
+  color: var(--text-h);
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 0 0 16px;
+}
+
+.how-to-play-legend {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.how-to-play-legend-box {
+  flex: 1;
+  min-width: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 78px;
+  padding: 6px;
+  border-radius: 8px;
+  text-align: center;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 40%;
+}
+
+.how-to-play-legend-box--match {
+  background-color: #3aa655;
+}
+
+.how-to-play-legend-box--mismatch,
+.how-to-play-legend-box--higher {
+  background-color: #c0392b;
+}
+
+.how-to-play-legend-label {
+  font-size: 10px;
+  line-height: 1.2;
+  color: var(--text);
+  font-style: italic;
+}
+
+.how-to-play-legend-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.how-to-play-legend-rules {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.how-to-play-legend-rule {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-h);
+  font-size: 13px;
+}
+
+.how-to-play-swatch {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 60%;
+}
+
+.how-to-play-swatch--match {
+  background-color: #3aa655;
+}
+
+.how-to-play-swatch--mismatch,
+.how-to-play-swatch--arrow {
+  background-color: #c0392b;
+}
+
+.how-to-play-legend-note {
+  color: var(--text-h);
+  font-size: 12px;
+  line-height: 1.4;
+  opacity: 0.85;
+  margin: 0 0 16px;
+}
+
+.how-to-play-section-title {
+  color: var(--text-h);
+  font-size: 15px;
+  margin: 0 0 10px;
+}
+
+.how-to-play-glossary {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0 0 16px;
+}
+
+.how-to-play-glossary-item {
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.how-to-play-glossary-item dt {
+  display: inline;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.how-to-play-glossary-item dd {
+  display: inline;
+  margin: 0;
+  color: var(--text-h);
+}
+
+.how-to-play-glossary-item dt::after {
+  content: ' — ';
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.how-to-play-rules {
+  margin: 0 0 16px;
+  padding-left: 18px;
+  color: var(--text-h);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.how-to-play-rules li {
+  margin-bottom: 4px;
+}
+
+.how-to-play-divider {
+  height: 2px;
+  background: var(--border);
+  opacity: 0.4;
+  margin: 0 0 12px;
+}
+
+.how-to-play-footnotes {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--text-h);
+  font-size: 12px;
+  line-height: 1.5;
+  opacity: 0.85;
+}
+
+.how-to-play-footnotes li {
+  margin-bottom: 4px;
+}
+
+.how-to-play-example-intro {
+  color: var(--text-h);
+  font-size: 13px;
+  margin: 0 0 10px;
+}
+
+/* A scaled-down stand-in for the real CardDisplay row (see CardDisplay.css)
+   — same colors/arrow treatment, just built fresh at a smaller fixed size
+   rather than reusing those classes directly, so this illustration doesn't
+   silently break if CardDisplay's own sizing ever changes. */
+.how-to-play-example-card {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  margin-bottom: 12px;
+}
+
+.how-to-play-mini-stat {
+  box-sizing: border-box;
+  position: relative;
+  /* Fixed square (not flex-grown) — sized so 8 of these plus the narrower
+     name box (below) fit the wider panel without needing to fill it via
+     flex-grow, which can't stay perfectly square at an arbitrary width.
+     Falls back to horizontal scroll (the container's overflow-x) on
+     screens too narrow to fit all 9 at once, same as the real game. */
+  flex: 0 0 84px;
+  width: 84px;
+  height: 84px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 6px;
+  border-radius: 8px;
+  background: var(--code-bg);
+  text-align: center;
+}
+
+/* The box already stacks a label + value in the middle — unlike the real
+   (bigger) CardDisplay boxes, there's no room to center an arrow behind
+   that without it hiding under the text, so it sits as a small corner
+   badge instead. */
+.how-to-play-mini-stat--higher,
+.how-to-play-mini-stat--lower {
+  background-repeat: no-repeat;
+  background-position: top 4px right 4px;
+  background-size: 14px;
+}
+
+.how-to-play-mini-stat--name {
+  position: relative;
+  /* Keeps the real card art's own aspect ratio (matches CardBrowser's
+     thumbnails) instead of being forced into a square like the stat
+     boxes — same height as them, just narrower. */
+  flex: 0 0 67px;
+  width: 67px;
+  padding: 0;
+  overflow: hidden;
+  background: transparent;
+}
+
+.how-to-play-mini-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.how-to-play-mini-name-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 3px;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.how-to-play-mini-stat--match {
+  background-color: #3aa655;
+}
+
+.how-to-play-mini-stat--mismatch,
+.how-to-play-mini-stat--higher,
+.how-to-play-mini-stat--lower {
+  background-color: #c0392b;
+}
+
+.how-to-play-mini-stat-label {
+  font-size: 9px;
+  line-height: 1.2;
+  color: var(--text);
+  font-style: italic;
+}
+
+.how-to-play-mini-stat-value {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.how-to-play-example-summary {
+  color: var(--text-h);
+  font-size: 13px;
+  line-height: 1.4;
+  margin: 0;
+}
