@@ -111,7 +111,7 @@ function HowToPlayModal({ onClose }: HowToPlayModalProps) {
 
         <ul className="how-to-play-footnotes">
           <li>Not sure of a name? Browse every card via the cards icon!</li>
-          <li>Win daily to build a streak!.</li>
+          <li>Win daily to build a streak!</li>
         </ul>
 
         <div className="how-to-play-divider" />

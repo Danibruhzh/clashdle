@@ -235,7 +235,7 @@
     "Cost": "3",
     "Type": "Spell",
     "Rarity": "Epic",
-    "Target": "Friendly Troops",
+    "Target": "Friendly",
     "Hitpoints": "N/A",
     "Damage": "N/A",
     "Damage Per Second": "N/A",
@@ -1145,7 +1145,7 @@
     "Cost": "2",
     "Type": "Spell",
     "Rarity": "Epic",
-    "Target": "Friendly Troops & Buildings",
+    "Target": "Friendly",
     "Hitpoints": "N/A",
     "Damage": "179",
     "Damage Per Second": "N/A",
@@ -1283,7 +1283,7 @@
     "Cost": "4",
     "Type": "Troop",
     "Rarity": "Epic",
-    "Target": "Building",
+    "Target": "Buildings",
     "Hitpoints": "2662",
     "Damage": "120",
     "Damage Per Second": "80",
@@ -1995,8 +1995,8 @@
     "Rarity": "Legendary",
     "Target": "Air & Ground",
     "Hitpoints": "529",
-    "Damage": "133",
-    "Damage Per Second": "120",
+    "Damage": "135",
+    "Damage Per Second": "123",
     "Special Damage": {
       "Triple Shot Damage": "48"
     }
@@ -2042,7 +2042,7 @@
     "Type": "Troop",
     "Rarity": "Rare",
     "Target": "Air & Ground",
-    "Hitpoints": "832",
+    "Hitpoints": "755",
     "Damage": "281",
     "Damage Per Second": "200",
     "Special Damage": {

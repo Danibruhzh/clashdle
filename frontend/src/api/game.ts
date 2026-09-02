@@ -5,6 +5,8 @@ export type StatComparison = 'match' | 'mismatch' | 'higher' | 'lower'
 export interface GuessResult {
   comparisons: Record<string, StatComparison>
   is_correct: boolean
+  // Set only on the guess that uses up the last of 8 tries without winning.
+  reveal_answer: string | null
 }
 
 export interface PastGuess {
@@ -15,6 +17,8 @@ export interface PastGuess {
 
 export interface TodayGuesses {
   guesses: PastGuess[]
+  // Set when this session already lost today's game before this page load.
+  reveal_answer: string | null
 }
 
 export interface PreviousAnswer {

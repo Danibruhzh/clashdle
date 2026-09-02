@@ -18,7 +18,7 @@ from app.schemas.guess import (
     TodayWinnersResponse,
 )
 from app.services.daily_answer import get_or_create_daily_answer
-from app.services.game import compare_cards, is_correct_guess
+from app.services.game import MAX_GUESSES, compare_cards, is_correct_guess
 
 router = APIRouter(prefix="/game", tags=["game"])
 
@@ -56,6 +56,16 @@ def guess(
     daily_answer = get_or_create_daily_answer(db, today)
     secret_card = daily_answer.card
 
+    past_guesses = (
+        db.query(Guess)
+        .filter(Guess.daily_answer_id == daily_answer.id, Guess.guest_session_id == guest_session_id)
+        .all()
+    )
+    if any(g.is_correct for g in past_guesses):
+        raise HTTPException(status_code=400, detail="Already guessed today's card correctly")
+    if len(past_guesses) >= MAX_GUESSES:
+        raise HTTPException(status_code=400, detail="Out of guesses for today")
+
     comparisons = compare_cards(secret_card, guessed_card)
     correct = is_correct_guess(comparisons)
 
@@ -69,7 +79,12 @@ def guess(
     )
     db.commit()
 
-    return GuessResponse(comparisons=comparisons, is_correct=correct)
+    # This guess is the one that used up the last try without winning —
+    # reveal the answer now instead of waiting for a refresh.
+    out_of_guesses = not correct and len(past_guesses) + 1 >= MAX_GUESSES
+    reveal_answer = secret_card.name if out_of_guesses else None
+
+    return GuessResponse(comparisons=comparisons, is_correct=correct, reveal_answer=reveal_answer)
 
 
 @router.get("/today", response_model=TodayGuessesResponse)
@@ -100,6 +115,8 @@ def today_guesses(
         .all()
     )
 
+    lost = len(past_guesses) >= MAX_GUESSES and not any(g.is_correct for g in past_guesses)
+
     return TodayGuessesResponse(
         guesses=[
             PastGuess(
@@ -108,7 +125,8 @@ def today_guesses(
                 is_correct=g.is_correct,
             )
             for g in past_guesses
-        ]
+        ],
+        reveal_answer=secret_card.name if lost else None,
     )
 
 

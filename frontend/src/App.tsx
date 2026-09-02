@@ -30,6 +30,11 @@ const FLIP_ANIMATION_TOTAL_MS = 1800
 // still runs underneath so the count stays accurate whenever this flips.
 const SHOW_WINNERS_COUNT = false
 
+// Mirrors backend/app/services/game.py's MAX_GUESSES — kept in sync manually
+// since the frontend needs it before the first guess ever round-trips (to
+// know when to stop rendering the search bar).
+const MAX_GUESSES = 8
+
 interface Guess {
   id: number
   cardName: string
@@ -49,6 +54,9 @@ function App() {
   const [previousAnswer, setPreviousAnswer] = useState<string | null>(null)
   const [winnersCount, setWinnersCount] = useState<number | null>(null)
   const [streak, setStreak] = useState(() => getStreak())
+  // Set once this session has used all 8 guesses without winning — holds
+  // today's revealed card name, same as Wordle showing the answer on a loss.
+  const [lossAnswer, setLossAnswer] = useState<string | null>(null)
   const nextId = useRef(0)
 
   // Start fetching the sound files immediately instead of waiting for the
@@ -67,7 +75,7 @@ function App() {
     let cancelled = false
 
     fetchTodayGuesses()
-      .then(({ guesses: past }) => {
+      .then(({ guesses: past, reveal_answer }) => {
         if (cancelled) return
         // backend returns oldest-first; the UI prepends newest-first
         const restored = past
@@ -83,6 +91,11 @@ function App() {
         // the same way a live win does, once the restored rows' flip
         // animations (which replay on every mount, restored or not) finish.
         if (restored.some((g) => g.result.is_correct)) {
+          window.setTimeout(() => setShowStats(true), FLIP_ANIMATION_TOTAL_MS)
+        } else if (reveal_answer) {
+          // Already lost today, before this reload — same reopen, but with
+          // the loss message instead of the win one.
+          setLossAnswer(reveal_answer)
           window.setTimeout(() => setShowStats(true), FLIP_ANIMATION_TOTAL_MS)
         }
       })
@@ -131,6 +144,11 @@ function App() {
         // Optimistic — this browser's own win just happened server-side, no
         // need to round-trip and refetch the count for it to show up.
         setWinnersCount((prev) => (prev === null ? prev : prev + 1))
+      } else if (result.reveal_answer) {
+        // This guess used up the last try — same reveal, same delay, just
+        // no win sound/streak/histogram update.
+        setLossAnswer(result.reveal_answer)
+        window.setTimeout(() => setShowStats(true), FLIP_ANIMATION_TOTAL_MS)
       }
     } catch (err) {
       console.error('Guess failed:', err)
@@ -141,12 +159,19 @@ function App() {
 
   const guessedNames = new Set(guesses.map((guess) => guess.cardName))
   const hasWon = guesses.some((guess) => guess.result.is_correct)
+  const hasLost = lossAnswer !== null
 
   return (
     <>
       <Background />
       {showCardBrowser && <CardBrowser onClose={() => setShowCardBrowser(false)} />}
-      {showStats && <StatsPanel onClose={() => setShowStats(false)} guessCount={hasWon ? guesses.length : undefined} />}
+      {showStats && (
+        <StatsPanel
+          onClose={() => setShowStats(false)}
+          guessCount={hasWon ? guesses.length : undefined}
+          lossAnswer={hasWon ? undefined : lossAnswer ?? undefined}
+        />
+      )}
       {showHowToPlay && <HowToPlayModal onClose={() => setShowHowToPlay(false)} />}
       <div className="app-content">
         <div className="app-toolbar">
@@ -158,13 +183,18 @@ function App() {
           </div>
         </div>
         <h1 className="app-title">Clashdle</h1>
-        {!hasWon && (
-          <SearchBar
-            onSelectCard={handleSelectCard}
-            guessedNames={guessedNames}
-            disabled={isSubmitting}
-            loading={isRestoring}
-          />
+        {!hasWon && !hasLost && (
+          <>
+            <SearchBar
+              onSelectCard={handleSelectCard}
+              guessedNames={guessedNames}
+              disabled={isSubmitting}
+              loading={isRestoring}
+            />
+            <p className="app-guess-counter">
+              {guesses.length}/{MAX_GUESSES} guesses
+            </p>
+          </>
         )}
         {SHOW_WINNERS_COUNT && <TodayWinnersCount count={winnersCount} />}
         <div className="guesses-scroll">

@@ -31,6 +31,13 @@
   text-shadow: var(--text-shad);
 }
 
+.app-guess-counter {
+  color: var(--text-h);
+  font-size: 13px;
+  opacity: 0.75;
+  margin: 4px 0 0;
+}
+
 .guesses-scroll {
   display: flex;
   flex-direction: column;

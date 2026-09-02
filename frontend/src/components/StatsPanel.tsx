@@ -7,9 +7,13 @@ interface StatsPanelProps {
   // the histogram, whether the panel just auto-opened from that win or was
   // reopened manually afterward.
   guessCount?: number
+  // Set whenever today's game is already lost (all 8 guesses used, none
+  // correct) — holds the revealed card name, shown instead of the win
+  // message. Mutually exclusive with guessCount.
+  lossAnswer?: string
 }
 
-function StatsPanel({ onClose, guessCount }: StatsPanelProps) {
+function StatsPanel({ onClose, guessCount, lossAnswer }: StatsPanelProps) {
   const histogram = getHistogram()
   const entries = Object.entries(histogram)
     .map(([guesses, count]) => ({ guesses: Number(guesses), count }))
@@ -30,6 +34,11 @@ function StatsPanel({ onClose, guessCount }: StatsPanelProps) {
         {guessCount !== undefined && (
           <p className="stats-panel-win-message">
             You guessed the card correctly in {guessCount} guess{guessCount === 1 ? '' : 'es'}!
+          </p>
+        )}
+        {lossAnswer !== undefined && (
+          <p className="stats-panel-loss-message">
+            Out of guesses! Today's card was <strong>{lossAnswer}</strong>.
           </p>
         )}
         {entries.length === 0 ? (

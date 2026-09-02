@@ -15,6 +15,12 @@ from typing import Optional
 
 from app.models.card import Card
 
+# Matches Wordle's convention of a fixed number of tries per day. Enforced
+# server-side in routers/game.py (not just hidden client-side once reached),
+# since a guest session is trivially replayable by anyone hitting the API
+# directly.
+MAX_GUESSES = 8
+
 
 class StatComparison(str, Enum):
     MATCH = "match"
