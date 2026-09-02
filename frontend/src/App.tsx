@@ -82,7 +82,7 @@ function App() {
           .map((g) => ({
             id: nextId.current++,
             cardName: g.card_name,
-            result: { comparisons: g.comparisons, is_correct: g.is_correct },
+            result: { comparisons: g.comparisons, is_correct: g.is_correct, reveal_answer: null },
             isRestored: true,
           }))
           .reverse()
