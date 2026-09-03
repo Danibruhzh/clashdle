@@ -6,6 +6,8 @@ import type { SortDirection, SortField } from '../utils/cardSort'
 import { CATEGORY_DIMENSIONS, categorizeCards } from '../utils/cardCategories'
 import type { CategoryDimension } from '../utils/cardCategories'
 import { playSound } from '../utils/sound'
+import { getEasyMode, setEasyMode as persistEasyMode } from '../utils/easyMode'
+import { getCardBrowserSession, updateCardBrowserSession } from '../utils/cardBrowserSession'
 import './CardBrowser.css'
 
 interface CardBrowserProps {
@@ -33,10 +35,37 @@ function CardBrowser({ onClose }: CardBrowserProps) {
   // the same card again clears it; tapping a different card switches to it,
   // so at most one name is pinned open at a time.
   const [tappedCard, setTappedCard] = useState<string | null>(null)
-  const [sortField, setSortField] = useState<SortField>('name')
-  const [sortDirection, setSortDirection] = useState<SortDirection>('asc')
-  const [easyMode, setEasyMode] = useState(false)
-  const [categoryDimension, setCategoryDimension] = useState<CategoryDimension>('elixir')
+  // Seeded from the in-memory session (see cardBrowserSession.ts) rather than
+  // a fixed default — so reopening the browser within the same page load
+  // picks up wherever these were left, but a real reload still starts fresh.
+  const [sortField, setSortFieldState] = useState<SortField>(() => getCardBrowserSession().sortField)
+  const [sortDirection, setSortDirectionState] = useState<SortDirection>(
+    () => getCardBrowserSession().sortDirection
+  )
+  const [easyMode, setEasyModeState] = useState(() => getEasyMode())
+  const [categoryDimension, setCategoryDimensionState] = useState<CategoryDimension>(
+    () => getCardBrowserSession().categoryDimension
+  )
+
+  const handleEasyModeChange = (value: boolean) => {
+    setEasyModeState(value)
+    persistEasyMode(value)
+  }
+
+  const handleCategoryDimensionChange = (value: CategoryDimension) => {
+    setCategoryDimensionState(value)
+    updateCardBrowserSession({ categoryDimension: value })
+  }
+
+  const handleSortFieldChange = (value: SortField) => {
+    setSortFieldState(value)
+    updateCardBrowserSession({ sortField: value })
+  }
+
+  const handleSortDirectionChange = (value: SortDirection) => {
+    setSortDirectionState(value)
+    updateCardBrowserSession({ sortDirection: value })
+  }
 
   const handleCardTap = (name: string) => {
     // Touch devices have no hover to play the sound on, so the tap itself
@@ -107,7 +136,7 @@ function CardBrowser({ onClose }: CardBrowserProps) {
               <input
                 type="checkbox"
                 checked={easyMode}
-                onChange={(e) => setEasyMode(e.target.checked)}
+                onChange={(e) => handleEasyModeChange(e.target.checked)}
               />
               <span className="card-browser-toggle-track" />
             </span>
@@ -117,7 +146,7 @@ function CardBrowser({ onClose }: CardBrowserProps) {
               <select
                 className="card-browser-sort"
                 value={categoryDimension}
-                onChange={(e) => setCategoryDimension(e.target.value as CategoryDimension)}
+                onChange={(e) => handleCategoryDimensionChange(e.target.value as CategoryDimension)}
                 aria-label="Group cards by"
               >
                 {CATEGORY_DIMENSIONS.map((option) => (
@@ -129,7 +158,7 @@ function CardBrowser({ onClose }: CardBrowserProps) {
               <select
                 className="card-browser-sort"
                 value={sortField}
-                onChange={(e) => setSortField(e.target.value as SortField)}
+                onChange={(e) => handleSortFieldChange(e.target.value as SortField)}
                 aria-label="Sort cards by"
               >
                 {SORT_FIELDS.map((option) => (
@@ -141,7 +170,7 @@ function CardBrowser({ onClose }: CardBrowserProps) {
               <button
                 type="button"
                 className="card-browser-sort-direction"
-                onClick={() => setSortDirection((prev) => (prev === 'asc' ? 'desc' : 'asc'))}
+                onClick={() => handleSortDirectionChange(sortDirection === 'asc' ? 'desc' : 'asc')}
                 aria-label={sortDirection === 'asc' ? 'Ascending — click for descending' : 'Descending — click for ascending'}
               >
                 {sortDirection === 'asc' ? '↑' : '↓'}

@@ -1,8 +1,17 @@
 .previous-answer-footer {
   width: 100%;
   text-align: center;
-  color: var(--accent-dark);
+  color: var(--header);
   font-size: 13px;
   opacity: 0.75;
   text-shadow: var(--text-shad);
+  /* Pushes this down to the bottom of .app-content's flex column instead of
+     sitting right under the guesses (its previous spot, at a glance read as
+     part of that list rather than its own thing) — a classic sticky-footer
+     margin-top: auto, so it's flush with the viewport bottom on a short
+     guess list, or right after everything else on a long one. The extra
+     top padding is purely visual breathing room so it doesn't crowd
+     whatever ends up right above it either way. */
+  margin-top: auto;
+  padding-top: 24px;
 }

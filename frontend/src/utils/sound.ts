@@ -8,7 +8,7 @@ const AudioContextClass: typeof AudioContext =
   window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext
 
 // Applied to every sound effect in the app.
-const MASTER_VOLUME = 0.5
+const MASTER_VOLUME = 0.1
 
 // One shared context for the whole app, created lazily (not at module load)
 // since constructing it before any user gesture just leaves it stuck
