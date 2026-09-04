@@ -8,9 +8,10 @@ app = FastAPI(title="Clashdle API")
 
 # The frontend runs on Vite's dev server locally and on Vercel in production.
 # Guests call this API directly from the browser with no auth, so CORS has
-# to explicitly allow both origins. allow_credentials=True is required for
-# the guest-session cookie (see routers/game.py) to be sent/received at all
-# on cross-origin requests — and can't be combined with a "*" origin.
+# to explicitly allow both origins. Guest identity travels as a plain header
+# (see routers/game.py) rather than a cookie — cross-site cookies get
+# silently blocked by Safari's ITP regardless of SameSite=None; Secure — so
+# allow_credentials isn't needed here; nothing crosses the wire that requires it.
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -19,7 +20,6 @@ app.add_middleware(
         "https://clashdle.app",
         "https://www.clashdle.app",
     ],
-    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )

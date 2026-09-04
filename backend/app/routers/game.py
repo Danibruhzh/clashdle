@@ -1,7 +1,6 @@
-import uuid
 from datetime import date, timedelta
 
-from fastapi import APIRouter, Depends, HTTPException, Request, Response
+from fastapi import APIRouter, Depends, Header, HTTPException
 from sqlalchemy.orm import Session, joinedload
 
 from app.core.time import get_client_today
@@ -22,33 +21,21 @@ from app.services.game import MAX_GUESSES, compare_cards, is_correct_guess
 
 router = APIRouter(prefix="/game", tags=["game"])
 
-GUEST_SESSION_COOKIE = "guest_session_id"
-GUEST_SESSION_MAX_AGE = 60 * 60 * 24 * 400  # ~400 days; browsers cap cookie lifetime near there anyway
-
 
 @router.post("/guess", response_model=GuessResponse)
 def guess(
     payload: GuessRequest,
-    request: Request,
-    response: Response,
     db: Session = Depends(get_db),
     today: date = Depends(get_client_today),
+    # Identifies this browser without requiring login — generated and stored
+    # by the client itself (see frontend/src/utils/guestSession.ts), not a
+    # cookie the backend sets. A cross-site cookie here (frontend and backend
+    # are on different domains) gets silently blocked by Safari's Intelligent
+    # Tracking Prevention regardless of SameSite=None; Secure, which broke
+    # guess-restore-on-refresh for some iOS players; a plain header isn't
+    # subject to that at all.
+    guest_session_id: str = Header(alias="X-Guest-Session-Id"),
 ):
-    # Identify this browser without requiring login. The cookie is set once
-    # on the player's first-ever guess and reused after that; it's how a
-    # Guess row gets attributed to "this device" without a users row.
-    guest_session_id = request.cookies.get(GUEST_SESSION_COOKIE)
-    if not guest_session_id:
-        guest_session_id = str(uuid.uuid4())
-        response.set_cookie(
-            key=GUEST_SESSION_COOKIE,
-            value=guest_session_id,
-            max_age=GUEST_SESSION_MAX_AGE,
-            httponly=True,
-            samesite="none",
-            secure=True,
-        )
-
     guessed_card = db.query(Card).filter(Card.name == payload.guess_name).first()
     if guessed_card is None:
         raise HTTPException(status_code=404, detail=f"No card named '{payload.guess_name}'")
@@ -89,16 +76,18 @@ def guess(
 
 @router.get("/today", response_model=TodayGuessesResponse)
 def today_guesses(
-    request: Request, db: Session = Depends(get_db), today: date = Depends(get_client_today)
+    db: Session = Depends(get_db),
+    today: date = Depends(get_client_today),
+    guest_session_id: str | None = Header(default=None, alias="X-Guest-Session-Id"),
 ):
     """Replays this browser's guesses for today's answer, so a page refresh
     doesn't lose progress. Comparisons aren't stored on the Guess row — they're
     just recomputed here the same way /guess computed them originally, since
     they're a pure function of (secret card, guessed card)."""
-    guest_session_id = request.cookies.get(GUEST_SESSION_COOKIE)
     if not guest_session_id:
-        # Never guessed on this browser before — nothing to restore, and
-        # nothing worth creating a cookie or touching the DB for yet.
+        # Never guessed on this browser before (or an old cached client that
+        # predates the guest-session header — see guess() above) — nothing
+        # to restore, and nothing worth touching the DB for yet.
         return TodayGuessesResponse(guesses=[])
 
     daily_answer = get_or_create_daily_answer(db, today)
@@ -133,7 +122,7 @@ def today_guesses(
 @router.get("/today/winners", response_model=TodayWinnersResponse)
 def today_winners(db: Session = Depends(get_db), today: date = Depends(get_client_today)):
     """How many distinct guest sessions have correctly guessed today's secret
-    card so far — public, not tied to this browser's own cookie. Counts
+    card so far — public, not tied to this browser's own guest session. Counts
     distinct guest_session_id rather than distinct Guess rows so someone who
     somehow submits the correct guess more than once still only counts once.
     "Today" is this requesting client's own timezone (see core/time.py), so

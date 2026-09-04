@@ -42,3 +42,54 @@
     opacity: 1;
   }
 }
+
+@keyframes card-browser-glow-pulse {
+  0%, 100% { filter: drop-shadow(0 0 2px rgba(255, 209, 102, 0.5)); }
+  50% { filter: drop-shadow(0 0 9px rgba(255, 209, 102, 1)); }
+}
+
+.card-browser-button--glow .card-browser-button-icon {
+  animation: card-browser-glow-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes card-browser-need-help-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* Anchored to the button's own top-right corner (right: 0) rather than
+   centered — the box is wider than the 38.4px icon, so it naturally spills
+   out to the left ("off to the side") while the arrow, hugging the same
+   right edge, stays lined up under the icon it's pointing at. */
+.card-browser-need-help {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  animation: card-browser-need-help-bounce 1.4s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.card-browser-need-help-text {
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #1a0526;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: var(--shadow);
+}
+
+.card-browser-need-help-arrow {
+  width: 0;
+  height: 0;
+  margin-right: 12px;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 7px solid var(--accent);
+}

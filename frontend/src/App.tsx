@@ -14,7 +14,7 @@ import PreviousAnswerFooter from './components/PreviousAnswerFooter'
 import TodayWinnersCount from './components/TodayWinnersCount'
 import { submitGuess, fetchTodayGuesses, fetchPreviousAnswer, fetchTodayWinners } from './api/game'
 import type { GuessResult } from './api/game'
-import { recordWin, recordLoss } from './utils/guessHistogram'
+import { recordWin, recordLoss, hasEverWon } from './utils/guessHistogram'
 import { getStreak, recordStreakWin } from './utils/streak'
 import { playSound, preloadSounds } from './utils/sound'
 import './App.css'
@@ -35,6 +35,10 @@ const SHOW_WINNERS_COUNT = false
 // know when to stop rendering the search bar).
 const MAX_GUESSES = 8
 
+// The "Need help?" nudge (see needHelpHint below) shows starting from this
+// many unsuccessful guesses.
+const NEED_HELP_AFTER_GUESSES = 4
+
 interface Guess {
   id: number
   cardName: string
@@ -48,7 +52,11 @@ function App() {
   const [guesses, setGuesses] = useState<Guess[]>([])
   const [showCardBrowser, setShowCardBrowser] = useState(false)
   const [showStats, setShowStats] = useState(false)
-  const [showHowToPlay, setShowHowToPlay] = useState(false)
+  // Auto-opens on every load (including reloads) until the player's first
+  // ever win, then never again — see hasEverWon()'s own comment. Read once,
+  // lazily, so it's already correct on the very first render rather than
+  // flashing closed-then-open.
+  const [showHowToPlay, setShowHowToPlay] = useState(() => !hasEverWon())
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isRestoring, setIsRestoring] = useState(true)
   const [previousAnswer, setPreviousAnswer] = useState<string | null>(null)
@@ -57,6 +65,13 @@ function App() {
   // Set once this session has used all 8 guesses without winning — holds
   // today's revealed card name, same as Wordle showing the answer on a loss.
   const [lossAnswer, setLossAnswer] = useState<string | null>(null)
+  // Nudges the player toward Card Browser after enough unsuccessful
+  // guesses. Deliberately never set from the restore effect — only a *live*
+  // unsuccessful guess turns it on (see handleSelectCard), so a reload right
+  // after it appeared doesn't just bring it right back; it waits for the
+  // next unsuccessful guess made after that reload, same as a first-ever
+  // trigger. Opening Card Browser turns it back off.
+  const [showNeedHelpHint, setShowNeedHelpHint] = useState(false)
   const nextId = useRef(0)
 
   // Start fetching the sound files immediately instead of waiting for the
@@ -68,9 +83,9 @@ function App() {
   }, [])
 
   // Refresh-proof guesses: on load, replay whatever this browser already
-  // guessed today (tracked server-side via the guest-session cookie) before
-  // letting new guesses in, so a guess made mid-restore can't land ahead of
-  // guesses that were actually made earlier.
+  // guessed today (tracked server-side via the guest-session header — see
+  // utils/guestSession.ts) before letting new guesses in, so a guess made
+  // mid-restore can't land ahead of guesses that were actually made earlier.
   useEffect(() => {
     let cancelled = false
 
@@ -91,12 +106,23 @@ function App() {
         // the same way a live win does, once the restored rows' flip
         // animations (which replay on every mount, restored or not) finish.
         if (restored.some((g) => g.result.is_correct)) {
-          window.setTimeout(() => setShowStats(true), FLIP_ANIMATION_TOTAL_MS)
+          window.setTimeout(() => {
+            // Stats takes priority over the How to Play auto-open below —
+            // normally mutually exclusive (that auto-open only happens
+            // before a first-ever win, and this branch only runs after one),
+            // but guards against both landing open together if localStorage
+            // ever ends up in an inconsistent state.
+            setShowHowToPlay(false)
+            setShowStats(true)
+          }, FLIP_ANIMATION_TOTAL_MS)
         } else if (reveal_answer) {
           // Already lost today, before this reload — same reopen, but with
           // the loss message instead of the win one.
           setLossAnswer(reveal_answer)
-          window.setTimeout(() => setShowStats(true), FLIP_ANIMATION_TOTAL_MS)
+          window.setTimeout(() => {
+            setShowHowToPlay(false)
+            setShowStats(true)
+          }, FLIP_ANIMATION_TOTAL_MS)
         }
       })
       .catch((err) => console.error('Failed to restore past guesses:', err))
@@ -151,6 +177,9 @@ function App() {
         setLossAnswer(result.reveal_answer)
         window.setTimeout(() => setShowStats(true), FLIP_ANIMATION_TOTAL_MS)
       }
+      if (!result.is_correct && newGuessCount >= NEED_HELP_AFTER_GUESSES) {
+        setShowNeedHelpHint(true)
+      }
     } catch (err) {
       console.error('Guess failed:', err)
     } finally {
@@ -179,7 +208,13 @@ function App() {
           <div className="app-toolbar-group">
             <HowToPlayButton onOpen={() => setShowHowToPlay(true)} />
             <StreakDisplay streak={streak} />
-            <CardBrowserButton onOpen={() => setShowCardBrowser(true)} />
+            <CardBrowserButton
+              onOpen={() => {
+                setShowCardBrowser(true)
+                setShowNeedHelpHint(false)
+              }}
+              showNeedHelpHint={showNeedHelpHint && !hasWon && !hasLost}
+            />
             <StatsButton onOpen={() => setShowStats(true)} />
           </div>
         </div>

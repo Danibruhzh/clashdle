@@ -1,5 +1,7 @@
 // Mirrors backend/app/schemas/guess.py — keep these in sync if that changes.
 
+import { getGuestSessionId } from '../utils/guestSession'
+
 export type StatComparison = 'match' | 'mismatch' | 'higher' | 'lower'
 
 export interface GuessResult {
@@ -36,15 +38,16 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8000
 // a player's timezone doesn't change mid-session.
 const TIMEZONE_HEADERS = { 'X-Timezone': Intl.DateTimeFormat().resolvedOptions().timeZone }
 
+// Identifies this browser's guesses to the backend — see guestSession.ts for
+// why this is a header the client attaches itself rather than a cookie the
+// backend sets. Read once; stable for the life of the page the same way
+// TIMEZONE_HEADERS is.
+const GUEST_SESSION_HEADERS = { 'X-Guest-Session-Id': getGuestSessionId() }
+
 export async function submitGuess(cardName: string): Promise<GuessResult> {
   const response = await fetch(`${API_BASE_URL}/game/guess`, {
     method: 'POST',
-    // Required so the guest-session cookie the backend sets is actually
-    // stored and sent back on future requests — frontend and backend are
-    // different origins (different ports locally, different domains once
-    // deployed), so cookies are opt-in via credentials: 'include'.
-    credentials: 'include',
-    headers: { 'Content-Type': 'application/json', ...TIMEZONE_HEADERS },
+    headers: { 'Content-Type': 'application/json', ...TIMEZONE_HEADERS, ...GUEST_SESSION_HEADERS },
     body: JSON.stringify({ guess_name: cardName }),
   })
 
@@ -58,8 +61,7 @@ export async function submitGuess(cardName: string): Promise<GuessResult> {
 
 export async function fetchTodayGuesses(): Promise<TodayGuesses> {
   const response = await fetch(`${API_BASE_URL}/game/today`, {
-    credentials: 'include',
-    headers: TIMEZONE_HEADERS,
+    headers: { ...TIMEZONE_HEADERS, ...GUEST_SESSION_HEADERS },
   })
 
   if (!response.ok) {
@@ -71,7 +73,6 @@ export async function fetchTodayGuesses(): Promise<TodayGuesses> {
 
 export async function fetchPreviousAnswer(): Promise<PreviousAnswer> {
   const response = await fetch(`${API_BASE_URL}/game/previous-answer`, {
-    credentials: 'include',
     headers: TIMEZONE_HEADERS,
   })
 

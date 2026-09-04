@@ -25,6 +25,14 @@ export function getHistogram(): Histogram {
   return readHistogram()
 }
 
+// True once this browser has ever recorded a win — no separate flag needed,
+// since a non-empty histogram already means exactly that. Used to decide
+// whether to auto-open the How to Play modal (see HowToPlayButton usage in
+// App.tsx): every load until the player's first win, never again after.
+export function hasEverWon(): boolean {
+  return Object.keys(readHistogram()).length > 0
+}
+
 export function recordWin(guessCount: number): void {
   try {
     const histogram = readHistogram()
