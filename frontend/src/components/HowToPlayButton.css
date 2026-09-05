@@ -3,25 +3,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 38.4px;
-  height: 38.4px;
   padding: 0;
-  border: 2px solid var(--border);
-  border-radius: 50%;
+  border: none;
   background: transparent;
   cursor: pointer;
 }
 
-/* No icon asset yet (see the other menu buttons' PNGs) — this is styled to
-   sit at the same size/weight as them in the meantime, swappable for a real
-   image later the same way stats-icon.png/cards-icon.png were added. */
-.how-to-play-button-glyph {
-  font-family: var(--sans);
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 1;
-  color: var(--header);
-  text-shadow: var(--text-shad);
+.how-to-play-button-icon {
+  display: block;
+  width: 38.4px;
+  height: 38.4px;
+  object-fit: contain;
 }
 
 .how-to-play-button-tooltip {
