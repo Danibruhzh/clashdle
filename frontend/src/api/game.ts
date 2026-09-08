@@ -1,6 +1,7 @@
 // Mirrors backend/app/schemas/guess.py — keep these in sync if that changes.
 
 import { getGuestSessionId } from '../utils/guestSession'
+import { getAuthToken } from '../utils/authSession'
 
 export type StatComparison = 'match' | 'mismatch' | 'higher' | 'lower'
 
@@ -44,10 +45,21 @@ const TIMEZONE_HEADERS = { 'X-Timezone': Intl.DateTimeFormat().resolvedOptions()
 // TIMEZONE_HEADERS is.
 const GUEST_SESSION_HEADERS = { 'X-Guest-Session-Id': getGuestSessionId() }
 
+// Unlike the two headers above, login state can change mid-session (a live
+// log in/out, no reload needed) — so this is read fresh on every call
+// rather than captured once at module load. Backend ignores the guest
+// session header whenever this is present and valid (see
+// get_optional_current_user in routers/game.py), so both are always sent;
+// the server decides which identity wins.
+function authHeaders(): Record<string, string> {
+  const token = getAuthToken()
+  return token ? { Authorization: `Bearer ${token}` } : {}
+}
+
 export async function submitGuess(cardName: string): Promise<GuessResult> {
   const response = await fetch(`${API_BASE_URL}/game/guess`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', ...TIMEZONE_HEADERS, ...GUEST_SESSION_HEADERS },
+    headers: { 'Content-Type': 'application/json', ...TIMEZONE_HEADERS, ...GUEST_SESSION_HEADERS, ...authHeaders() },
     body: JSON.stringify({ guess_name: cardName }),
   })
 
@@ -61,7 +73,7 @@ export async function submitGuess(cardName: string): Promise<GuessResult> {
 
 export async function fetchTodayGuesses(): Promise<TodayGuesses> {
   const response = await fetch(`${API_BASE_URL}/game/today`, {
-    headers: { ...TIMEZONE_HEADERS, ...GUEST_SESSION_HEADERS },
+    headers: { ...TIMEZONE_HEADERS, ...GUEST_SESSION_HEADERS, ...authHeaders() },
   })
 
   if (!response.ok) {

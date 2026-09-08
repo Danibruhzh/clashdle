@@ -21,6 +21,7 @@ import { recordWin, recordLoss, hasEverWon } from './utils/guessHistogram'
 import { getStreak, recordStreakWin } from './utils/streak'
 import { playSound, preloadSounds } from './utils/sound'
 import { getAuthToken } from './utils/authSession'
+import { fetchUserStats } from './api/auth'
 import './App.css'
 
 // Matches CardDisplay.css's flip-in animation: 9 cells (name + 8 stats),
@@ -157,6 +158,19 @@ function App() {
       .catch((err) => console.error('Failed to load today\'s winners count:', err))
   }, [])
 
+  // A reload with a still-valid token from an earlier session starts the
+  // streak state at the guest/local value (see useState(() => getStreak())
+  // above) — this corrects it to the account's real streak right away
+  // instead of waiting for the next live win. A token that's since expired
+  // or been invalidated just leaves the guest value in place; ProfileModal
+  // handles clearing an actually-dead token when it's opened.
+  useEffect(() => {
+    if (!loggedIn) return
+    const token = getAuthToken()
+    if (token) fetchUserStats(token).then((stats) => setStreak(stats.current_streak)).catch(() => {})
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   const handleSelectCard = async (cardName: string) => {
     setIsSubmitting(true)
     try {
@@ -168,8 +182,19 @@ function App() {
       const newGuessCount = guesses.length + 1
       setGuesses((prev) => [{ id: nextId.current++, cardName, result, isRestored: false }, ...prev])
       if (result.is_correct) {
-        recordWin(newGuessCount)
-        setStreak(recordStreakWin())
+        if (loggedIn) {
+          // Server already recorded this win (see routers/game.py's
+          // record_win) — refetch rather than guess at the new number
+          // locally, since whether this extends a streak or starts a fresh
+          // one depends on the account's own last-win date, which this
+          // browser doesn't otherwise know. Best-effort: the toolbar just
+          // keeps showing the pre-win number if this fails.
+          const token = getAuthToken()
+          if (token) fetchUserStats(token).then((stats) => setStreak(stats.current_streak)).catch(() => {})
+        } else {
+          recordWin(newGuessCount)
+          setStreak(recordStreakWin())
+        }
         // Let the winning row's flip animation finish before the stats
         // panel covers it (and the win sound plays), instead of cutting
         // either off mid-flip.
@@ -182,8 +207,10 @@ function App() {
         setWinnersCount((prev) => (prev === null ? prev : prev + 1))
       } else if (result.reveal_answer) {
         // This guess used up the last try — same reveal, same delay, just
-        // no win sound/streak, and a loss (not a win) recorded to stats.
-        recordLoss()
+        // no win sound/streak. The loss itself is only recorded to
+        // localStorage as a guest — logged in, routers/game.py's guess()
+        // already recorded it against the account.
+        if (!loggedIn) recordLoss()
         setLossAnswer(result.reveal_answer)
         window.setTimeout(() => setShowStats(true), FLIP_ANIMATION_TOTAL_MS)
       }
@@ -194,6 +221,21 @@ function App() {
       console.error('Guess failed:', err)
     } finally {
       setIsSubmitting(false)
+    }
+  }
+
+  // Keeps the toolbar's streak number in sync the moment login state
+  // changes, not just after the next win (see the fetchUserStats call in
+  // handleSelectCard above) — logging in switches it to the account's real
+  // streak, logging out reverts to whatever this browser's own guest
+  // streak was (frozen since login, per utils/streak.ts's write-gate above).
+  const handleAuthChange = (nowLoggedIn: boolean) => {
+    setLoggedIn(nowLoggedIn)
+    if (nowLoggedIn) {
+      const token = getAuthToken()
+      if (token) fetchUserStats(token).then((stats) => setStreak(stats.current_streak)).catch(() => {})
+    } else {
+      setStreak(getStreak())
     }
   }
 
@@ -215,7 +257,7 @@ function App() {
       {showHowToPlay && <HowToPlayModal onClose={() => setShowHowToPlay(false)} />}
       {showStreak && <StreakModal onClose={() => setShowStreak(false)} />}
       {showProfile && (
-        <ProfileModal onClose={() => setShowProfile(false)} onAuthChange={setLoggedIn} />
+        <ProfileModal onClose={() => setShowProfile(false)} onAuthChange={handleAuthChange} />
       )}
       <div className="app-content">
         <div className="app-toolbar">

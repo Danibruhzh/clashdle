@@ -61,3 +61,20 @@ def get_current_user(
     if user is None:
         raise unauthorized
     return user
+
+
+def get_optional_current_user(
+    credentials: HTTPAuthorizationCredentials | None = Depends(_bearer_scheme),
+    db: Session = Depends(get_db),
+) -> User | None:
+    """Same as get_current_user, but for routes that work for guests too
+    (see routers/game.py) — a missing/invalid/expired token just means
+    "play as guest" here rather than a 401. Never raises."""
+    if credentials is None:
+        return None
+    try:
+        payload = jwt.decode(credentials.credentials, settings.jwt_secret_key, algorithms=[settings.jwt_algorithm])
+        user_id = int(payload["sub"])
+    except (JWTError, KeyError, TypeError, ValueError):
+        return None
+    return db.query(User).filter(User.id == user_id).first()

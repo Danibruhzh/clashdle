@@ -3,11 +3,13 @@ from datetime import date, timedelta
 from fastapi import APIRouter, Depends, Header, HTTPException
 from sqlalchemy.orm import Session, joinedload
 
+from app.core.security import get_optional_current_user
 from app.core.time import get_client_today
 from app.db.session import get_db
 from app.models.card import Card
 from app.models.daily_answer import DailyAnswer
 from app.models.guess import Guess
+from app.models.user import User
 from app.schemas.guess import (
     GuessRequest,
     GuessResponse,
@@ -18,6 +20,7 @@ from app.schemas.guess import (
 )
 from app.services.daily_answer import get_or_create_daily_answer
 from app.services.game import MAX_GUESSES, compare_cards, is_correct_guess
+from app.services.user_stats import get_or_create_stats, record_loss, record_win
 
 router = APIRouter(prefix="/game", tags=["game"])
 
@@ -33,9 +36,14 @@ def guess(
     # are on different domains) gets silently blocked by Safari's Intelligent
     # Tracking Prevention regardless of SameSite=None; Secure, which broke
     # guess-restore-on-refresh for some iOS players; a plain header isn't
-    # subject to that at all.
-    guest_session_id: str = Header(alias="X-Guest-Session-Id"),
+    # subject to that at all. Ignored (may be omitted) once logged in — see
+    # current_user below, which takes priority when both are present.
+    guest_session_id: str | None = Header(default=None, alias="X-Guest-Session-Id"),
+    current_user: User | None = Depends(get_optional_current_user),
 ):
+    if current_user is None and not guest_session_id:
+        raise HTTPException(status_code=400, detail="Missing guest session or auth")
+
     guessed_card = db.query(Card).filter(Card.name == payload.guess_name).first()
     if guessed_card is None:
         raise HTTPException(status_code=404, detail=f"No card named '{payload.guess_name}'")
@@ -43,11 +51,10 @@ def guess(
     daily_answer = get_or_create_daily_answer(db, today)
     secret_card = daily_answer.card
 
-    past_guesses = (
-        db.query(Guess)
-        .filter(Guess.daily_answer_id == daily_answer.id, Guess.guest_session_id == guest_session_id)
-        .all()
+    identity_filter = (
+        Guess.user_id == current_user.id if current_user else Guess.guest_session_id == guest_session_id
     )
+    past_guesses = db.query(Guess).filter(Guess.daily_answer_id == daily_answer.id, identity_filter).all()
     if any(g.is_correct for g in past_guesses):
         raise HTTPException(status_code=400, detail="Already guessed today's card correctly")
     if len(past_guesses) >= MAX_GUESSES:
@@ -55,21 +62,31 @@ def guess(
 
     comparisons = compare_cards(secret_card, guessed_card)
     correct = is_correct_guess(comparisons)
+    guess_number = len(past_guesses) + 1  # this guess's own position, 1-indexed
 
     db.add(
         Guess(
             daily_answer_id=daily_answer.id,
             guessed_card_id=guessed_card.id,
-            guest_session_id=guest_session_id,
+            guest_session_id=guest_session_id if current_user is None else None,
+            user_id=current_user.id if current_user else None,
             is_correct=correct,
         )
     )
-    db.commit()
 
     # This guess is the one that used up the last try without winning —
     # reveal the answer now instead of waiting for a refresh.
-    out_of_guesses = not correct and len(past_guesses) + 1 >= MAX_GUESSES
+    out_of_guesses = not correct and guess_number >= MAX_GUESSES
     reveal_answer = secret_card.name if out_of_guesses else None
+
+    if current_user is not None:
+        stats = get_or_create_stats(db, current_user.id)
+        if correct:
+            record_win(stats, guess_number, today)
+        elif out_of_guesses:
+            record_loss(stats)
+
+    db.commit()
 
     return GuessResponse(comparisons=comparisons, is_correct=correct, reveal_answer=reveal_answer)
 
@@ -79,12 +96,13 @@ def today_guesses(
     db: Session = Depends(get_db),
     today: date = Depends(get_client_today),
     guest_session_id: str | None = Header(default=None, alias="X-Guest-Session-Id"),
+    current_user: User | None = Depends(get_optional_current_user),
 ):
-    """Replays this browser's guesses for today's answer, so a page refresh
+    """Replays this player's guesses for today's answer, so a page refresh
     doesn't lose progress. Comparisons aren't stored on the Guess row — they're
     just recomputed here the same way /guess computed them originally, since
     they're a pure function of (secret card, guessed card)."""
-    if not guest_session_id:
+    if current_user is None and not guest_session_id:
         # Never guessed on this browser before (or an old cached client that
         # predates the guest-session header — see guess() above) — nothing
         # to restore, and nothing worth touching the DB for yet.
@@ -93,13 +111,13 @@ def today_guesses(
     daily_answer = get_or_create_daily_answer(db, today)
     secret_card = daily_answer.card
 
+    identity_filter = (
+        Guess.user_id == current_user.id if current_user else Guess.guest_session_id == guest_session_id
+    )
     past_guesses = (
         db.query(Guess)
         .options(joinedload(Guess.guessed_card))
-        .filter(
-            Guess.daily_answer_id == daily_answer.id,
-            Guess.guest_session_id == guest_session_id,
-        )
+        .filter(Guess.daily_answer_id == daily_answer.id, identity_filter)
         .order_by(Guess.created_at.asc())
         .all()
     )
@@ -121,24 +139,35 @@ def today_guesses(
 
 @router.get("/today/winners", response_model=TodayWinnersResponse)
 def today_winners(db: Session = Depends(get_db), today: date = Depends(get_client_today)):
-    """How many distinct guest sessions have correctly guessed today's secret
-    card so far — public, not tied to this browser's own guest session. Counts
-    distinct guest_session_id rather than distinct Guess rows so someone who
-    somehow submits the correct guess more than once still only counts once.
+    """How many distinct players have correctly guessed today's secret card
+    so far — public, not tied to this browser's own guest session or
+    account. Guests and registered users are attributed on different
+    columns (guest_session_id vs user_id, see models/guess.py), so this
+    counts each distinctly and sums them rather than one combined query.
     "Today" is this requesting client's own timezone (see core/time.py), so
     this is specifically "winners of the card you're playing", not a single
     worldwide count — players in other timezones may be on a different card
     entirely right now."""
     daily_answer = get_or_create_daily_answer(db, today)
 
-    winners_count = (
+    guest_winners = (
         db.query(Guess.guest_session_id)
-        .filter(Guess.daily_answer_id == daily_answer.id, Guess.is_correct.is_(True))
+        .filter(
+            Guess.daily_answer_id == daily_answer.id,
+            Guess.is_correct.is_(True),
+            Guess.guest_session_id.isnot(None),
+        )
+        .distinct()
+        .count()
+    )
+    user_winners = (
+        db.query(Guess.user_id)
+        .filter(Guess.daily_answer_id == daily_answer.id, Guess.is_correct.is_(True), Guess.user_id.isnot(None))
         .distinct()
         .count()
     )
 
-    return TodayWinnersResponse(winners_count=winners_count)
+    return TodayWinnersResponse(winners_count=guest_winners + user_winners)
 
 
 @router.get("/previous-answer", response_model=PreviousAnswerResponse)

@@ -72,6 +72,12 @@
   background: var(--code-bg);
 }
 
+.stats-panel-loading {
+  color: var(--text-h);
+  opacity: 0.8;
+  margin: 8px 0 0;
+}
+
 .stats-panel-win-message {
   padding: 12px 16px;
   margin: 0 0 16px;

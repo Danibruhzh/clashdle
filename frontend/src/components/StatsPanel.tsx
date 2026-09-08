@@ -1,4 +1,7 @@
+import { useState, useEffect } from 'react'
 import { getHistogram, getLossCount } from '../utils/guessHistogram'
+import { getAuthToken } from '../utils/authSession'
+import { fetchUserStats } from '../api/auth'
 import './StatsPanel.css'
 
 // Mirrors backend/app/services/game.py's MAX_GUESSES (see also App.tsx's own
@@ -21,17 +24,67 @@ interface StatsPanelProps {
   lossAnswer?: string
 }
 
+// Same shape either way, just sourced differently — from localStorage for a
+// guest, from /me/stats for a logged-in account (see App.tsx's own gating of
+// recordWin/recordLoss/recordStreakWin: once logged in those stop writing
+// locally entirely, so this is the only place server stats actually get
+// read back in).
+interface ResolvedStats {
+  histogram: Record<string, number>
+  lossCount: number
+}
+
+function readGuestStats(): ResolvedStats {
+  return { histogram: getHistogram(), lossCount: getLossCount() }
+}
+
 function StatsPanel({ onClose, guessCount, lossAnswer }: StatsPanelProps) {
-  const histogram = getHistogram()
-  const lossCount = getLossCount()
+  const [stats, setStats] = useState<ResolvedStats | null>(() => {
+    const token = getAuthToken()
+    return token ? null : readGuestStats() // null while a logged-in fetch is in flight
+  })
+
+  useEffect(() => {
+    const token = getAuthToken()
+    if (!token) return // already resolved synchronously above
+    let cancelled = false
+    fetchUserStats(token)
+      .then((s) => {
+        if (!cancelled) setStats({ histogram: s.histogram, lossCount: s.games_played - s.wins })
+      })
+      .catch(() => {
+        // Token expired/invalid, request failed, etc. — fall back to this
+        // browser's own guest numbers rather than showing nothing.
+        if (!cancelled) setStats(readGuestStats())
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  if (stats === null) {
+    return (
+      <div className="stats-panel-backdrop" onClick={onClose}>
+        <div className="stats-panel" onClick={(e) => e.stopPropagation()}>
+          <div className="stats-panel-header">
+            <h2>Your Stats</h2>
+            <button className="stats-panel-close" onClick={onClose} aria-label="Close">
+              ✕
+            </button>
+          </div>
+          <p className="stats-panel-loading">Loading…</p>
+        </div>
+      </div>
+    )
+  }
 
   const bars = Array.from({ length: MAX_GUESSES }, (_, i) => {
     const guesses = i + 1
-    return { guesses, count: histogram[guesses] ?? 0 }
+    return { guesses, count: stats.histogram[guesses] ?? 0 }
   })
 
   const totalWins = bars.reduce((sum, b) => sum + b.count, 0)
-  const gamesPlayed = totalWins + lossCount
+  const gamesPlayed = totalWins + stats.lossCount
   const winRate = gamesPlayed === 0 ? null : Math.round((totalWins / gamesPlayed) * 100)
   const maxCount = Math.max(1, ...bars.map((b) => b.count))
 

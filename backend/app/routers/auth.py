@@ -1,9 +1,12 @@
+from datetime import date
+
 from sqlalchemy import or_
 from sqlalchemy.orm import Session
 
 from fastapi import APIRouter, Depends, HTTPException, status
 
 from app.core.security import create_access_token, get_current_user, hash_password, verify_password
+from app.core.time import get_client_today
 from app.db.session import get_db
 from app.models.user import User
 from app.models.user_stats import UserStats
@@ -15,6 +18,7 @@ from app.schemas.auth import (
     UserOut,
     UserStatsOut,
 )
+from app.services.user_stats import get_effective_current_streak
 
 router = APIRouter(tags=["auth"])
 
@@ -90,7 +94,11 @@ def read_profile(current_user: User = Depends(get_current_user)):
 
 
 @router.get("/me/stats", response_model=UserStatsOut)
-def read_stats(current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+def read_stats(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+    today: date = Depends(get_client_today),
+):
     stats = db.query(UserStats).filter(UserStats.user_id == current_user.id).first()
     if stats is None:
         # Shouldn't happen (register() always creates one alongside the
@@ -103,7 +111,11 @@ def read_stats(current_user: User = Depends(get_current_user), db: Session = Dep
     return UserStatsOut(
         games_played=stats.games_played,
         wins=stats.wins,
-        current_streak=stats.current_streak,
+        # Self-corrected the same way streak.ts's getStreak() reads the
+        # guest value — the raw stored current_streak only updates on an
+        # actual win, so a lapsed streak needs this to read as 0 without a
+        # write having to happen first.
+        current_streak=get_effective_current_streak(stats, today),
         best_streak=stats.best_streak,
         histogram=histogram,
     )

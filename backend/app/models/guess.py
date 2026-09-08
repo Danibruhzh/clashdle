@@ -12,10 +12,11 @@ class Guess(Base):
     daily_answer_id = Column(Integer, ForeignKey("daily_answers.id"), nullable=False, index=True)
     guessed_card_id = Column(Integer, ForeignKey("cards.id"), nullable=False)
 
-    # Exactly one of these identifies who made the guess. Guests are
-    # identified by an opaque cookie value (no login); user_id is here for
-    # once auth lands (Next Steps item 8) — both nullable since a guess row
-    # only ever has one or the other, never both.
+    # Exactly one of these identifies who made the guess — both nullable
+    # since a row only ever has one or the other, never both. Guests are
+    # identified by an opaque client-generated value (see
+    # frontend/src/utils/guestSession.ts); user_id is set instead once
+    # logged in (see routers/game.py's get_optional_current_user usage).
     guest_session_id = Column(String, nullable=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=True, index=True)
 
