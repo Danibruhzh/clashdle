@@ -1,4 +1,4 @@
-.stats-button {
+.profile-button {
   position: relative;
   display: flex;
   align-items: center;
@@ -9,14 +9,27 @@
   cursor: pointer;
 }
 
-.stats-button-icon {
+.profile-button-icon {
   display: block;
   width: 38.4px;
   height: 38.4px;
   object-fit: contain;
 }
 
-.stats-button-tooltip {
+/* Small green "logged in" indicator — top-right of the icon, same corner a
+   notification dot usually sits in. */
+.profile-button-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #3aa655;
+  border: 2px solid var(--bg);
+}
+
+.profile-button-tooltip {
   position: absolute;
   top: calc(100% + 6px);
   left: 50%;
@@ -35,10 +48,10 @@
   z-index: 3;
 }
 
-/* Hover-capable devices only — matches CardBrowser's hover/tap split
-   elsewhere in the app (computers have cursors, phones don't). */
+/* Hover-capable devices only — matches every other menu icon's tooltip
+   split elsewhere in the app (computers have cursors, phones don't). */
 @media (hover: hover) {
-  .stats-button:hover .stats-button-tooltip {
+  .profile-button:hover .profile-button-tooltip {
     opacity: 1;
   }
 }

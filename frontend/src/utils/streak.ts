@@ -12,9 +12,13 @@ interface StreakData {
   // date; a streak is about the player's own daily rhythm; see
   // core/time.py's equivalent per-client reasoning on the backend.
   lastWinDate: string
+  // Highest count ever reached, kept separately from count itself — count
+  // resets to 1 the moment a lapsed streak's next win happens (see
+  // recordStreakWin below), which would otherwise lose the historical peak.
+  best: number
 }
 
-const EMPTY_STREAK: StreakData = { count: 0, lastWinDate: '' }
+const EMPTY_STREAK: StreakData = { count: 0, lastWinDate: '', best: 0 }
 
 function toDateString(date: Date): string {
   const year = date.getFullYear()
@@ -38,9 +42,12 @@ function readStreak(): StreakData {
     const raw = localStorage.getItem(STREAK_KEY)
     if (!raw) return EMPTY_STREAK
     const parsed = JSON.parse(raw)
-    return typeof parsed?.count === 'number' && typeof parsed?.lastWinDate === 'string'
-      ? parsed
-      : EMPTY_STREAK
+    if (typeof parsed?.count !== 'number' || typeof parsed?.lastWinDate !== 'string') return EMPTY_STREAK
+    // Data saved before "best" existed only ever recorded the current
+    // streak — its own count is the closest thing to a historical peak
+    // available for it, so that's the fallback rather than 0.
+    const best = typeof parsed.best === 'number' ? parsed.best : parsed.count
+    return { count: parsed.count, lastWinDate: parsed.lastWinDate, best }
   } catch {
     // Missing/corrupt data, or localStorage unavailable — treat as empty
     // rather than breaking the game over a streak read.
@@ -58,18 +65,35 @@ export function getStreak(): number {
   return count
 }
 
+// The highest daily win streak this browser has ever reached, regardless of
+// whether the current streak has since lapsed back to 0.
+export function getBestStreak(): number {
+  return readStreak().best
+}
+
+// Raw YYYY-MM-DD of the last recorded win, or null if there's never been
+// one — needed alongside getStreak()'s already-self-corrected count when
+// seeding a new account at registration, so the server can keep applying
+// the same self-correcting logic going forward (see user_stats.last_win_date
+// on the backend). '' (the empty-streak sentinel) reads as null here.
+export function getLastWinDate(): string | null {
+  const { lastWinDate } = readStreak()
+  return lastWinDate || null
+}
+
 // Call once per live win (mirrors guessHistogram.ts's recordWin — only the
 // live-win path, never the page-load restore path, so reloading an
 // already-won day doesn't double-count). Returns the streak after this win,
 // for the caller to render immediately without a second read.
 export function recordStreakWin(): number {
-  const { count, lastWinDate } = readStreak()
+  const { count, lastWinDate, best } = readStreak()
   const today = todayString()
   if (lastWinDate === today) return count // today's win already recorded
 
   const newCount = lastWinDate === yesterdayString() ? count + 1 : 1
+  const newBest = Math.max(best, newCount)
   try {
-    localStorage.setItem(STREAK_KEY, JSON.stringify({ count: newCount, lastWinDate: today }))
+    localStorage.setItem(STREAK_KEY, JSON.stringify({ count: newCount, lastWinDate: today, best: newBest }))
   } catch {
     // Storage full, private-browsing restrictions, etc. — the streak is a
     // nice-to-have and never worth breaking the game over.

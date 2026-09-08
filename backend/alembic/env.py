@@ -11,6 +11,7 @@ from app.models.card import Card
 from app.models.daily_answer import DailyAnswer
 from app.models.guess import Guess
 from app.models.user import User
+from app.models.user_stats import UserStats
 from app.core.config import settings
 
 # this is the Alembic Config object, which provides

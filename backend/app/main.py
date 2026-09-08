@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app import models  # noqa: F401 — registers every model on Base.metadata before any request runs
-from app.routers import game
+from app.routers import auth, game
 
 app = FastAPI(title="Clashdle API")
 
@@ -25,6 +25,7 @@ app.add_middleware(
 )
 
 app.include_router(game.router)
+app.include_router(auth.router)
 
 
 @app.get("/")

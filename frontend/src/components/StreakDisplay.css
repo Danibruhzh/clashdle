@@ -5,6 +5,10 @@
   justify-content: center;
   width: 38.4px;
   height: 38.4px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
 }
 
 .streak-display-icon {
@@ -25,6 +29,10 @@
   top: 63%;
   left: 50%;
   transform: translate(-50%, -50%);
+  /* Buttons don't inherit the body's font by default (same reason the
+     tooltip below sets this explicitly) — without it this fell back to the
+     browser's default button font once .streak-display became a <button>. */
+  font-family: var(--sans);
   font-size: 14px;
   font-weight: 700;
   color: #fff;
@@ -55,7 +63,7 @@
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.15s ease-out;
-  z-index: 1;
+  z-index: 3;
 }
 
 /* Hover-capable devices only — matches StatsButton/CardBrowserButton's

@@ -9,5 +9,6 @@ from app.models.card import Card
 from app.models.daily_answer import DailyAnswer
 from app.models.guess import Guess
 from app.models.user import User
+from app.models.user_stats import UserStats
 
-__all__ = ["AnswerPool", "Card", "DailyAnswer", "Guess", "User"]
+__all__ = ["AnswerPool", "Card", "DailyAnswer", "Guess", "User", "UserStats"]

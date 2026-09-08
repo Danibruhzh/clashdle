@@ -10,6 +10,9 @@ import StatsPanel from './components/StatsPanel'
 import HowToPlayButton from './components/HowToPlayButton'
 import HowToPlayModal from './components/HowToPlayModal'
 import StreakDisplay from './components/StreakDisplay'
+import StreakModal from './components/StreakModal'
+import ProfileButton from './components/ProfileButton'
+import ProfileModal from './components/ProfileModal'
 import PreviousAnswerFooter from './components/PreviousAnswerFooter'
 import TodayWinnersCount from './components/TodayWinnersCount'
 import { submitGuess, fetchTodayGuesses, fetchPreviousAnswer, fetchTodayWinners } from './api/game'
@@ -17,6 +20,7 @@ import type { GuessResult } from './api/game'
 import { recordWin, recordLoss, hasEverWon } from './utils/guessHistogram'
 import { getStreak, recordStreakWin } from './utils/streak'
 import { playSound, preloadSounds } from './utils/sound'
+import { getAuthToken } from './utils/authSession'
 import './App.css'
 
 // Matches CardDisplay.css's flip-in animation: 9 cells (name + 8 stats),
@@ -52,6 +56,12 @@ function App() {
   const [guesses, setGuesses] = useState<Guess[]>([])
   const [showCardBrowser, setShowCardBrowser] = useState(false)
   const [showStats, setShowStats] = useState(false)
+  const [showStreak, setShowStreak] = useState(false)
+  const [showProfile, setShowProfile] = useState(false)
+  // Only tracks *whether* someone's logged in (for the toolbar badge) — the
+  // token itself is read fresh from storage wherever it's actually needed,
+  // same as guest-session/timezone headers elsewhere in this app.
+  const [loggedIn, setLoggedIn] = useState(() => getAuthToken() !== null)
   // Auto-opens on every load (including reloads) until the player's first
   // ever win, then never again — see hasEverWon()'s own comment. Read once,
   // lazily, so it's already correct on the very first render rather than
@@ -203,11 +213,15 @@ function App() {
         />
       )}
       {showHowToPlay && <HowToPlayModal onClose={() => setShowHowToPlay(false)} />}
+      {showStreak && <StreakModal onClose={() => setShowStreak(false)} />}
+      {showProfile && (
+        <ProfileModal onClose={() => setShowProfile(false)} onAuthChange={setLoggedIn} />
+      )}
       <div className="app-content">
         <div className="app-toolbar">
           <div className="app-toolbar-group">
             <HowToPlayButton onOpen={() => setShowHowToPlay(true)} />
-            <StreakDisplay streak={streak} />
+            <StreakDisplay streak={streak} onOpen={() => setShowStreak(true)} />
             <CardBrowserButton
               onOpen={() => {
                 setShowCardBrowser(true)
@@ -216,6 +230,7 @@ function App() {
               showNeedHelpHint={showNeedHelpHint && !hasWon && !hasLost}
             />
             <StatsButton onOpen={() => setShowStats(true)} />
+            <ProfileButton onOpen={() => setShowProfile(true)} loggedIn={loggedIn} />
           </div>
         </div>
         <h1 className="app-title">Clashdle</h1>
