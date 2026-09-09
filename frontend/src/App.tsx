@@ -93,12 +93,21 @@ function App() {
     preloadSounds()
   }, [])
 
-  // Refresh-proof guesses: on load, replay whatever this browser already
-  // guessed today (tracked server-side via the guest-session header — see
-  // utils/guestSession.ts) before letting new guesses in, so a guess made
-  // mid-restore can't land ahead of guesses that were actually made earlier.
+  // Refresh-proof guesses, re-run on every identity change: on mount, and
+  // again any time loggedIn flips (ProfileModal's onAuthChange, wired to
+  // setLoggedIn directly below) — replays whatever *this identity* (guest
+  // session, or the logged-in account) has
+  // already guessed today, so logging into an account that already won/lost
+  // shows its actual guesses and locks play, and logging back out reverts
+  // to this browser's own guest attempt. Guesses/lossAnswer/the hint are
+  // cleared up front rather than left showing the outgoing identity's state
+  // while the new identity's own data is still in flight.
   useEffect(() => {
     let cancelled = false
+    setIsRestoring(true)
+    setGuesses([])
+    setLossAnswer(null)
+    setShowNeedHelpHint(false)
 
     fetchTodayGuesses()
       .then(({ guesses: past, reveal_answer }) => {
@@ -113,25 +122,25 @@ function App() {
           }))
           .reverse()
         setGuesses(restored)
-        // Already won today, before this reload — reopen the stats panel
-        // the same way a live win does, once the restored rows' flip
-        // animations (which replay on every mount, restored or not) finish.
+        // Already won today (before this reload, or under this account
+        // already) — reopen the stats panel the same way a live win does,
+        // once the restored rows' flip animations (which replay on every
+        // mount, restored or not) finish.
         if (restored.some((g) => g.result.is_correct)) {
           window.setTimeout(() => {
-            // Stats takes priority over the How to Play auto-open below —
-            // normally mutually exclusive (that auto-open only happens
-            // before a first-ever win, and this branch only runs after one),
-            // but guards against both landing open together if localStorage
-            // ever ends up in an inconsistent state.
+            // Stats takes priority over the How to Play/Profile modals —
+            // guards against either landing open at the same time as this.
             setShowHowToPlay(false)
+            setShowProfile(false)
             setShowStats(true)
           }, FLIP_ANIMATION_TOTAL_MS)
         } else if (reveal_answer) {
-          // Already lost today, before this reload — same reopen, but with
+          // Already lost today under this identity — same reopen, but with
           // the loss message instead of the win one.
           setLossAnswer(reveal_answer)
           window.setTimeout(() => {
             setShowHowToPlay(false)
+            setShowProfile(false)
             setShowStats(true)
           }, FLIP_ANIMATION_TOTAL_MS)
         }
@@ -141,10 +150,21 @@ function App() {
         if (!cancelled) setIsRestoring(false)
       })
 
+    // The toolbar streak number is account/guest-specific too — refreshed
+    // alongside the guesses restore above rather than as its own effect, so
+    // both update together on every identity change instead of drifting out
+    // of sync with each other.
+    if (loggedIn) {
+      const token = getAuthToken()
+      if (token) fetchUserStats(token).then((stats) => !cancelled && setStreak(stats.current_streak)).catch(() => {})
+    } else {
+      setStreak(getStreak())
+    }
+
     return () => {
       cancelled = true
     }
-  }, [])
+  }, [loggedIn])
 
   useEffect(() => {
     fetchPreviousAnswer()
@@ -156,19 +176,6 @@ function App() {
     fetchTodayWinners()
       .then(({ winners_count }) => setWinnersCount(winners_count))
       .catch((err) => console.error('Failed to load today\'s winners count:', err))
-  }, [])
-
-  // A reload with a still-valid token from an earlier session starts the
-  // streak state at the guest/local value (see useState(() => getStreak())
-  // above) — this corrects it to the account's real streak right away
-  // instead of waiting for the next live win. A token that's since expired
-  // or been invalidated just leaves the guest value in place; ProfileModal
-  // handles clearing an actually-dead token when it's opened.
-  useEffect(() => {
-    if (!loggedIn) return
-    const token = getAuthToken()
-    if (token) fetchUserStats(token).then((stats) => setStreak(stats.current_streak)).catch(() => {})
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleSelectCard = async (cardName: string) => {
@@ -224,21 +231,6 @@ function App() {
     }
   }
 
-  // Keeps the toolbar's streak number in sync the moment login state
-  // changes, not just after the next win (see the fetchUserStats call in
-  // handleSelectCard above) — logging in switches it to the account's real
-  // streak, logging out reverts to whatever this browser's own guest
-  // streak was (frozen since login, per utils/streak.ts's write-gate above).
-  const handleAuthChange = (nowLoggedIn: boolean) => {
-    setLoggedIn(nowLoggedIn)
-    if (nowLoggedIn) {
-      const token = getAuthToken()
-      if (token) fetchUserStats(token).then((stats) => setStreak(stats.current_streak)).catch(() => {})
-    } else {
-      setStreak(getStreak())
-    }
-  }
-
   const guessedNames = new Set(guesses.map((guess) => guess.cardName))
   const hasWon = guesses.some((guess) => guess.result.is_correct)
   const hasLost = lossAnswer !== null
@@ -257,7 +249,7 @@ function App() {
       {showHowToPlay && <HowToPlayModal onClose={() => setShowHowToPlay(false)} />}
       {showStreak && <StreakModal onClose={() => setShowStreak(false)} />}
       {showProfile && (
-        <ProfileModal onClose={() => setShowProfile(false)} onAuthChange={handleAuthChange} />
+        <ProfileModal onClose={() => setShowProfile(false)} onAuthChange={setLoggedIn} />
       )}
       <div className="app-content">
         <div className="app-toolbar">

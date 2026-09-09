@@ -28,14 +28,25 @@ interface StatsPanelProps {
 // guest, from /me/stats for a logged-in account (see App.tsx's own gating of
 // recordWin/recordLoss/recordStreakWin: once logged in those stop writing
 // locally entirely, so this is the only place server stats actually get
-// read back in).
+// read back in). gamesPlayed/wins are carried as their own fields rather
+// than re-derived from histogram at render time — the two happen to always
+// agree today (the backend increments them in lockstep; see
+// services/user_stats.py's record_win), but the summary numbers shouldn't
+// silently depend on that holding forever when the real fields are right
+// here. histogram is used only for the bar chart's shape.
 interface ResolvedStats {
   histogram: Record<string, number>
-  lossCount: number
+  gamesPlayed: number
+  wins: number
 }
 
 function readGuestStats(): ResolvedStats {
-  return { histogram: getHistogram(), lossCount: getLossCount() }
+  const histogram = getHistogram()
+  // Clamped to 1..MAX_GUESSES for the same reason the bar chart itself is —
+  // a stray pre-guess-cap entry (see MAX_GUESSES's own comment) shouldn't
+  // count toward wins just because it's sitting in localStorage.
+  const wins = Array.from({ length: MAX_GUESSES }, (_, i) => histogram[i + 1] ?? 0).reduce((a, b) => a + b, 0)
+  return { histogram, gamesPlayed: wins + getLossCount(), wins }
 }
 
 function StatsPanel({ onClose, guessCount, lossAnswer }: StatsPanelProps) {
@@ -50,7 +61,7 @@ function StatsPanel({ onClose, guessCount, lossAnswer }: StatsPanelProps) {
     let cancelled = false
     fetchUserStats(token)
       .then((s) => {
-        if (!cancelled) setStats({ histogram: s.histogram, lossCount: s.games_played - s.wins })
+        if (!cancelled) setStats({ histogram: s.histogram, gamesPlayed: s.games_played, wins: s.wins })
       })
       .catch(() => {
         // Token expired/invalid, request failed, etc. — fall back to this
@@ -83,9 +94,8 @@ function StatsPanel({ onClose, guessCount, lossAnswer }: StatsPanelProps) {
     return { guesses, count: stats.histogram[guesses] ?? 0 }
   })
 
-  const totalWins = bars.reduce((sum, b) => sum + b.count, 0)
-  const gamesPlayed = totalWins + stats.lossCount
-  const winRate = gamesPlayed === 0 ? null : Math.round((totalWins / gamesPlayed) * 100)
+  const { gamesPlayed, wins } = stats
+  const winRate = gamesPlayed === 0 ? null : Math.round((wins / gamesPlayed) * 100)
   const maxCount = Math.max(1, ...bars.map((b) => b.count))
 
   return (
