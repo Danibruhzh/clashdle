@@ -483,6 +483,18 @@
       "Crown Tower Damage": "35"
     }
   },
+  "Frosty Fella": {
+    "Cost": "2",
+    "Type": "Troop",
+    "Rarity": "Legendary",
+    "Target": "Air & Ground",
+    "Hitpoints": "266",
+    "Damage": "N/A",
+    "Damage Per Second": "N/A",
+    "Special Damage": {
+      "Spawn Damage": "89"
+    }
+  },
   "Furnace": {
     "Cost": "4",
     "Type": "Troop",
@@ -999,6 +1011,16 @@
     "Hitpoints": "1433",
     "Damage": "755",
     "Damage Per Second": "471",
+    "Special Damage": "N/A"
+  },
+  "Minion Giant": {
+    "Cost": "4",
+    "Type": "Troop",
+    "Rarity": "Rare",
+    "Target": "Buildings",
+    "Hitpoints": "1817",
+    "Damage": "189",
+    "Damage Per Second": "126",
     "Special Damage": "N/A"
   },
   "Minion Horde": {
@@ -1671,7 +1693,18 @@
       "Poison Damage (Stage 3)": "307"
     }
   },
-  "Evolution Elite Barbarians": {},
+  "Evolution Elite Barbarians": {
+    "Cost": "6",
+    "Type": "Troop",
+    "Rarity": "Common",
+    "Target": "Ground",
+    "Hitpoints": "1341",
+    "Damage": "384",
+    "Damage Per Second": "274",
+    "Special Damage": {
+      "Spear Damage": "220"
+    }
+  },
   "Evolution Executioner": {
     "Cost": "5",
     "Type": "Troop",

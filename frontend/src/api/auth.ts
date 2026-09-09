@@ -2,6 +2,8 @@
 
 import { getHistogram, getLossCount } from '../utils/guessHistogram'
 import { getStreak, getBestStreak, getLastWinDate } from '../utils/streak'
+import { getUncreditedGuestStats, markGuestStatsCredited } from '../utils/guestStatsCredit'
+import type { GuestStatsSnapshot } from '../utils/guestStatsCredit'
 
 export interface GuestStatsPayload {
   histogram: Record<string, number>
@@ -41,28 +43,45 @@ async function parseOrThrow<T>(response: Response, fallbackMessage: string): Pro
   return response.json()
 }
 
-// This browser's current guest-side numbers, shaped for the register
-// request below — read once at signup time, matching CLAUDE.md's "read the
-// current localStorage histogram and send it once" flow. Called fresh on
-// every register() rather than cached, since a guest might play more
-// between opening the signup form and actually submitting it.
-function buildGuestStatsPayload(): GuestStatsPayload {
+// This browser's current guest-side numbers, read once at signup time —
+// called fresh on every register() rather than cached, since a guest might
+// play more between opening the signup form and actually submitting it.
+function readGuestStatsSnapshot(): GuestStatsSnapshot {
   return {
     histogram: getHistogram(),
-    loss_count: getLossCount(),
-    streak_count: getStreak(),
-    best_streak: getBestStreak(),
-    last_win_date: getLastWinDate(),
+    lossCount: getLossCount(),
+    streakCount: getStreak(),
+    bestStreak: getBestStreak(),
+    lastWinDate: getLastWinDate(),
   }
 }
 
 export async function register(username: string, email: string, password: string): Promise<TokenResponse> {
+  // Only the portion of this browser's guest stats not already credited to
+  // an earlier account gets sent — see guestStatsCredit.ts for why (repeat
+  // registrations on one browser would otherwise each claim the same guest
+  // history as their own).
+  const current = readGuestStatsSnapshot()
+  const delta = getUncreditedGuestStats(current)
+  const guestStats: GuestStatsPayload = {
+    histogram: delta.histogram,
+    loss_count: delta.lossCount,
+    streak_count: delta.streakCount,
+    best_streak: delta.bestStreak,
+    last_win_date: delta.lastWinDate,
+  }
+
   const response = await fetch(`${API_BASE_URL}/auth/register`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ username, email, password, guest_stats: buildGuestStatsPayload() }),
+    body: JSON.stringify({ username, email, password, guest_stats: guestStats }),
   })
-  return parseOrThrow(response, 'Registration failed')
+  const result = await parseOrThrow<TokenResponse>(response, 'Registration failed')
+  // Only mark credited once the account actually exists — a failed
+  // registration (duplicate username, network error, etc.) leaves this
+  // browser's guest stats fully available to try again.
+  markGuestStatsCredited(current)
+  return result
 }
 
 export async function login(identifier: string, password: string): Promise<TokenResponse> {
