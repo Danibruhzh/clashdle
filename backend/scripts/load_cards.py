@@ -25,6 +25,9 @@ CORE_CATEGORIES = [
     "Cost", "Type", "Rarity", "Target",
     "Hitpoints", "Damage", "Damage Per Second", "Special Damage",
 ]
+# Dev-only stat (see app/models/card.py) — intentionally left out of
+# CORE_CATEGORIES so an unscraped stub card isn't considered "scraped"
+# just because Hit Speed happens to be filled in.
 
 LEADING_INT = re.compile(r"^\d+")
 
@@ -49,18 +52,26 @@ def categorize(key: str) -> str:
         return "Target"
     if "Hitpoints" in key:
         return "Hitpoints"
+    if "Hit Speed" in key:
+        return "Hit Speed"
     return key
 
 
 def pick(stats: dict, category: str):
     """Returns the value for a category, preferring an exact-name key match
-    over a sub-entity variant (e.g. plain "Target" over "Zap Target")."""
-    if category in stats:
-        return stats[category]
+    over a sub-entity variant (e.g. plain "Target" over "Zap Target") — but
+    only when that exact match actually has data. A multi-entity card (e.g.
+    Rascal Girl) can end up with a real value only under an entity-prefixed
+    key ("Rascal Girl Hit Speed") while the plain key sits at its "N/A"
+    default, so an exact "N/A" is treated as no-match and a variant with
+    real data wins instead."""
+    exact = stats.get(category)
+    if exact not in (None, "N/A"):
+        return exact
     for key, value in stats.items():
-        if key != "__NOTE__" and categorize(key) == category:
+        if key != "__NOTE__" and key != category and categorize(key) == category:
             return value
-    return None
+    return exact
 
 
 def split_value(value):
@@ -100,6 +111,7 @@ def build_card_fields(name: str, stats: dict) -> dict:
     damage_label, damage_text = split_value(pick(stats, "Damage"))
     dps_label, dps_text = split_value(pick(stats, "Damage Per Second"))
     special_label, special_text = split_value(pick(stats, "Special Damage"))
+    _, hit_speed_text = split_value(pick(stats, "Hit Speed"))
 
     rarity = clean(rarity_text)
 
@@ -121,6 +133,7 @@ def build_card_fields(name: str, stats: dict) -> dict:
         "special_damage": parse_int(special_text),
         "special_damage_raw": clean(special_text),
         "special_damage_label": special_label,
+        "hit_speed": clean(hit_speed_text),
     }
 
 

@@ -91,6 +91,7 @@ REQUIRED_STATS = (
     "Hitpoints",
     "Damage",
     "Damage Per Second",
+    "Hit Speed"
 )
 
 def normalize_card(stats: dict) -> dict:
@@ -206,7 +207,7 @@ def get_card_info(url, retries: int, name: str):
                 #print(attrs_header_row)
                 for index, th in enumerate(attrs_header_row.find_all("th")):
                     label = th.text.strip()
-                    if label in ("Cost", "Target", "Type", "Rarity"):
+                    if label in ("Cost", "Hit Speed", "Target", "Type", "Rarity"):
                         key = label
                         #print(key)
                         while key in card_info:
@@ -339,7 +340,7 @@ def get_card_info(url, retries: int, name: str):
             time.sleep(2)
     
 try:
-    driver = webdriver.Chrome(service=Service(r"C:\Users\danie\.wdm\drivers\chromedriver\win64\150.0.7871.115\chromedriver-win64\chromedriver.exe"), options=options)
+    driver = webdriver.Chrome(service=Service(r"C:\Users\danie\.wdm\drivers\chromedriver\win64\153.0.8010.36\chromedriver-win64\chromedriver.exe"), options=options)
     
     driver.execute_cdp_cmd("Network.enable", {})
     driver.execute_cdp_cmd("Network.setBlockedURLs", {"urls": [

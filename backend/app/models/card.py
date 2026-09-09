@@ -23,6 +23,11 @@ class Card(Base):
     dps = Column(Integer, nullable=True)
     special_damage = Column(Integer, nullable=True)
 
+    # Dev-only reference stat — never part of guess comparison, never
+    # returned by any API response. Stored as raw text (e.g. "1.1sec")
+    # since nothing here needs it as a number.
+    hit_speed = Column(String, nullable=True)
+
     # full original text, preserved for display (e.g. "366 (122 x3)")
     hitpoints_raw = Column(String, nullable=True)
     damage_raw = Column(String, nullable=True)

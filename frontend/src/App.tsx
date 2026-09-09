@@ -44,6 +44,10 @@ const MAX_GUESSES = 8
 // many unsuccessful guesses.
 const NEED_HELP_AFTER_GUESSES = 4
 
+// Remaining scroll distance (px) at which .guesses-scroll's edge fade hits
+// full strength — see scrollFade above.
+const FADE_DISTANCE = 120
+
 interface Guess {
   id: number
   cardName: string
@@ -84,6 +88,16 @@ function App() {
   // trigger. Opening Card Browser turns it back off.
   const [showNeedHelpHint, setShowNeedHelpHint] = useState(false)
   const nextId = useRef(0)
+  // Edge-fade hint for .guesses-scroll on mobile, where the horizontal
+  // scrollbar itself doesn't render on iOS Safari (see App.css) — a dark
+  // shadow over the first/last FADE_DISTANCE px on whichever side still has
+  // more to scroll to, so a peeking card edge visually hints "swipe this
+  // way" instead of just cutting off flush with the viewport edge. Each
+  // side's strength (0-1) scales with how much scroll distance remains in
+  // that direction, so it eases out to nothing right as that edge is
+  // reached rather than snapping off.
+  const guessesScrollRef = useRef<HTMLDivElement>(null)
+  const [scrollFade, setScrollFade] = useState({ left: 0, right: 0 })
 
   // Start fetching the sound files immediately instead of waiting for the
   // first hover/flip/win to trigger it — otherwise that first play has to
@@ -177,6 +191,30 @@ function App() {
       .then(({ winners_count }) => setWinnersCount(winners_count))
       .catch((err) => console.error('Failed to load today\'s winners count:', err))
   }, [])
+
+  useEffect(() => {
+    const el = guessesScrollRef.current
+    if (!el) return
+
+    const updateFade = () => {
+      const maxScroll = el.scrollWidth - el.clientWidth
+      const strength = (remaining: number) => Math.min(Math.max(remaining, 0), FADE_DISTANCE) / FADE_DISTANCE
+      setScrollFade({
+        left: strength(el.scrollLeft),
+        right: strength(maxScroll - el.scrollLeft),
+      })
+    }
+
+    updateFade()
+    el.addEventListener('scroll', updateFade)
+    window.addEventListener('resize', updateFade)
+    return () => {
+      el.removeEventListener('scroll', updateFade)
+      window.removeEventListener('resize', updateFade)
+    }
+    // Re-checks whenever the guess rows change — adding a row can flip
+    // whether the content is scrollable at all.
+  }, [guesses])
 
   const handleSelectCard = async (cardName: string) => {
     setIsSubmitting(true)
@@ -282,16 +320,20 @@ function App() {
           </>
         )}
         {SHOW_WINNERS_COUNT && <TodayWinnersCount count={winnersCount} />}
-        <div className="guesses-scroll">
-          <StatsHeader />
-          {guesses.map((guess) => (
-            <CardDisplay
-              key={guess.id}
-              cardName={guess.cardName}
-              comparisons={guess.result.comparisons}
-              playFlipSounds={!guess.isRestored}
-            />
-          ))}
+        <div className="guesses-scroll-wrap">
+          <div className="guesses-scroll" ref={guessesScrollRef}>
+            <StatsHeader />
+            {guesses.map((guess) => (
+              <CardDisplay
+                key={guess.id}
+                cardName={guess.cardName}
+                comparisons={guess.result.comparisons}
+                playFlipSounds={!guess.isRestored}
+              />
+            ))}
+          </div>
+          <div className="guesses-scroll-fade guesses-scroll-fade--left" style={{ opacity: scrollFade.left }} />
+          <div className="guesses-scroll-fade guesses-scroll-fade--right" style={{ opacity: scrollFade.right }} />
         </div>
         <PreviousAnswerFooter cardName={previousAnswer} />
       </div>

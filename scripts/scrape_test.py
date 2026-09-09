@@ -83,6 +83,7 @@ REQUIRED_STATS = (
     "Hitpoints",
     "Damage",
     "Damage Per Second",
+    "Hit Speed"
 )
 
 def get_name_variants(name):
@@ -153,7 +154,7 @@ def get_card_info(url, retries: int, name: str):
                 #print(attrs_header_row)
                 for index, th in enumerate(attrs_header_row.find_all("th")):
                     label = th.text.strip()
-                    if label in ("Cost", "Target", "Type", "Rarity"):
+                    if label in ("Cost", "Hit Speed", "Target", "Type", "Rarity"):
                         key = label
                         #print(key)
                         while key in card_info:
@@ -289,7 +290,7 @@ def get_card_info(url, retries: int, name: str):
             time.sleep(2)
 
 try:
-    driver = webdriver.Chrome(service=Service(r"C:\Users\danie\.wdm\drivers\chromedriver\win64\150.0.7871.115\chromedriver-win64\chromedriver.exe"), options=options)
+    driver = webdriver.Chrome(service=Service(r"C:\Users\danie\.wdm\drivers\chromedriver\win64\153.0.8010.36\chromedriver-win64\chromedriver.exe"), options=options)
     
     driver.execute_cdp_cmd("Network.enable", {})
     driver.execute_cdp_cmd("Network.setBlockedURLs", {"urls": [
@@ -325,9 +326,9 @@ try:
     
     print("Driver started")
 
-    url = "https://clashroyale.fandom.com/wiki/Magic_Archer/Hero"
+    url = "https://clashroyale.fandom.com/wiki/Rascals"
 
-    cards = get_card_info(url, 2, "Decoy") # 2 retries
+    cards = get_card_info(url, 2, "Rascal Girl") # 2 retries
     time.sleep(1)
 
     print(cards)

@@ -23,6 +23,7 @@ function ProfileModal({ onClose, onAuthChange }: ProfileModalProps) {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('') // sign-up only
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -94,7 +95,8 @@ function ProfileModal({ onClose, onAuthChange }: ProfileModalProps) {
   const canSubmitRegister =
     username.trim().length >= 3 &&
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()) &&
-    password.length >= 8
+    password.length >= 8 &&
+    confirmPassword === password
 
   const handleLogout = () => {
     clearAuthToken()
@@ -201,6 +203,14 @@ function ProfileModal({ onClose, onAuthChange }: ProfileModalProps) {
                   placeholder="Password (8+ characters)"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  autoComplete="new-password"
+                />
+                <input
+                  className="profile-modal-input"
+                  type="password"
+                  placeholder="Confirm Password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                   autoComplete="new-password"
                 />
                 {error && <p className="profile-modal-error">{error}</p>}

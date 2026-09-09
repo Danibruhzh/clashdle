@@ -2,7 +2,14 @@
   position: fixed;
   inset: 0;
   width: 100vw;
+  /* Plain vh is measured against the "large" viewport (browser chrome
+     hidden) but a fixed element is pinned to the actual visual viewport,
+     which shrinks while the address bar is showing — mismatch shows up as
+     black bars above/below this on mobile Safari/Chrome as the bar
+     shows/hides on scroll. dvh tracks the real visible viewport instead;
+     the plain vh line stays first as a fallback for browsers without it. */
   height: 100vh;
+  height: 100dvh;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

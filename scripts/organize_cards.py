@@ -23,9 +23,15 @@ CATEGORY_ORDER = [
     "Hitpoints",
     "Damage",
     "Damage Per Second",
+    "Hit Speed",
     "Special Damage",
 ]
 
+# Dev-only stat, not derived from any player-facing category — see
+# scraper.py and load_cards.py for where this gets scraped/loaded. Never
+# add this to frontend/src/data/all_cards.json; CardDisplay.tsx renders
+# every key in a card's stats generically, so anything added there is
+# shown to players.
 def categorize(key: str) -> int:
     if key == "__NOTE__":
         return 0
@@ -33,6 +39,8 @@ def categorize(key: str) -> int:
     # "Special Damage" and "Damage Per Second" contain "Damage",
     # and "Special Damage (...)" variants can even contain "Target".
     if "Special Damage" in key:
+        return 9
+    if "Hit Speed" in key:
         return 8
     if "Damage Per Second" in key:
         return 7
