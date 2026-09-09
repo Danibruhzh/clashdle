@@ -6,7 +6,12 @@
 }
 
 .card-display-name {
-  background: transparent;
+  /* Was transparent — meant nothing but the page background showed through
+     while the image was still loading (or if it 404s), reading as blank
+     space rather than "a card is loading here". var(--bg) instead gives an
+     actually-visible placeholder; the image (once it loads) fully covers
+     it anyway, so this never shows once loading finishes. */
+  background: var(--bg);
   border-color: var(--accent-border);
   overflow: hidden;
   position: relative;

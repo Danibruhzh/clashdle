@@ -90,7 +90,7 @@ function ProfileModal({ onClose, onAuthChange }: ProfileModalProps) {
   // here instead, since that's what pops up the browser's own "Please fill
   // out this field" bubble; disabling the button until these are true
   // blocks submission just as effectively without it.
-  const canSubmitLogin = identifier.trim() !== '' && password !== ''
+  const canSubmitLogin = identifier.trim() !== '' && password.length >= 8
   const canSubmitRegister =
     username.trim().length >= 3 &&
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()) &&
