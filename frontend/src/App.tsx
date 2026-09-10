@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import Background from './components/Background'
 import SearchBar from './components/SearchBar'
 import CardDisplay from './components/CardDisplay'
@@ -26,6 +27,9 @@ import { playSound, preloadSounds } from './utils/sound'
 import { getAuthToken } from './utils/authSession'
 import { fetchUserStats } from './api/auth'
 import './App.css'
+// Just for .unlimited-start-button's look — UnlimitedPage.tsx imports
+// App.css the same way, for its own shared page-shell classes.
+import './UnlimitedPage.css'
 
 // Matches CardDisplay.css's flip-in animation: 9 cells (name + 8 stats),
 // each delayed (index * 0.2s) after the row mounts, animation itself takes
@@ -275,6 +279,11 @@ function App() {
           </div>
         </div>
         <h1 className="app-title">Clashdle</h1>
+        {(hasWon || hasLost) && (
+          <Link className="unlimited-start-button" to="/unlimited">
+            {loggedIn ? 'Play Unlimited' : 'Log in to play Unlimited'}
+          </Link>
+        )}
         {!hasWon && !hasLost && (
           <>
             <SearchBar

@@ -18,6 +18,22 @@
   object-fit: contain;
 }
 
+/* Shrinks alongside the page title (index.css's own h1 rule) rather than
+   staying full-size once the layout's already gone to its mobile scale —
+   the icon itself is sized off this via 100%/100% above, so only the
+   button and its count text (would otherwise look oversized relative to
+   the smaller icon) need their own rule here. */
+@media (max-width: 1024px) {
+  .streak-display {
+    width: 32px;
+    height: 32px;
+  }
+
+  .streak-display-count {
+    font-size: 12px;
+  }
+}
+
 /* brightness(0) turns every visible pixel black while leaving the PNG's
    transparency alone — a silhouette without needing a separate black asset. */
 .streak-display--inactive .streak-display-icon {

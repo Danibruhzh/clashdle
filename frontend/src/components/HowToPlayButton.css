@@ -16,6 +16,15 @@
   object-fit: contain;
 }
 
+/* Shrinks alongside the page title (index.css's own h1 rule) rather than
+   staying full-size once the layout's already gone to its mobile scale. */
+@media (max-width: 1024px) {
+  .how-to-play-button-icon {
+    width: 32px;
+    height: 32px;
+  }
+}
+
 .how-to-play-button-tooltip {
   position: absolute;
   top: calc(100% + 6px);

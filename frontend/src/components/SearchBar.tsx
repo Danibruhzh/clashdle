@@ -61,9 +61,18 @@ function SearchBar({ onSelectCard, guessedNames, disabled = false, loading = fal
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (blocked || e.key !== 'Enter') return
-    const match = cardNameByLower.get(normalize(query.trim()))
-    if (match && !guessedNames.has(match)) {
-      handleSelect(match)
+
+    const exactMatch = cardNameByLower.get(normalize(query.trim()))
+    if (exactMatch && !guessedNames.has(exactMatch)) {
+      handleSelect(exactMatch)
+      return
+    }
+
+    // Not the full name, but if the preview's already narrowed down to a
+    // single card, that's unambiguous — no reason to make the player type
+    // the rest of it out or reach for the mouse just to confirm it.
+    if (matches.length === 1) {
+      handleSelect(matches[0])
     }
   }
 

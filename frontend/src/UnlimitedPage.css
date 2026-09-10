@@ -62,6 +62,17 @@
   text-decoration: none;
 }
 
+/* Shrinks alongside the page title and menu icons (index.css's own h1
+   rule; the button CSS files each have their own matching version of this
+   query) rather than staying full-size once the layout's already gone to
+   its mobile scale. */
+@media (max-width: 1024px) {
+  .unlimited-gate-link {
+    padding: 7px 12px;
+    font-size: 12px;
+  }
+}
+
 /* Unlocked gameplay state — like .app-toolbar, but with Back to Daily
    pinned to the left instead of only ever having icons on the right. */
 .unlimited-toolbar {

@@ -279,7 +279,7 @@ function UnlimitedPage() {
             <ProfileButton onOpen={() => setShowProfile(true)} loggedIn={loggedIn} />
           </div>
         </div>
-        <h1 className="app-title">Unlimited</h1>
+        <h1 className="app-title">Clashdle Unlimited</h1>
 
         {/* The result itself (win/loss message) only ever shows via the
             auto-opened stats panel above — see handleSelectCard — not here.
