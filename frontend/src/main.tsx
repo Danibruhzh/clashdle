@@ -15,7 +15,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/unlimited" element={<UnlimitedPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
-      <Analytics />
     </BrowserRouter>
+    <Analytics />
   </StrictMode>,
 )
