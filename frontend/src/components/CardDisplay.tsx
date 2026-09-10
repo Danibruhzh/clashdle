@@ -66,7 +66,7 @@ function CardDisplay({ cardName, comparisons, playFlipSounds = true }: CardDispl
           <span className="card-display-name-overlay">{cardName}</span>
         </div>
         {Object.entries(stats)
-          .filter(([stat]) => stat !== '__NOTE__')
+          .filter(([stat]) => stat !== '__NOTE__' && stat !== 'Hit Speed')
           .map(([stat, value], index) => {
             const animationDelay = `${(index + 1) * 0.2}s`
             const comparison = comparisons[statCategory(stat)]

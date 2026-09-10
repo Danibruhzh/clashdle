@@ -216,17 +216,6 @@
     "Target": "Ground",
     "Hitpoints": "304",
     "Damage": "256",
-    "Damage Per Second": "182",
-    "Hit Speed": "N/A",
-    "Special Damage": "N/A"
-  },
-  "Bush Goblins": {
-    "Cost": "2",
-    "Type": "Troop",
-    "Rarity": "Rare",
-    "Target": "Ground",
-    "Hitpoints": "304",
-    "Damage": "256",
     "Damage per second": "182",
     "Hit Speed": "1.4 sec",
     "Special Damage": "N/A"
@@ -1271,7 +1260,7 @@
     "Cost": "2",
     "Type": "Spell",
     "Rarity": "Epic",
-    "Target": "Friendly Troops & Buildings",
+    "Target": "Air & Ground",
     "Hitpoints": "N/A",
     "Damage": "179",
     "Damage Per Second": "N/A",
