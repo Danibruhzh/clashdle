@@ -1,0 +1,92 @@
+/* Not-logged-in gate: bare page, background image only, login/signup
+   centered (plus a way back out for a guest who'd rather not create an
+   account) — reuses .profile-modal's own box styling (imported via
+   ProfileModal.css through AuthForm's shared classnames) rather than
+   redefining it, so it looks identical to the modal everywhere else. */
+.unlimited-auth-page {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.unlimited-auth-box {
+  width: 100%;
+  max-width: 360px;
+  background: var(--bg);
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+  box-sizing: border-box;
+  text-align: left;
+}
+
+/* "Checking…" / "finish today's daily first" gate */
+.unlimited-gate-page {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 24px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.unlimited-gate-message {
+  color: var(--text-h);
+  font-size: 16px;
+  max-width: 320px;
+  margin: 0;
+}
+
+.unlimited-gate-link {
+  padding: 10px 18px;
+  border: 2px solid var(--accent-border);
+  border-radius: 8px;
+  background: var(--accent-bg);
+  color: var(--text-h);
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* Unlocked gameplay state — like .app-toolbar, but with Back to Daily
+   pinned to the left instead of only ever having icons on the right. */
+.unlimited-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+.unlimited-start-button {
+  margin: 8px 0 0;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #1a0526;
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.unlimited-start-button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}

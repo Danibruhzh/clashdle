@@ -6,6 +6,14 @@ import './StreakModal.css'
 
 interface StreakModalProps {
   onClose: () => void
+  // UnlimitedPage already has its own (Unlimited-specific, not daily)
+  // streak loaded elsewhere on that page — passing it here skips this
+  // component's own fetch/guest-fallback entirely, using this instead.
+  // Omitted entirely (the home page's usage) means "fetch the daily one",
+  // same as before this prop existed; null means "loading" (the caller's
+  // own fetch hasn't resolved yet) rather than "logged out".
+  override?: ResolvedStreak | null
+  title?: string
 }
 
 // Same shape either way, just sourced differently — from localStorage for a
@@ -21,35 +29,47 @@ function readGuestStreak(): ResolvedStreak {
   return { current: getStreak(), best: getBestStreak() }
 }
 
-function StreakModal({ onClose }: StreakModalProps) {
-  const [streak, setStreak] = useState<ResolvedStreak | null>(() => {
+function StreakModal({ onClose, override, title = 'Your Streak' }: StreakModalProps) {
+  // Whether this instance owns fetching its own streak at all — decided
+  // once, from whether the caller passed the override prop in the first
+  // place (regardless of its value), not from what that value currently is.
+  const usesOverride = override !== undefined
+
+  const [fetched, setFetched] = useState<ResolvedStreak | null>(() => {
+    if (usesOverride) return null // unused in this mode; see `resolved` below
     const token = getAuthToken()
     return token ? null : readGuestStreak() // null while a logged-in fetch is in flight
   })
 
   useEffect(() => {
+    if (usesOverride) return // caller owns this data — see UnlimitedPage.tsx
     const token = getAuthToken()
     if (!token) return // already resolved synchronously above
     let cancelled = false
     fetchUserStats(token)
       .then((s) => {
-        if (!cancelled) setStreak({ current: s.current_streak, best: s.best_streak })
+        if (!cancelled) setFetched({ current: s.current_streak, best: s.best_streak })
       })
       .catch(() => {
         // Token expired/invalid, request failed, etc. — fall back to this
         // browser's own guest numbers rather than showing nothing.
-        if (!cancelled) setStreak(readGuestStreak())
+        if (!cancelled) setFetched(readGuestStreak())
       })
     return () => {
       cancelled = true
     }
-  }, [])
+    // usesOverride can't actually change after mount (callers don't toggle
+    // whether they pass the prop), so listing it changes nothing behaviorally
+    // — just satisfies the lint rule without a disable comment.
+  }, [usesOverride])
+
+  const streak = usesOverride ? override : fetched
 
   return (
     <div className="streak-modal-backdrop" onClick={onClose}>
       <div className="streak-modal" onClick={(e) => e.stopPropagation()}>
         <div className="streak-modal-header">
-          <h2>Your Streak</h2>
+          <h2>{title}</h2>
           <button className="streak-modal-close" onClick={onClose} aria-label="Close">
             ✕
           </button>

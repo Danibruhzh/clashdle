@@ -4,6 +4,7 @@ import { getHistogram, getLossCount } from '../utils/guessHistogram'
 import { getStreak, getBestStreak, getLastWinDate } from '../utils/streak'
 import { getUncreditedGuestStats, markGuestStatsCredited } from '../utils/guestStatsCredit'
 import type { GuestStatsSnapshot } from '../utils/guestStatsCredit'
+import { getGuestSessionId } from '../utils/guestSession'
 
 export interface GuestStatsPayload {
   histogram: Record<string, number>
@@ -74,7 +75,13 @@ export async function register(username: string, email: string, password: string
   const response = await fetch(`${API_BASE_URL}/auth/register`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ username, email, password, guest_stats: guestStats }),
+    body: JSON.stringify({
+      username,
+      email,
+      password,
+      guest_stats: guestStats,
+      guest_session_id: getGuestSessionId(),
+    }),
   })
   const result = await parseOrThrow<TokenResponse>(response, 'Registration failed')
   // Only mark credited once the account actually exists — a failed

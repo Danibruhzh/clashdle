@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react'
-import { register, login, fetchProfile } from '../api/auth'
-import type { UserProfile } from '../api/auth'
-import { getAuthToken, setAuthToken, clearAuthToken } from '../utils/authSession'
+import { fetchProfile, fetchUserStats } from '../api/auth'
+import type { UserProfile, UserStats } from '../api/auth'
+import { fetchUnlimitedStats } from '../api/unlimited'
+import type { UnlimitedStats } from '../api/unlimited'
+import { getAuthToken, clearAuthToken } from '../utils/authSession'
+import AuthForm from './AuthForm'
 import './ProfileModal.css'
 
 interface ProfileModalProps {
@@ -12,24 +15,35 @@ interface ProfileModalProps {
   onAuthChange: (loggedIn: boolean) => void
 }
 
-type Mode = 'login' | 'register'
+// Combines both modes' histograms into one weighted average guess count —
+// "totals the daily game and Unlimited stats" together rather than showing
+// two separate averages. null (rendered as "—") only when there are zero
+// wins in either mode to average over.
+function averageGuessesToWin(daily: UserStats | null, unlimited: UnlimitedStats | null): number | null {
+  let totalGuesses = 0
+  let totalWins = 0
+  for (const histogram of [daily?.histogram, unlimited?.histogram]) {
+    if (!histogram) continue
+    for (const [guesses, count] of Object.entries(histogram)) {
+      totalGuesses += Number(guesses) * count
+      totalWins += count
+    }
+  }
+  return totalWins === 0 ? null : totalGuesses / totalWins
+}
 
 function ProfileModal({ onClose, onAuthChange }: ProfileModalProps) {
   const [profile, setProfile] = useState<UserProfile | null>(null)
+  const [dailyStats, setDailyStats] = useState<UserStats | null>(null)
+  const [unlimitedStats, setUnlimitedStats] = useState<UnlimitedStats | null>(null)
   const [loadingProfile, setLoadingProfile] = useState(true)
-  const [mode, setMode] = useState<Mode>('login')
-
-  const [identifier, setIdentifier] = useState('')
-  const [username, setUsername] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('') // sign-up only
-  const [submitting, setSubmitting] = useState(false)
-  const [error, setError] = useState<string | null>(null)
 
   // On open, check whether a token already exists and still works — a
   // token that's since expired or been invalidated just falls back to the
-  // logged-out view instead of showing a broken profile.
+  // logged-out view instead of showing a broken profile. The two stats
+  // fetches are best-effort alongside it: a failure there shouldn't log the
+  // account out the way a failed profile fetch does, just leave those
+  // numbers reading as zero (see averageGuessesToWin/the render below).
   useEffect(() => {
     let cancelled = false
     const token = getAuthToken()
@@ -37,9 +51,12 @@ function ProfileModal({ onClose, onAuthChange }: ProfileModalProps) {
       setLoadingProfile(false)
       return
     }
-    fetchProfile(token)
-      .then((p) => {
-        if (!cancelled) setProfile(p)
+    Promise.all([fetchProfile(token), fetchUserStats(token).catch(() => null), fetchUnlimitedStats().catch(() => null)])
+      .then(([p, daily, unlimited]) => {
+        if (cancelled) return
+        setProfile(p)
+        setDailyStats(daily)
+        setUnlimitedStats(unlimited)
       })
       .catch(() => {
         if (!cancelled) clearAuthToken()
@@ -52,63 +69,36 @@ function ProfileModal({ onClose, onAuthChange }: ProfileModalProps) {
     }
   }, [])
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setSubmitting(true)
-    setError(null)
-    try {
-      const { access_token } = await login(identifier, password)
-      setAuthToken(access_token)
-      const p = await fetchProfile(access_token)
-      setProfile(p)
-      onAuthChange(true)
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Login failed')
-    } finally {
-      setSubmitting(false)
+  // AuthForm only knows "login/register just succeeded" — it doesn't fetch
+  // or hold onto the profile itself, so this fetches it here once that
+  // happens, in addition to passing the change up to App.tsx.
+  const handleAuthChange = (nowLoggedIn: boolean) => {
+    if (nowLoggedIn) {
+      const token = getAuthToken()
+      if (token) {
+        fetchProfile(token).then(setProfile).catch(() => {})
+        fetchUserStats(token).then(setDailyStats).catch(() => {})
+        fetchUnlimitedStats().then(setUnlimitedStats).catch(() => {})
+      }
     }
+    onAuthChange(nowLoggedIn)
   }
-
-  const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setSubmitting(true)
-    setError(null)
-    try {
-      const { access_token } = await register(username, email, password)
-      setAuthToken(access_token)
-      const p = await fetchProfile(access_token)
-      setProfile(p)
-      onAuthChange(true)
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Registration failed')
-    } finally {
-      setSubmitting(false)
-    }
-  }
-
-  // Drives the submit buttons' disabled state below — native HTML
-  // validation (required/minLength/type="email") is deliberately not used
-  // here instead, since that's what pops up the browser's own "Please fill
-  // out this field" bubble; disabling the button until these are true
-  // blocks submission just as effectively without it.
-  const canSubmitLogin = identifier.trim() !== '' && password.length >= 8
-  const canSubmitRegister =
-    username.trim().length >= 3 &&
-    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()) &&
-    password.length >= 8 &&
-    confirmPassword === password
 
   const handleLogout = () => {
     clearAuthToken()
     setProfile(null)
+    setDailyStats(null)
+    setUnlimitedStats(null)
     onAuthChange(false)
   }
+
+  const avgGuesses = averageGuessesToWin(dailyStats, unlimitedStats)
 
   return (
     <div className="profile-modal-backdrop" onClick={onClose}>
       <div className="profile-modal" onClick={(e) => e.stopPropagation()}>
         <div className="profile-modal-header">
-          <h2>{profile ? 'Your Profile' : mode === 'login' ? 'Log In' : 'Sign Up'}</h2>
+          <h2>{profile ? 'Your Profile' : ''}</h2>
           <button className="profile-modal-close" onClick={onClose} aria-label="Close">
             ✕
           </button>
@@ -118,109 +108,38 @@ function ProfileModal({ onClose, onAuthChange }: ProfileModalProps) {
           <p className="profile-modal-loading">Loading…</p>
         ) : profile ? (
           <div className="profile-modal-account">
-            <div className="profile-modal-account-row">
-              <span className="profile-modal-account-label">Username</span>
-              <span className="profile-modal-account-value">{profile.username}</span>
+            <div className="profile-modal-identity">
+              <div className="profile-modal-account-row">
+                <span className="profile-modal-account-label">Username</span>
+                <span className="profile-modal-account-value">{profile.username}</span>
+              </div>
+              <div className="profile-modal-account-row">
+                <span className="profile-modal-account-label">Email</span>
+                <span className="profile-modal-account-value">{profile.email}</span>
+              </div>
             </div>
-            <div className="profile-modal-account-row">
-              <span className="profile-modal-account-label">Email</span>
-              <span className="profile-modal-account-value">{profile.email}</span>
+
+            <div className="profile-modal-stats">
+              <div className="profile-modal-stat">
+                <span className="profile-modal-stat-value">{dailyStats?.wins ?? 0}</span>
+                <span className="profile-modal-stat-label">Daily Wins</span>
+              </div>
+              <div className="profile-modal-stat">
+                <span className="profile-modal-stat-value">{unlimitedStats?.wins ?? 0}</span>
+                <span className="profile-modal-stat-label">Unlimited Wins</span>
+              </div>
+              <div className="profile-modal-stat">
+                <span className="profile-modal-stat-value">{avgGuesses === null ? '—' : avgGuesses.toFixed(1)}</span>
+                <span className="profile-modal-stat-label">Avg Guesses</span>
+              </div>
             </div>
+
             <button className="profile-modal-logout" onClick={handleLogout}>
               Log Out
             </button>
           </div>
         ) : (
-          <>
-            <div className="profile-modal-tabs">
-              <button
-                className={`profile-modal-tab${mode === 'login' ? ' profile-modal-tab--active' : ''}`}
-                onClick={() => {
-                  setMode('login')
-                  setError(null)
-                }}
-                type="button"
-              >
-                Log In
-              </button>
-              <button
-                className={`profile-modal-tab${mode === 'register' ? ' profile-modal-tab--active' : ''}`}
-                onClick={() => {
-                  setMode('register')
-                  setError(null)
-                }}
-                type="button"
-              >
-                Sign Up
-              </button>
-            </div>
-
-            {mode === 'login' ? (
-              <form className="profile-modal-form" onSubmit={handleLogin}>
-                <input
-                  className="profile-modal-input"
-                  type="text"
-                  placeholder="Username or email"
-                  value={identifier}
-                  onChange={(e) => setIdentifier(e.target.value)}
-                  autoComplete="username"
-                />
-                <input
-                  className="profile-modal-input"
-                  type="password"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  autoComplete="current-password"
-                />
-                {error && <p className="profile-modal-error">{error}</p>}
-                <button className="profile-modal-submit" type="submit" disabled={submitting || !canSubmitLogin}>
-                  {submitting ? 'Logging in…' : 'Log In'}
-                </button>
-              </form>
-            ) : (
-              <form className="profile-modal-form" onSubmit={handleRegister}>
-                <input
-                  className="profile-modal-input"
-                  type="text"
-                  placeholder="Username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  autoComplete="username"
-                  maxLength={32}
-                />
-                <input
-                  className="profile-modal-input"
-                  type="text"
-                  placeholder="Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  autoComplete="email"
-                />
-                <input
-                  className="profile-modal-input"
-                  type="password"
-                  placeholder="Password (8+ characters)"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  autoComplete="new-password"
-                />
-                <input
-                  className="profile-modal-input"
-                  type="password"
-                  placeholder="Confirm Password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  autoComplete="new-password"
-                />
-                {error && <p className="profile-modal-error">{error}</p>}
-                <button className="profile-modal-submit" type="submit" disabled={submitting || !canSubmitRegister}>
-                  {submitting ? 'Signing up…' : 'Sign Up'}
-                </button>
-                <p className="profile-modal-hint">Your current guest stats will carry over to this account.</p>
-              </form>
-            )}
-          </>
+          <AuthForm onAuthChange={handleAuthChange} />
         )}
       </div>
     </div>

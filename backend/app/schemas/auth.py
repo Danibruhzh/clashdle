@@ -31,6 +31,12 @@ class RegisterRequest(BaseModel):
     email: EmailStr
     password: str = Field(min_length=8, max_length=128)
     guest_stats: GuestStatsPayload | None = None
+    # This browser's guestSession.ts id, if any — lets the router reassign
+    # any Guess rows already made under it (e.g. today's win) onto the new
+    # account, so the game doesn't look unplayed/repeatable right after
+    # signing up. None just means "no guest play on this browser", not an
+    # error, same as guest_stats.
+    guest_session_id: str | None = None
 
     @field_validator("username")
     @classmethod

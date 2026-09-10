@@ -21,7 +21,11 @@
 
 .profile-modal {
   width: 100%;
-  max-width: 360px;
+  /* Wider than the original 360px so the logged-in view can put username
+     and email side by side (see .profile-modal-identity) instead of
+     stacked — shared with the logged-out login/signup view too, rather
+     than the modal changing width depending on which view is showing. */
+  max-width: 440px;
   background: var(--bg);
   border: 2px solid var(--border);
   border-radius: 12px;
@@ -83,16 +87,36 @@
   gap: 10px;
 }
 
-/* Label above value rather than side-by-side — a long email address (much
-   likelier than a long username to run out of room next to its label)
-   would otherwise collide with it under space-between instead of wrapping. */
+/* Username and email side by side on the wider modal above, rather than
+   each stacked full-width — email gets more of the row since it's the one
+   likelier to run long. */
+.profile-modal-identity {
+  display: flex;
+  gap: 10px;
+}
+
+/* Label above value within each — a long email address would otherwise
+   collide with its own label side-by-side instead of wrapping onto its
+   own line underneath it. min-width: 0 overrides a flex item's default
+   min-width: auto, which otherwise refuses to shrink narrower than the
+   email's own unbroken width and defeats overflow-wrap below — the text
+   just overflows the box instead of wrapping inside it. */
 .profile-modal-account-row {
   display: flex;
   flex-direction: column;
   gap: 2px;
+  min-width: 0;
   padding: 10px 12px;
   border-radius: 8px;
   background: var(--code-bg);
+}
+
+.profile-modal-identity .profile-modal-account-row:first-child {
+  flex: 1;
+}
+
+.profile-modal-identity .profile-modal-account-row:last-child {
+  flex: 1.5;
 }
 
 .profile-modal-account-label {
@@ -108,6 +132,42 @@
   font-weight: 600;
   color: var(--text-h);
   overflow-wrap: break-word;
+}
+
+/* The middle stats block — daily wins / Unlimited wins / combined average
+   guesses to win. Mirrors StatsPanel's own summary-stat look (value over
+   label in a rounded box) without importing that stylesheet, since this
+   has three columns instead of two and slightly different content. */
+.profile-modal-stats {
+  display: flex;
+  gap: 10px;
+}
+
+.profile-modal-stat {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 14px 6px;
+  border-radius: 8px;
+  background: var(--code-bg);
+}
+
+.profile-modal-stat-value {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.profile-modal-stat-label {
+  font-size: 11px;
+  color: var(--text-h);
+  opacity: 0.8;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  text-align: center;
 }
 
 .profile-modal-logout {

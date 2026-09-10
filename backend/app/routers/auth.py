@@ -8,6 +8,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from app.core.security import create_access_token, get_current_user, hash_password, verify_password
 from app.core.time import get_client_today
 from app.db.session import get_db
+from app.models.guess import Guess
 from app.models.user import User
 from app.models.user_stats import UserStats
 from app.schemas.auth import (
@@ -66,6 +67,18 @@ def register(payload: RegisterRequest, db: Session = Depends(get_db)):
     db.flush()  # assigns user.id without a full commit yet
 
     db.add(_build_seeded_stats(user.id, payload.guest_stats))
+
+    # Hand this browser's own guesses (today's included) over to the new
+    # account — otherwise a guest who already won/lost today shows up as
+    # never having played once logged in, since /game/guess and /game/today
+    # look guesses up by identity (see routers/game.py) and this account's
+    # user_id has none yet. is_correct/created_at etc. all carry over as-is;
+    # only who it's attributed to changes.
+    if payload.guest_session_id:
+        db.query(Guess).filter(Guess.guest_session_id == payload.guest_session_id).update(
+            {Guess.user_id: user.id, Guess.guest_session_id: None}
+        )
+
     db.commit()
 
     return TokenResponse(access_token=create_access_token(user.id))

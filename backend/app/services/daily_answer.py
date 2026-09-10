@@ -7,6 +7,8 @@ from sqlalchemy.orm import Session, joinedload
 from app.models.card import Card
 from app.models.daily_answer import DailyAnswer
 from app.models.answer_pool import AnswerPool
+from app.models.guess import Guess
+from app.services.game import MAX_GUESSES
 
 # daily answer will cycle through the whole bank once, then allow repeats
 
@@ -58,3 +60,15 @@ def get_or_create_daily_answer(db: Session, today: date) -> DailyAnswer:
             .one()
         )
     return new_answer
+
+
+def has_finished_daily(db: Session, user_id: int, today: date) -> bool:
+    """Gate for Unlimited access (routers/unlimited.py) — mirrors the same
+    "won or ran out of guesses" check routers/game.py's today_guesses()
+    implies, but for a specific logged-in user_id rather than whoever's
+    making the request. Enforced server-side (not just hidden client-side
+    in UnlimitedPage's gating UI) since /unlimited/start is a real endpoint
+    a logged-in user could otherwise hit directly."""
+    daily_answer = get_or_create_daily_answer(db, today)
+    guesses = db.query(Guess).filter(Guess.daily_answer_id == daily_answer.id, Guess.user_id == user_id).all()
+    return len(guesses) >= MAX_GUESSES or any(g.is_correct for g in guesses)

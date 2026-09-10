@@ -1,0 +1,56 @@
+.guesses-scroll-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.guesses-scroll {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  overflow-x: auto;
+  /* Space between the last CardDisplay row and the scrollbar drawn below,
+     so the bar doesn't sit flush against it. */
+  padding-bottom: 14px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+/* Dark edge-fade hint, strength driven from GuessesScroll.tsx via inline
+   `opacity` (0-1, based on how much there is left to scroll that direction)
+   — positioned outside .guesses-scroll itself so it stays pinned to the
+   viewport edge instead of scrolling away with the content, and stops
+   above the scrollbar strip (bottom: 14px, matching the padding above)
+   so it doesn't wash the bar out. pointer-events: none so it never blocks
+   the actual scroll/drag underneath it. */
+.guesses-scroll-fade {
+  position: absolute;
+  top: 0;
+  bottom: 14px;
+  width: 40px;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+}
+
+.guesses-scroll-fade--left {
+  left: 0;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.55), transparent);
+}
+
+.guesses-scroll-fade--right {
+  right: 0;
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.55), transparent);
+}
+
+.guesses-scroll::-webkit-scrollbar {
+  height: 8px;
+}
+
+.guesses-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.guesses-scroll::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
