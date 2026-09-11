@@ -4,7 +4,17 @@ Usage (from backend/, with .venv active):
     python scripts/load_cards.py
 
 Matches existing rows by name, so re-running is idempotent: cards already in
-the table get updated in place instead of duplicated.
+the table get updated in place instead of duplicated (same card_id, only
+fields change).
+
+Also syncs answer_pool and daily_answers:
+- Any card (new or existing) missing from BOTH answer_pool and
+  daily_answers gets added to answer_pool at the current cycle_number,
+  since it hasn't been a daily answer yet and isn't currently eligible
+  to become one.
+- Cards removed from all_cards.json are deleted from cards and answer_pool,
+  UNLESS they have a daily_answers row (past daily answer history), in
+  which case they're left alone entirely so that history is never lost.
 """
 import json
 import re
@@ -14,8 +24,12 @@ from pathlib import Path
 # allow `from app...` imports when this file is run directly as a script
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+from sqlalchemy import func
+
 from app.db.session import SessionLocal
 from app.models.card import Card
+from app.models.answer_pool import AnswerPool
+from app.models.daily_answer import DailyAnswer
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 CARDS_JSON = REPO_ROOT / "all_cards.json"
@@ -142,8 +156,9 @@ def main():
         cards_json = json.load(f)
 
     db = SessionLocal()
-    created, updated, skipped = 0, 0, 0
+    created, updated, skipped, deleted, kept_for_history, added_to_pool = 0, 0, 0, 0, 0, 0
     try:
+        json_names = set()
         for name, stats in cards_json.items():
             if name == "__NOTE__":
                 continue
@@ -151,6 +166,7 @@ def main():
                 skipped += 1
                 continue
 
+            json_names.add(name)
             fields = build_card_fields(name, stats)
 
             existing = db.query(Card).filter(Card.name == name).first()
@@ -162,13 +178,48 @@ def main():
                 db.add(Card(**fields))
                 created += 1
 
+        # flush so any newly created cards get an id before we check pool/history
+        db.flush()
+
+        # any card currently in the JSON that's missing from BOTH answer_pool
+        # and daily_answers needs to go in the pool — covers brand new cards
+        # AND existing cards that never got added (like the Ronin gap)
+        pool_card_ids = {row.card_id for row in db.query(AnswerPool.card_id).all()}
+        history_card_ids = {row.card_id for row in db.query(DailyAnswer.card_id).all()}
+
+        current_cycle = db.query(func.max(AnswerPool.cycle_number)).scalar() or 1
+
+        current_cards = db.query(Card).filter(Card.name.in_(json_names)).all()
+        for card in current_cards:
+            if card.id not in pool_card_ids and card.id not in history_card_ids:
+                db.add(AnswerPool(card_id=card.id, cycle_number=current_cycle))
+                added_to_pool += 1
+
+        # cards removed from all_cards.json: delete them (and their
+        # answer_pool row) UNLESS they have daily_answers history, in which
+        # case leave the card and its history alone entirely
+        stale_cards = db.query(Card).filter(~Card.name.in_(json_names)).all()
+        for card in stale_cards:
+            has_history = db.query(DailyAnswer).filter(
+                DailyAnswer.card_id == card.id
+            ).first()
+            if has_history:
+                kept_for_history += 1
+                continue
+
+            db.query(AnswerPool).filter(AnswerPool.card_id == card.id).delete()
+            db.delete(card)
+            deleted += 1
+
         db.commit()
     finally:
         db.close()
 
     print(
         f"Loaded {created + updated} cards ({created} created, {updated} updated), "
-        f"skipped {skipped} unscraped stub(s)."
+        f"skipped {skipped} unscraped stub(s), added {added_to_pool} to answer_pool, "
+        f"deleted {deleted} stale card(s), "
+        f"kept {kept_for_history} stale card(s) with daily_answers history."
     )
 
 
