@@ -4,10 +4,10 @@
     "Type": "Troop",
     "Rarity": "Legendary",
     "Target": "Air & Ground",
-    "Hitpoints": "1798",
-    "Damage": "309",
+    "Hitpoints": "1121",
+    "Damage": "320",
     "Damage Per Second": "193",
-    "Hit Speed": "N/A",
+    "Hit Speed": "1.4 sec",
     "Special Damage": "N/A"
   },
   "Archer Queen": {
@@ -16,7 +16,7 @@
     "Rarity": "Champion",
     "Target": "Air & Ground",
     "Hitpoints": "1000",
-    "Damage": "225",
+    "Damage": "232",
     "Damage Per Second": "187",
     "Hit Speed": "1.2 sec",
     "Special Damage": "N/A"
@@ -42,7 +42,7 @@
     "Damage Per Second": "N/A",
     "Hit Speed": "N/A",
     "Special Damage": {
-      "Crown Tower Damage": "93 (31 x3)"
+      "Crown Tower Damage": "75 (25 x3)"
     }
   },
   "Baby Dragon": {
@@ -61,7 +61,7 @@
     "Type": "Troop",
     "Rarity": "Epic",
     "Target": "Buildings",
-    "Hitpoints": "1679",
+    "Hitpoints": "1676",
     "Damage": "640",
     "Damage Per Second": "320",
     "Hit Speed": "2 sec",
@@ -88,9 +88,9 @@
     "Rarity": "Epic",
     "Target": "Ground",
     "Hitpoints": "N/A",
-    "Damage": "230",
+    "Damage": "232",
     "Damage Per Second": "N/A",
-    "Hit Speed": "1.3 sec",
+    "Hit Speed": "N/A",
     "Special Damage": "N/A"
   },
   "Barbarian Hut": {
@@ -99,9 +99,9 @@
     "Rarity": "Rare",
     "Target": "N/A",
     "Hitpoints": "1164",
-    "Damage": "192",
-    "Damage Per Second": "147",
-    "Hit Speed": "1.3 sec",
+    "Damage": "N/A",
+    "Damage Per Second": "N/A",
+    "Hit Speed": "N/A",
     "Special Damage": "N/A"
   },
   "Barbarians": {
@@ -109,9 +109,9 @@
     "Type": "Troop",
     "Rarity": "Common",
     "Target": "Ground",
-    "Hitpoints": "691",
-    "Damage": "191",
-    "Damage Per Second": "136",
+    "Hitpoints": "716",
+    "Damage": "192",
+    "Damage Per Second": "137",
     "Hit Speed": "1.4 sec",
     "Special Damage": "N/A"
   },
@@ -122,8 +122,8 @@
     "Target": "Air & Ground",
     "Hitpoints": "81",
     "Damage": "81",
-    "Damage Per Second": "62",
-    "Hit Speed": "1.3 sec",
+    "Damage Per Second": "67",
+    "Hit Speed": "1.2 sec",
     "Special Damage": "N/A"
   },
   "Battle Healer": {
@@ -145,7 +145,7 @@
     "Hitpoints": "967",
     "Damage": "286",
     "Damage Per Second": "N/A",
-    "Hit Speed": "1.3 sec",
+    "Hit Speed": "N/A",
     "Special Damage": {
       "Charge Damage": "573"
     }
@@ -180,7 +180,7 @@
     "Rarity": "Common",
     "Target": "Ground",
     "Hitpoints": "304",
-    "Damage": "225",
+    "Damage": "212",
     "Damage Per Second": "125",
     "Hit Speed": "1.8 sec",
     "Special Damage": "N/A"
@@ -191,11 +191,11 @@
     "Rarity": "Champion",
     "Target": "Ground",
     "Hitpoints": "2624",
-    "Damage": "244",
-    "Damage Per Second": "221",
+    "Damage": "245",
+    "Damage Per Second": "222",
     "Hit Speed": "1.1 sec",
     "Special Damage": {
-      "Dash Damage": "489"
+      "Dash Damage": "491"
     }
   },
   "Bowler": {
@@ -226,7 +226,7 @@
     "Rarity": "Common",
     "Target": "Ground",
     "Hitpoints": "824",
-    "Damage": "212",
+    "Damage": "202",
     "Damage Per Second": "212",
     "Hit Speed": "1 sec",
     "Special Damage": "N/A"
@@ -258,7 +258,7 @@
     "Type": "Spell",
     "Rarity": "Epic",
     "Target": "Friendly",
-    "Hitpoints": "N/A",
+    "Hitpoints": "1",
     "Damage": "N/A",
     "Damage Per Second": "N/A",
     "Hit Speed": "N/A",
@@ -291,9 +291,9 @@
     "Type": "Troop",
     "Rarity": "Epic",
     "Target": "Ground",
-    "Hitpoints": "1456",
+    "Hitpoints": "1440",
     "Damage": "266",
-    "Damage Per Second": "204",
+    "Damage Per Second": "190",
     "Hit Speed": "1.4 sec",
     "Special Damage": {
       "Charge Damage": "532"
@@ -305,7 +305,7 @@
     "Rarity": "Rare",
     "Target": "Air & Ground",
     "Hitpoints": "261",
-    "Damage": "156",
+    "Damage": "151",
     "Damage Per Second": "195",
     "Hit Speed": "0.8 sec",
     "Special Damage": "N/A"
@@ -338,11 +338,11 @@
     "Rarity": "Rare",
     "Target": "Ground",
     "Hitpoints": "N/A",
-    "Damage": "252 (84 x3)",
-    "Damage Per Second": "N/A",
+    "Damage": "243 (81 x3)",
+    "Damage Per Second": "81",
     "Hit Speed": "N/A",
     "Special Damage": {
-      "Crown Tower Damage": "159 (53 x3)"
+      "Crown Tower Damage": "147 (49 x3)"
     }
   },
   "Electro Dragon": {
@@ -351,9 +351,9 @@
     "Rarity": "Epic",
     "Target": "Air & Ground",
     "Hitpoints": "1049",
-    "Damage": "192 x3",
+    "Damage": "192",
     "Damage Per Second": "83",
-    "Hit Speed": "2.3 sec",
+    "Hit Speed": "2.1 sec",
     "Special Damage": "N/A"
   },
   "Electro Giant": {
@@ -362,8 +362,8 @@
     "Rarity": "Epic",
     "Target": "Buildings",
     "Hitpoints": "3952",
-    "Damage": "163",
-    "Damage Per Second": "77",
+    "Damage": "184",
+    "Damage Per Second": "102",
     "Hit Speed": "1.8 sec",
     "Special Damage": {
       "Reflected Damage": "192"
@@ -375,7 +375,7 @@
     "Rarity": "Common",
     "Target": "Air & Ground",
     "Hitpoints": "215",
-    "Damage": "99 x9",
+    "Damage": "99",
     "Damage Per Second": "N/A",
     "Hit Speed": "N/A",
     "Special Damage": "N/A"
@@ -386,7 +386,7 @@
     "Rarity": "Legendary",
     "Target": "Air & Ground",
     "Hitpoints": "714",
-    "Damage": "230 (115 x2)",
+    "Damage": "234 (117 x2)",
     "Damage Per Second": "126",
     "Hit Speed": "1.8 sec",
     "Special Damage": {
@@ -433,7 +433,7 @@
     "Target": "Buildings",
     "Hitpoints": "1569",
     "Damage": "253",
-    "Damage Per Second": "229",
+    "Damage Per Second": "230",
     "Hit Speed": "1.1 sec",
     "Special Damage": "N/A"
   },
@@ -454,9 +454,9 @@
     "Rarity": "Epic",
     "Target": "Air & Ground",
     "Hitpoints": "1280",
-    "Damage": "336 (168 x2)",
+    "Damage": "358 (179 x2)",
     "Damage Per Second": "140",
-    "Hit Speed": "0.9 sec",
+    "Hit Speed": "2.4 sec",
     "Special Damage": "N/A"
   },
   "Fire Spirit": {
@@ -480,7 +480,7 @@
     "Damage Per Second": "N/A",
     "Hit Speed": "N/A",
     "Special Damage": {
-      "Crown Tower Damage": "207"
+      "Crown Tower Damage": "159"
     }
   },
   "Firecracker": {
@@ -522,11 +522,11 @@
     "Rarity": "Epic",
     "Target": "Air & Ground",
     "Hitpoints": "N/A",
-    "Damage": "115",
+    "Damage": "148",
     "Damage Per Second": "N/A",
     "Hit Speed": "N/A",
     "Special Damage": {
-      "Crown Tower Damage": "35"
+      "Crown Tower Damage": "38"
     }
   },
   "Frosty Fella": {
@@ -550,7 +550,7 @@
     "Hitpoints": "727",
     "Damage": "179",
     "Damage Per Second": "99",
-    "Hit Speed": "1.8 sec",
+    "Hit Speed": "1.7 sec",
     "Special Damage": "N/A"
   },
   "General Gerry": {
@@ -595,7 +595,7 @@
     "Target": "Ground",
     "Hitpoints": "3361",
     "Damage": "276",
-    "Damage Per Second": "197",
+    "Damage Per Second": "212",
     "Hit Speed": "1.3 sec",
     "Special Damage": {
       "Death Damage": "688"
@@ -611,7 +611,7 @@
     "Damage Per Second": "N/A",
     "Hit Speed": "N/A",
     "Special Damage": {
-      "Crown Tower Damage": "54"
+      "Crown Tower Damage": "45"
     }
   },
   "Goblin Barrel": {
@@ -620,7 +620,7 @@
     "Rarity": "Epic",
     "Target": "Ground",
     "Hitpoints": "202",
-    "Damage": "120",
+    "Damage": "125",
     "Damage Per Second": "109",
     "Hit Speed": "1.1 sec",
     "Special Damage": "N/A"
@@ -630,7 +630,7 @@
     "Type": "Building",
     "Rarity": "Rare",
     "Target": "Ground",
-    "Hitpoints": "1080",
+    "Hitpoints": "1121",
     "Damage": "337",
     "Damage Per Second": "306",
     "Hit Speed": "1.1 sec",
@@ -644,7 +644,7 @@
     "Hitpoints": "780",
     "Damage": "N/A",
     "Damage Per Second": "N/A",
-    "Hit Speed": "1.1 sec",
+    "Hit Speed": "N/A",
     "Special Damage": "N/A"
   },
   "Goblin Curse": {
@@ -654,8 +654,8 @@
     "Target": "Air & Ground",
     "Hitpoints": "N/A",
     "Damage": "210 (35 x6)",
-    "Damage Per Second": "N/A",
-    "Hit Speed": "1.1 sec",
+    "Damage Per Second": "35",
+    "Hit Speed": "1 sec",
     "Special Damage": {
       "Crown Tower Damage": "60 (10 x6)"
     }
@@ -668,7 +668,7 @@
     "Hitpoints": "1300",
     "Damage": "186",
     "Damage Per Second": "155",
-    "Hit Speed": "1.2 sec",
+    "Hit Speed": "1.1 sec",
     "Special Damage": {
       "Death Damage": "404"
     }
@@ -681,17 +681,15 @@
     "Hitpoints": "1313",
     "Damage": "N/A",
     "Damage Per Second": "N/A",
-    "Hit Speed": "1.1 sec",
-    "Special Damage": {
-      "Spawn Damage": "84"
-    }
+    "Hit Speed": "N/A",
+    "Special Damage": "N/A"
   },
   "Goblin Giant": {
     "Cost": "6",
     "Type": "Troop",
     "Rarity": "Epic",
     "Target": "Buildings",
-    "Hitpoints": "3022",
+    "Hitpoints": "3110",
     "Damage": "176",
     "Damage Per Second": "117",
     "Hit Speed": "1.5 sec",
@@ -704,10 +702,10 @@
     "Type": "Building",
     "Rarity": "Rare",
     "Target": "Air & Ground",
-    "Hitpoints": "1228",
-    "Damage": "81",
-    "Damage Per Second": "47",
-    "Hit Speed": "1.7 sec",
+    "Hitpoints": "1180",
+    "Damage": "N/A",
+    "Damage Per Second": "N/A",
+    "Hit Speed": "2.2 sec",
     "Special Damage": "N/A"
   },
   "Goblin Machine": {
@@ -715,9 +713,9 @@
     "Type": "Troop",
     "Rarity": "Legendary",
     "Target": "Ground",
-    "Hitpoints": "2150",
-    "Damage": "212",
-    "Damage Per Second": "176",
+    "Hitpoints": "2265",
+    "Damage": "232",
+    "Damage Per Second": "193",
     "Hit Speed": "1.2 sec",
     "Special Damage": {
       "Rocket Launcher Damage": "304"
@@ -740,11 +738,11 @@
     "Rarity": "Champion",
     "Target": "Air & Ground",
     "Hitpoints": "721",
-    "Damage": "92",
+    "Damage": "135",
     "Damage Per Second": "51",
-    "Hit Speed": "N/A",
+    "Hit Speed": "1.8 sec",
     "Special Damage": {
-      "Lightning Link Damage": "107"
+      "Lightning Link Damage": "756"
     }
   },
   "Goblinstein Monster": {
@@ -752,12 +750,12 @@
     "Type": "Troop",
     "Rarity": "Champion",
     "Target": "Buildings",
-    "Hitpoints": "2393",
+    "Hitpoints": "2240",
     "Damage": "128",
     "Damage Per Second": "85",
-    "Hit Speed": "N/A",
+    "Hit Speed": "1.5 sec",
     "Special Damage": {
-      "Lightning Link Damage": "107"
+      "Lightning Link Damage": "756"
     }
   },
   "Golden Knight": {
@@ -815,10 +813,10 @@
     "Type": "Troop",
     "Rarity": "Legendary",
     "Target": "Ground",
-    "Hitpoints": "1798",
-    "Damage": "309",
-    "Damage Per Second": "257",
-    "Hit Speed": "N/A",
+    "Hitpoints": "1121",
+    "Damage": "320",
+    "Damage Per Second": "266",
+    "Hit Speed": "1.2 sec",
     "Special Damage": "N/A"
   },
   "Guardienne": {
@@ -827,11 +825,11 @@
     "Rarity": "Champion",
     "Target": "Ground",
     "Hitpoints": "1600",
-    "Damage": "217",
+    "Damage": "232",
     "Damage Per Second": "180",
     "Hit Speed": "1.2 sec",
     "Special Damage": {
-      "Royal Rescue Damage": "256"
+      "Royal Rescue Damage": "320"
     }
   },
   "Guards": {
@@ -883,7 +881,7 @@
     "Type": "Troop",
     "Rarity": "Rare",
     "Target": "Buildings",
-    "Hitpoints": "1315",
+    "Hitpoints": "1228",
     "Damage": "84",
     "Damage Per Second": "33",
     "Hit Speed": "2.5 sec",
@@ -921,8 +919,8 @@
     "Rarity": "Legendary",
     "Target": "Air & Ground",
     "Hitpoints": "1295",
-    "Damage": "N/A",
-    "Damage Per Second": "N/A",
+    "Damage": "422 (Stage 3)",
+    "Damage Per Second": "1055 (Stage 3)",
     "Hit Speed": "0.4 sec",
     "Special Damage": "N/A"
   },
@@ -932,8 +930,8 @@
     "Rarity": "Rare",
     "Target": "Air & Ground",
     "Hitpoints": "1748",
-    "Damage": "N/A",
-    "Damage Per Second": "N/A",
+    "Damage": "847 (Stage 3)",
+    "Damage Per Second": "2117 (Stage 3)",
     "Hit Speed": "0.4 sec",
     "Special Damage": "N/A"
   },
@@ -967,7 +965,7 @@
     "Hitpoints": "3581",
     "Damage": "53",
     "Damage Per Second": "40",
-    "Hit Speed": "N/A",
+    "Hit Speed": "1.3 sec",
     "Special Damage": "N/A"
   },
   "Lava Pup": {
@@ -975,7 +973,7 @@
     "Type": "Troop",
     "Rarity": "Legendary",
     "Target": "Air & Ground",
-    "Hitpoints": "217",
+    "Hitpoints": "215",
     "Damage": "81",
     "Damage Per Second": "47",
     "Lava Pup Hit Speed": "1.7 sec",
@@ -991,7 +989,7 @@
     "Damage Per Second": "N/A",
     "Hit Speed": "N/A",
     "Special Damage": {
-      "Crown Tower Damage": "286"
+      "Crown Tower Damage": "265"
     }
   },
   "Little Prince": {
@@ -1002,9 +1000,9 @@
     "Hitpoints": "698",
     "Damage": "104",
     "Damage Per Second": "N/A",
-    "Hit Speed": "1.2 sec",
+    "Hit Speed": "0.4 sec",
     "Special Damage": {
-      "Royal Rescue Damage": "256"
+      "Royal Rescue Damage": "320"
     }
   },
   "Lumberjack": {
@@ -1012,7 +1010,7 @@
     "Type": "Troop",
     "Rarity": "Legendary",
     "Target": "Ground",
-    "Hitpoints": "N/A",
+    "Hitpoints": "1282",
     "Damage": "256",
     "Damage Per Second": "320",
     "Hit Speed": "0.8 sec",
@@ -1026,7 +1024,7 @@
     "Rarity": "Legendary",
     "Target": "Air & Ground",
     "Hitpoints": "529",
-    "Damage": "133",
+    "Damage": "135",
     "Damage Per Second": "120",
     "Hit Speed": "1.1 sec",
     "Special Damage": "N/A"
@@ -1041,7 +1039,7 @@
     "Damage Per Second": "157",
     "Hit Speed": "1.7 sec",
     "Special Damage": {
-      "Spawn Damage": "430"
+      "Jump Damage": "537"
     }
   },
   "Mega Minion": {
@@ -1061,8 +1059,8 @@
     "Rarity": "Champion",
     "Target": "Ground",
     "Hitpoints": "2250",
-    "Damage": "N/A",
-    "Damage Per Second": "N/A",
+    "Damage": "409 (Stage 3)",
+    "Damage Per Second": "1022 (Stage 3)",
     "Hit Speed": "0.4 sec",
     "Special Damage": {
       "Explosive Escape Damage": "332"
@@ -1078,7 +1076,7 @@
     "Damage Per Second": "149",
     "Hit Speed": "1.3 sec",
     "Special Damage": {
-      "Crown Tower Damage": "48"
+      "Crown Tower Damage": "39"
     }
   },
   "Mini P.E.K.K.A.": {
@@ -1772,17 +1770,6 @@
       "Power Shot Damage": "140"
     }
   },
-  "Evolution Barbarians": {
-    "Cost": "5",
-    "Type": "Troop",
-    "Rarity": "Common",
-    "Target": "Ground",
-    "Hitpoints": "716",
-    "Damage": "192",
-    "Damage Per Second": "137",
-    "Hit Speed": "1.4 sec",
-    "Special Damage": "N/A"
-  },
   "Evolution Bats": {
     "Cost": "2",
     "Type": "Troop",
@@ -1845,6 +1832,19 @@
     "Hit Speed": "0.8 sec",
     "Special Damage": {
       "Poison Damage (Stage 3)": "307"
+    }
+  },
+  "Evolution Electro Dragon": {
+    "Cost": "5",
+    "Type": "Troop",
+    "Rarity": "Epic",
+    "Target": "Air & Ground",
+    "Hitpoints": "1049",
+    "Damage": "192",
+    "Damage Per Second": "83",
+    "Hit Speed": "2.1 sec",
+    "Special Damage": {
+      "Extra Chain Damage": "64"
     }
   },
   "Evolution Elite Barbarians": {
