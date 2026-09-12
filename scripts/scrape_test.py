@@ -39,7 +39,7 @@ SPECIAL_DAMAGE_LABELS = (
     "Pulse ",
     "Recoil ",
     "Rage ",
-    "Axe Smash ",
+    "Close Quarters ",
     "Landing ",
     "Combo ",
     "Zap ",
@@ -51,10 +51,11 @@ SPECIAL_DAMAGE_LABELS = (
     "Charge Pushback ",
     "Ability ",
     "Bear ",
-    "Every Blizzard ",
+    "Blizzard Blast",
     "Landing ",
     "Warp ",
     "Triple Shot ",
+    "Goblin ",
 )
 CHECK_LABELS = (
     "Bush Goblin",
