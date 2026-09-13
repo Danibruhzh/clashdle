@@ -80,6 +80,7 @@ function UnlimitedPage() {
   const [showStreak, setShowStreak] = useState(false)
   const [showProfile, setShowProfile] = useState(false)
   const [showLeaderboard, setShowLeaderboard] = useState(false)
+  const [leaderboardRefreshKey, setLeaderboardRefreshKey] = useState(0)
 
   // Re-checks the gate on mount and on every login/logout, same pattern as
   // App.tsx's own guesses-restore effect — logging in (or out) can flip
@@ -172,6 +173,7 @@ function UnlimitedPage() {
         ...prev,
       ])
       if (result.is_correct || result.reveal_answer) {
+        setLeaderboardRefreshKey((key) => key + 1)
         // Same beat as App.tsx's own win/loss handling: let the flip
         // animation finish, then reveal the result via the stats panel
         // instead of anything inline on the page itself.
@@ -261,7 +263,9 @@ function UnlimitedPage() {
         <StreakModal onClose={() => setShowStreak(false)} override={streakOverride} title="Unlimited Streak" />
       )}
       {showProfile && <ProfileModal onClose={() => setShowProfile(false)} onAuthChange={setLoggedIn} />}
-      {showLeaderboard && <LeaderboardModal onClose={() => setShowLeaderboard(false)} />}
+      {showLeaderboard && (
+        <LeaderboardModal onClose={() => setShowLeaderboard(false)} refreshKey={leaderboardRefreshKey} />
+      )}
       <div className="app-content">
         <div className="unlimited-toolbar">
           <Link className="unlimited-gate-link" to="/">

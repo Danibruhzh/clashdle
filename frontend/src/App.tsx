@@ -68,6 +68,7 @@ function App() {
   const [showStreak, setShowStreak] = useState(false)
   const [showProfile, setShowProfile] = useState(false)
   const [showLeaderboard, setShowLeaderboard] = useState(false)
+  const [leaderboardRefreshKey, setLeaderboardRefreshKey] = useState(0)
   // Only tracks *whether* someone's logged in (for the toolbar badge) — the
   // token itself is read fresh from storage wherever it's actually needed,
   // same as guest-session/timezone headers elsewhere in this app.
@@ -198,6 +199,7 @@ function App() {
       const newGuessCount = guesses.length + 1
       setGuesses((prev) => [{ id: nextId.current++, cardName, result, isRestored: false }, ...prev])
       if (result.is_correct) {
+        setLeaderboardRefreshKey((key) => key + 1)
         if (loggedIn) {
           // Server already recorded this win (see routers/game.py's
           // record_win) — refetch rather than guess at the new number
@@ -222,6 +224,7 @@ function App() {
         // need to round-trip and refetch the count for it to show up.
         setWinnersCount((prev) => (prev === null ? prev : prev + 1))
       } else if (result.reveal_answer) {
+        setLeaderboardRefreshKey((key) => key + 1)
         // This guess used up the last try — same reveal, same delay, just
         // no win sound/streak. The loss itself is only recorded to
         // localStorage as a guest — logged in, routers/game.py's guess()
@@ -261,7 +264,9 @@ function App() {
       {showProfile && (
         <ProfileModal onClose={() => setShowProfile(false)} onAuthChange={setLoggedIn} />
       )}
-      {showLeaderboard && <LeaderboardModal onClose={() => setShowLeaderboard(false)} />}
+      {showLeaderboard && (
+        <LeaderboardModal onClose={() => setShowLeaderboard(false)} refreshKey={leaderboardRefreshKey} />
+      )}
       <div className="app-content">
         <div className="app-toolbar">
           <div className="app-toolbar-group">

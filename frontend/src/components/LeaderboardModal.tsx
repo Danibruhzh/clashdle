@@ -5,6 +5,7 @@ import './LeaderboardModal.css'
 
 interface LeaderboardModalProps {
   onClose: () => void
+  refreshKey?: number
 }
 
 type Tab = 'streak' | 'wins' | 'avg'
@@ -23,20 +24,22 @@ const TAB_SUBTITLES: Record<Tab, string> = {
   avg: 'Daily + Unlimited combined',
 }
 
-function LeaderboardModal({ onClose }: LeaderboardModalProps) {
+function LeaderboardModal({ onClose, refreshKey = 0 }: LeaderboardModalProps) {
   const [tab, setTab] = useState<Tab>('streak')
   const [leaderboard, setLeaderboard] = useState<Leaderboard | null>(null)
   const [error, setError] = useState(false)
 
   useEffect(() => {
     let cancelled = false
+    setError(false)
+    setLeaderboard(null)
     fetchLeaderboard()
       .then((data) => !cancelled && setLeaderboard(data))
       .catch(() => !cancelled && setError(true))
     return () => {
       cancelled = true
     }
-  }, [])
+  }, [refreshKey])
 
   const rows =
     leaderboard === null
