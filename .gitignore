@@ -11,3 +11,4 @@ __pycache__/
 
 # Claude Code project context (keep local, don't share)
 CLAUDE.md
+AGENTS.md

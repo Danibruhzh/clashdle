@@ -20,6 +20,7 @@ import LeaderboardButton from './components/LeaderboardButton'
 import LeaderboardModal from './components/LeaderboardModal'
 import { fetchTodayGuesses } from './api/game'
 import type { StatComparison } from './api/game'
+import clashdleUnlimitedTitle from './images/Clashdle Unlimited Title.png'
 import {
   fetchCurrentUnlimitedRound,
   startUnlimitedRound,
@@ -279,7 +280,13 @@ function UnlimitedPage() {
             <ProfileButton onOpen={() => setShowProfile(true)} loggedIn={loggedIn} />
           </div>
         </div>
-        <h1 className="app-title">Clashdle Unlimited</h1>
+        <h1 className="app-title app-title-unlimited">
+          <img
+            className="app-title-image app-title-image-unlimited"
+            src={clashdleUnlimitedTitle}
+            alt="Clashdle Unlimited"
+          />
+        </h1>
 
         {/* The result itself (win/loss message) only ever shows via the
             auto-opened stats panel above — see handleSelectCard — not here.

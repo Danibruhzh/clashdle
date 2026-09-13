@@ -19,6 +19,7 @@ import LeaderboardButton from './components/LeaderboardButton'
 import LeaderboardModal from './components/LeaderboardModal'
 import PreviousAnswerFooter from './components/PreviousAnswerFooter'
 import TodayWinnersCount from './components/TodayWinnersCount'
+import clashdleTitle from './images/Clashdle Title.png'
 import { submitGuess, fetchTodayGuesses, fetchPreviousAnswer, fetchTodayWinners } from './api/game'
 import type { GuessResult } from './api/game'
 import { recordWin, recordLoss, hasEverWon } from './utils/guessHistogram'
@@ -278,7 +279,9 @@ function App() {
             <ProfileButton onOpen={() => setShowProfile(true)} loggedIn={loggedIn} />
           </div>
         </div>
-        <h1 className="app-title">Clashdle</h1>
+        <h1 className="app-title">
+          <img className="app-title-image app-title-image-daily" src={clashdleTitle} alt="Clashdle" />
+        </h1>
         {(hasWon || hasLost) && (
           <Link className="unlimited-start-button" to="/unlimited">
             {loggedIn ? 'Play Unlimited' : 'Log in to play Unlimited'}

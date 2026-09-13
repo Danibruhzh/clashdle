@@ -31,9 +31,30 @@
   /* negative top margin cancels out the toolbar row's own height + the
      flex gap above it, so the title lands at the same spot it was at
      before the toolbar existed */
-  margin: 10px 10px 10px;
-  font-family: 'You Blockhead';
-  text-shadow: var(--text-shad);
+  margin-top: 10px;
+  margin-bottom: -16px;
+  line-height: 1;
+}
+
+.app-title-image {
+  display: block;
+  width: auto;
+  max-width: min(92vw, 100%);
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+}
+
+.app-title-image-daily {
+  height: 128px;
+}
+
+.app-title-image-unlimited {
+  height: 208px;
+}
+
+.app-title-unlimited {
+  margin-top: -12px;
+  margin-bottom: -34px;
 }
 
 .app-guess-counter {
@@ -45,3 +66,13 @@
 
 /* .guesses-scroll* styling now lives in components/GuessesScroll.css —
    that component is shared with UnlimitedPage.tsx. */
+
+@media (max-width: 1024px) {
+  .app-title-image-daily {
+    height: 84px;
+  }
+
+  .app-title-image-unlimited {
+    height: 140px;
+  }
+}
