@@ -6,7 +6,7 @@
     "Target": "Air & Ground",
     "Hitpoints": "1121",
     "Damage": "320",
-    "Damage Per Second": "193",
+    "Damage Per Second": "229",
     "Hit Speed": "1.4 sec",
     "Special Damage": "N/A"
   },
@@ -17,7 +17,7 @@
     "Target": "Air & Ground",
     "Hitpoints": "1000",
     "Damage": "232",
-    "Damage Per Second": "187",
+    "Damage Per Second": "193",
     "Hit Speed": "1.2 sec",
     "Special Damage": "N/A"
   },
@@ -181,7 +181,7 @@
     "Target": "Ground",
     "Hitpoints": "304",
     "Damage": "212",
-    "Damage Per Second": "125",
+    "Damage Per Second": "118",
     "Hit Speed": "1.8 sec",
     "Special Damage": "N/A"
   },
@@ -217,6 +217,7 @@
     "Hitpoints": "337",
     "Damage": "256",
     "Damage per second": "182",
+    "Damage Per Second": "183",
     "Hit Speed": "1.4 sec",
     "Special Damage": "N/A"
   },
@@ -227,7 +228,7 @@
     "Target": "Ground",
     "Hitpoints": "824",
     "Damage": "202",
-    "Damage Per Second": "212",
+    "Damage Per Second": "202",
     "Hit Speed": "1 sec",
     "Special Damage": "N/A"
   },
@@ -306,7 +307,7 @@
     "Target": "Air & Ground",
     "Hitpoints": "261",
     "Damage": "151",
-    "Damage Per Second": "195",
+    "Damage Per Second": "189",
     "Hit Speed": "0.8 sec",
     "Special Damage": "N/A"
   },
@@ -328,7 +329,7 @@
     "Target": "Ground",
     "Hitpoints": "81",
     "Damage": "66",
-    "Damage Per Second": "80",
+    "Damage Per Second": "60",
     "Hit Speed": "1.1 sec",
     "Special Damage": "N/A"
   },
@@ -352,7 +353,7 @@
     "Target": "Air & Ground",
     "Hitpoints": "1049",
     "Damage": "192",
-    "Damage Per Second": "83",
+    "Damage Per Second": "91",
     "Hit Speed": "2.1 sec",
     "Special Damage": "N/A"
   },
@@ -387,7 +388,7 @@
     "Target": "Air & Ground",
     "Hitpoints": "714",
     "Damage": "234 (117 x2)",
-    "Damage Per Second": "126",
+    "Damage Per Second": "130",
     "Hit Speed": "1.8 sec",
     "Special Damage": {
       "Zap Damage": "192"
@@ -455,7 +456,7 @@
     "Target": "Air & Ground",
     "Hitpoints": "1280",
     "Damage": "358 (179 x2)",
-    "Damage Per Second": "140",
+    "Damage Per Second": "149",
     "Hit Speed": "2.4 sec",
     "Special Damage": "N/A"
   },
@@ -549,7 +550,7 @@
     "Target": "Air & Ground",
     "Hitpoints": "727",
     "Damage": "179",
-    "Damage Per Second": "99",
+    "Damage Per Second": "105",
     "Hit Speed": "1.7 sec",
     "Special Damage": "N/A"
   },
@@ -621,7 +622,7 @@
     "Target": "Ground",
     "Hitpoints": "202",
     "Damage": "125",
-    "Damage Per Second": "109",
+    "Damage Per Second": "114",
     "Hit Speed": "1.1 sec",
     "Special Damage": "N/A"
   },
@@ -665,7 +666,7 @@
     "Target": "Air & Ground",
     "Hitpoints": "N/A",
     "Damage": "210 (35 x6)",
-    "Damage Per Second": "35",
+    "Damage Per Second": "210",
     "Hit Speed": "1 sec",
     "Special Damage": {
       "Crown Tower Damage": "60 (10 x6)"
@@ -678,7 +679,7 @@
     "Target": "Ground",
     "Hitpoints": "1300",
     "Damage": "186",
-    "Damage Per Second": "155",
+    "Damage Per Second": "169",
     "Hit Speed": "1.1 sec",
     "Special Damage": {
       "Death Damage": "404"
@@ -750,7 +751,7 @@
     "Target": "Air & Ground",
     "Hitpoints": "721",
     "Damage": "135",
-    "Damage Per Second": "51",
+    "Damage Per Second": "75",
     "Hit Speed": "1.8 sec",
     "Special Damage": {
       "Lightning Link Damage": "756"
@@ -837,7 +838,7 @@
     "Target": "Ground",
     "Hitpoints": "1600",
     "Damage": "232",
-    "Damage Per Second": "180",
+    "Damage Per Second": "193",
     "Hit Speed": "1.2 sec",
     "Special Damage": {
       "Royal Rescue Damage": "320"
@@ -1010,7 +1011,7 @@
     "Target": "Air & Ground",
     "Hitpoints": "698",
     "Damage": "104",
-    "Damage Per Second": "N/A",
+    "Damage Per Second": "260",
     "Hit Speed": "0.4 sec",
     "Special Damage": {
       "Royal Rescue Damage": "320"
@@ -1036,7 +1037,7 @@
     "Target": "Air & Ground",
     "Hitpoints": "529",
     "Damage": "135",
-    "Damage Per Second": "120",
+    "Damage Per Second": "123",
     "Hit Speed": "1.1 sec",
     "Special Damage": "N/A"
   },
@@ -1154,7 +1155,7 @@
     "Target": "Ground",
     "Hitpoints": "1369",
     "Damage": "266",
-    "Damage Per Second": "53",
+    "Damage Per Second": "57",
     "Hit Speed": "4.7 sec",
     "Special Damage": "N/A"
   },
@@ -1235,7 +1236,7 @@
     "Target": "Air & Ground",
     "Hitpoints": "N/A",
     "Damage": "736 (92 x8)",
-    "Damage Per Second": "92",
+    "Damage Per Second": "736",
     "Hit Speed": "1 sec",
     "Special Damage": {
       "Crown Tower Damage": "168 (21 x8)"
@@ -1309,7 +1310,7 @@
     "Target": "Ground",
     "Hitpoints": "1832",
     "Damage": "217",
-    "Damage Per Second": "136",
+    "Damage Per Second": "145",
     "Hit Speed": "1.5 sec",
     "Special Damage": "N/A"
   },
@@ -1331,7 +1332,7 @@
     "Target": "Buildings",
     "Hitpoints": "1356",
     "Damage": "179",
-    "Damage Per Second": "N/A",
+    "Damage Per Second": "112",
     "Hit Speed": "1.6 sec",
     "Special Damage": {
       "Charge Damage": "358"
@@ -1357,7 +1358,7 @@
     "Target": "Ground",
     "Hitpoints": "1779",
     "Damage": "371",
-    "Damage Per Second": "285",
+    "Damage Per Second": "265",
     "Hit Speed": "1.4 sec",
     "Special Damage": "N/A"
   },
@@ -1482,7 +1483,7 @@
     "Target": "Air & Ground",
     "Hitpoints": "560",
     "Damage": "151",
-    "Damage Per Second": "80",
+    "Damage Per Second": "76",
     "Hit Speed": "2 sec",
     "Special Damage": "N/A"
   },
@@ -1657,7 +1658,7 @@
     "Target": "Air & Ground",
     "Hitpoints": "1534",
     "Damage": "148",
-    "Damage Per Second": "280",
+    "Damage Per Second": "296",
     "Hit Speed": "0.5 sec",
     "Special Damage": {
       "Spawn Damage": "204"
@@ -1681,7 +1682,7 @@
     "Target": "Air & Ground",
     "Hitpoints": "N/A",
     "Damage": "306 (153 x2)",
-    "Damage Per Second": "153",
+    "Damage Per Second": "306",
     "Hit Speed": "1 sec",
     "Special Damage": {
       "Crown Tower Damage": "70 (35 x2)"
@@ -1729,7 +1730,7 @@
     "Target": "Air & Ground",
     "Hitpoints": "755",
     "Damage": "304",
-    "Damage Per Second": "200",
+    "Damage Per Second": "217",
     "Hit Speed": "1.4 sec",
     "Special Damage": "N/A"
   },
@@ -1812,7 +1813,7 @@
     "Target": "Ground",
     "Hitpoints": "304",
     "Damage": "212",
-    "Damage Per Second": "125",
+    "Damage Per Second": "118",
     "Hit Speed": "1.8 sec",
     "Special Damage": {
       "Bounce Damage": "212"
@@ -1838,7 +1839,7 @@
     "Target": "Air & Ground",
     "Hitpoints": "261",
     "Damage": "151",
-    "Damage Per Second": "195",
+    "Damage Per Second": "189",
     "Hit Speed": "0.8 sec",
     "Special Damage": {
       "Poison Damage (Stage 3)": "307"
@@ -1851,7 +1852,7 @@
     "Target": "Air & Ground",
     "Hitpoints": "1049",
     "Damage": "192",
-    "Damage Per Second": "83",
+    "Damage Per Second": "91",
     "Hit Speed": "2.1 sec",
     "Special Damage": {
       "Extra Chain Damage": "64"
@@ -1877,7 +1878,7 @@
     "Target": "Air & Ground",
     "Hitpoints": "1280",
     "Damage": "358 (179 x2)",
-    "Damage Per Second": "140",
+    "Damage Per Second": "149",
     "Hit Speed": "2.4 sec",
     "Special Damage": {
       "Close Quarters Damage": "480 (240 x2)"
@@ -1890,7 +1891,7 @@
     "Target": "Air & Ground",
     "Hitpoints": "304",
     "Damage": "320 (64 x5)",
-    "Damage Per Second": "192",
+    "Damage Per Second": "107",
     "Hit Speed": "3 sec",
     "Special Damage": {
       "Big Spark Damage": "576 (48 x12)"
@@ -1927,7 +1928,7 @@
     "Target": "Ground",
     "Hitpoints": "1369",
     "Damage": "266",
-    "Damage Per Second": "66",
+    "Damage Per Second": "57",
     "Hit Speed": "4.7 sec",
     "Special Damage": {
       "Goblin Damage": "125"
@@ -1990,7 +1991,7 @@
     "Target": "Buildings",
     "Hitpoints": "3164",
     "Damage": "307",
-    "Damage Per Second": "180",
+    "Damage Per Second": "171",
     "Hit Speed": "1.8 sec",
     "Special Damage": {
       "Recoil Damage": "81"
@@ -2092,7 +2093,7 @@
     "Target": "Air & Ground",
     "Hitpoints": "931",
     "Damage": "304",
-    "Damage Per Second": "200",
+    "Damage Per Second": "217",
     "Hit Speed": "1.4 sec",
     "Special Damage": {
       "Shield Explosion Damage": "281"
@@ -2157,7 +2158,7 @@
     "Target": "Ground",
     "Hitpoints": "1456",
     "Damage": "266",
-    "Damage Per Second": "204",
+    "Damage Per Second": "190",
     "Hit Speed": "1.4 sec",
     "Special Damage": {
       "Charge Damage": "532"
@@ -2260,7 +2261,7 @@
     "Target": "Air & Ground",
     "Hitpoints": "755",
     "Damage": "304",
-    "Damage Per Second": "200",
+    "Damage Per Second": "217",
     "Hit Speed": "1.4 sec",
     "Special Damage": {
       "Tornado Damage": "43"

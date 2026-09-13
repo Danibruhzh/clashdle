@@ -14,6 +14,15 @@ NEST_PATTERNS = [
 MULTIPLIER_PATTERN = re.compile(r"^(\d+) x(\d+) \((\d+)\)$")
 NUMBER_COMMA_PATTERN = re.compile(r"(?<=\d),(?=\d)")
 
+# Matches ONLY a primary Damage key — plain "Damage" or "Damage (Stage X)" —
+# never "Special Damage ..." or "Damage Per Second ...", since those aren't
+# the base damage a DPS figure should be derived from.
+DAMAGE_KEY_PATTERN = re.compile(r"^Damage(?: \((.+)\))?$")
+LEADING_INT_PATTERN = re.compile(r"^\d+")
+LEADING_FLOAT_PATTERN = re.compile(r"^[\d.]+")
+
+DPS_TOLERANCE = 2
+
 CATEGORY_ORDER = [
     "__NOTE__",
     "Cost",
@@ -57,6 +66,67 @@ def categorize(key: str) -> int:
     if "Hitpoints" in key:
         return 5
     return len(CATEGORY_ORDER)
+
+def strip_commas(text: str) -> str:
+    return NUMBER_COMMA_PATTERN.sub("", text)
+
+def parse_damage_number(value) -> int | None:
+    """Extracts the total damage as an int, handling the raw pre-reformat
+    multiplier shape ("64 x5 (320)" -> 320), plain numbers, and numbers
+    followed by a bracketed annotation ("422 (Stage 3)" -> 422). Returns
+    None for "N/A" or unparsable values."""
+    if value is None or value == "N/A":
+        return None
+    text = strip_commas(value)
+    multiplier_match = MULTIPLIER_PATTERN.match(text)
+    if multiplier_match:
+        return int(multiplier_match.group(3))
+    leading_match = LEADING_INT_PATTERN.match(text)
+    return int(leading_match.group()) if leading_match else None
+
+def parse_hit_speed(value) -> float | None:
+    """Hit Speed is stored in seconds. Returns None for "N/A" or unparsable
+    values, which signals the DPS calculation should be skipped."""
+    if value is None or value == "N/A":
+        return None
+    text = strip_commas(value)
+    leading_match = LEADING_FLOAT_PATTERN.match(text)
+    return float(leading_match.group()) if leading_match else None
+
+def recalculate_dps(cards: dict) -> dict:
+    """For every primary Damage stat (plain or staged), recomputes DPS from
+    Damage / Hit Speed. Leaves an existing DPS value alone if it's within
+    +-2 of the recalculated figure; overwrites it (or adds it, if missing)
+    otherwise. Skipped entirely when the relevant Hit Speed is "N/A" or
+    absent."""
+    recalculated_cards = {}
+    for name, stats in cards.items():
+        new_stats = dict(stats)
+        for key, value in stats.items():
+            damage_match = DAMAGE_KEY_PATTERN.match(key)
+            if not damage_match:
+                continue
+
+            damage = parse_damage_number(value)
+            if damage is None:
+                continue
+
+            stage_suffix = damage_match.group(1)  # e.g. "Stage 3", or None
+            hit_speed_key = f"Hit Speed ({stage_suffix})" if stage_suffix else "Hit Speed"
+            hit_speed_value = stats.get(hit_speed_key, stats.get("Hit Speed"))
+            hit_speed = parse_hit_speed(hit_speed_value)
+            if hit_speed is None:
+                continue  # "N/A" or missing Hit Speed — skip this stat
+
+            dps_key = f"Damage Per Second ({stage_suffix})" if stage_suffix else "Damage Per Second"
+            recalculated = round(damage / hit_speed)
+
+            existing_dps = parse_damage_number(stats.get(dps_key))
+            if existing_dps is None or abs(existing_dps - recalculated) > DPS_TOLERANCE:
+                new_stats[dps_key] = str(recalculated)
+
+        recalculated_cards[name] = new_stats
+    return recalculated_cards
 
 def nest_stat_variants(stats: dict) -> dict:
     restructured = {}
@@ -146,8 +216,10 @@ def main():
     with open("all_cards.json", encoding="utf-8") as f:
         cards = json.load(f)
 
-    deduped_cards = remove_duplicate_variants(cards)
-    removed_count = len(cards) - len(deduped_cards)
+    recalculated_cards = recalculate_dps(cards)
+
+    deduped_cards = remove_duplicate_variants(recalculated_cards)
+    removed_count = len(recalculated_cards) - len(deduped_cards)
 
     ordered_names = sorted(deduped_cards, key=lambda n: (tier(n), n.lower()))
     sorted_cards = {

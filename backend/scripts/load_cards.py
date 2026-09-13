@@ -151,19 +151,29 @@ def build_card_fields(name: str, stats: dict) -> dict:
     }
 
 
+def print_named_list(label: str, names: list[str]) -> None:
+    print(f"{label} ({len(names)}):")
+    if names:
+        for name in names:
+            print(f"  - {name}")
+    else:
+        print("  (none)")
+
+
 def main():
     with open(CARDS_JSON, encoding="utf-8") as f:
         cards_json = json.load(f)
 
     db = SessionLocal()
-    created, updated, skipped, deleted, kept_for_history, added_to_pool = 0, 0, 0, 0, 0, 0
+    created_names, updated_names, skipped_names = [], [], []
+    deleted_names, kept_for_history_names, added_to_pool_names = [], [], []
     try:
         json_names = set()
         for name, stats in cards_json.items():
             if name == "__NOTE__":
                 continue
             if is_unscraped(stats):
-                skipped += 1
+                skipped_names.append(name)
                 continue
 
             json_names.add(name)
@@ -173,10 +183,10 @@ def main():
             if existing:
                 for key, value in fields.items():
                     setattr(existing, key, value)
-                updated += 1
+                updated_names.append(name)
             else:
                 db.add(Card(**fields))
-                created += 1
+                created_names.append(name)
 
         # flush so any newly created cards get an id before we check pool/history
         db.flush()
@@ -193,7 +203,7 @@ def main():
         for card in current_cards:
             if card.id not in pool_card_ids and card.id not in history_card_ids:
                 db.add(AnswerPool(card_id=card.id, cycle_number=current_cycle))
-                added_to_pool += 1
+                added_to_pool_names.append(card.name)
 
         # cards removed from all_cards.json: delete them (and their
         # answer_pool row) UNLESS they have daily_answers history, in which
@@ -204,23 +214,37 @@ def main():
                 DailyAnswer.card_id == card.id
             ).first()
             if has_history:
-                kept_for_history += 1
+                kept_for_history_names.append(card.name)
                 continue
 
             db.query(AnswerPool).filter(AnswerPool.card_id == card.id).delete()
             db.delete(card)
-            deleted += 1
+            deleted_names.append(card.name)
 
         db.commit()
     finally:
         db.close()
 
+    total = len(created_names) + len(updated_names)
     print(
-        f"Loaded {created + updated} cards ({created} created, {updated} updated), "
-        f"skipped {skipped} unscraped stub(s), added {added_to_pool} to answer_pool, "
-        f"deleted {deleted} stale card(s), "
-        f"kept {kept_for_history} stale card(s) with daily_answers history."
+        f"Loaded {total} cards ({len(created_names)} created, {len(updated_names)} updated), "
+        f"skipped {len(skipped_names)} unscraped stub(s), "
+        f"added {len(added_to_pool_names)} to answer_pool, "
+        f"deleted {len(deleted_names)} stale card(s), "
+        f"kept {len(kept_for_history_names)} stale card(s) with daily_answers history."
     )
+    print()
+    print_named_list("Created", created_names)
+    print()
+    print_named_list("Updated", updated_names)
+    print()
+    print_named_list("Skipped (unscraped stub)", skipped_names)
+    print()
+    print_named_list("Added to answer_pool", added_to_pool_names)
+    print()
+    print_named_list("Deleted (stale)", deleted_names)
+    print()
+    print_named_list("Kept (stale, but has daily_answers history)", kept_for_history_names)
 
 
 if __name__ == "__main__":
