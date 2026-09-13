@@ -56,10 +56,8 @@
   pointer-events: none;
 }
 
-/* Black-on-black would disappear on the inactive silhouette, so this only
-   applies once the icon is actually showing its real color. */
 .streak-display--active .streak-display-count {
-  color: #000;
+  color: #fff;
   text-shadow: none;
 }
 

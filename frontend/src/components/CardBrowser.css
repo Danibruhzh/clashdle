@@ -131,7 +131,10 @@
   border-radius: 999px;
   background: var(--code-bg);
   border: 2px solid var(--border);
-  transition: background 0.2s, border-color 0.2s;
+  transition:
+    background var(--motion-fast),
+    border-color var(--motion-fast),
+    box-shadow var(--motion-med);
   box-sizing: border-box;
 }
 
@@ -144,7 +147,9 @@
   height: 14px;
   border-radius: 50%;
   background: var(--text-h);
-  transition: transform 0.2s;
+  transition:
+    transform var(--motion-med),
+    background var(--motion-fast);
 }
 
 .card-browser-toggle input:checked ~ .card-browser-toggle-track {
@@ -167,12 +172,17 @@
   color: var(--text-h);
   cursor: pointer;
   outline: none;
-  transition: border-color 0.3s;
+  transition:
+    border-color var(--motion-fast),
+    box-shadow var(--motion-med),
+    transform var(--motion-med);
 }
 
 .card-browser-sort:hover,
 .card-browser-sort:focus {
   border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(255, 213, 106, 0.12);
+  transform: translateY(-1px);
 }
 
 .card-browser-sort option {
@@ -195,7 +205,10 @@
   color: var(--text-h);
   cursor: pointer;
   outline: none;
-  transition: border-color 0.3s;
+  transition:
+    border-color var(--motion-fast),
+    box-shadow var(--motion-med),
+    transform var(--motion-med);
   flex-shrink: 0;
 }
 
@@ -228,6 +241,9 @@
   flex-direction: column;
   align-items: center;
   gap: 2px;
+  transition:
+    transform var(--motion-med),
+    filter var(--motion-med);
 }
 
 .card-browser-image {
@@ -242,6 +258,9 @@
      loading (or if it 404s), reading as blank space rather than "a card is
      loading here". The image (once it loads) fully covers this anyway. */
   background: var(--bg);
+  transition:
+    border-color var(--motion-fast),
+    box-shadow var(--motion-med);
 }
 
 .card-browser-image-dim {
@@ -293,6 +312,16 @@
   .card-browser-item:hover .card-browser-image-dim,
   .card-browser-item:hover .card-browser-name-overlay {
     opacity: 1;
+  }
+
+  .card-browser-item:hover {
+    transform: translateY(-3px);
+    filter: brightness(1.06);
+  }
+
+  .card-browser-item:hover .card-browser-image {
+    border-color: var(--accent-border);
+    box-shadow: 0 0 12px rgba(255, 213, 106, 0.22);
   }
 }
 

@@ -13,6 +13,19 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  filter: brightness(60%);
+  animation: background-drift 28s ease-in-out infinite alternate;
   z-index: -10000;
   border: none;
+}
+
+@keyframes background-drift {
+  from {
+    transform: scale(1);
+    background-position: center;
+  }
+  to {
+    transform: scale(1.03);
+    background-position: 52% 48%;
+  }
 }

@@ -15,12 +15,17 @@
   background: var(--bg);
   color: var(--text-h);
   outline: none;
-  transition: border-color 0.3s;
+  transition:
+    border-color var(--motion-fast),
+    box-shadow var(--motion-med),
+    transform var(--motion-med);
   box-sizing: border-box;
 }
 
 .search-bar:focus {
   border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(255, 213, 106, 0.16);
+  transform: translateY(-1px);
 }
 
 .search-bar-matches {
@@ -38,6 +43,18 @@
   background: var(--bg);
   box-shadow: var(--shadow);
   z-index: 2;
+  animation: search-matches-in 160ms ease-out;
+}
+
+@keyframes search-matches-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .search-bar-matches li {
@@ -49,10 +66,15 @@
   text-align: left;
   cursor: pointer;
   color: var(--text-h);
+  transition:
+    background var(--motion-fast),
+    transform var(--motion-fast),
+    color var(--motion-fast);
 }
 
 .search-bar-matches li:hover {
   background: var(--accent-bg);
+  transform: translateX(3px);
 }
 
 .search-bar-match-image {

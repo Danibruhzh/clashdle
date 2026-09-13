@@ -76,6 +76,18 @@
   background: var(--code-bg);
   text-align: center;
   animation: flip-in 0.2s ease-out backwards;
+  transition:
+    transform var(--motion-med),
+    box-shadow var(--motion-med),
+    filter var(--motion-fast);
+}
+
+@media (hover: hover) {
+  .card-display-stat:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
+    filter: brightness(1.06);
+  }
 }
 
 @keyframes flip-in {

@@ -3,13 +3,13 @@
      app's background is a single fixed image that never changes, so the
      UI chrome on top of it shouldn't either. This is the dark-surface
      variant (what used to only show under prefers-color-scheme: dark).
-     --header: title + statsheader text — always black, sits directly on
+     --header: title + statsheader text, sits directly on
      the background image itself, unrelated to the dark UI surfaces below.
      --text: stat values/sublabels inside the colored comparison boxes —
      always white, same reasoning.
      --text-h: text on the app's (now permanently dark) UI surfaces —
      buttons, modals, search bar. */
-  --header: #08060d;
+  --header: #fff;
   --text: #fff;
   --text-h: #f3f4f6;
   --bg: #16171d;
@@ -17,15 +17,17 @@
   /* Fully transparent (alpha 00) — nothing rendering behind the card PNGs'
      own transparency, on the buttons/modals/stat boxes that use this. */
   --code-bg: #ffffff00;
-  --accent: #c084fc;
-  --accent-dark: #5f0580;
-  --accent-bg: rgba(192, 132, 252, 0.6);
-  --accent-border: rgba(192, 132, 252, 0.5);
+  --accent: #b86f16;
+  --accent-dark: #ffd56a;
+  --accent-bg: rgba(184, 111, 22, 0.68);
+  --accent-border: rgba(255, 213, 106, 0.58);
   --social-bg: rgba(47, 48, 58, 0.5);
   --shadow:
     rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  --text-shad: 0 1px 3px rgb(215, 215, 215);
+  --text-shad: 0 1px 3px rgb(255, 215, 0);
   --cell-bottom-shadow: 0px 1px 0px 0px rgba(88, 41, 41, 0.5);
+  --motion-fast: 150ms ease-out;
+  --motion-med: 240ms cubic-bezier(0.2, 0.8, 0.2, 1);
 
   --sans: 'You Blockhead', sans-serif;
   --heading: 'You Blockhead', sans-serif;
@@ -115,4 +117,116 @@ code {
   line-height: 135%;
   padding: 4px 8px;
   background: var(--code-bg);
+}
+
+.stats-button,
+.card-browser-button,
+.how-to-play-button,
+.leaderboard-button,
+.profile-button,
+.streak-display,
+.card-browser-close,
+.how-to-play-close,
+.leaderboard-modal-close,
+.profile-modal-close,
+.stats-panel-close,
+.streak-modal-close,
+.card-browser-sort-direction,
+.profile-modal-tab,
+.profile-modal-submit,
+.profile-modal-logout,
+.stats-panel-action,
+.unlimited-start-button,
+.unlimited-gate-link {
+  transition:
+    transform var(--motion-med),
+    border-color var(--motion-fast),
+    background-color var(--motion-fast),
+    background var(--motion-fast),
+    box-shadow var(--motion-med),
+    opacity var(--motion-fast),
+    filter var(--motion-med);
+}
+
+.stats-button-icon,
+.card-browser-button-icon,
+.how-to-play-button-icon,
+.leaderboard-button-icon,
+.profile-button-icon,
+.streak-display-icon {
+  transition:
+    transform var(--motion-med),
+    filter var(--motion-med);
+  transform-origin: center;
+}
+
+@media (hover: hover) {
+  .stats-button:hover,
+  .card-browser-button:hover,
+  .how-to-play-button:hover,
+  .leaderboard-button:hover,
+  .profile-button:hover,
+  .streak-display:hover {
+    transform: translateY(-2px);
+  }
+
+  .stats-button:hover .stats-button-icon,
+  .card-browser-button:hover .card-browser-button-icon,
+  .how-to-play-button:hover .how-to-play-button-icon,
+  .leaderboard-button:hover .leaderboard-button-icon,
+  .profile-button:hover .profile-button-icon,
+  .streak-display:hover .streak-display-icon {
+    filter: drop-shadow(0 0 8px rgba(255, 213, 106, 0.58));
+    transform: scale(1.08);
+  }
+
+  .profile-modal-submit:hover,
+  .stats-panel-action:hover,
+  .unlimited-start-button:hover,
+  .unlimited-gate-link:hover,
+  .profile-modal-logout:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 10px 20px rgba(0, 0, 0, 0.28),
+      0 0 14px rgba(255, 213, 106, 0.22);
+  }
+
+  .card-browser-close:hover,
+  .how-to-play-close:hover,
+  .leaderboard-modal-close:hover,
+  .profile-modal-close:hover,
+  .stats-panel-close:hover,
+  .streak-modal-close:hover,
+  .card-browser-sort-direction:hover,
+  .profile-modal-tab:hover {
+    transform: translateY(-1px);
+    border-color: var(--accent-border);
+    box-shadow: 0 0 10px rgba(255, 213, 106, 0.18);
+  }
+}
+
+button:active,
+a:active,
+.search-bar-matches li:active,
+.card-browser-item:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--accent-border);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 1ms !important;
+  }
 }

@@ -60,7 +60,10 @@
   font-size: 14px;
   font-weight: 600;
   text-decoration: none;
-  transition: ease-in-out 0.2s;
+  transition:
+    transform var(--motion-med),
+    background var(--motion-fast),
+    box-shadow var(--motion-med);
   margin-right: 10px;
 }
 .unlimited-gate-link:hover{
@@ -99,8 +102,12 @@
   font-family: var(--sans);
   font-size: 15px;
   font-weight: 700;
+  text-decoration: none;
   cursor: pointer;
-  transition: ease-in-out 0.2s;
+  transition:
+    transform var(--motion-med),
+    background var(--motion-fast),
+    box-shadow var(--motion-med);
 }
 
 .unlimited-start-button:hover{

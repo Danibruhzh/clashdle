@@ -193,7 +193,7 @@
   border: 2px solid var(--accent-border);
   border-radius: 8px;
   background: var(--accent);
-  color: var(--header);
+  color: #fff;
   font-family: var(--sans);
   font-size: 14px;
   font-weight: 700;
@@ -201,7 +201,11 @@
   text-decoration: none;
   cursor: pointer;
   box-sizing: border-box;
-  transition: ease-in-out 0.2s;
+  transition:
+    transform var(--motion-med),
+    background var(--motion-fast),
+    box-shadow var(--motion-med),
+    opacity var(--motion-fast);
 }
 
 .stats-panel-action:disabled {
