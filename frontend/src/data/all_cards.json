@@ -216,7 +216,6 @@
     "Target": "Ground",
     "Hitpoints": "337",
     "Damage": "256",
-    "Damage per second": "182",
     "Damage Per Second": "183",
     "Hit Speed": "1.4 sec",
     "Special Damage": "N/A"
@@ -988,7 +987,7 @@
     "Hitpoints": "215",
     "Damage": "81",
     "Damage Per Second": "47",
-    "Lava Pup Hit Speed": "1.7 sec",
+    "Hit Speed": "1.7 sec",
     "Special Damage": "N/A"
   },
   "Lightning": {
@@ -2191,7 +2190,6 @@
     }
   },
   "Hero Knight": {
-    "Ability Cost": "2",
     "Cost": "3",
     "Type": "Troop",
     "Rarity": "Common",
