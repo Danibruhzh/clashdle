@@ -3,7 +3,7 @@
 import { getGuestSessionId } from '../utils/guestSession'
 import { getAuthToken } from '../utils/authSession'
 
-export type StatComparison = 'match' | 'mismatch' | 'higher' | 'lower'
+export type StatComparison = 'match' | 'partial' | 'mismatch' | 'higher' | 'lower'
 
 export interface GuessResult {
   comparisons: Record<string, StatComparison>

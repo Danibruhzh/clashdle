@@ -107,6 +107,10 @@
   background-color: #3aa655;
 }
 
+.how-to-play-legend-box--partial {
+  background-color: #cc6d00;
+}
+
 .how-to-play-legend-box--mismatch,
 .how-to-play-legend-box--higher {
   background-color: #c0392b;
@@ -152,6 +156,10 @@
 
 .how-to-play-swatch--match {
   background-color: #3aa655;
+}
+
+.how-to-play-swatch--partial {
+  background-color: #d97706;
 }
 
 .how-to-play-swatch--mismatch,
@@ -322,6 +330,10 @@
 
 .how-to-play-mini-stat--match {
   background-color: #3aa655;
+}
+
+.how-to-play-mini-stat--partial {
+  background-color: #d97706;
 }
 
 .how-to-play-mini-stat--mismatch,

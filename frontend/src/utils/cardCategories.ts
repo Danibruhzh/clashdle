@@ -1,11 +1,12 @@
 import { cards } from '../data/cards'
 import { extractValueString, RARITY_RANK } from './cardSort'
 
-export type CategoryDimension = 'elixir' | 'type' | 'rarity' | 'target'
+export type CategoryDimension = 'elixir' | 'cardType' | 'entityType' | 'rarity' | 'target'
 
 export const CATEGORY_DIMENSIONS: { value: CategoryDimension; label: string }[] = [
   { value: 'elixir', label: 'Elixir Cost' },
-  { value: 'type', label: 'Type' },
+  { value: 'cardType', label: 'Card Type' },
+  { value: 'entityType', label: 'Entity Type' },
   { value: 'rarity', label: 'Rarity' },
   { value: 'target', label: 'Target' },
 ]
@@ -50,8 +51,20 @@ function sortByOrder(groups: Map<string, string[]>, order: string[]): Category[]
     .map(([label, names]) => ({ label, names }))
 }
 
-const TYPE_ORDER = ['Troop', 'Spell', 'Building', 'Tower Troop']
+const CARD_TYPE_ORDER = ['Normal', 'Evo', 'Hero', 'Spawnee', MISSING_LABEL]
+const ENTITY_TYPE_ORDER = ['Troop', 'Spell', 'Building', 'Tower Troop', MISSING_LABEL]
 const TARGET_ORDER = ['Ground', 'Air & Ground', 'Buildings', 'Friendly', MISSING_LABEL]
+
+function typeParts(name: string): { entityType: string; cardType: string } {
+  const [entityType, cardType] = (extractValueString(cards[name]?.Type) ?? MISSING_LABEL)
+    .split(',')
+    .map((part) => part.trim())
+
+  return {
+    entityType: entityType || MISSING_LABEL,
+    cardType: cardType || MISSING_LABEL,
+  }
+}
 
 function elixirCategories(names: string[]): Category[] {
   const groups = groupBy(names, (name) => extractValueString(cards[name]?.Cost) ?? MISSING_LABEL)
@@ -67,10 +80,17 @@ function elixirCategories(names: string[]): Category[] {
     }))
 }
 
-function typeCategories(names: string[]): Category[] {
+function cardTypeCategories(names: string[]): Category[] {
   return sortByOrder(
-    groupBy(names, (name) => extractValueString(cards[name]?.Type) ?? MISSING_LABEL),
-    TYPE_ORDER
+    groupBy(names, (name) => typeParts(name).cardType),
+    CARD_TYPE_ORDER
+  )
+}
+
+function entityTypeCategories(names: string[]): Category[] {
+  return sortByOrder(
+    groupBy(names, (name) => typeParts(name).entityType),
+    ENTITY_TYPE_ORDER
   )
 }
 
@@ -104,8 +124,10 @@ export function categorizeCards(names: string[], dimension: CategoryDimension): 
   switch (dimension) {
     case 'elixir':
       return elixirCategories(names)
-    case 'type':
-      return typeCategories(names)
+    case 'cardType':
+      return cardTypeCategories(names)
+    case 'entityType':
+      return entityTypeCategories(names)
     case 'rarity':
       return rarityCategories(names)
     case 'target':

@@ -9,7 +9,7 @@ interface HowToPlayModalProps {
 
 const STAT_GLOSSARY = [
   { name: 'Cost', description: 'The Elixir needed to play the card. If a card contains multiple entities (like Elixir Golem or Rascals), each entity keeps the same cost as the original card. For entities summoned by an ability, the cost is the ability\'s cost instead.' },
-  { name: 'Type', description: 'Troop, Building, Spell, or Tower Troop.' },
+  { name: 'Type', description: 'The first part is the Entity Type: Troop, Building, Spell, or Tower Troop. The second part is the Card Type: Normal, Evo, Hero, or Spawnee. Orange means one of those two parts is correct.' },
   { name: 'Rarity', description: 'Common, Rare, Epic, Legendary, or Champion.' },
   { name: 'Target', description: "Ground, Air & Ground, Buildings, or Friendly." },
   { name: 'Hitpoints', description: 'How much damage it can take before dying. This always refers to Max Hitpoints.' },
@@ -27,10 +27,10 @@ const EXAMPLE_ROWS: {
   stat: string
   guessValue: string
   secretValue: string
-  kind: 'match' | 'mismatch' | 'higher' | 'lower'
+  kind: 'match' | 'partial' | 'mismatch' | 'higher' | 'lower'
 }[] = [
   { stat: 'Cost', guessValue: '3', secretValue: '3', kind: 'match' },
-  { stat: 'Type', guessValue: 'Troop', secretValue: 'Troop', kind: 'match' },
+  { stat: 'Type', guessValue: 'Troop, Normal', secretValue: 'Troop, Normal', kind: 'match' },
   { stat: 'Rarity', guessValue: 'Common', secretValue: 'Common', kind: 'match' },
   { stat: 'Target', guessValue: 'Ground', secretValue: 'Air & Ground', kind: 'mismatch' },
   { stat: 'Hitpoints', guessValue: '1766', secretValue: '304', kind: 'lower' },
@@ -72,6 +72,10 @@ function HowToPlayModal({ onClose }: HowToPlayModalProps) {
             <span>No match</span>
           </div>
           <div className="how-to-play-legend-rule">
+            <span className="how-to-play-swatch how-to-play-swatch--partial" />
+            <span>Partial Type match</span>
+          </div>
+          <div className="how-to-play-legend-rule">
             <span
               className="how-to-play-swatch how-to-play-swatch--arrow"
               style={{ backgroundImage: `url(${upArrow})` }}
@@ -90,7 +94,7 @@ function HowToPlayModal({ onClose }: HowToPlayModalProps) {
           Arrows only show up on number stats (Cost, Hitpoints, Damage, Damage Per Second,
           Special Damage, and Rarity). 
           <br/>
-          Type and Target are always just a match or not.
+          Type is orange when either the gameplay type or entry kind matches. Target is always just a match or not.
         </p>
 
         <h3 className="how-to-play-section-title">What Each Stat Means</h3>

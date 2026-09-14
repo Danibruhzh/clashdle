@@ -1,7 +1,7 @@
 """Server-side port of frontend/src/utils/compareStats.ts.
 
 Compares a guessed Card against the secret Card and returns per-stat
-feedback (match / higher / lower / mismatch). This is the security-critical
+feedback (match / partial / higher / lower / mismatch). This is the security-critical
 piece the whole backend exists for: the secret card's actual values must
 never be sent to the client, only this comparison result.
 
@@ -24,6 +24,7 @@ MAX_GUESSES = 8
 
 class StatComparison(str, Enum):
     MATCH = "match"
+    PARTIAL = "partial"
     MISMATCH = "mismatch"
     HIGHER = "higher"
     LOWER = "lower"
@@ -67,6 +68,21 @@ def compare_categorical(secret_value: Optional[str], guess_value: Optional[str])
     return StatComparison.MATCH if secret_value == guess_value else StatComparison.MISMATCH
 
 
+def split_type_parts(value: Optional[str]) -> set[str]:
+    if not value:
+        return set()
+    return {part.strip() for part in value.split(",") if part.strip()}
+
+
+def compare_type(secret_value: Optional[str], guess_value: Optional[str]) -> StatComparison:
+    if secret_value == guess_value:
+        return StatComparison.MATCH
+
+    secret_parts = split_type_parts(secret_value)
+    guess_parts = split_type_parts(guess_value)
+    return StatComparison.PARTIAL if secret_parts & guess_parts else StatComparison.MISMATCH
+
+
 def compare_cards(secret: Card, guess: Card) -> dict[str, StatComparison]:
     """Returns {stat name: comparison} for every stat category, comparing
     `guess` against `secret`."""
@@ -78,7 +94,10 @@ def compare_cards(secret: Card, guess: Card) -> dict[str, StatComparison]:
 
     for field in CATEGORICAL_FIELDS:
         stat_name = FIELD_TO_STAT_NAME[field]
-        result[stat_name] = compare_categorical(getattr(secret, field), getattr(guess, field))
+        if field == "type":
+            result[stat_name] = compare_type(getattr(secret, field), getattr(guess, field))
+        else:
+            result[stat_name] = compare_categorical(getattr(secret, field), getattr(guess, field))
 
     return result
 

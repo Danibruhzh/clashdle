@@ -1,7 +1,7 @@
 {
   "Air Spirit Empress": {
     "Cost": "6",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Legendary",
     "Target": "Air & Ground",
     "Hitpoints": "1121",
@@ -12,7 +12,7 @@
   },
   "Archer Queen": {
     "Cost": "5",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Champion",
     "Target": "Air & Ground",
     "Hitpoints": "1000",
@@ -23,7 +23,7 @@
   },
   "Archers": {
     "Cost": "3",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Common",
     "Target": "Air & Ground",
     "Hitpoints": "304",
@@ -34,7 +34,7 @@
   },
   "Arrows": {
     "Cost": "3",
-    "Type": "Spell",
+    "Type": "Spell, Normal",
     "Rarity": "Common",
     "Target": "Air & Ground",
     "Hitpoints": "N/A",
@@ -47,7 +47,7 @@
   },
   "Baby Dragon": {
     "Cost": "4",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Epic",
     "Target": "Air & Ground",
     "Hitpoints": "1152",
@@ -58,7 +58,7 @@
   },
   "Balloon": {
     "Cost": "5",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Epic",
     "Target": "Buildings",
     "Hitpoints": "1676",
@@ -71,7 +71,7 @@
   },
   "Bandit": {
     "Cost": "3",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Legendary",
     "Target": "Ground",
     "Hitpoints": "906",
@@ -84,7 +84,7 @@
   },
   "Barbarian Barrel": {
     "Cost": "2",
-    "Type": "Spell",
+    "Type": "Spell, Normal",
     "Rarity": "Epic",
     "Target": "Ground",
     "Hitpoints": "N/A",
@@ -95,7 +95,7 @@
   },
   "Barbarian Hut": {
     "Cost": "6",
-    "Type": "Building",
+    "Type": "Building, Normal",
     "Rarity": "Rare",
     "Target": "N/A",
     "Hitpoints": "1164",
@@ -106,7 +106,7 @@
   },
   "Barbarians": {
     "Cost": "5",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Common",
     "Target": "Ground",
     "Hitpoints": "716",
@@ -117,7 +117,7 @@
   },
   "Bats": {
     "Cost": "2",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Common",
     "Target": "Air & Ground",
     "Hitpoints": "81",
@@ -128,7 +128,7 @@
   },
   "Battle Healer": {
     "Cost": "4",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Rare",
     "Target": "Ground",
     "Hitpoints": "1920",
@@ -139,7 +139,7 @@
   },
   "Battle Ram": {
     "Cost": "4",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Rare",
     "Target": "Buildings",
     "Hitpoints": "967",
@@ -152,7 +152,7 @@
   },
   "Berserker": {
     "Cost": "2",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Common",
     "Target": "Ground",
     "Hitpoints": "896",
@@ -163,7 +163,7 @@
   },
   "Bomb Tower": {
     "Cost": "4",
-    "Type": "Building",
+    "Type": "Building, Normal",
     "Rarity": "Rare",
     "Target": "Ground",
     "Hitpoints": "1356",
@@ -176,7 +176,7 @@
   },
   "Bomber": {
     "Cost": "2",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Common",
     "Target": "Ground",
     "Hitpoints": "304",
@@ -187,7 +187,7 @@
   },
   "Boss Bandit": {
     "Cost": "6",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Champion",
     "Target": "Ground",
     "Hitpoints": "2624",
@@ -200,7 +200,7 @@
   },
   "Bowler": {
     "Cost": "5",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Epic",
     "Target": "Ground",
     "Hitpoints": "2081",
@@ -211,7 +211,7 @@
   },
   "Bush Goblin": {
     "Cost": "2",
-    "Type": "Troop",
+    "Type": "Troop, Spawnee",
     "Rarity": "Rare",
     "Target": "Ground",
     "Hitpoints": "337",
@@ -222,7 +222,7 @@
   },
   "Cannon": {
     "Cost": "3",
-    "Type": "Building",
+    "Type": "Building, Normal",
     "Rarity": "Common",
     "Target": "Ground",
     "Hitpoints": "824",
@@ -233,7 +233,7 @@
   },
   "Cannon Cart": {
     "Cost": "5",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Epic",
     "Target": "Ground",
     "Hitpoints": "1809",
@@ -244,7 +244,7 @@
   },
   "Cannoneer": {
     "Cost": "N/A",
-    "Type": "Tower Troop",
+    "Type": "Tower Troop, Normal",
     "Rarity": "Epic",
     "Target": "Air & Ground",
     "Hitpoints": "2616",
@@ -255,7 +255,7 @@
   },
   "Clone": {
     "Cost": "3",
-    "Type": "Spell",
+    "Type": "Spell, Normal",
     "Rarity": "Epic",
     "Target": "Friendly",
     "Hitpoints": "1",
@@ -266,7 +266,7 @@
   },
   "Cursed Hog": {
     "Cost": "N/A",
-    "Type": "Troop",
+    "Type": "Troop, Spawnee",
     "Rarity": "Legendary",
     "Target": "Buildings",
     "Hitpoints": "629",
@@ -277,7 +277,7 @@
   },
   "Dagger Duchess": {
     "Cost": "N/A",
-    "Type": "Tower Troop",
+    "Type": "Tower Troop, Normal",
     "Rarity": "Legendary",
     "Target": "Air & Ground",
     "Hitpoints": "2768",
@@ -288,7 +288,7 @@
   },
   "Dark Prince": {
     "Cost": "4",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Epic",
     "Target": "Ground",
     "Hitpoints": "1440",
@@ -301,7 +301,7 @@
   },
   "Dart Goblin": {
     "Cost": "3",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Rare",
     "Target": "Air & Ground",
     "Hitpoints": "261",
@@ -312,7 +312,7 @@
   },
   "Decoy": {
     "Cost": "2",
-    "Type": "Troop",
+    "Type": "Troop, Ability",
     "Rarity": "Legendary",
     "Target": "N/A",
     "Hitpoints": "270",
@@ -323,7 +323,7 @@
   },
   "Decoy Goblin": {
     "Cost": "3",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Epic",
     "Target": "Ground",
     "Hitpoints": "81",
@@ -334,7 +334,7 @@
   },
   "Earthquake": {
     "Cost": "3",
-    "Type": "Spell",
+    "Type": "Spell, Normal",
     "Rarity": "Rare",
     "Target": "Ground",
     "Hitpoints": "N/A",
@@ -347,7 +347,7 @@
   },
   "Electro Dragon": {
     "Cost": "5",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Epic",
     "Target": "Air & Ground",
     "Hitpoints": "1049",
@@ -358,7 +358,7 @@
   },
   "Electro Giant": {
     "Cost": "7",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Epic",
     "Target": "Buildings",
     "Hitpoints": "3952",
@@ -371,7 +371,7 @@
   },
   "Electro Spirit": {
     "Cost": "1",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Common",
     "Target": "Air & Ground",
     "Hitpoints": "215",
@@ -382,7 +382,7 @@
   },
   "Electro Wizard": {
     "Cost": "4",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Legendary",
     "Target": "Air & Ground",
     "Hitpoints": "714",
@@ -395,7 +395,7 @@
   },
   "Elite Barbarians": {
     "Cost": "6",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Common",
     "Target": "Ground",
     "Hitpoints": "1341",
@@ -406,7 +406,7 @@
   },
   "Elixir Blob": {
     "Cost": "3",
-    "Type": "Troop",
+    "Type": "Troop, Spawnee",
     "Rarity": "Rare",
     "Target": "Buildings",
     "Hitpoints": "360",
@@ -417,7 +417,7 @@
   },
   "Elixir Collector": {
     "Cost": "6",
-    "Type": "Building",
+    "Type": "Building, Normal",
     "Rarity": "Rare",
     "Target": "N/A",
     "Hitpoints": "1070",
@@ -428,7 +428,7 @@
   },
   "Elixir Golem": {
     "Cost": "3",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Rare",
     "Target": "Buildings",
     "Hitpoints": "1569",
@@ -439,7 +439,7 @@
   },
   "Elixir Golemite": {
     "Cost": "3",
-    "Type": "Troop",
+    "Type": "Troop, Spawnee",
     "Rarity": "Rare",
     "Target": "Buildings",
     "Hitpoints": "762",
@@ -450,7 +450,7 @@
   },
   "Executioner": {
     "Cost": "5",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Epic",
     "Target": "Air & Ground",
     "Hitpoints": "1280",
@@ -461,7 +461,7 @@
   },
   "Fire Spirit": {
     "Cost": "1",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Common",
     "Target": "Air & Ground",
     "Hitpoints": "215",
@@ -472,7 +472,7 @@
   },
   "Fireball": {
     "Cost": "4",
-    "Type": "Spell",
+    "Type": "Spell, Normal",
     "Rarity": "Rare",
     "Target": "Air & Ground",
     "Hitpoints": "N/A",
@@ -485,7 +485,7 @@
   },
   "Firecracker": {
     "Cost": "3",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Common",
     "Target": "Air & Ground",
     "Hitpoints": "304",
@@ -496,7 +496,7 @@
   },
   "Fisherman": {
     "Cost": "3",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Legendary",
     "Target": "Ground",
     "Hitpoints": "870",
@@ -507,7 +507,7 @@
   },
   "Flying Machine": {
     "Cost": "4",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Rare",
     "Target": "Air & Ground",
     "Hitpoints": "614",
@@ -518,7 +518,7 @@
   },
   "Freeze": {
     "Cost": "4",
-    "Type": "Spell",
+    "Type": "Spell, Normal",
     "Rarity": "Epic",
     "Target": "Air & Ground",
     "Hitpoints": "N/A",
@@ -531,7 +531,7 @@
   },
   "Frosty Fella": {
     "Cost": "2",
-    "Type": "Troop",
+    "Type": "Troop, Ability",
     "Rarity": "Legendary",
     "Target": "Air & Ground",
     "Hitpoints": "266",
@@ -544,7 +544,7 @@
   },
   "Furnace": {
     "Cost": "4",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Rare",
     "Target": "Air & Ground",
     "Hitpoints": "727",
@@ -555,7 +555,7 @@
   },
   "General Gerry": {
     "Cost": "3",
-    "Type": "Troop",
+    "Type": "Troop, Evo",
     "Rarity": "Epic",
     "Target": "Ground",
     "Hitpoints": "162",
@@ -566,7 +566,7 @@
   },
   "Ghost": {
     "Cost": "4",
-    "Type": "Troop",
+    "Type": "Troop, Spawnee",
     "Rarity": "Legendary",
     "Target": "Ground",
     "Hitpoints": "N/A",
@@ -579,7 +579,7 @@
   },
   "Giant": {
     "Cost": "5",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Rare",
     "Target": "Buildings",
     "Hitpoints": "3968",
@@ -590,7 +590,7 @@
   },
   "Giant Skeleton": {
     "Cost": "6",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Epic",
     "Target": "Ground",
     "Hitpoints": "3361",
@@ -603,7 +603,7 @@
   },
   "Giant Snowball": {
     "Cost": "2",
-    "Type": "Spell",
+    "Type": "Spell, Normal",
     "Rarity": "Common",
     "Target": "Air & Ground",
     "Hitpoints": "N/A",
@@ -616,18 +616,18 @@
   },
   "Goblin Barrel": {
     "Cost": "3",
-    "Type": "Spell",
+    "Type": "Spell, Normal",
     "Rarity": "Epic",
     "Target": "Ground",
-    "Hitpoints": "202",
-    "Damage": "125",
-    "Damage Per Second": "114",
-    "Hit Speed": "1.1 sec",
+    "Hitpoints": "N/A",
+    "Damage": "N/A",
+    "Damage Per Second": "N/A",
+    "Hit Speed": "N/A",
     "Special Damage": "N/A"
   },
   "Goblin Brawler": {
     "Cost": "4",
-    "Type": "Building",
+    "Type": "Troop, Spawnee",
     "Rarity": "Rare",
     "Target": "Ground",
     "Hitpoints": "1121",
@@ -638,7 +638,7 @@
   },
   "Goblin Brigade": {
     "Cost": "1",
-    "Type": "Troop",
+    "Type": "Troop, Ability",
     "Rarity": "Common",
     "Target": "Ground",
     "Hitpoints": "202",
@@ -649,7 +649,7 @@
   },
   "Goblin Cage": {
     "Cost": "4",
-    "Type": "Building",
+    "Type": "Building, Normal",
     "Rarity": "Rare",
     "Target": "Ground",
     "Hitpoints": "780",
@@ -660,7 +660,7 @@
   },
   "Goblin Curse": {
     "Cost": "2",
-    "Type": "Spell",
+    "Type": "Spell, Normal",
     "Rarity": "Epic",
     "Target": "Air & Ground",
     "Hitpoints": "N/A",
@@ -673,7 +673,7 @@
   },
   "Goblin Demolisher": {
     "Cost": "4",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Rare",
     "Target": "Ground",
     "Hitpoints": "1300",
@@ -686,7 +686,7 @@
   },
   "Goblin Drill": {
     "Cost": "4",
-    "Type": "Building",
+    "Type": "Building, Normal",
     "Rarity": "Epic",
     "Target": "Ground",
     "Hitpoints": "1313",
@@ -697,7 +697,7 @@
   },
   "Goblin Giant": {
     "Cost": "6",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Epic",
     "Target": "Buildings",
     "Hitpoints": "3110",
@@ -710,7 +710,7 @@
   },
   "Goblin Hut": {
     "Cost": "4",
-    "Type": "Building",
+    "Type": "Building, Normal",
     "Rarity": "Rare",
     "Target": "Air & Ground",
     "Hitpoints": "1180",
@@ -721,7 +721,7 @@
   },
   "Goblin Machine": {
     "Cost": "5",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Legendary",
     "Target": "Ground",
     "Hitpoints": "2265",
@@ -734,7 +734,7 @@
   },
   "Goblins": {
     "Cost": "2",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Common",
     "Target": "Ground",
     "Hitpoints": "202",
@@ -745,7 +745,7 @@
   },
   "Goblinstein Doctor": {
     "Cost": "5",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Champion",
     "Target": "Air & Ground",
     "Hitpoints": "721",
@@ -758,7 +758,7 @@
   },
   "Goblinstein Monster": {
     "Cost": "5",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Champion",
     "Target": "Buildings",
     "Hitpoints": "2240",
@@ -771,7 +771,7 @@
   },
   "Golden Knight": {
     "Cost": "4",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Champion",
     "Target": "Ground",
     "Hitpoints": "1799",
@@ -784,7 +784,7 @@
   },
   "Golem": {
     "Cost": "8",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Epic",
     "Target": "Buildings",
     "Hitpoints": "5120",
@@ -797,7 +797,7 @@
   },
   "Golemite": {
     "Cost": "8",
-    "Type": "Troop",
+    "Type": "Troop, Spawnee",
     "Rarity": "Epic",
     "Target": "Buildings",
     "Hitpoints": "1039",
@@ -810,18 +810,18 @@
   },
   "Graveyard": {
     "Cost": "5",
-    "Type": "Spell",
+    "Type": "Spell, Normal",
     "Rarity": "Legendary",
     "Target": "N/A",
-    "Hitpoints": "81",
-    "Damage": "81",
-    "Damage Per Second": "73",
-    "Hit Speed": "1.1 sec",
+    "Hitpoints": "N/A",
+    "Damage": "N/A",
+    "Damage Per Second": "N/A",
+    "Hit Speed": "N/A",
     "Special Damage": "N/A"
   },
   "Ground Spirit Empress": {
     "Cost": "3",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Legendary",
     "Target": "Ground",
     "Hitpoints": "1121",
@@ -832,7 +832,7 @@
   },
   "Guardienne": {
     "Cost": "3",
-    "Type": "Troop",
+    "Type": "Troop, Ability",
     "Rarity": "Champion",
     "Target": "Ground",
     "Hitpoints": "1600",
@@ -845,7 +845,7 @@
   },
   "Guards": {
     "Cost": "3",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Epic",
     "Target": "Ground",
     "Hitpoints": "337",
@@ -856,7 +856,7 @@
   },
   "Heal Spirit": {
     "Cost": "1",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Rare",
     "Target": "Air & Ground",
     "Hitpoints": "215",
@@ -867,7 +867,7 @@
   },
   "Hog Rider": {
     "Cost": "4",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Rare",
     "Target": "Buildings",
     "Hitpoints": "1697",
@@ -878,7 +878,7 @@
   },
   "Hunter": {
     "Cost": "4",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Epic",
     "Target": "Air & Ground",
     "Hitpoints": "885",
@@ -889,7 +889,7 @@
   },
   "Ice Golem": {
     "Cost": "2",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Rare",
     "Target": "Buildings",
     "Hitpoints": "1228",
@@ -902,7 +902,7 @@
   },
   "Ice Spirit": {
     "Cost": "1",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Common",
     "Target": "Air & Ground",
     "Hitpoints": "215",
@@ -913,7 +913,7 @@
   },
   "Ice Wizard": {
     "Cost": "3",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Legendary",
     "Target": "Air & Ground",
     "Hitpoints": "688",
@@ -926,7 +926,7 @@
   },
   "Inferno Dragon": {
     "Cost": "4",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Legendary",
     "Target": "Air & Ground",
     "Hitpoints": "1295",
@@ -937,7 +937,7 @@
   },
   "Inferno Tower": {
     "Cost": "5",
-    "Type": "Building",
+    "Type": "Building, Normal",
     "Rarity": "Rare",
     "Target": "Air & Ground",
     "Hitpoints": "1748",
@@ -948,7 +948,7 @@
   },
   "King Tower": {
     "Cost": "N/A",
-    "Type": "Tower Troop",
+    "Type": "Tower Troop, Normal",
     "Rarity": "N/A",
     "Target": "Air & Ground",
     "Hitpoints": "4824",
@@ -959,7 +959,7 @@
   },
   "Knight": {
     "Cost": "3",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Common",
     "Target": "Ground",
     "Hitpoints": "1766",
@@ -970,7 +970,7 @@
   },
   "Lava Hound": {
     "Cost": "7",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Legendary",
     "Target": "Buildings",
     "Hitpoints": "3581",
@@ -981,7 +981,7 @@
   },
   "Lava Pup": {
     "Cost": "7",
-    "Type": "Troop",
+    "Type": "Troop, Spawnee",
     "Rarity": "Legendary",
     "Target": "Air & Ground",
     "Hitpoints": "215",
@@ -992,7 +992,7 @@
   },
   "Lightning": {
     "Cost": "6",
-    "Type": "Spell",
+    "Type": "Spell, Normal",
     "Rarity": "Epic",
     "Target": "Air & Ground",
     "Hitpoints": "N/A",
@@ -1005,7 +1005,7 @@
   },
   "Little Prince": {
     "Cost": "3",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Champion",
     "Target": "Air & Ground",
     "Hitpoints": "698",
@@ -1018,7 +1018,7 @@
   },
   "Lumberjack": {
     "Cost": "4",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Legendary",
     "Target": "Ground",
     "Hitpoints": "1282",
@@ -1031,7 +1031,7 @@
   },
   "Magic Archer": {
     "Cost": "4",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Legendary",
     "Target": "Air & Ground",
     "Hitpoints": "529",
@@ -1042,7 +1042,7 @@
   },
   "Mega Knight": {
     "Cost": "7",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Legendary",
     "Target": "Ground",
     "Hitpoints": "3993",
@@ -1055,7 +1055,7 @@
   },
   "Mega Minion": {
     "Cost": "3",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Rare",
     "Target": "Air & Ground",
     "Hitpoints": "837",
@@ -1066,7 +1066,7 @@
   },
   "Mighty Miner": {
     "Cost": "4",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Champion",
     "Target": "Ground",
     "Hitpoints": "2250",
@@ -1079,7 +1079,7 @@
   },
   "Miner": {
     "Cost": "3",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Legendary",
     "Target": "Ground",
     "Hitpoints": "1210",
@@ -1092,7 +1092,7 @@
   },
   "Mini P.E.K.K.A.": {
     "Cost": "4",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Rare",
     "Target": "Ground",
     "Hitpoints": "1390",
@@ -1103,7 +1103,7 @@
   },
   "Minion Giant": {
     "Cost": "4",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Rare",
     "Target": "Buildings",
     "Hitpoints": "1817",
@@ -1114,7 +1114,7 @@
   },
   "Minion Horde": {
     "Cost": "5",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Common",
     "Target": "Air & Ground",
     "Hitpoints": "230",
@@ -1125,7 +1125,7 @@
   },
   "Minions": {
     "Cost": "3",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Common",
     "Target": "Air & Ground",
     "Hitpoints": "230",
@@ -1136,7 +1136,7 @@
   },
   "Monk": {
     "Cost": "5",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Champion",
     "Target": "Ground",
     "Hitpoints": "2214",
@@ -1149,7 +1149,7 @@
   },
   "Mortar": {
     "Cost": "4",
-    "Type": "Building",
+    "Type": "Building, Normal",
     "Rarity": "Common",
     "Target": "Ground",
     "Hitpoints": "1369",
@@ -1160,7 +1160,7 @@
   },
   "Mother Witch": {
     "Cost": "4",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Legendary",
     "Target": "Air & Ground",
     "Hitpoints": "529",
@@ -1171,7 +1171,7 @@
   },
   "Musketeer": {
     "Cost": "4",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Rare",
     "Target": "Air & Ground",
     "Hitpoints": "721",
@@ -1182,7 +1182,7 @@
   },
   "Night Witch": {
     "Cost": "4",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Legendary",
     "Target": "Ground",
     "Hitpoints": "906",
@@ -1193,7 +1193,7 @@
   },
   "P.E.K.K.A.": {
     "Cost": "7",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Epic",
     "Target": "Ground",
     "Hitpoints": "3760",
@@ -1204,7 +1204,7 @@
   },
   "Phoenix": {
     "Cost": "4",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Legendary",
     "Target": "Air & Ground",
     "Hitpoints": "1052",
@@ -1217,7 +1217,7 @@
   },
   "Phoenix Egg": {
     "Cost": "4",
-    "Type": "Troop",
+    "Type": "Troop, Spawnee",
     "Rarity": "Legendary",
     "Target": "N/A",
     "Hitpoints": "317",
@@ -1230,7 +1230,7 @@
   },
   "Poison": {
     "Cost": "4",
-    "Type": "Spell",
+    "Type": "Spell, Normal",
     "Rarity": "Epic",
     "Target": "Air & Ground",
     "Hitpoints": "N/A",
@@ -1243,7 +1243,7 @@
   },
   "Prince": {
     "Cost": "5",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Epic",
     "Target": "Ground",
     "Hitpoints": "1920",
@@ -1256,7 +1256,7 @@
   },
   "Princess": {
     "Cost": "3",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Legendary",
     "Target": "Air & Ground",
     "Hitpoints": "261",
@@ -1267,7 +1267,7 @@
   },
   "Rage": {
     "Cost": "2",
-    "Type": "Spell",
+    "Type": "Spell, Normal",
     "Rarity": "Epic",
     "Target": "Air & Ground",
     "Hitpoints": "N/A",
@@ -1280,7 +1280,7 @@
   },
   "Ram Rider (Ram)": {
     "Cost": "5",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Legendary",
     "Target": "Buildings",
     "Hitpoints": "1766",
@@ -1293,7 +1293,7 @@
   },
   "Ram Rider (Rider)": {
     "Cost": "5",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Legendary",
     "Target": "Air & Ground",
     "Hitpoints": "1697",
@@ -1304,7 +1304,7 @@
   },
   "Rascal Boy": {
     "Cost": "5",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Common",
     "Target": "Ground",
     "Hitpoints": "1832",
@@ -1315,7 +1315,7 @@
   },
   "Rascal Girl": {
     "Cost": "5",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Common",
     "Target": "Air & Ground",
     "Hitpoints": "261",
@@ -1326,7 +1326,7 @@
   },
   "Rhino": {
     "Cost": "3",
-    "Type": "Troop",
+    "Type": "Troop, Ability",
     "Rarity": "Epic",
     "Target": "Buildings",
     "Hitpoints": "1356",
@@ -1339,7 +1339,7 @@
   },
   "Rocket": {
     "Cost": "6",
-    "Type": "Spell",
+    "Type": "Spell, Normal",
     "Rarity": "Rare",
     "Target": "Air & Ground",
     "Hitpoints": "N/A",
@@ -1352,7 +1352,7 @@
   },
   "Ronin": {
     "Cost": "5",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Legendary",
     "Target": "Ground",
     "Hitpoints": "1779",
@@ -1363,7 +1363,7 @@
   },
   "Royal Chef": {
     "Cost": "N/A",
-    "Type": "Tower Troop",
+    "Type": "Tower Troop, Normal",
     "Rarity": "Legendary",
     "Target": "Air & Ground",
     "Hitpoints": "2703",
@@ -1374,7 +1374,7 @@
   },
   "Royal Delivery": {
     "Cost": "3",
-    "Type": "Spell",
+    "Type": "Spell, Normal",
     "Rarity": "Common",
     "Target": "Air & Ground",
     "Hitpoints": "N/A",
@@ -1385,7 +1385,7 @@
   },
   "Royal Ghost": {
     "Cost": "3",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Legendary",
     "Target": "Ground",
     "Hitpoints": "1210",
@@ -1396,7 +1396,7 @@
   },
   "Royal Giant": {
     "Cost": "6",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Common",
     "Target": "Buildings",
     "Hitpoints": "3164",
@@ -1407,7 +1407,7 @@
   },
   "Royal Hogs": {
     "Cost": "5",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Rare",
     "Target": "Buildings",
     "Hitpoints": "837",
@@ -1418,7 +1418,7 @@
   },
   "Royal Recruits": {
     "Cost": "7",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Common",
     "Target": "Ground",
     "Hitpoints": "787",
@@ -1429,7 +1429,7 @@
   },
   "Rune Giant": {
     "Cost": "4",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Epic",
     "Target": "Buildings",
     "Hitpoints": "2816",
@@ -1442,7 +1442,7 @@
   },
   "Runner": {
     "Cost": "2",
-    "Type": "Troop",
+    "Type": "Troop, Spawnee",
     "Rarity": "Epic",
     "Target": "Buildings",
     "Hitpoints": "163",
@@ -1453,7 +1453,7 @@
   },
   "Skeleton Army": {
     "Cost": "3",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Epic",
     "Target": "Ground",
     "Hitpoints": "81",
@@ -1464,7 +1464,7 @@
   },
   "Skeleton Barrel": {
     "Cost": "3",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Common",
     "Target": "Buildings",
     "Hitpoints": "532",
@@ -1477,7 +1477,7 @@
   },
   "Skeleton Dragons": {
     "Cost": "4",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Common",
     "Target": "Air & Ground",
     "Hitpoints": "560",
@@ -1488,7 +1488,7 @@
   },
   "Skeleton King": {
     "Cost": "4",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Champion",
     "Target": "Ground",
     "Hitpoints": "2298",
@@ -1499,7 +1499,7 @@
   },
   "Skeletons": {
     "Cost": "1",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Common",
     "Target": "Ground",
     "Hitpoints": "81",
@@ -1510,7 +1510,7 @@
   },
   "Skeletrooper": {
     "Cost": "2",
-    "Type": "Troop",
+    "Type": "Troop, Ability",
     "Rarity": "Epic",
     "Target": "Ground",
     "Hitpoints": "473",
@@ -1523,7 +1523,7 @@
   },
   "Souldier": {
     "Cost": "3",
-    "Type": "Troop",
+    "Type": "Troop, Spawnee",
     "Rarity": "Legendary",
     "Target": "Ground",
     "Hitpoints": "81",
@@ -1536,7 +1536,7 @@
   },
   "Sparky": {
     "Cost": "6",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Legendary",
     "Target": "Ground",
     "Hitpoints": "1451",
@@ -1547,7 +1547,7 @@
   },
   "Spear Goblins": {
     "Cost": "2",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Common",
     "Target": "Air & Ground",
     "Hitpoints": "133",
@@ -1558,7 +1558,7 @@
   },
   "Suspicious Bush": {
     "Cost": "2",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Rare",
     "Target": "Buildings",
     "Hitpoints": "81",
@@ -1569,7 +1569,7 @@
   },
   "Tesla": {
     "Cost": "4",
-    "Type": "Building",
+    "Type": "Building, Normal",
     "Rarity": "Common",
     "Target": "Air & Ground",
     "Hitpoints": "1182",
@@ -1580,7 +1580,7 @@
   },
   "The Log": {
     "Cost": "2",
-    "Type": "Spell",
+    "Type": "Spell, Normal",
     "Rarity": "Legendary",
     "Target": "Ground",
     "Hitpoints": "N/A",
@@ -1593,7 +1593,7 @@
   },
   "Three Musketeers": {
     "Cost": "9",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Rare",
     "Target": "Air & Ground",
     "Hitpoints": "883",
@@ -1606,7 +1606,7 @@
   },
   "Tomb Queen": {
     "Cost": "5",
-    "Type": "Troop",
+    "Type": "Troop, Ability",
     "Rarity": "Rare",
     "Target": "Buildings",
     "Hitpoints": "4224",
@@ -1617,7 +1617,7 @@
   },
   "Tombstone": {
     "Cost": "3",
-    "Type": "Building",
+    "Type": "Building, Normal",
     "Rarity": "Rare",
     "Target": "N/A",
     "Hitpoints": "529",
@@ -1628,7 +1628,7 @@
   },
   "Tornado": {
     "Cost": "3",
-    "Type": "Spell",
+    "Type": "Spell, Normal",
     "Rarity": "Epic",
     "Target": "Air & Ground",
     "Hitpoints": "N/A",
@@ -1641,7 +1641,7 @@
   },
   "Tower Princess": {
     "Cost": "N/A",
-    "Type": "Tower Troop",
+    "Type": "Tower Troop, Normal",
     "Rarity": "Common",
     "Target": "Air & Ground",
     "Hitpoints": "3052",
@@ -1652,7 +1652,7 @@
   },
   "Trusty Turret": {
     "Cost": "3",
-    "Type": "Building",
+    "Type": "Building, Ability",
     "Rarity": "Rare",
     "Target": "Air & Ground",
     "Hitpoints": "1534",
@@ -1665,7 +1665,7 @@
   },
   "Valkyrie": {
     "Cost": "4",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Rare",
     "Target": "Ground",
     "Hitpoints": "1907",
@@ -1676,7 +1676,7 @@
   },
   "Vines": {
     "Cost": "3",
-    "Type": "Spell",
+    "Type": "Spell, Normal",
     "Rarity": "Epic",
     "Target": "Air & Ground",
     "Hitpoints": "N/A",
@@ -1689,7 +1689,7 @@
   },
   "Void": {
     "Cost": "5",
-    "Type": "Spell",
+    "Type": "Spell, Normal",
     "Rarity": "Epic",
     "Target": "Air & Ground",
     "Hitpoints": "N/A",
@@ -1702,7 +1702,7 @@
   },
   "Wall Breakers": {
     "Cost": "2",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Epic",
     "Target": "Buildings",
     "Hitpoints": "330",
@@ -1713,7 +1713,7 @@
   },
   "Witch": {
     "Cost": "5",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Epic",
     "Target": "Air & Ground",
     "Hitpoints": "839",
@@ -1724,7 +1724,7 @@
   },
   "Wizard": {
     "Cost": "5",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Rare",
     "Target": "Air & Ground",
     "Hitpoints": "755",
@@ -1735,7 +1735,7 @@
   },
   "X-Bow": {
     "Cost": "6",
-    "Type": "Building",
+    "Type": "Building, Normal",
     "Rarity": "Epic",
     "Target": "Ground",
     "Hitpoints": "1600",
@@ -1746,7 +1746,7 @@
   },
   "Zap": {
     "Cost": "2",
-    "Type": "Spell",
+    "Type": "Spell, Normal",
     "Rarity": "Common",
     "Target": "Air & Ground",
     "Hitpoints": "N/A",
@@ -1759,7 +1759,7 @@
   },
   "Zappies": {
     "Cost": "4",
-    "Type": "Troop",
+    "Type": "Troop, Normal",
     "Rarity": "Rare",
     "Target": "Air & Ground",
     "Hitpoints": "529",
@@ -1770,7 +1770,7 @@
   },
   "Evolution Archers": {
     "Cost": "3",
-    "Type": "Troop",
+    "Type": "Troop, Evo",
     "Rarity": "Common",
     "Target": "Air & Ground",
     "Hitpoints": "304",
@@ -1783,7 +1783,7 @@
   },
   "Evolution Bats": {
     "Cost": "2",
-    "Type": "Troop",
+    "Type": "Troop, Evo",
     "Rarity": "Common",
     "Target": "Air & Ground",
     "Hitpoints": "392 (Max HP)",
@@ -1794,7 +1794,7 @@
   },
   "Evolution Battle Ram": {
     "Cost": "4",
-    "Type": "Troop",
+    "Type": "Troop, Evo",
     "Rarity": "Rare",
     "Target": "Buildings",
     "Hitpoints": "967",
@@ -1807,7 +1807,7 @@
   },
   "Evolution Bomber": {
     "Cost": "2",
-    "Type": "Troop",
+    "Type": "Troop, Evo",
     "Rarity": "Common",
     "Target": "Ground",
     "Hitpoints": "304",
@@ -1820,7 +1820,7 @@
   },
   "Evolution Cannon": {
     "Cost": "3",
-    "Type": "Building",
+    "Type": "Building, Evo",
     "Rarity": "Common",
     "Target": "Ground",
     "Hitpoints": "824",
@@ -1833,7 +1833,7 @@
   },
   "Evolution Dart Goblin": {
     "Cost": "3",
-    "Type": "Troop",
+    "Type": "Troop, Evo",
     "Rarity": "Rare",
     "Target": "Air & Ground",
     "Hitpoints": "261",
@@ -1846,7 +1846,7 @@
   },
   "Evolution Electro Dragon": {
     "Cost": "5",
-    "Type": "Troop",
+    "Type": "Troop, Evo",
     "Rarity": "Epic",
     "Target": "Air & Ground",
     "Hitpoints": "1049",
@@ -1859,7 +1859,7 @@
   },
   "Evolution Elite Barbarians": {
     "Cost": "6",
-    "Type": "Troop",
+    "Type": "Troop, Evo",
     "Rarity": "Common",
     "Target": "Ground",
     "Hitpoints": "1341",
@@ -1872,7 +1872,7 @@
   },
   "Evolution Executioner": {
     "Cost": "5",
-    "Type": "Troop",
+    "Type": "Troop, Evo",
     "Rarity": "Epic",
     "Target": "Air & Ground",
     "Hitpoints": "1280",
@@ -1885,7 +1885,7 @@
   },
   "Evolution Firecracker": {
     "Cost": "3",
-    "Type": "Troop",
+    "Type": "Troop, Evo",
     "Rarity": "Common",
     "Target": "Air & Ground",
     "Hitpoints": "304",
@@ -1898,7 +1898,7 @@
   },
   "Evolution Goblin Cage": {
     "Cost": "4",
-    "Type": "Building",
+    "Type": "Building, Evo",
     "Rarity": "Rare",
     "Target": "Ground",
     "Hitpoints": "780",
@@ -1909,7 +1909,7 @@
   },
   "Evolution Ice Spirit": {
     "Cost": "1",
-    "Type": "Troop",
+    "Type": "Troop, Evo",
     "Rarity": "Common",
     "Target": "Air & Ground",
     "Hitpoints": "215",
@@ -1922,7 +1922,7 @@
   },
   "Evolution Mortar": {
     "Cost": "4",
-    "Type": "Building",
+    "Type": "Building, Evo",
     "Rarity": "Common",
     "Target": "Ground",
     "Hitpoints": "1369",
@@ -1935,7 +1935,7 @@
   },
   "Evolution Musketeer": {
     "Cost": "4",
-    "Type": "Troop",
+    "Type": "Troop, Evo",
     "Rarity": "Rare",
     "Target": "Air & Ground",
     "Hitpoints": "721",
@@ -1948,7 +1948,7 @@
   },
   "Evolution P.E.K.K.A.": {
     "Cost": "7",
-    "Type": "Troop",
+    "Type": "Troop, Evo",
     "Rarity": "Epic",
     "Target": "Ground",
     "Hitpoints": "5640 (Max HP)",
@@ -1959,7 +1959,7 @@
   },
   "Evolution Princess": {
     "Cost": "3",
-    "Type": "Troop",
+    "Type": "Troop, Evo",
     "Rarity": "Legendary",
     "Target": "Air & Ground",
     "Hitpoints": "261",
@@ -1972,7 +1972,7 @@
   },
   "Evolution Royal Ghost": {
     "Cost": "3",
-    "Type": "Troop",
+    "Type": "Troop, Evo",
     "Rarity": "Legendary",
     "Target": "Ground",
     "Hitpoints": "1210",
@@ -1985,7 +1985,7 @@
   },
   "Evolution Royal Giant": {
     "Cost": "6",
-    "Type": "Troop",
+    "Type": "Troop, Evo",
     "Rarity": "Common",
     "Target": "Buildings",
     "Hitpoints": "3164",
@@ -1998,7 +1998,7 @@
   },
   "Evolution Royal Hogs": {
     "Cost": "5",
-    "Type": "Troop",
+    "Type": "Troop, Evo",
     "Rarity": "Rare",
     "Target": "Buildings",
     "Hitpoints": "837",
@@ -2011,7 +2011,7 @@
   },
   "Evolution Royal Recruits": {
     "Cost": "7",
-    "Type": "Troop",
+    "Type": "Troop, Evo",
     "Rarity": "Common",
     "Target": "Ground",
     "Hitpoints": "787",
@@ -2024,7 +2024,7 @@
   },
   "Evolution Skeleton Barrel": {
     "Cost": "3",
-    "Type": "Troop",
+    "Type": "Troop, Evo",
     "Rarity": "Common",
     "Target": "Buildings",
     "Hitpoints": "665",
@@ -2037,7 +2037,7 @@
   },
   "Evolution Tesla": {
     "Cost": "4",
-    "Type": "Building",
+    "Type": "Building, Evo",
     "Rarity": "Common",
     "Target": "Air & Ground",
     "Hitpoints": "1182",
@@ -2050,7 +2050,7 @@
   },
   "Evolution Valkyrie": {
     "Cost": "4",
-    "Type": "Troop",
+    "Type": "Troop, Evo",
     "Rarity": "Rare",
     "Target": "Ground",
     "Hitpoints": "1907",
@@ -2063,7 +2063,7 @@
   },
   "Evolution Wall Breakers": {
     "Cost": "2",
-    "Type": "Troop",
+    "Type": "Troop, Evo",
     "Rarity": "Epic",
     "Target": "Buildings",
     "Hitpoints": "330",
@@ -2076,7 +2076,7 @@
   },
   "Evolution Witch": {
     "Cost": "5",
-    "Type": "Troop",
+    "Type": "Troop, Evo",
     "Rarity": "Epic",
     "Target": "Air & Ground",
     "Hitpoints": "1451 (Max HP)",
@@ -2087,7 +2087,7 @@
   },
   "Evolution Wizard": {
     "Cost": "5",
-    "Type": "Troop",
+    "Type": "Troop, Evo",
     "Rarity": "Rare",
     "Target": "Air & Ground",
     "Hitpoints": "931",
@@ -2100,7 +2100,7 @@
   },
   "Evolution Zap": {
     "Cost": "2",
-    "Type": "Spell",
+    "Type": "Spell, Evo",
     "Rarity": "Common",
     "Target": "Air & Ground",
     "Hitpoints": "N/A",
@@ -2113,7 +2113,7 @@
   },
   "Hero Barbarian Barrel": {
     "Cost": "2",
-    "Type": "Spell",
+    "Type": "Spell, Hero",
     "Rarity": "Epic",
     "Target": "Ground",
     "Hitpoints": "N/A",
@@ -2126,7 +2126,7 @@
   },
   "Hero Berserker": {
     "Cost": "2",
-    "Type": "Troop",
+    "Type": "Troop, Hero",
     "Rarity": "Common",
     "Target": "Ground",
     "Hitpoints": "896",
@@ -2139,7 +2139,7 @@
   },
   "Hero Bowler": {
     "Cost": "5",
-    "Type": "Troop",
+    "Type": "Troop, Hero",
     "Rarity": "Epic",
     "Target": "Ground",
     "Hitpoints": "2081",
@@ -2152,7 +2152,7 @@
   },
   "Hero Dark Prince": {
     "Cost": "4",
-    "Type": "Troop",
+    "Type": "Troop, Hero",
     "Rarity": "Epic",
     "Target": "Ground",
     "Hitpoints": "1456",
@@ -2165,7 +2165,7 @@
   },
   "Hero Giant": {
     "Cost": "5",
-    "Type": "Troop",
+    "Type": "Troop, Hero",
     "Rarity": "Rare",
     "Target": "Buildings",
     "Hitpoints": "3968",
@@ -2178,7 +2178,7 @@
   },
   "Hero Ice Golem": {
     "Cost": "2",
-    "Type": "Troop",
+    "Type": "Troop, Hero",
     "Rarity": "Rare",
     "Target": "Buildings",
     "Hitpoints": "1228",
@@ -2191,7 +2191,7 @@
   },
   "Hero Knight": {
     "Cost": "3",
-    "Type": "Troop",
+    "Type": "Troop, Hero",
     "Rarity": "Common",
     "Target": "Ground",
     "Hitpoints": "2278",
@@ -2202,7 +2202,7 @@
   },
   "Hero Magic Archer": {
     "Cost": "4",
-    "Type": "Troop",
+    "Type": "Troop, Hero",
     "Rarity": "Legendary",
     "Target": "Air & Ground",
     "Hitpoints": "529",
@@ -2215,7 +2215,7 @@
   },
   "Hero Mega Minion": {
     "Cost": "3",
-    "Type": "Troop",
+    "Type": "Troop, Hero",
     "Rarity": "Rare",
     "Target": "Air & Ground",
     "Hitpoints": "837",
@@ -2228,7 +2228,7 @@
   },
   "Hero Musketeer": {
     "Cost": "4",
-    "Type": "Troop",
+    "Type": "Troop, Hero",
     "Rarity": "Rare",
     "Target": "Air & Ground",
     "Hitpoints": "721",
@@ -2241,7 +2241,7 @@
   },
   "Hero Valkyrie": {
     "Cost": "4",
-    "Type": "Troop",
+    "Type": "Troop, Hero",
     "Rarity": "Rare",
     "Target": "Ground",
     "Hitpoints": "1907",
@@ -2254,7 +2254,7 @@
   },
   "Hero Wizard": {
     "Cost": "5",
-    "Type": "Troop",
+    "Type": "Troop, Hero",
     "Rarity": "Rare",
     "Target": "Air & Ground",
     "Hitpoints": "755",

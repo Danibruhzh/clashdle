@@ -246,6 +246,10 @@
     filter var(--motion-med);
 }
 
+.card-browser-item--tapped {
+  z-index: 2;
+}
+
 .card-browser-image {
   width: 100%;
   aspect-ratio: 255 / 319;
@@ -317,6 +321,7 @@
   .card-browser-item:hover {
     transform: translateY(-3px);
     filter: brightness(1.06);
+    z-index: 2;
   }
 
   .card-browser-item:hover .card-browser-image {
