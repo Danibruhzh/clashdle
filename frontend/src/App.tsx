@@ -267,7 +267,7 @@ function App() {
       {showLeaderboard && (
         <LeaderboardModal onClose={() => setShowLeaderboard(false)} refreshKey={leaderboardRefreshKey} />
       )}
-      <div className="app-content">
+      <div className={`app-content${guesses.length === 0 ? ' app-content--entry' : ''}`}>
         <div className="app-toolbar">
           <div className="app-toolbar-group">
             <HowToPlayButton onOpen={() => setShowHowToPlay(true)} />
@@ -285,7 +285,9 @@ function App() {
           </div>
         </div>
         <h1 className="app-title">
-          <img className="app-title-image app-title-image-daily" src={clashdleTitle} alt="Clashdle" />
+          <Link className="app-title-link" to="/" aria-label="Go to Clashdle home">
+            <img className="app-title-image app-title-image-daily" src={clashdleTitle} alt="Clashdle" />
+          </Link>
         </h1>
         {(hasWon || hasLost) && (
           <Link className="unlimited-start-button" to="/unlimited">

@@ -68,13 +68,11 @@
   color: var(--text-h);
   transition:
     background var(--motion-fast),
-    transform var(--motion-fast),
     color var(--motion-fast);
 }
 
 .search-bar-matches li:hover {
   background: var(--accent-bg);
-  transform: translateX(3px);
 }
 
 .search-bar-match-image {

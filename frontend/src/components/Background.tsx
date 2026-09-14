@@ -3,7 +3,10 @@ import './Background.css'
 
 function Background() {
   return (
-    <div className="background" style={{ backgroundImage: `url(${clashBackground})` }} />
+    <>
+      <div className="background" style={{ backgroundImage: `url(${clashBackground})` }} />
+      <p className="background-credit">Background: David Fortin</p>
+    </>
   )
 }
 

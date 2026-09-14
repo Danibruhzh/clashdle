@@ -266,7 +266,7 @@ function UnlimitedPage() {
       {showLeaderboard && (
         <LeaderboardModal onClose={() => setShowLeaderboard(false)} refreshKey={leaderboardRefreshKey} />
       )}
-      <div className="app-content">
+      <div className={`app-content${roundGuesses.length === 0 ? ' app-content--entry' : ''}`}>
         <div className="unlimited-toolbar">
           <Link className="unlimited-gate-link" to="/">
             Back to Daily
@@ -285,11 +285,13 @@ function UnlimitedPage() {
           </div>
         </div>
         <h1 className="app-title app-title-unlimited">
-          <img
-            className="app-title-image app-title-image-unlimited"
-            src={clashdleUnlimitedTitle}
-            alt="Clashdle Unlimited"
-          />
+          <Link className="app-title-link" to="/" aria-label="Go to Clashdle home">
+            <img
+              className="app-title-image app-title-image-unlimited"
+              src={clashdleUnlimitedTitle}
+              alt="Clashdle Unlimited"
+            />
+          </Link>
         </h1>
 
         {/* The result itself (win/loss message) only ever shows via the

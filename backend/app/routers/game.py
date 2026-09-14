@@ -143,7 +143,8 @@ def today_winners(db: Session = Depends(get_db), today: date = Depends(get_clien
     so far — public, not tied to this browser's own guest session or
     account. Guests and registered users are attributed on different
     columns (guest_session_id vs user_id, see models/guess.py), so this
-    counts each distinctly and sums them rather than one combined query.
+    counts unclaimed guest winners plus registered winners. Guest guesses
+    claimed during signup are counted on the registered side only.
     "Today" is this requesting client's own timezone (see core/time.py), so
     this is specifically "winners of the card you're playing", not a single
     worldwide count — players in other timezones may be on a different card
@@ -156,6 +157,7 @@ def today_winners(db: Session = Depends(get_db), today: date = Depends(get_clien
             Guess.daily_answer_id == daily_answer.id,
             Guess.is_correct.is_(True),
             Guess.guest_session_id.isnot(None),
+            Guess.user_id.is_(None),
         )
         .distinct()
         .count()

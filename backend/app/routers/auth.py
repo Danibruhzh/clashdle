@@ -68,16 +68,16 @@ def register(payload: RegisterRequest, db: Session = Depends(get_db)):
 
     db.add(_build_seeded_stats(user.id, payload.guest_stats))
 
-    # Hand this browser's own guesses (today's included) over to the new
-    # account — otherwise a guest who already won/lost today shows up as
-    # never having played once logged in, since /game/guess and /game/today
-    # look guesses up by identity (see routers/game.py) and this account's
-    # user_id has none yet. is_correct/created_at etc. all carry over as-is;
-    # only who it's attributed to changes.
+    # Attach this browser's own guesses (today's included) to the new account
+    # without clearing the guest id. Signing up should save progress to the
+    # account, not consume the browser's guest session and make the game look
+    # unplayed after logout. Rows already claimed by an account are left alone,
+    # matching the guest-stats credit guard on the frontend.
     if payload.guest_session_id:
-        db.query(Guess).filter(Guess.guest_session_id == payload.guest_session_id).update(
-            {Guess.user_id: user.id, Guess.guest_session_id: None}
-        )
+        db.query(Guess).filter(
+            Guess.guest_session_id == payload.guest_session_id,
+            Guess.user_id.is_(None),
+        ).update({Guess.user_id: user.id}, synchronize_session=False)
 
     db.commit()
 

@@ -51,6 +51,7 @@
 }
 
 .unlimited-gate-link {
+  flex: 0 0 auto;
   padding: 10px 18px;
   border: 2px solid var(--accent-border);
   border-radius: 8px;
@@ -60,6 +61,7 @@
   font-size: 14px;
   font-weight: 600;
   text-decoration: none;
+  white-space: nowrap;
   transition:
     transform var(--motion-med),
     background var(--motion-fast),
@@ -87,9 +89,64 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
-  padding: 0 16px;
+  gap: 8px;
+  width: min(calc(100% - 24px), var(--game-row-width));
   box-sizing: border-box;
+}
+
+@media (max-width: 640px) {
+  .unlimited-toolbar {
+    gap: 4px;
+  }
+
+  .unlimited-toolbar .app-toolbar-group {
+    flex: 0 0 auto;
+    gap: clamp(3px, 1.5vw, 8px);
+    min-width: 0;
+  }
+
+  .unlimited-toolbar .app-toolbar-group > * {
+    flex-shrink: 0;
+  }
+
+  .unlimited-toolbar .unlimited-gate-link {
+    margin-right: 0;
+    padding: 6px clamp(4px, 1.6vw, 10px);
+    font-size: clamp(8px, 2.7vw, 11px);
+  }
+}
+
+@media (max-width: 330px) {
+  .unlimited-toolbar {
+    gap: 3px;
+    width: min(calc(100% - 12px), var(--game-row-width));
+  }
+
+  .unlimited-toolbar .app-toolbar-group {
+    gap: 3px;
+  }
+
+  .unlimited-toolbar .unlimited-gate-link {
+    padding: 4px 6px;
+    border-width: 1.5px;
+    border-radius: 7px;
+    font-size: 8px;
+    line-height: 1;
+  }
+
+  .unlimited-toolbar .how-to-play-button-icon,
+  .unlimited-toolbar .card-browser-button-icon,
+  .unlimited-toolbar .stats-button-icon,
+  .unlimited-toolbar .leaderboard-button-icon,
+  .unlimited-toolbar .profile-button-icon,
+  .unlimited-toolbar .streak-display {
+    width: 27px;
+    height: 27px;
+  }
+
+  .unlimited-toolbar .streak-display-count {
+    font-size: 10px;
+  }
 }
 
 .unlimited-start-button {

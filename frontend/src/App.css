@@ -1,4 +1,6 @@
 .app-content {
+  --game-row-width: 1250px;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,6 +11,7 @@
      a permanent, pointless scrollbar even with zero guesses on screen. */
   box-sizing: border-box;
   min-height: 100vh;
+  min-height: 100dvh;
   padding-top: 16px;
   padding-bottom: 48px;
 }
@@ -17,8 +20,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  width: 100%;
-  padding-right: 60px;
+  width: min(calc(100% - 24px), var(--game-row-width));
   box-sizing: border-box;
 }
 
@@ -32,8 +34,18 @@
      flex gap above it, so the title lands at the same spot it was at
      before the toolbar existed */
   margin-top: 10px;
-  margin-bottom: -16px;
+  margin-bottom: 8px;
   line-height: 1;
+}
+
+.app-title-link {
+  display: block;
+  line-height: 0;
+  text-decoration: none;
+}
+
+.app-title-link:active {
+  transform: none;
 }
 
 .app-title-image {
@@ -44,31 +56,28 @@
   filter:
     drop-shadow(0 4px 8px rgba(0, 0, 0, 0.45))
     drop-shadow(0 0 10px rgba(255, 213, 106, 0.42));
-  transition:
-    transform var(--motion-med),
-    filter var(--motion-med);
+  transition: filter var(--motion-med);
 }
 
 @media (hover: hover) {
-  .app-title-image:hover {
-    transform: translateY(-2px) scale(1.015);
+  .app-title-link:hover .app-title-image {
     filter:
-      drop-shadow(0 5px 10px rgba(0, 0, 0, 0.5))
-      drop-shadow(0 0 16px rgba(255, 213, 106, 0.55));
+      drop-shadow(0 4px 8px rgba(0, 0, 0, 0.45))
+      drop-shadow(0 0 15px rgba(255, 213, 106, 0.62));
   }
 }
 
 .app-title-image-daily {
-  height: 128px;
+  height: 96px;
 }
 
 .app-title-image-unlimited {
-  height: 208px;
+  height: 148px;
 }
 
 .app-title-unlimited {
-  margin-top: -12px;
-  margin-bottom: -34px;
+  margin-top: 0;
+  margin-bottom: 12px;
 }
 
 .app-guess-counter {
@@ -82,11 +91,47 @@
    that component is shared with UnlimitedPage.tsx. */
 
 @media (max-width: 1024px) {
+  .app-content {
+    gap: 12px;
+    overflow-x: hidden;
+    padding-top: 8px;
+    padding-bottom: max(8px, env(safe-area-inset-bottom));
+  }
+
+  .app-content--entry {
+    height: 100dvh;
+    overflow-y: hidden;
+  }
+
+  .app-title {
+    margin-top: 22px;
+  }
+
+  .app-title-unlimited {
+    margin-top: 34px;
+  }
+
   .app-title-image-daily {
-    height: 84px;
+    height: 60px;
   }
 
   .app-title-image-unlimited {
-    height: 140px;
+    height: 92px;
+  }
+}
+
+@media (max-width: 1260px) {
+  .app-content {
+    --game-row-width: 750px;
+  }
+}
+
+@media (max-width: 330px) {
+  .app-title-image {
+    max-width: 88vw;
+  }
+
+  .app-title-image-unlimited {
+    height: 82px;
   }
 }
