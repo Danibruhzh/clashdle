@@ -51,7 +51,7 @@ function sortByOrder(groups: Map<string, string[]>, order: string[]): Category[]
     .map(([label, names]) => ({ label, names }))
 }
 
-const CARD_TYPE_ORDER = ['Normal', 'Evo', 'Hero', 'Spawnee', MISSING_LABEL]
+const CARD_TYPE_ORDER = ['Normal', 'Evolution', 'Hero', 'Spawnee', MISSING_LABEL]
 const ENTITY_TYPE_ORDER = ['Troop', 'Spell', 'Building', 'Tower Troop', MISSING_LABEL]
 const TARGET_ORDER = ['Ground', 'Air & Ground', 'Buildings', 'Friendly', MISSING_LABEL]
 

@@ -555,7 +555,7 @@
   },
   "General Gerry": {
     "Cost": "3",
-    "Type": "Troop, Evo",
+    "Type": "Troop, Evolution",
     "Rarity": "Epic",
     "Target": "Ground",
     "Hitpoints": "162",
@@ -1770,7 +1770,7 @@
   },
   "Evolution Archers": {
     "Cost": "3",
-    "Type": "Troop, Evo",
+    "Type": "Troop, Evolution",
     "Rarity": "Common",
     "Target": "Air & Ground",
     "Hitpoints": "304",
@@ -1783,7 +1783,7 @@
   },
   "Evolution Bats": {
     "Cost": "2",
-    "Type": "Troop, Evo",
+    "Type": "Troop, Evolution",
     "Rarity": "Common",
     "Target": "Air & Ground",
     "Hitpoints": "392 (Max HP)",
@@ -1794,7 +1794,7 @@
   },
   "Evolution Battle Ram": {
     "Cost": "4",
-    "Type": "Troop, Evo",
+    "Type": "Troop, Evolution",
     "Rarity": "Rare",
     "Target": "Buildings",
     "Hitpoints": "967",
@@ -1807,7 +1807,7 @@
   },
   "Evolution Bomber": {
     "Cost": "2",
-    "Type": "Troop, Evo",
+    "Type": "Troop, Evolution",
     "Rarity": "Common",
     "Target": "Ground",
     "Hitpoints": "304",
@@ -1820,7 +1820,7 @@
   },
   "Evolution Cannon": {
     "Cost": "3",
-    "Type": "Building, Evo",
+    "Type": "Building, Evolution",
     "Rarity": "Common",
     "Target": "Ground",
     "Hitpoints": "824",
@@ -1833,7 +1833,7 @@
   },
   "Evolution Dart Goblin": {
     "Cost": "3",
-    "Type": "Troop, Evo",
+    "Type": "Troop, Evolution",
     "Rarity": "Rare",
     "Target": "Air & Ground",
     "Hitpoints": "261",
@@ -1846,7 +1846,7 @@
   },
   "Evolution Electro Dragon": {
     "Cost": "5",
-    "Type": "Troop, Evo",
+    "Type": "Troop, Evolution",
     "Rarity": "Epic",
     "Target": "Air & Ground",
     "Hitpoints": "1049",
@@ -1859,7 +1859,7 @@
   },
   "Evolution Elite Barbarians": {
     "Cost": "6",
-    "Type": "Troop, Evo",
+    "Type": "Troop, Evolution",
     "Rarity": "Common",
     "Target": "Ground",
     "Hitpoints": "1341",
@@ -1872,7 +1872,7 @@
   },
   "Evolution Executioner": {
     "Cost": "5",
-    "Type": "Troop, Evo",
+    "Type": "Troop, Evolution",
     "Rarity": "Epic",
     "Target": "Air & Ground",
     "Hitpoints": "1280",
@@ -1885,7 +1885,7 @@
   },
   "Evolution Firecracker": {
     "Cost": "3",
-    "Type": "Troop, Evo",
+    "Type": "Troop, Evolution",
     "Rarity": "Common",
     "Target": "Air & Ground",
     "Hitpoints": "304",
@@ -1898,7 +1898,7 @@
   },
   "Evolution Goblin Cage": {
     "Cost": "4",
-    "Type": "Building, Evo",
+    "Type": "Building, Evolution",
     "Rarity": "Rare",
     "Target": "Ground",
     "Hitpoints": "780",
@@ -1909,7 +1909,7 @@
   },
   "Evolution Ice Spirit": {
     "Cost": "1",
-    "Type": "Troop, Evo",
+    "Type": "Troop, Evolution",
     "Rarity": "Common",
     "Target": "Air & Ground",
     "Hitpoints": "215",
@@ -1922,7 +1922,7 @@
   },
   "Evolution Mortar": {
     "Cost": "4",
-    "Type": "Building, Evo",
+    "Type": "Building, Evolution",
     "Rarity": "Common",
     "Target": "Ground",
     "Hitpoints": "1369",
@@ -1935,7 +1935,7 @@
   },
   "Evolution Musketeer": {
     "Cost": "4",
-    "Type": "Troop, Evo",
+    "Type": "Troop, Evolution",
     "Rarity": "Rare",
     "Target": "Air & Ground",
     "Hitpoints": "721",
@@ -1948,7 +1948,7 @@
   },
   "Evolution P.E.K.K.A.": {
     "Cost": "7",
-    "Type": "Troop, Evo",
+    "Type": "Troop, Evolution",
     "Rarity": "Epic",
     "Target": "Ground",
     "Hitpoints": "5640 (Max HP)",
@@ -1959,7 +1959,7 @@
   },
   "Evolution Princess": {
     "Cost": "3",
-    "Type": "Troop, Evo",
+    "Type": "Troop, Evolution",
     "Rarity": "Legendary",
     "Target": "Air & Ground",
     "Hitpoints": "261",
@@ -1972,7 +1972,7 @@
   },
   "Evolution Royal Ghost": {
     "Cost": "3",
-    "Type": "Troop, Evo",
+    "Type": "Troop, Evolution",
     "Rarity": "Legendary",
     "Target": "Ground",
     "Hitpoints": "1210",
@@ -1985,7 +1985,7 @@
   },
   "Evolution Royal Giant": {
     "Cost": "6",
-    "Type": "Troop, Evo",
+    "Type": "Troop, Evolution",
     "Rarity": "Common",
     "Target": "Buildings",
     "Hitpoints": "3164",
@@ -1998,7 +1998,7 @@
   },
   "Evolution Royal Hogs": {
     "Cost": "5",
-    "Type": "Troop, Evo",
+    "Type": "Troop, Evolution",
     "Rarity": "Rare",
     "Target": "Buildings",
     "Hitpoints": "837",
@@ -2011,7 +2011,7 @@
   },
   "Evolution Royal Recruits": {
     "Cost": "7",
-    "Type": "Troop, Evo",
+    "Type": "Troop, Evolution",
     "Rarity": "Common",
     "Target": "Ground",
     "Hitpoints": "787",
@@ -2024,7 +2024,7 @@
   },
   "Evolution Skeleton Barrel": {
     "Cost": "3",
-    "Type": "Troop, Evo",
+    "Type": "Troop, Evolution",
     "Rarity": "Common",
     "Target": "Buildings",
     "Hitpoints": "665",
@@ -2037,7 +2037,7 @@
   },
   "Evolution Tesla": {
     "Cost": "4",
-    "Type": "Building, Evo",
+    "Type": "Building, Evolution",
     "Rarity": "Common",
     "Target": "Air & Ground",
     "Hitpoints": "1182",
@@ -2050,7 +2050,7 @@
   },
   "Evolution Valkyrie": {
     "Cost": "4",
-    "Type": "Troop, Evo",
+    "Type": "Troop, Evolution",
     "Rarity": "Rare",
     "Target": "Ground",
     "Hitpoints": "1907",
@@ -2063,7 +2063,7 @@
   },
   "Evolution Wall Breakers": {
     "Cost": "2",
-    "Type": "Troop, Evo",
+    "Type": "Troop, Evolution",
     "Rarity": "Epic",
     "Target": "Buildings",
     "Hitpoints": "330",
@@ -2076,7 +2076,7 @@
   },
   "Evolution Witch": {
     "Cost": "5",
-    "Type": "Troop, Evo",
+    "Type": "Troop, Evolution",
     "Rarity": "Epic",
     "Target": "Air & Ground",
     "Hitpoints": "1451 (Max HP)",
@@ -2087,7 +2087,7 @@
   },
   "Evolution Wizard": {
     "Cost": "5",
-    "Type": "Troop, Evo",
+    "Type": "Troop, Evolution",
     "Rarity": "Rare",
     "Target": "Air & Ground",
     "Hitpoints": "931",
@@ -2100,7 +2100,7 @@
   },
   "Evolution Zap": {
     "Cost": "2",
-    "Type": "Spell, Evo",
+    "Type": "Spell, Evolution",
     "Rarity": "Common",
     "Target": "Air & Ground",
     "Hitpoints": "N/A",

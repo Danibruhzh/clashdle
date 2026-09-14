@@ -9,7 +9,7 @@ interface HowToPlayModalProps {
 
 const STAT_GLOSSARY = [
   { name: 'Cost', description: 'The Elixir needed to play the card. If a card contains multiple entities (like Elixir Golem or Rascals), each entity keeps the same cost as the original card. For entities summoned by an ability, the cost is the ability\'s cost instead.' },
-  { name: 'Type', description: 'The first part is the Entity Type: Troop, Building, Spell, or Tower Troop. The second part is the Card Type: Normal, Evo, Hero, or Spawnee. Orange means one of those two parts is correct.' },
+  { name: 'Type', description: 'The first part is the Entity Type: Troop, Building, Spell, or Tower Troop. The second part is the Card Type: Normal, Evolution, Hero, or Spawnee. Orange means one of those two parts is correct.' },
   { name: 'Rarity', description: 'Common, Rare, Epic, Legendary, or Champion.' },
   { name: 'Target', description: "Ground, Air & Ground, Buildings, or Friendly." },
   { name: 'Hitpoints', description: 'How much damage it can take before dying. This always refers to Max Hitpoints.' },

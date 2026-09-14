@@ -14,10 +14,6 @@ interface CardBrowserProps {
   onClose: () => void
 }
 
-function displayName(name: string): string {
-  return name.replace('Evolution', 'Evo')
-}
-
 // Same hover-capability check CardBrowser.css already splits behavior on
 // (computers have cursors, phones don't) — used here to decide whether a
 // card's sound plays on mouse-enter (desktop) or on tap (touch), not both,
@@ -109,7 +105,7 @@ function CardBrowser({ onClose }: CardBrowserProps) {
       <img className="card-browser-image" src={getCardImagePath(name)} alt={name} />
       <div className="card-browser-image-dim" />
       <div className="card-browser-name-overlay">
-        {displayName(name)
+        {name
           .split(' ')
           .map((word, i) => (
             <span className="card-browser-name-word" key={i}>

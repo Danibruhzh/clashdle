@@ -62,8 +62,8 @@ function nameSortKey(name: string): { base: string; variantRank: number } {
 // The one place "alphabetical" actually means anything in this file — used
 // directly for the Name field, and as every other field's tie-break (two
 // cards with the same Elixir/Hitpoints/etc., or both missing a value). A
-// card's rank among its own base/Evo/Hero siblings never flips with
-// direction, so a group always reads base → Evo → Hero either way.
+// card's rank among its own base/Evolution/Hero siblings never flips with
+// direction, so a group always reads base → Evolution → Hero either way.
 function compareNames(a: string, b: string, direction: 1 | -1): number {
   const keyA = nameSortKey(a)
   const keyB = nameSortKey(b)
@@ -81,7 +81,7 @@ function statNumber(
 // have one, regardless of direction — never lets a "no data" card look like
 // the strongest or weakest. Ties (including two missing values) fall back
 // to compareNames, so the order stays stable and predictable either way —
-// and still groups a card with its own Evo/Hero siblings even when this is
+// and still groups a card with its own Evolution/Hero siblings even when this is
 // only a tie-break, not the primary sort.
 function compareByStat(
   a: string,
