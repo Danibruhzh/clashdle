@@ -39,7 +39,7 @@ const STAT_GLOSSARY: { name: string; description: ReactNode[] }[] = [
   },
   {
     name: 'Damage',
-    description: [<>Damage dealt <b>per hit</b>, assuming it's attacking a single target.</>],
+    description: [<>Damage dealt <b>per attack</b>, assuming it's attacking a single target.</>],
   },
   {
     name: 'Damage Per Second',
@@ -96,6 +96,10 @@ function HowToPlayModal({ onClose }: HowToPlayModalProps) {
             All stats are relative to <b>one entity</b> of a card, even for multiple-entity cards.
             <br />
             (e.g., <strong>Archers</strong> shows stats for one <strong>Archer</strong>).
+          </p>
+
+          <p>
+            Clashdle is based on <b>Level 11</b> stats.
           </p>
 
           <p>
