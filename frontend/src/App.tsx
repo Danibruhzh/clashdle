@@ -285,10 +285,12 @@ function App() {
           </div>
         </div>
         <h1 className="app-title">
+          <span className="sr-only">Clashdle</span>
           <Link className="app-title-link" to="/" aria-label="Go to Clashdle home">
-            <img className="app-title-image app-title-image-daily" src={clashdleTitle} alt="Clashdle" />
+            <img className="app-title-image app-title-image-daily" src={clashdleTitle} alt="" />
           </Link>
         </h1>
+        <p className="app-description">Guess today's Clash Royale card!</p>
         {(hasWon || hasLost) && (
           <Link className="unlimited-start-button" to="/unlimited">
             {loggedIn ? 'Play Unlimited' : 'Log in to play Unlimited'}

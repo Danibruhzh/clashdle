@@ -78,7 +78,7 @@ function HowToPlayModal({ onClose }: HowToPlayModalProps) {
     <div className="how-to-play-backdrop" onClick={onClose}>
       <div className="how-to-play-panel" onClick={(e) => e.stopPropagation()}>
         <div className="how-to-play-header">
-          <h2>How to Play</h2>
+          <h2>How to Play Clashdle</h2>
           <button className="how-to-play-close" onClick={onClose} aria-label="Close">
             ✕
           </button>
