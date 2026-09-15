@@ -246,11 +246,26 @@
     filter var(--motion-med);
 }
 
+.card-browser-image-placeholder {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-h);
+  font-size: 12px;
+  opacity: 0.65;
+  pointer-events: none;
+}
+
 .card-browser-item--tapped {
   z-index: 2;
 }
 
 .card-browser-image {
+  position: relative;
+  z-index: 1;
   width: 100%;
   aspect-ratio: 255 / 319;
   object-fit: cover;
@@ -262,14 +277,21 @@
      loading (or if it 404s), reading as blank space rather than "a card is
      loading here". The image (once it loads) fully covers this anyway. */
   background: var(--bg);
+  opacity: 0;
   transition:
+    opacity var(--motion-fast),
     border-color var(--motion-fast),
     box-shadow var(--motion-med);
+}
+
+.card-browser-image--loaded {
+  opacity: 1;
 }
 
 .card-browser-image-dim {
   position: absolute;
   inset: 0;
+  z-index: 2;
   border-radius: 4px;
   background: rgba(0, 0, 0, 0.45);
   opacity: 0;
@@ -284,7 +306,7 @@
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 1;
+  z-index: 3;
   position: absolute;
   display: flex;
   flex-direction: column;

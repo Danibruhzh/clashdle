@@ -54,6 +54,21 @@ i {
 }
 
 @media (max-width: 640px) {
+  .how-to-play-backdrop {
+    padding: 18px;
+  }
+
+  .how-to-play-panel-frame,
+  .how-to-play-panel {
+    max-width: 92vw;
+    max-height: 82dvh;
+  }
+
+  .how-to-play-panel {
+    padding: 14px;
+    border-radius: 10px;
+  }
+
   .how-to-play-panel-frame::after {
     content: '';
     position: absolute;
@@ -72,6 +87,55 @@ i {
 
   .how-to-play-panel-frame--scroll-end::after {
     opacity: 0;
+  }
+
+  .how-to-play-header {
+    margin-bottom: 10px;
+  }
+
+  .how-to-play-header h2 {
+    font-size: 24px;
+    line-height: 1.16;
+  }
+
+  .how-to-play-close {
+    font-size: 14px;
+    padding: 5px 8px;
+  }
+
+  .how-to-play-intro {
+    font-size: 12px;
+    line-height: 1.55;
+    margin-bottom: 12px;
+  }
+
+  .how-to-play-disclaimers {
+    font-size: 11px;
+    line-height: 1.55;
+    margin-bottom: 12px;
+  }
+
+  .how-to-play-section-title {
+    font-size: 15px;
+    margin: 14px 0 8px;
+  }
+
+  .how-to-play-legend-rule {
+    font-size: 12px;
+  }
+
+  .how-to-play-glossary {
+    gap: 10px;
+  }
+
+  .how-to-play-glossary-item dt {
+    font-size: 13px;
+  }
+
+  .how-to-play-glossary-item dd,
+  .how-to-play-footnotes,
+  .how-to-play-example-intro {
+    font-size: 11px;
   }
 }
 

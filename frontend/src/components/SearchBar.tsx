@@ -59,9 +59,8 @@ function SearchBar({ onSelectCard, guessedNames, disabled = false, loading = fal
     setQuery('')
   }
 
-  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (blocked || e.key !== 'Enter') return
-
+  const submitQuery = () => {
+    if (blocked) return
     const exactMatch = cardNameByLower.get(normalize(query.trim()))
     if (exactMatch && !guessedNames.has(exactMatch)) {
       handleSelect(exactMatch)
@@ -76,23 +75,38 @@ function SearchBar({ onSelectCard, guessedNames, disabled = false, loading = fal
     }
   }
 
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (blocked || e.key !== 'Enter') return
+    submitQuery()
+  }
+
   return (
     <div className="search-bar-container">
-      <input
-        className="search-bar"
-        type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        onKeyDown={handleKeyDown}
-        onFocus={() => setShowMatches(true)}
-        onBlur={() => setShowMatches(false)}
-        disabled={loading}
-        // blocked (not just loading) here — otherwise, right after picking
-        // a card, the query clears (see handleSelect) before that guess's
-        // fetch resolves, and the empty input would briefly show "Guess a
-        // card..." again as if nothing had been picked yet.
-        placeholder={blocked ? 'Loading...' : 'Guess a card...'}
-      />
+      <div className="search-bar-control">
+        <input
+          className="search-bar"
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={handleKeyDown}
+          onFocus={() => setShowMatches(true)}
+          onBlur={() => setShowMatches(false)}
+          disabled={loading}
+          // blocked (not just loading) here — otherwise, right after picking
+          // a card, the query clears (see handleSelect) before that guess's
+          // fetch resolves, and the empty input would briefly show "Guess a
+          // card..." again as if nothing had been picked yet.
+          placeholder={blocked ? 'Loading...' : 'Guess a card...'}
+        />
+        <button
+          className="search-bar-submit"
+          type="button"
+          onMouseDown={(e) => e.preventDefault()}
+          onClick={submitQuery}
+          disabled={blocked || query.trim().length === 0}
+          aria-label="Submit guess"
+        />
+      </div>
       {showMatches && matches.length > 0 && (
         <ul className="search-bar-matches">
           {matches.map((name) => (
