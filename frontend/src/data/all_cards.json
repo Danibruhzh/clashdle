@@ -323,7 +323,7 @@
   },
   "Decoy Goblin": {
     "Cost": "3",
-    "Type": "Troop, Normal",
+    "Type": "Troop, Evolution",
     "Rarity": "Epic",
     "Target": "Ground",
     "Hitpoints": "81",

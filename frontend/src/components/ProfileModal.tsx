@@ -133,7 +133,7 @@ function ProfileModal({ onClose, onAuthChange }: ProfileModalProps) {
                 <span className="profile-modal-stat-label">Unlimited Wins</span>
               </div>
               <div className="profile-modal-stat">
-                <span className="profile-modal-stat-value">{avgGuesses === null ? '—' : avgGuesses.toFixed(1)}</span>
+                <span className="profile-modal-stat-value">{avgGuesses === null ? '—' : avgGuesses.toFixed(2)}</span>
                 <span className="profile-modal-stat-label">Avg Guesses</span>
               </div>
             </div>
