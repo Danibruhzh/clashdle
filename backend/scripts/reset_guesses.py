@@ -1,4 +1,4 @@
-"""Emergency dev-side tool for clearing Guess rows.
+"""EMERGENCY dev-side tool for clearing Guess rows.
 
 Deliberately not wired to any button or API endpoint — there's no auth yet,
 so anything reachable over HTTP that can delete data is reachable by anyone
@@ -12,10 +12,10 @@ you're targeting a specific player's card and it might be a different date
 where they are.
 
 Usage (from backend/, with .venv active):
-    python scripts/reset_guesses.py                             # today (fallback tz), all players
-    python scripts/reset_guesses.py --date 2026-08-25            # a specific date, all players
-    python scripts/reset_guesses.py --guest-session-id <uuid>    # today, one player only
-    python scripts/reset_guesses.py --date 2026-08-25 --yes      # skip the confirmation prompt
+    python scripts/reset_guesses.py --guest-session-id <uuid>              # today, one player only
+    python scripts/reset_guesses.py --date 2026-08-25 --guest-session-id <uuid>
+    python scripts/reset_guesses.py --date 2026-08-25 --all-players        # a specific date, all players
+    python scripts/reset_guesses.py --date 2026-08-25 --all-players --yes  # skips only the first prompt
 """
 import argparse
 import sys
@@ -40,14 +40,36 @@ def parse_args():
         "--guest-session-id",
         type=str,
         default=None,
-        help="Limit to one player's guesses; omit to clear everyone's for that date",
+        help="Limit to one player's guesses",
     )
-    parser.add_argument("--yes", action="store_true", help="Skip the confirmation prompt")
+    parser.add_argument(
+        "--all-players",
+        action="store_true",
+        help="Required when deleting guesses for every player on the target date",
+    )
+    parser.add_argument(
+        "--yes",
+        action="store_true",
+        help="Skip the first confirmation prompt; the exact danger phrase is still required",
+    )
+    parser.add_argument(
+        "--danger-phrase",
+        type=str,
+        default=None,
+        help="Non-interactive exact phrase required before deleting rows",
+    )
     return parser.parse_args()
 
 
 def main():
     args = parse_args()
+    if args.guest_session_id and args.all_players:
+        raise SystemExit("Choose either --guest-session-id or --all-players, not both.")
+    if not args.guest_session_id and not args.all_players:
+        raise SystemExit(
+            "Refusing to infer scope. Pass --guest-session-id <uuid> or explicit --all-players."
+        )
+
     target_date = (
         datetime.strptime(args.date, "%Y-%m-%d").date() if args.date else default_today()
     )
@@ -77,6 +99,14 @@ def main():
             if confirm.strip().lower() != "yes":
                 print("Aborted.")
                 return
+
+        danger_phrase = f"DELETE {count} GUESSES FOR {target_date} ({scope})"
+        print("Final confirmation required.")
+        print(f"Type exactly: {danger_phrase}")
+        confirm_danger = args.danger_phrase if args.danger_phrase is not None else input("> ")
+        if confirm_danger != danger_phrase:
+            print("Danger phrase did not match. Aborted.")
+            return
 
         query.delete(synchronize_session=False)
         db.commit()
