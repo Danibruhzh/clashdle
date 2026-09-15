@@ -39,7 +39,6 @@ function CardBrowser({ onClose }: CardBrowserProps) {
     () => getCardBrowserSession().sortDirection
   )
   const [easyMode, setEasyModeState] = useState(() => getEasyMode())
-  const [loadedCards, setLoadedCards] = useState<Set<string>>(() => new Set())
   const [categoryDimension, setCategoryDimensionState] = useState<CategoryDimension>(
     () => getCardBrowserSession().categoryDimension
   )
@@ -70,15 +69,6 @@ function CardBrowser({ onClose }: CardBrowserProps) {
     // skip it here so a click right after a hover doesn't play it twice.
     if (!isHoverCapable()) playCardSound()
     setTappedCard((prev) => (prev === name ? null : name))
-  }
-
-  const handleCardImageLoad = (name: string) => {
-    setLoadedCards((prev) => {
-      if (prev.has(name)) return prev
-      const next = new Set(prev)
-      next.add(name)
-      return next
-    })
   }
 
   // Sort field/direction only matter in Easy Mode now — with it off there's
@@ -113,12 +103,7 @@ function CardBrowser({ onClose }: CardBrowserProps) {
       }}
     >
       <span className="card-browser-image-placeholder" aria-hidden="true">...</span>
-      <img
-        className={`card-browser-image${loadedCards.has(name) ? ' card-browser-image--loaded' : ''}`}
-        src={getCardImagePath(name)}
-        alt={name}
-        onLoad={() => handleCardImageLoad(name)}
-      />
+      <img className="card-browser-image" src={getCardImagePath(name)} alt={name} />
       <div className="card-browser-image-dim" />
       <div className="card-browser-name-overlay">
         {name

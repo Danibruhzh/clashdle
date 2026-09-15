@@ -271,21 +271,10 @@
   object-fit: cover;
   border-radius: 4px;
   border: 1px solid var(--border);
-  /* var(--bg), not var(--code-bg) — code-bg is deliberately fully
-     transparent (see its own comment in index.css), which meant nothing
-     but the page background showed through while an image was still
-     loading (or if it 404s), reading as blank space rather than "a card is
-     loading here". The image (once it loads) fully covers this anyway. */
-  background: var(--bg);
-  opacity: 0;
+  background: transparent;
   transition:
-    opacity var(--motion-fast),
     border-color var(--motion-fast),
     box-shadow var(--motion-med);
-}
-
-.card-browser-image--loaded {
-  opacity: 1;
 }
 
 .card-browser-image-dim {

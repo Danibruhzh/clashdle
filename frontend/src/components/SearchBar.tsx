@@ -123,7 +123,10 @@ function SearchBar({ onSelectCard, guessedNames, disabled = false, loading = fal
               }}
               onMouseEnter={() => playSound('/grabcard.mp3')}
             >
-              <img className="search-bar-match-image" src={getCardImagePath(name)} alt="" />
+              <span className="search-bar-match-image-frame">
+                <span className="search-bar-match-image-placeholder" aria-hidden="true">...</span>
+                <img className="search-bar-match-image" src={getCardImagePath(name)} alt="" />
+              </span>
               {name}
             </li>
           ))}

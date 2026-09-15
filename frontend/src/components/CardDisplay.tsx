@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import { cards } from '../data/cards'
 import { statCategory } from '../utils/statCategory'
 import type { StatComparison } from '../api/game'
@@ -46,12 +45,7 @@ function renderStatValue(value: string) {
 }
 
 function CardDisplay({ cardName, comparisons, playFlipSounds = true }: CardDisplayProps) {
-  const [imageLoaded, setImageLoaded] = useState(false)
   const stats = cards[cardName]
-
-  useEffect(() => {
-    setImageLoaded(false)
-  }, [cardName])
 
   if (!stats) {
     return <div className="card-display">No card found for "{cardName}"</div>
@@ -69,12 +63,7 @@ function CardDisplay({ cardName, comparisons, playFlipSounds = true }: CardDispl
           onMouseEnter={() => playSound('/grabcard.mp3')}
         >
           <span className="card-image-placeholder" aria-hidden="true">...</span>
-          <img
-            className={`card-image${imageLoaded ? ' card-image--loaded' : ''}`}
-            src={getCardImagePath(cardName)}
-            alt={cardName}
-            onLoad={() => setImageLoaded(true)}
-          />
+          <img className="card-image" src={getCardImagePath(cardName)} alt={cardName} />
           <span className="card-display-name-overlay">{cardName}</span>
         </div>
         {Object.entries(stats)
