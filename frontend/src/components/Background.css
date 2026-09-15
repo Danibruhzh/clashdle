@@ -42,3 +42,9 @@
     background-position: 52% 48%;
   }
 }
+
+@media (max-width: 640px), (prefers-reduced-motion: reduce) {
+  .background {
+    animation: none;
+  }
+}

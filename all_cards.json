@@ -296,7 +296,7 @@
     "Damage Per Second": "190",
     "Hit Speed": "1.4 sec",
     "Special Damage": {
-      "Rhino Spawn Damage": "307"
+      "Charge Damage": "532"
     }
   },
   "Dart Goblin": {
@@ -2160,7 +2160,7 @@
     "Damage Per Second": "190",
     "Hit Speed": "1.4 sec",
     "Special Damage": {
-      "Charge Damage": "532"
+      "Rhino Spawn Damage": "307"
     }
   },
   "Hero Giant": {

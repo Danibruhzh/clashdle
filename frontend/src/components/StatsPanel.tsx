@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { getHistogram, getLossCount } from '../utils/guessHistogram'
 import { getAuthToken } from '../utils/authSession'
+import { useScrollHint } from '../utils/useScrollHint'
 import { fetchUserStats } from '../api/auth'
 import type { StatComparison } from '../api/game'
 import './StatsPanel.css'
@@ -103,6 +104,7 @@ function StatsPanel({
   playAgainDisabled = false,
 }: StatsPanelProps) {
   const [copiedShare, setCopiedShare] = useState(false)
+  const { ref: panelRef, showScrollHint } = useScrollHint()
   // Whether this instance owns fetching its own stats at all — decided
   // once, from whether the caller passed statsOverride in the first place
   // (regardless of its value), not from what that value currently is.
@@ -145,14 +147,19 @@ function StatsPanel({
   if (stats === null) {
     return (
       <div className="stats-panel-backdrop" onClick={onClose}>
-        <div className="stats-panel" onClick={(e) => e.stopPropagation()}>
-          <div className="stats-panel-header">
-            <h2>{title}</h2>
-            <button className="stats-panel-close" onClick={onClose} aria-label="Close">
-              ✕
-            </button>
+        <div
+          className={`stats-panel-frame${showScrollHint ? '' : ' stats-panel-frame--scroll-end'}`}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="stats-panel" ref={panelRef}>
+            <div className="stats-panel-header">
+              <h2>{title}</h2>
+              <button className="stats-panel-close" onClick={onClose} aria-label="Close">
+                ✕
+              </button>
+            </div>
+            <p className="stats-panel-loading">Loading…</p>
           </div>
-          <p className="stats-panel-loading">Loading…</p>
         </div>
       </div>
     )
@@ -201,80 +208,85 @@ function StatsPanel({
 
   return (
     <div className="stats-panel-backdrop" onClick={onClose}>
-      <div className="stats-panel" onClick={(e) => e.stopPropagation()}>
-        <div className="stats-panel-header">
-          <h2>{title}</h2>
-          <button className="stats-panel-close" onClick={onClose} aria-label="Close">
-            ✕
-          </button>
-        </div>
-        {guessCount !== undefined && (
-          <p className="stats-panel-win-message">
-            You guessed the card correctly in {guessCount} guess{guessCount === 1 ? '' : 'es'}!
-          </p>
-        )}
-        {lossAnswer !== undefined && (
-          <p className="stats-panel-loss-message">
-            Out of guesses! The card was <strong>{lossAnswer}</strong>.
-          </p>
-        )}
-
-        <div className="stats-panel-summary">
-          <div className="stats-panel-summary-stat">
-            <span className="stats-panel-summary-value">{gamesPlayed}</span>
-            <span className="stats-panel-summary-label">Games Played</span>
-          </div>
-          <div className="stats-panel-summary-stat">
-            <span className="stats-panel-summary-value">{winRate === null ? '—' : `${winRate}%`}</span>
-            <span className="stats-panel-summary-label">Win Rate</span>
-          </div>
-        </div>
-
-        <div className="stats-panel-chart">
-          {bars.map(({ guesses, count }) => (
-            <div className="stats-panel-bar-col" key={guesses}>
-              <div className="stats-panel-bar-track">
-                <div className="stats-panel-bar" style={{ height: `${(count / maxCount) * 100}%` }} title={`${count}`}>
-                  <span className="stats-panel-bar-count">{count}</span>
-                </div>
-              </div>
-              <span className="stats-panel-bar-label">{guesses}</span>
-            </div>
-          ))}
-        </div>
-        <p className="stats-panel-chart-title">Guess Histogram</p>
-
-        {shareText && shareRows && (
-          <div className="stats-panel-share">
-            <h3 className="stats-panel-share-title">Share Results</h3>
-            <div className="stats-panel-share-preview" aria-label="Daily result preview">
-              {shareRows.map((row, index) => (
-                <span className="stats-panel-share-row" key={`${row}-${index}`}>
-                  {row}
-                </span>
-              ))}
-            </div>
-            <p className="stats-panel-share-message">
-              {guessCount !== undefined
-                ? `I guessed today's card in ${guessCount} guess${guessCount === 1 ? '' : 'es'}!`
-                : "I couldn't guess today's card."}
-            </p>
-            <button className="stats-panel-action stats-panel-share-button" onClick={handleCopyShare}>
-              {copiedShare ? 'Copied!' : 'Copy Results'}
+      <div
+        className={`stats-panel-frame${showScrollHint ? '' : ' stats-panel-frame--scroll-end'}`}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="stats-panel" ref={panelRef}>
+          <div className="stats-panel-header">
+            <h2>{title}</h2>
+            <button className="stats-panel-close" onClick={onClose} aria-label="Close">
+              ✕
             </button>
           </div>
-        )}
+          {guessCount !== undefined && (
+            <p className="stats-panel-win-message">
+              You guessed the card correctly in {guessCount} guess{guessCount === 1 ? '' : 'es'}!
+            </p>
+          )}
+          {lossAnswer !== undefined && (
+            <p className="stats-panel-loss-message">
+              Out of guesses! The card was <strong>{lossAnswer}</strong>.
+            </p>
+          )}
 
-        {showUnlimitedCta && (
-          <Link className="stats-panel-action" to="/unlimited">
-            {loggedIn ? 'Play Unlimited' : 'Log in to play Unlimited'}
-          </Link>
-        )}
-        {onPlayAgain && (
-          <button className="stats-panel-action" onClick={onPlayAgain} disabled={playAgainDisabled}>
-            {playAgainDisabled ? 'Starting…' : 'Play Again'}
-          </button>
-        )}
+          <div className="stats-panel-summary">
+            <div className="stats-panel-summary-stat">
+              <span className="stats-panel-summary-value">{gamesPlayed}</span>
+              <span className="stats-panel-summary-label">Games Played</span>
+            </div>
+            <div className="stats-panel-summary-stat">
+              <span className="stats-panel-summary-value">{winRate === null ? '—' : `${winRate}%`}</span>
+              <span className="stats-panel-summary-label">Win Rate</span>
+            </div>
+          </div>
+
+          <div className="stats-panel-chart">
+            {bars.map(({ guesses, count }) => (
+              <div className="stats-panel-bar-col" key={guesses}>
+                <div className="stats-panel-bar-track">
+                  <div className="stats-panel-bar" style={{ height: `${(count / maxCount) * 100}%` }} title={`${count}`}>
+                    <span className="stats-panel-bar-count">{count}</span>
+                  </div>
+                </div>
+                <span className="stats-panel-bar-label">{guesses}</span>
+              </div>
+            ))}
+          </div>
+          <p className="stats-panel-chart-title">Guess Histogram</p>
+
+          {shareText && shareRows && (
+            <div className="stats-panel-share">
+              <h3 className="stats-panel-share-title">Share Results</h3>
+              <div className="stats-panel-share-preview" aria-label="Daily result preview">
+                {shareRows.map((row, index) => (
+                  <span className="stats-panel-share-row" key={`${row}-${index}`}>
+                    {row}
+                  </span>
+                ))}
+              </div>
+              <p className="stats-panel-share-message">
+                {guessCount !== undefined
+                  ? `I guessed today's card in ${guessCount} guess${guessCount === 1 ? '' : 'es'}!`
+                  : "I couldn't guess today's card."}
+              </p>
+              <button className="stats-panel-action stats-panel-share-button" onClick={handleCopyShare}>
+                {copiedShare ? 'Copied!' : 'Copy Results'}
+              </button>
+            </div>
+          )}
+
+          {showUnlimitedCta && (
+            <Link className="stats-panel-action" to="/unlimited">
+              {loggedIn ? 'Play Unlimited' : 'Log in to play Unlimited'}
+            </Link>
+          )}
+          {onPlayAgain && (
+            <button className="stats-panel-action" onClick={onPlayAgain} disabled={playAgainDisabled}>
+              {playAgainDisabled ? 'Starting…' : 'Play Again'}
+            </button>
+          )}
+        </div>
       </div>
     </div>
   )

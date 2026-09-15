@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import upArrow from '../images/up-arrow.png'
 import downArrow from '../images/down-arrow.png'
 import { getCardImagePath } from '../utils/cardImage'
+import { useScrollHint } from '../utils/useScrollHint'
 import './HowToPlayModal.css'
 
 interface HowToPlayModalProps {
@@ -35,7 +36,7 @@ const STAT_GLOSSARY: { name: string; description: ReactNode[] }[] = [
   },
   {
     name: 'Hitpoints',
-    description: [<>How much damage it can take before dying. This always refers to <b>Max Hitpoints</b>.</>],
+    description: [<>How much damage it can take before dying. This always refers to <b>Max Hitpoints</b> and includes <b>shields</b>.</>],
   },
   {
     name: 'Damage',
@@ -74,15 +75,21 @@ function exampleRowStyle(kind: (typeof EXAMPLE_ROWS)[number]['kind']) {
 }
 
 function HowToPlayModal({ onClose }: HowToPlayModalProps) {
+  const { ref: panelRef, showScrollHint } = useScrollHint()
+
   return (
     <div className="how-to-play-backdrop" onClick={onClose}>
-      <div className="how-to-play-panel" onClick={(e) => e.stopPropagation()}>
-        <div className="how-to-play-header">
-          <h2>How to Play Clashdle</h2>
-          <button className="how-to-play-close" onClick={onClose} aria-label="Close">
-            ✕
-          </button>
-        </div>
+      <div
+        className={`how-to-play-panel-frame${showScrollHint ? '' : ' how-to-play-panel-frame--scroll-end'}`}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="how-to-play-panel" ref={panelRef}>
+          <div className="how-to-play-header">
+            <h2>How to Play Clashdle</h2>
+            <button className="how-to-play-close" onClick={onClose} aria-label="Close">
+              ✕
+            </button>
+          </div>
 
         <p className="how-to-play-intro">
           Guess today's secret card from Supercell's <strong>Clash Royale</strong> in 8 tries.
@@ -218,6 +225,7 @@ function HowToPlayModal({ onClose }: HowToPlayModalProps) {
           <li>A new card every day, at your own local midnight!</li>
         </ul>
 
+        </div>
       </div>
     </div>
   )
