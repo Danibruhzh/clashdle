@@ -21,12 +21,21 @@ interface AuthFormProps {
   // needing to own that state itself — same contract as ProfileModal's
   // own onAuthChange prop, since that's just passed straight through.
   onAuthChange: (loggedIn: boolean) => void
+  mode?: Mode
+  onModeChange?: (mode: Mode) => void
+  showTitle?: boolean
 }
 
 type Mode = 'login' | 'register'
 
-function AuthForm({ onAuthChange }: AuthFormProps) {
-  const [mode, setMode] = useState<Mode>('login')
+function AuthForm({ onAuthChange, mode: controlledMode, onModeChange, showTitle = true }: AuthFormProps) {
+  const [internalMode, setInternalMode] = useState<Mode>('login')
+  const mode = controlledMode ?? internalMode
+
+  const setMode = (nextMode: Mode) => {
+    if (controlledMode === undefined) setInternalMode(nextMode)
+    onModeChange?.(nextMode)
+  }
 
   const [identifier, setIdentifier] = useState('')
   const [username, setUsername] = useState('')
@@ -80,7 +89,7 @@ function AuthForm({ onAuthChange }: AuthFormProps) {
 
   return (
     <>
-      <h2>{mode === 'login' ? 'Log In' : 'Sign Up'}</h2>
+      {showTitle && <h2 className="profile-modal-auth-title">{mode === 'login' ? 'Log In' : 'Sign Up'}</h2>}
       <div className="profile-modal-tabs">
         <button
           className={`profile-modal-tab${mode === 'login' ? ' profile-modal-tab--active' : ''}`}

@@ -37,6 +37,7 @@ function ProfileModal({ onClose, onAuthChange }: ProfileModalProps) {
   const [dailyStats, setDailyStats] = useState<UserStats | null>(null)
   const [unlimitedStats, setUnlimitedStats] = useState<UnlimitedStats | null>(null)
   const [loadingProfile, setLoadingProfile] = useState(true)
+  const [authMode, setAuthMode] = useState<'login' | 'register'>('login')
 
   // On open, check whether a token already exists and still works — a
   // token that's since expired or been invalidated just falls back to the
@@ -98,7 +99,7 @@ function ProfileModal({ onClose, onAuthChange }: ProfileModalProps) {
     <div className="profile-modal-backdrop" onClick={onClose}>
       <div className="profile-modal" onClick={(e) => e.stopPropagation()}>
         <div className="profile-modal-header">
-          <h2>{profile ? 'Your Profile' : ''}</h2>
+          <h2>{profile ? 'Your Profile' : loadingProfile ? '' : authMode === 'login' ? 'Log In' : 'Sign Up'}</h2>
           <button className="profile-modal-close" onClick={onClose} aria-label="Close">
             ✕
           </button>
@@ -139,7 +140,7 @@ function ProfileModal({ onClose, onAuthChange }: ProfileModalProps) {
             </button>
           </div>
         ) : (
-          <AuthForm onAuthChange={handleAuthChange} />
+          <AuthForm onAuthChange={handleAuthChange} mode={authMode} onModeChange={setAuthMode} showTitle={false} />
         )}
       </div>
     </div>

@@ -59,6 +59,11 @@
   color: var(--info);
 }
 
+.profile-modal-auth-title {
+  margin: 0 0 16px;
+  color: var(--info);
+}
+
 .profile-modal-close {
   border: none;
   background: none;
@@ -201,7 +206,7 @@
   border: 2px solid var(--border);
   border-radius: 8px;
   background: transparent;
-  color: var(--cool-soft);
+  color: var(--text);
   font-family: var(--sans);
   font-size: 13px;
   font-weight: 600;

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { getHistogram, getLossCount } from '../utils/guessHistogram'
 import { getAuthToken } from '../utils/authSession'
 import { fetchUserStats } from '../api/auth'
+import type { StatComparison } from '../api/game'
 import './StatsPanel.css'
 
 // Mirrors backend/app/services/game.py's MAX_GUESSES (see also App.tsx's own
@@ -23,6 +24,7 @@ interface StatsPanelProps {
   // correct) — holds the revealed card name, shown instead of the win
   // message. Mutually exclusive with guessCount.
   lossAnswer?: string
+  dailyShareGuesses?: Record<string, StatComparison>[]
   // UnlimitedPage already has its own (Unlimited-specific, not daily)
   // stats loaded elsewhere on that page — passing it here skips this
   // component's own fetch/guest-fallback entirely, using this instead.
@@ -60,6 +62,26 @@ interface ResolvedStats {
   wins: number
 }
 
+const SHARE_URL = 'https://clashdle.app/'
+const SHARE_BOX: Record<StatComparison, string> = {
+  match: '🟩',
+  partial: '🟨',
+  mismatch: '🟥',
+  higher: '⬆️',
+  lower: '⬇️',
+}
+
+const SHARE_STAT_ORDER = [
+  'Cost',
+  'Type',
+  'Rarity',
+  'Target',
+  'Hitpoints',
+  'Damage',
+  'Damage Per Second',
+  'Special Damage',
+]
+
 function readGuestStats(): ResolvedStats {
   const histogram = getHistogram()
   // Clamped to 1..MAX_GUESSES for the same reason the bar chart itself is —
@@ -73,12 +95,14 @@ function StatsPanel({
   onClose,
   guessCount,
   lossAnswer,
+  dailyShareGuesses,
   statsOverride,
   title = 'Your Stats',
   showUnlimitedCta = false,
   onPlayAgain,
   playAgainDisabled = false,
 }: StatsPanelProps) {
+  const [copiedShare, setCopiedShare] = useState(false)
   // Whether this instance owns fetching its own stats at all — decided
   // once, from whether the caller passed statsOverride in the first place
   // (regardless of its value), not from what that value currently is.
@@ -114,6 +138,10 @@ function StatsPanel({
 
   const stats = usesOverride ? statsOverride : fetched
 
+  useEffect(() => {
+    setCopiedShare(false)
+  }, [dailyShareGuesses, guessCount, lossAnswer, statsOverride])
+
   if (stats === null) {
     return (
       <div className="stats-panel-backdrop" onClick={onClose}>
@@ -140,6 +168,36 @@ function StatsPanel({
   const maxCount = Math.max(1, ...bars.map((b) => b.count))
 
   const loggedIn = getAuthToken() !== null
+  const isFinishedDaily = statsOverride === undefined && (guessCount !== undefined || lossAnswer !== undefined)
+  const shareRows = dailyShareGuesses?.map((comparisons) =>
+    SHARE_STAT_ORDER.map((stat) => comparisons[stat])
+      .filter((comparison): comparison is StatComparison => comparison !== undefined)
+      .map((comparison) => SHARE_BOX[comparison])
+      .join('')
+  )
+  const shareText =
+    isFinishedDaily && shareRows && shareRows.length > 0
+      ? [
+          'Clashdle',
+          ...shareRows,
+          '',
+          guessCount !== undefined
+            ? `I guessed today's card in ${guessCount} guess${guessCount === 1 ? '' : 'es'}!`
+            : "I couldn't guess today's card.",
+          `Play Clashdle at ${SHARE_URL}`,
+        ].join('\n')
+      : null
+
+  const handleCopyShare = async () => {
+    if (!shareText) return
+    try {
+      await navigator.clipboard.writeText(shareText)
+      setCopiedShare(true)
+      window.setTimeout(() => setCopiedShare(false), 1800)
+    } catch (err) {
+      console.error('Failed to copy share text:', err)
+    }
+  }
 
   return (
     <div className="stats-panel-backdrop" onClick={onClose}>
@@ -175,14 +233,37 @@ function StatsPanel({
         <div className="stats-panel-chart">
           {bars.map(({ guesses, count }) => (
             <div className="stats-panel-bar-col" key={guesses}>
-              <span className="stats-panel-bar-count">{count}</span>
               <div className="stats-panel-bar-track">
-                <div className="stats-panel-bar" style={{ height: `${(count / maxCount) * 100}%` }} />
+                <div className="stats-panel-bar" style={{ height: `${(count / maxCount) * 100}%` }} title={`${count}`}>
+                  <span className="stats-panel-bar-count">{count}</span>
+                </div>
               </div>
               <span className="stats-panel-bar-label">{guesses}</span>
             </div>
           ))}
         </div>
+        <p className="stats-panel-chart-title">Guess Histogram</p>
+
+        {shareText && shareRows && (
+          <div className="stats-panel-share">
+            <h3 className="stats-panel-share-title">Share Results</h3>
+            <div className="stats-panel-share-preview" aria-label="Daily result preview">
+              {shareRows.map((row, index) => (
+                <span className="stats-panel-share-row" key={`${row}-${index}`}>
+                  {row}
+                </span>
+              ))}
+            </div>
+            <p className="stats-panel-share-message">
+              {guessCount !== undefined
+                ? `I guessed today's card in ${guessCount} guess${guessCount === 1 ? '' : 'es'}!`
+                : "I couldn't guess today's card."}
+            </p>
+            <button className="stats-panel-action stats-panel-share-button" onClick={handleCopyShare}>
+              {copiedShare ? 'Copied!' : 'Copy Results'}
+            </button>
+          </div>
+        )}
 
         {showUnlimitedCta && (
           <Link className="stats-panel-action" to="/unlimited">

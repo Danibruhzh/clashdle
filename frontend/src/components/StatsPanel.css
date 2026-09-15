@@ -156,9 +156,28 @@
 }
 
 .stats-panel-bar-count {
+  position: absolute;
+  top: -28px;
+  left: 50%;
+  z-index: 1;
+  padding: 4px 7px;
+  border-radius: 6px;
+  background: var(--bg);
+  border: 1px solid var(--cool);
   font-size: 12px;
   font-weight: 600;
-  color: var(--text-h);
+  color: var(--cool-soft);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(4px);
+  transition:
+    opacity var(--motion-fast),
+    transform var(--motion-fast);
+}
+
+.stats-panel-bar:hover .stats-panel-bar-count {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 
 .stats-panel-bar-track {
@@ -168,15 +187,22 @@
   align-items: flex-end;
   background: var(--code-bg);
   border-radius: 4px;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .stats-panel-bar {
+  position: relative;
   width: 100%;
   min-height: 4px;
   background: var(--accent);
   border-radius: 4px 4px 0 0;
-  transition: height 0.3s ease-out;
+  transition:
+    height 0.3s ease-out,
+    filter var(--motion-fast);
+}
+
+.stats-panel-bar:hover {
+  filter: brightness(0.88);
 }
 
 .stats-panel-bar-label {
@@ -184,6 +210,16 @@
   font-size: 12px;
   font-weight: 600;
   color: var(--cool-soft);
+}
+
+.stats-panel-chart-title {
+  margin: 8px 0 0;
+  color: var(--cool-soft);
+  font-size: 11px;
+  line-height: 1.4;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
 
 .stats-panel-action {
@@ -224,4 +260,46 @@
    ever changes) only needs the smaller default margin above. */
 .stats-panel-chart + .stats-panel-action {
   margin-top: 20px;
+}
+
+.stats-panel-share {
+  margin-top: 20px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  border-top: 2px solid var(--cool);
+  border-bottom: 2px solid var(--cool);
+}
+
+.stats-panel-share-title {
+  margin: 0 0 10px;
+  color: var(--cool-soft);
+  font-size: 15px;
+}
+
+.stats-panel-share-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  margin-bottom: 10px;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.stats-panel-share-row {
+  white-space: nowrap;
+}
+
+.stats-panel-share-message {
+  color: var(--text-h);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.stats-panel-share-message {
+  margin: 0;
+}
+
+.stats-panel-share-button {
+  margin-top: 12px;
 }

@@ -256,6 +256,7 @@ function App() {
           onClose={() => setShowStats(false)}
           guessCount={hasWon ? guesses.length : undefined}
           lossAnswer={hasWon ? undefined : lossAnswer ?? undefined}
+          dailyShareGuesses={guesses.map((guess) => guess.result.comparisons)}
           showUnlimitedCta={hasWon || hasLost}
         />
       )}
