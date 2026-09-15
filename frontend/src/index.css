@@ -17,14 +17,24 @@
   /* Fully transparent (alpha 00) — nothing rendering behind the card PNGs'
      own transparency, on the buttons/modals/stat boxes that use this. */
   --code-bg: #ffffff00;
-  --accent: #b86f16;
-  --accent-dark: #ffd56a;
+  --royal-blue: #002a74;
+  --cool: #0087a1;
+  /* teal blue */
+  --cool-dark: #14505c;
+  /* deeper teal */
+  --cool-soft: #6bddfa;
+  --cool-light: #5bcde9;
+  --info: #0099b4;
+  --accent: #cc981e;
+  --accent-dark: rgb(143, 133, 0);
+  --accent-med: #ffcd57;
+  --list: rgb(206, 100, 244);
   --accent-bg: rgba(184, 111, 22, 0.68);
   --accent-border: rgba(255, 213, 106, 0.58);
   --social-bg: rgba(47, 48, 58, 0.5);
   --shadow:
     rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  --text-shad: 0 1px 3px rgb(255, 215, 0);
+  --text-shad: 0 2px 3px var(--accent-dark);
   --cell-bottom-shadow: 0px 1px 0px 0px rgba(88, 41, 41, 0.5);
   --motion-fast: 150ms ease-out;
   --motion-med: 500ms cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -81,25 +91,29 @@ h2 {
 }
 
 h1 {
-  color: var(--header);
+  color: var(--info);
   font-size: 56px;
   letter-spacing: -1.68px;
   margin: 32px 0;
+
   @media (max-width: 1024px) {
     font-size: 36px;
     margin: 20px 0;
   }
 }
+
 h2 {
-  color: var(--text-h);
+  color: var(--info);
   font-size: 24px;
   line-height: 118%;
   letter-spacing: -0.24px;
   margin: 0 0 8px;
+
   @media (max-width: 1024px) {
     font-size: 20px;
   }
 }
+
 p {
   margin: 0;
 }
@@ -161,6 +175,7 @@ code {
 }
 
 @media (hover: hover) {
+
   .stats-button:hover,
   .card-browser-button:hover,
   .how-to-play-button:hover,
@@ -221,6 +236,7 @@ select:focus-visible {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {

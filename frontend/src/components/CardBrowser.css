@@ -61,7 +61,7 @@
 .card-browser-header h2 {
   margin: 0;
   font-size: 18px;
-  color: var(--text-h);
+  color: var(--info);
 }
 
 .card-browser-close {
@@ -225,7 +225,7 @@
   margin: 0 0 8px;
   padding-bottom: 4px;
   font-size: 14px;
-  color: var(--text-h);
+  color: var(--cool-soft);
   border-bottom: 2px solid var(--border);
 }
 

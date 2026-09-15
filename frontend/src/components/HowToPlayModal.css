@@ -1,3 +1,15 @@
+strong {
+  color: var(--accent)
+}
+
+b {
+  color: var(--accent-med)
+}
+
+i {
+  color: var(--list)
+}
+
 .how-to-play-backdrop {
   position: fixed;
   inset: 0;
@@ -54,6 +66,7 @@
 
 .how-to-play-header h2 {
   margin: 0;
+  color: var(--info);
 }
 
 .how-to-play-close {
@@ -79,6 +92,16 @@
   margin: 0 0 16px;
 }
 
+.how-to-play-disclaimers {
+  margin: 0 0 16px;
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.how-to-play-disclaimers p {
+  margin: 0 0 8px;
+}
+
 .how-to-play-legend {
   display: flex;
   gap: 8px;
@@ -93,9 +116,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  height: 78px;
-  padding: 6px;
+  gap: 6px;
+  height: 96px;
+  padding: 8px;
   border-radius: 8px;
   text-align: center;
   background-repeat: no-repeat;
@@ -108,7 +131,7 @@
 }
 
 .how-to-play-legend-box--partial {
-  background-color: #cc6d00;
+  background-color: #e0e004;
 }
 
 .how-to-play-legend-box--mismatch,
@@ -117,14 +140,14 @@
 }
 
 .how-to-play-legend-label {
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.2;
   color: var(--text);
   font-style: italic;
 }
 
 .how-to-play-legend-value {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   color: var(--text);
 }
@@ -132,23 +155,23 @@
 .how-to-play-legend-rules {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  margin-bottom: 8px;
+  gap: 8px;
+  margin-bottom: 10px;
 }
 
 .how-to-play-legend-rule {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   color: var(--text-h);
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .how-to-play-swatch {
   flex-shrink: 0;
-  width: 16px;
-  height: 16px;
-  border-radius: 4px;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
   background-repeat: no-repeat;
   background-position: center;
   background-size: 60%;
@@ -159,7 +182,7 @@
 }
 
 .how-to-play-swatch--partial {
-  background-color: #d97706;
+  background-color: #caca00;
 }
 
 .how-to-play-swatch--mismatch,
@@ -167,48 +190,40 @@
   background-color: #c0392b;
 }
 
-.how-to-play-legend-note {
-  color: var(--text-h);
-  font-size: 12px;
-  line-height: 1.7;
-  opacity: 0.85;
-  margin: 0 0 16px;
-}
-
 .how-to-play-section-title {
-  color: var(--text-h);
-  font-size: 15px;
-  margin: 0 0 10px;
+  color: var(--cool-soft);
+  font-size: 18px;
+  margin: 20px 0 10px;
 }
 
 .how-to-play-glossary {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
   margin: 0 0 16px;
 }
 
 .how-to-play-glossary-item {
-  font-size: 12px;
-  line-height: 1.7;
+  line-height: 1.55;
 }
 
 .how-to-play-glossary-item dt {
-  display: inline;
-  color: var(--accent);
+  display: block;
+  color: var(--cool-light);
+  font-size: 15px;
   font-weight: 700;
+  margin-bottom: 3px;
 }
 
 .how-to-play-glossary-item dd {
-  display: inline;
   margin: 0;
   color: var(--text-h);
+  font-size: 12px;
+  line-height: 1.55;
 }
 
-.how-to-play-glossary-item dt::after {
-  content: ' — ';
-  color: var(--accent);
-  font-weight: 700;
+.how-to-play-glossary-line {
+  display: block;
 }
 
 .how-to-play-rules {
@@ -225,7 +240,7 @@
 
 .how-to-play-divider {
   height: 2px;
-  background: var(--border);
+  background: var(--cool);
   opacity: 0.4;
   margin: 0 0 12px;
 }
@@ -240,7 +255,7 @@
 }
 
 .how-to-play-footnotes li {
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .how-to-play-example-intro {
@@ -325,6 +340,7 @@
   color: #fff;
   font-size: 9px;
   font-weight: 600;
+  line-height: 1.5;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
 }
 

@@ -22,7 +22,7 @@
   color: var(--header);
   text-align: center;
   text-shadow: var(--text-shad);
-  border-bottom: 3px solid var(--bg);
+  border-bottom: 3px solid var(--royal-blue);
   box-shadow: var(--cell-bottom-shadow);
 }
 

@@ -16,13 +16,6 @@ export interface Category {
   names: string[]
 }
 
-// Clone and Rage are the only two cards that target friendly troops rather
-// than the enemy's — their raw Target values ("Friendly Troops" and
-// "Friendly Troops & Buildings") are different strings, which would
-// otherwise land them in two separate one-card buckets instead of the one
-// meaningful "Friendly" category a player would actually want to browse by.
-const FRIENDLY_TARGET_CARDS = new Set(['Clone', 'Rage'])
-
 const MISSING_LABEL = 'N/A'
 
 function groupBy(names: string[], keyOf: (name: string) => string): Map<string, string[]> {
@@ -107,7 +100,6 @@ function rarityCategories(names: string[]): Category[] {
 
 function targetCategories(names: string[]): Category[] {
   const groups = groupBy(names, (name) => {
-    if (FRIENDLY_TARGET_CARDS.has(name)) return 'Friendly'
     const target = extractValueString(cards[name]?.Target) ?? MISSING_LABEL
     // Pre-existing scrape inconsistency: Rune Giant is "Building" (singular)
     // while every other building-targeting card is "Buildings" (plural) —

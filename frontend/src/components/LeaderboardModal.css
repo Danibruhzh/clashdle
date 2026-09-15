@@ -54,6 +54,7 @@
 
 .leaderboard-modal-header h2 {
   margin: 0;
+  color: var(--info);
 }
 
 .leaderboard-modal-close {
@@ -84,7 +85,7 @@
   border: 2px solid var(--border);
   border-radius: 8px;
   background: transparent;
-  color: var(--text-h);
+  color: var(--cool-soft);
   font-family: var(--sans);
   font-size: 12px;
   font-weight: 600;
@@ -100,7 +101,7 @@
 
 .leaderboard-modal-subtitle {
   margin: 0 0 14px;
-  color: var(--text-h);
+  color: var(--cool-soft);
   opacity: 0.7;
   font-size: 11px;
   text-transform: uppercase;

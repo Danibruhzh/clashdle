@@ -619,10 +619,10 @@
     "Type": "Spell, Normal",
     "Rarity": "Epic",
     "Target": "Ground",
-    "Hitpoints": "N/A",
-    "Damage": "N/A",
-    "Damage Per Second": "N/A",
-    "Hit Speed": "N/A",
+    "Hitpoints": "202",
+    "Damage": "125",
+    "Damage Per Second": "113",
+    "Hit Speed": "1.1 sec",
     "Special Damage": "N/A"
   },
   "Goblin Brawler": {
@@ -812,11 +812,11 @@
     "Cost": "5",
     "Type": "Spell, Normal",
     "Rarity": "Legendary",
-    "Target": "N/A",
-    "Hitpoints": "N/A",
-    "Damage": "N/A",
-    "Damage Per Second": "N/A",
-    "Hit Speed": "N/A",
+    "Target": "Ground",
+    "Hitpoints": "81",
+    "Damage": "81",
+    "Damage Per Second": "73",
+    "Hit Speed": "1.1 sec",
     "Special Damage": "N/A"
   },
   "Ground Spirit Empress": {
