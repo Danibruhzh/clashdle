@@ -5,6 +5,11 @@
 // regardless of SameSite=None; Secure. One consistent pattern for both.
 
 const AUTH_TOKEN_KEY = 'clashdle-auth-token'
+export const AUTH_SESSION_EVENT = 'clashdle-auth-session-change'
+
+function notifyAuthSessionChange(): void {
+  window.dispatchEvent(new Event(AUTH_SESSION_EVENT))
+}
 
 export function getAuthToken(): string | null {
   try {
@@ -21,6 +26,7 @@ export function setAuthToken(token: string): void {
     // Storage full/unavailable — login just won't persist past this page
     // load, same tradeoff as every other localStorage write in this app.
   }
+  notifyAuthSessionChange()
 }
 
 export function clearAuthToken(): void {
@@ -29,4 +35,5 @@ export function clearAuthToken(): void {
   } catch {
     // Nothing to do if storage itself is unavailable.
   }
+  notifyAuthSessionChange()
 }

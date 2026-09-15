@@ -60,7 +60,10 @@ function ProfileModal({ onClose, onAuthChange }: ProfileModalProps) {
         setUnlimitedStats(unlimited)
       })
       .catch(() => {
-        if (!cancelled) clearAuthToken()
+        if (!cancelled) {
+          clearAuthToken()
+          onAuthChange(false)
+        }
       })
       .finally(() => {
         if (!cancelled) setLoadingProfile(false)

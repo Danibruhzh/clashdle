@@ -6,3 +6,7 @@
     height: 100vh;
     gap: 24px;
 }
+
+.error-header {
+    color: var(--header);
+}

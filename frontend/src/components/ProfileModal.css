@@ -56,12 +56,12 @@
 
 .profile-modal-header h2 {
   margin: 0;
-  color: var(--info);
+  color: var(--header);
 }
 
 .profile-modal-auth-title {
   margin: 0 0 16px;
-  color: var(--info);
+  color: var(--header);
 }
 
 .profile-modal-close {

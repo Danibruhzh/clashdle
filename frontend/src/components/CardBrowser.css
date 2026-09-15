@@ -61,7 +61,7 @@
 .card-browser-header h2 {
   margin: 0;
   font-size: 18px;
-  color: var(--info);
+  color: var(--header);
 }
 
 .card-browser-close {

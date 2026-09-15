@@ -19,27 +19,72 @@
 /* Dark edge-fade hint, strength driven from GuessesScroll.tsx via inline
    `opacity` (0-1, based on how much there is left to scroll that direction)
    — positioned outside .guesses-scroll itself so it stays pinned to the
-   viewport edge instead of scrolling away with the content, and stops
-   above the scrollbar strip (bottom: 14px, matching the padding above)
-   so it doesn't wash the bar out. pointer-events: none so it never blocks
-   the actual scroll/drag underneath it. */
+   viewport edge instead of scrolling away with the content. It reaches just
+   above the scrollbar strip so the lowest row still gets covered, without
+   washing out the bar. pointer-events: none so it never blocks the actual
+   scroll/drag underneath it. */
 .guesses-scroll-fade {
   position: absolute;
   top: 0;
-  bottom: 14px;
-  width: 40px;
+  bottom: 4px;
+  width: 56px;
   pointer-events: none;
   transition: opacity 0.15s ease;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    #000 8px,
+    #000 calc(100% - 8px),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    #000 8px,
+    #000 calc(100% - 8px),
+    transparent 100%
+  );
+}
+
+.guesses-scroll-fade::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
 }
 
 .guesses-scroll-fade--left {
   left: 0;
-  background: linear-gradient(to right, rgba(0, 0, 0, 0.55), transparent);
+  border-radius: 0 18px 18px 0;
+}
+
+.guesses-scroll-fade--left::before {
+  -webkit-mask-image: radial-gradient(ellipse 130% 58% at left center, #000 0%, #000 58%, rgba(0, 0, 0, 0.65) 72%, transparent 100%);
+  mask-image: radial-gradient(ellipse 130% 58% at left center, #000 0%, #000 58%, rgba(0, 0, 0, 0.65) 72%, transparent 100%);
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0.34) 36%,
+    rgba(0, 0, 0, 0.12) 68%,
+    rgba(0, 0, 0, 0) 100%
+  );
 }
 
 .guesses-scroll-fade--right {
   right: 0;
-  background: linear-gradient(to left, rgba(0, 0, 0, 0.55), transparent);
+  border-radius: 18px 0 0 18px;
+}
+
+.guesses-scroll-fade--right::before {
+  -webkit-mask-image: radial-gradient(ellipse 130% 58% at right center, #000 0%, #000 58%, rgba(0, 0, 0, 0.65) 72%, transparent 100%);
+  mask-image: radial-gradient(ellipse 130% 58% at right center, #000 0%, #000 58%, rgba(0, 0, 0, 0.65) 72%, transparent 100%);
+  background: linear-gradient(
+    to left,
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0.34) 36%,
+    rgba(0, 0, 0, 0.12) 68%,
+    rgba(0, 0, 0, 0) 100%
+  );
 }
 
 .guesses-scroll::-webkit-scrollbar {

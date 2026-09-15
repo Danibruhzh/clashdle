@@ -26,6 +26,7 @@ import { recordWin, recordLoss, hasEverWon } from './utils/guessHistogram'
 import { getStreak, recordStreakWin } from './utils/streak'
 import { playSound, preloadSounds } from './utils/sound'
 import { getAuthToken } from './utils/authSession'
+import { useAuthStatus } from './utils/useAuthStatus'
 import { fetchUserStats } from './api/auth'
 import './App.css'
 // Just for .unlimited-start-button's look — UnlimitedPage.tsx imports
@@ -72,7 +73,7 @@ function App() {
   // Only tracks *whether* someone's logged in (for the toolbar badge) — the
   // token itself is read fresh from storage wherever it's actually needed,
   // same as guest-session/timezone headers elsewhere in this app.
-  const [loggedIn, setLoggedIn] = useState(() => getAuthToken() !== null)
+  const [loggedIn, setLoggedIn, authVerified] = useAuthStatus()
   // Auto-opens on every load (including reloads) until the player's first
   // ever win, then never again — see hasEverWon()'s own comment. Read once,
   // lazily, so it's already correct on the very first render rather than
@@ -282,7 +283,7 @@ function App() {
             />
             <StatsButton onOpen={() => setShowStats(true)} />
             <LeaderboardButton onOpen={() => setShowLeaderboard(true)} />
-            <ProfileButton onOpen={() => setShowProfile(true)} loggedIn={loggedIn} />
+            <ProfileButton onOpen={() => setShowProfile(true)} loggedIn={loggedIn && authVerified} />
           </div>
         </div>
         <h1 className="app-title">

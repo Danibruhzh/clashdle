@@ -54,7 +54,7 @@
 
 .leaderboard-modal-header h2 {
   margin: 0;
-  color: var(--info);
+  color: var(--header);
 }
 
 .leaderboard-modal-close {

@@ -28,7 +28,7 @@ import {
   fetchUnlimitedStats,
 } from './api/unlimited'
 import type { UnlimitedStats } from './api/unlimited'
-import { getAuthToken } from './utils/authSession'
+import { useAuthStatus } from './utils/useAuthStatus'
 // .app-content/.app-toolbar/.app-title/.app-guess-counter are App.tsx's
 // page-shell classes, reused verbatim here rather than duplicated — this
 // page's unlocked state mirrors that layout on purpose. UnlimitedPage.css
@@ -61,7 +61,7 @@ interface RoundGuess {
 type Gate = 'checking' | 'logged-out' | 'daily-unfinished' | 'unlocked'
 
 function UnlimitedPage() {
-  const [loggedIn, setLoggedIn] = useState(() => getAuthToken() !== null)
+  const [loggedIn, setLoggedIn, authVerified] = useAuthStatus()
   const [gate, setGate] = useState<Gate>('checking')
 
   const [hasActiveRound, setHasActiveRound] = useState<boolean | null>(null)
@@ -281,7 +281,7 @@ function UnlimitedPage() {
             <CardBrowserButton onOpen={() => setShowCardBrowser(true)} />
             <StatsButton onOpen={() => setShowStats(true)} />
             <LeaderboardButton onOpen={() => setShowLeaderboard(true)} />
-            <ProfileButton onOpen={() => setShowProfile(true)} loggedIn={loggedIn} />
+            <ProfileButton onOpen={() => setShowProfile(true)} loggedIn={loggedIn && authVerified} />
           </div>
         </div>
         <h1 className="app-title app-title-unlimited">

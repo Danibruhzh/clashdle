@@ -66,7 +66,7 @@ i {
 
 .how-to-play-header h2 {
   margin: 0;
-  color: var(--info);
+  color: var(--header);
 }
 
 .how-to-play-close {

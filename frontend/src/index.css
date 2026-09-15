@@ -92,9 +92,9 @@ h2 {
 }
 
 h1 {
-  color: var(--info);
+  color: var(--header);
   font-size: 56px;
-  letter-spacing: -1.68px;
+  letter-spacing: 0;
   margin: 32px 0;
 
   @media (max-width: 1024px) {
@@ -104,10 +104,10 @@ h1 {
 }
 
 h2 {
-  color: var(--info);
+  color: var(--header);
   font-size: 24px;
   line-height: 118%;
-  letter-spacing: -0.24px;
+  letter-spacing: 0;
   margin: 0 0 8px;
 
   @media (max-width: 1024px) {

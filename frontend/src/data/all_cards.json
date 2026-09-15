@@ -566,7 +566,7 @@
   },
   "Ghost": {
     "Cost": "4",
-    "Type": "Troop, Spawnee",
+    "Type": "Troop, Evolution",
     "Rarity": "Legendary",
     "Target": "Ground",
     "Hitpoints": "N/A",
@@ -1442,7 +1442,7 @@
   },
   "Runner": {
     "Cost": "2",
-    "Type": "Troop, Spawnee",
+    "Type": "Troop, Evolution",
     "Rarity": "Epic",
     "Target": "Buildings",
     "Hitpoints": "163",
@@ -1523,7 +1523,7 @@
   },
   "Souldier": {
     "Cost": "3",
-    "Type": "Troop, Spawnee",
+    "Type": "Troop, Evolution",
     "Rarity": "Legendary",
     "Target": "Ground",
     "Hitpoints": "81",
