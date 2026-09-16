@@ -323,7 +323,7 @@
   },
   "Decoy Goblin": {
     "Cost": "3",
-    "Type": "Troop, Normal",
+    "Type": "Troop, Evolution",
     "Rarity": "Epic",
     "Target": "Ground",
     "Hitpoints": "81",
@@ -465,7 +465,7 @@
     "Rarity": "Common",
     "Target": "Air & Ground",
     "Hitpoints": "215",
-    "Damage": "207",
+    "Damage": "215",
     "Damage Per Second": "N/A",
     "Hit Speed": "N/A",
     "Special Damage": "N/A"
@@ -1107,7 +1107,7 @@
     "Rarity": "Rare",
     "Target": "Buildings",
     "Hitpoints": "1817",
-    "Damage": "189",
+    "Damage": "168",
     "Damage Per Second": "126",
     "Hit Speed": "1.5 sec",
     "Special Damage": "N/A"
