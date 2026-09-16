@@ -105,12 +105,34 @@
 .app-guess-counter {
   color: var(--text-h);
   font-size: 13px;
-  opacity: 0.75;
-  margin: 4px 0 0;
+  opacity: 0.9;
+  margin: 4px 0 -10px 0px;
 }
 
 /* .guesses-scroll* styling now lives in components/GuessesScroll.css —
    that component is shared with UnlimitedPage.tsx. */
+
+.app-seo-section {
+  width: min(calc(100% - 40px), 620px);
+  margin-top: 0;
+  color: var(--subhead);
+  text-align: center;
+  text-shadow: var(--border);
+  opacity: 0.72;
+}
+
+.app-seo-section h2 {
+  margin: 0 0 4px;
+  color: var(--text-h);
+  font-size: 14px;
+  line-height: 1.25;
+}
+
+.app-seo-section p {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.45;
+}
 
 @media (max-width: 1024px) {
   .app-content {

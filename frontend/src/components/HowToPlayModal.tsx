@@ -102,7 +102,7 @@ function HowToPlayModal({ onClose }: HowToPlayModalProps) {
           <p>
             All stats are relative to <b>one entity</b> of a card, even for multiple-entity cards.
             <br />
-            (e.g., <strong>Archers</strong> shows stats for one <strong>Archer</strong>).
+            (e.g. <strong>Archers</strong> shows stats for one <strong>Archer</strong>).
           </p>
 
           <p>

@@ -3,7 +3,7 @@
   text-align: center;
   color: var(--header);
   font-size: 13px;
-  opacity: 0.75;
+  opacity: 0.9;
   text-shadow: var(--text-shad);
   /* Pushes this down to the bottom of .app-content's flex column instead of
      sitting right under the guesses (its previous spot, at a glance read as
@@ -13,5 +13,6 @@
      top padding is purely visual breathing room so it doesn't crowd
      whatever ends up right above it either way. */
   margin-top: auto;
+  margin-bottom: 10px;
   padding-top: 24px;
 }

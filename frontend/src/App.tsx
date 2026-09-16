@@ -292,7 +292,7 @@ function App() {
             <img className="app-title-image app-title-image-daily" src={clashdleTitle} alt="" />
           </Link>
         </h1>
-        <p className="app-description">Guess today's Clash Royale card!</p>
+        <p className="app-description">Guess today's Clash Royale entity!</p>
         {(hasWon || hasLost) && (
           <Link className="unlimited-start-button" to="/unlimited">
             {loggedIn ? 'Play Unlimited' : 'Log in to play Unlimited'}
@@ -324,6 +324,12 @@ function App() {
           ))}
         </GuessesScroll>
         <PreviousAnswerFooter cardName={previousAnswer} />
+        <section className="app-seo-section" aria-labelledby="clash-royale-stats-game-title">
+          <h2 id="clash-royale-stats-game-title">Clash Royale Stats Guessing Game</h2>
+          <p>
+            Clashdle is a daily Clash Royale stats guessing game where you identify cards and other entities using real in-game stats.
+          </p>
+        </section>
       </div>
     </>
   )

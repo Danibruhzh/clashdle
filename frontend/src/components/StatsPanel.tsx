@@ -185,12 +185,12 @@ function StatsPanel({
   const shareText =
     isFinishedDaily && shareRows && shareRows.length > 0
       ? [
-          'Clashdle',
+          'Clashdle.app',
           ...shareRows,
           '',
           guessCount !== undefined
-            ? `I guessed today's card in ${guessCount} guess${guessCount === 1 ? '' : 'es'}!`
-            : "I couldn't guess today's card.",
+            ? `I guessed today's entity in ${guessCount} guess${guessCount === 1 ? '' : 'es'}!`
+            : "I couldn't guess today's entity.",
           `Play Clashdle at ${SHARE_URL}`,
         ].join('\n')
       : null
@@ -267,8 +267,8 @@ function StatsPanel({
               </div>
               <p className="stats-panel-share-message">
                 {guessCount !== undefined
-                  ? `I guessed today's card in ${guessCount} guess${guessCount === 1 ? '' : 'es'}!`
-                  : "I couldn't guess today's card."}
+                  ? `I guessed today's entity in ${guessCount} guess${guessCount === 1 ? '' : 'es'}!`
+                  : "I couldn't guess today's entity."}
               </p>
               <button className="stats-panel-action stats-panel-share-button" onClick={handleCopyShare}>
                 {copiedShare ? 'Copied!' : 'Copy Results'}
