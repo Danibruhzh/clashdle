@@ -265,7 +265,7 @@
     "Special Damage": "N/A"
   },
   "Cursed Hog": {
-    "Cost": "N/A",
+    "Cost": "4",
     "Type": "Troop, Spawnee",
     "Rarity": "Legendary",
     "Target": "Buildings",
@@ -651,7 +651,7 @@
     "Cost": "4",
     "Type": "Building, Normal",
     "Rarity": "Rare",
-    "Target": "Ground",
+    "Target": "N/A",
     "Hitpoints": "780",
     "Damage": "N/A",
     "Damage Per Second": "N/A",
@@ -753,7 +753,7 @@
     "Damage Per Second": "75",
     "Hit Speed": "1.8 sec",
     "Special Damage": {
-      "Lightning Link Damage": "756"
+      "Lightning Link Damage": "658 (94 x7)"
     }
   },
   "Goblinstein Monster": {
@@ -766,7 +766,7 @@
     "Damage Per Second": "85",
     "Hit Speed": "1.5 sec",
     "Special Damage": {
-      "Lightning Link Damage": "756"
+      "Lightning Link Damage": "658 (94 x7)"
     }
   },
   "Golden Knight": {

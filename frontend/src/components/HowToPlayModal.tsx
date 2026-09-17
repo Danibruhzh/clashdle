@@ -40,7 +40,7 @@ const STAT_GLOSSARY: { name: string; description: ReactNode[] }[] = [
   },
   {
     name: 'Damage',
-    description: [<>Damage dealt <b>per attack</b>, assuming it's attacking a single target.</>],
+    description: [<>Max amount of damage dealt <b>per attack</b>, assuming it's attacking a single target.</>],
   },
   {
     name: 'Damage Per Second',
@@ -48,7 +48,7 @@ const STAT_GLOSSARY: { name: string; description: ReactNode[] }[] = [
   },
   {
     name: 'Special Damage',
-    description: [<>Any <b>extra damage effects</b> a card has, like <i>Death Damage</i> or <i>Charge Damage</i>.</>],
+    description: [<>Max amount of damage dealt by an <b>extra damage effect</b> a card has, like <i>Death Damage</i> or <i>Charge Damage</i>.</>],
   },
 ]
 
