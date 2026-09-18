@@ -10,18 +10,21 @@ function normalize(value: string): string {
 }
 
 const cardNameByLower = new Map(cardNames.map((name) => [normalize(name), name]))
+const searchCardNames = [...cardNames].sort()
 
 function matchesQuery(name: string, query: string): boolean {
   const nameWords = normalize(name).split(' ')
   const queryWords = normalize(query.trim()).split(/\s+/)
+  let nextNameWordIndex = 0
 
-  for (let i = 0; i <= nameWords.length - queryWords.length; i++) {
-    const isMatchAt = queryWords.every((queryWord, j) =>
-      nameWords[i + j].startsWith(queryWord)
+  for (const queryWord of queryWords) {
+    const matchedIndex = nameWords.findIndex(
+      (nameWord, index) => index >= nextNameWordIndex && nameWord.startsWith(queryWord),
     )
-    if (isMatchAt) return true
+    if (matchedIndex === -1) return false
+    nextNameWordIndex = matchedIndex + 1
   }
-  return false
+  return true
 }
 
 interface SearchBarProps {
@@ -58,7 +61,7 @@ function SearchBar({
   const matches =
     blocked || query.trim().length === 0
       ? []
-      : cardNames.filter((name) => !guessedNames.has(name) && matchesQuery(name, query))
+      : searchCardNames.filter((name) => !guessedNames.has(name) && matchesQuery(name, query))
 
   const handleSelect = (name: string) => {
     setQuery(name)
