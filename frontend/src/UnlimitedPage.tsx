@@ -65,7 +65,7 @@ function UnlimitedPage() {
   useSeoMeta({
     title: 'Clashdle Unlimited | Clash Royale Stats Guessing Game',
     description:
-      'Test your Clash Royale game knowledge in Clashdle Unlimited, a complete stats guessing game with cards, evolutions, heroes, and more.',
+      'Play unlimited rounds of Clashdle and test your knowledge of Clash Royale cards, evolutions, heroes, and abilities with no limits and no waiting.',
     canonicalUrl: 'https://clashdle.app/unlimited',
   })
 
@@ -329,11 +329,12 @@ function UnlimitedPage() {
           </div>
         </div>
         <h1 className="app-title app-title-unlimited">
+          <span className="sr-only">Clashdle Unlimited</span>
           <Link className="app-title-link" to="/" aria-label="Go to Clashdle home">
             <img
               className="app-title-image app-title-image-unlimited"
               src={clashdleUnlimitedTitle}
-              alt="Clashdle Unlimited"
+              alt=""
             />
           </Link>
         </h1>
@@ -377,6 +378,12 @@ function UnlimitedPage() {
             <CardDisplay key={g.id} cardName={g.cardName} comparisons={g.comparisons} playFlipSounds={!g.isRestored} />
           ))}
         </GuessesScroll>
+        <section className="app-seo-section" aria-labelledby="clashdle-unlimited-title">
+          <h2 id="clashdle-unlimited-title">Clashdle Unlimited</h2>
+          <p>
+            Play unlimited rounds of Clashdle and test your knowledge of Clash Royale cards, evolutions, heroes, and abilities with no limits and no waiting.
+          </p>
+        </section>
       </div>
     </>
   )
