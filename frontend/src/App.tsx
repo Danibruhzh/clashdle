@@ -27,6 +27,7 @@ import { getStreak, recordStreakWin } from './utils/streak'
 import { playSound, preloadSounds } from './utils/sound'
 import { getAuthToken } from './utils/authSession'
 import { useAuthStatus } from './utils/useAuthStatus'
+import { useSeoMeta } from './utils/seo'
 import { fetchUserStats } from './api/auth'
 import './App.css'
 // Just for .unlimited-start-button's look — UnlimitedPage.tsx imports
@@ -87,6 +88,13 @@ interface Guess {
 }
 
 function App() {
+  useSeoMeta({
+    title: 'Clashdle | Clash Royale Stats Guessing Game',
+    description:
+      'Guess Clash Royale cards, evolutions, heroes, abilities, and spawned entities using real in-game stats. Test your Clash Royale knowledge with a daily stats guessing game.',
+    canonicalUrl: 'https://clashdle.app/',
+  })
+
   const [guesses, setGuesses] = useState<Guess[]>([])
   const [showCardBrowser, setShowCardBrowser] = useState(false)
   const [showStats, setShowStats] = useState(false)

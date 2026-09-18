@@ -29,6 +29,7 @@ import {
 } from './api/unlimited'
 import type { UnlimitedStats } from './api/unlimited'
 import { useAuthStatus } from './utils/useAuthStatus'
+import { useSeoMeta } from './utils/seo'
 // .app-content/.app-toolbar/.app-title/.app-guess-counter are App.tsx's
 // page-shell classes, reused verbatim here rather than duplicated — this
 // page's unlocked state mirrors that layout on purpose. UnlimitedPage.css
@@ -61,6 +62,13 @@ interface RoundGuess {
 type Gate = 'checking' | 'logged-out' | 'daily-unfinished' | 'unlocked'
 
 function UnlimitedPage() {
+  useSeoMeta({
+    title: 'Clashdle Unlimited | Clash Royale Stats Guessing Game',
+    description:
+      'Test your Clash Royale game knowledge in Clashdle Unlimited, a complete stats guessing game with cards, evolutions, heroes, and more.',
+    canonicalUrl: 'https://clashdle.app/unlimited',
+  })
+
   const [loggedIn, setLoggedIn, authVerified] = useAuthStatus()
   const [gate, setGate] = useState<Gate>('checking')
   const [isGateRetrying, setIsGateRetrying] = useState(false)
