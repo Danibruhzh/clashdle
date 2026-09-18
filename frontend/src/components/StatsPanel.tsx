@@ -7,13 +7,12 @@ import { fetchUserStats } from '../api/auth'
 import type { StatComparison } from '../api/game'
 import './StatsPanel.css'
 
-// Mirrors backend/app/services/game.py's MAX_GUESSES (see also App.tsx's own
-// copy of this constant). The histogram is keyed by raw guess count, and a
-// handful of localStorage entries predate the guess cap entirely — someone
-// who played before it existed can have a stray {15: 1} in there. Clamping
-// the chart to 1..MAX_GUESSES hides those now-impossible entries instead of
-// stretching the chart to fit them.
-const MAX_GUESSES = 8
+// Mirrors backend/app/services/game.py's MAX_GUESSES for what the chart
+// displays now. Stored stats still keep the old 8th bucket as legacy data;
+// the 7 bar folds that in visually, while averages elsewhere still use the
+// raw buckets so old 8-guess wins remain mathematically honest.
+const MAX_GUESSES = 7
+const LEGACY_HISTOGRAM_BUCKETS = [8]
 
 interface StatsPanelProps {
   onClose: () => void
@@ -21,7 +20,7 @@ interface StatsPanelProps {
   // the histogram, whether the panel just auto-opened from that win or was
   // reopened manually afterward.
   guessCount?: number
-  // Set whenever today's game is already lost (all 8 guesses used, none
+  // Set whenever today's game is already lost (all guesses used, none
   // correct) — holds the revealed card name, shown instead of the win
   // message. Mutually exclusive with guessCount.
   lossAnswer?: string
@@ -85,10 +84,12 @@ const SHARE_STAT_ORDER = [
 
 function readGuestStats(): ResolvedStats {
   const histogram = getHistogram()
-  // Clamped to 1..MAX_GUESSES for the same reason the bar chart itself is —
-  // a stray pre-guess-cap entry (see MAX_GUESSES's own comment) shouldn't
-  // count toward wins just because it's sitting in localStorage.
-  const wins = Array.from({ length: MAX_GUESSES }, (_, i) => histogram[i + 1] ?? 0).reduce((a, b) => a + b, 0)
+  // Keep legacy 8-guess wins in the guest summary even though the visible
+  // chart now folds them into the 7 bar. Truly stray buckets outside the
+  // known 1..8 range still stay ignored.
+  const wins = [...Array.from({ length: MAX_GUESSES }, (_, i) => i + 1), ...LEGACY_HISTOGRAM_BUCKETS]
+    .map((bucket) => histogram[bucket] ?? 0)
+    .reduce((a, b) => a + b, 0)
   return { histogram, gamesPlayed: wins + getLossCount(), wins }
 }
 
@@ -167,7 +168,11 @@ function StatsPanel({
 
   const bars = Array.from({ length: MAX_GUESSES }, (_, i) => {
     const guesses = i + 1
-    return { guesses, count: stats.histogram[guesses] ?? 0 }
+    const legacyCount =
+      guesses === MAX_GUESSES
+        ? LEGACY_HISTOGRAM_BUCKETS.reduce((sum, bucket) => sum + (stats.histogram[bucket] ?? 0), 0)
+        : 0
+    return { guesses, count: (stats.histogram[guesses] ?? 0) + legacyCount }
   })
 
   const { gamesPlayed, wins } = stats

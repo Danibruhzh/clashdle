@@ -92,7 +92,7 @@ function HowToPlayModal({ onClose }: HowToPlayModalProps) {
           </div>
 
         <p className="how-to-play-intro">
-          Guess today's secret card from Supercell's <strong>Clash Royale</strong> in 8 tries.
+          Guess today's secret card from Supercell's <strong>Clash Royale</strong> in 7 tries.
           <br />
           Each guess is compared against the answer across 8 stats.
         </p>

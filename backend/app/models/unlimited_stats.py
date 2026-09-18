@@ -15,9 +15,9 @@ class UnlimitedStats(Base):
     is just "consecutive round wins", written directly on every win/loss
     with nothing to self-correct at read time.
 
-    guesses_1..guesses_8 mirror UserStats' histogram columns — same
-    MAX_GUESSES cap, since Unlimited rounds play by the exact same 8-guess
-    rule as the daily game (see routers/unlimited.py)."""
+    guesses_1..guesses_8 mirror UserStats' histogram columns. Bucket 8 is
+    legacy data from before the current cap; Unlimited rounds use the same
+    current MAX_GUESSES as the daily game (see routers/unlimited.py)."""
 
     __tablename__ = "unlimited_stats"
 

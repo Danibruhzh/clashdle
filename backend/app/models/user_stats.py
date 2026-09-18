@@ -13,9 +13,9 @@ class UserStats(Base):
     CLAUDE.md describes guest stats moving from localStorage to server-side
     once an account exists.
 
-    guesses_1..guesses_8 mirror the frontend's fixed 1-8 histogram bars
-    (MAX_GUESSES is a hard cap, not open-ended) — plain columns rather than a
-    child table, since the bucket count can't grow.
+    guesses_1..guesses_8 store exact historical win counts. New games use
+    the current MAX_GUESSES cap, but guesses_8 stays as legacy data for
+    averages/profile history.
     """
 
     __tablename__ = "user_stats"

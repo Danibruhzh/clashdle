@@ -8,10 +8,9 @@ from sqlalchemy.orm import Session
 
 from app.models.user_stats import UserStats
 
-# guess_count -> the column that bucket lives in. Mirrors services/game.py's
-# MAX_GUESSES (1-8, a hard cap) — a guess_count outside this range never
-# happens (routers/game.py already rejects a 9th guess), so no fallback path
-# is needed for one.
+# guess_count -> the column that bucket lives in. New games cap at
+# services/game.py's MAX_GUESSES, but bucket 8 stays for legacy wins from
+# before the cap changed.
 GUESS_BUCKET_COLUMNS = {n: f"guesses_{n}" for n in range(1, 9)}
 
 
@@ -41,7 +40,7 @@ def record_win(stats: UserStats, guess_count: int, today: date) -> None:
 
 
 def record_loss(stats: UserStats) -> None:
-    """Call once per completed loss (the guess that uses up the 8th try) —
+    """Call once per completed loss (the guess that uses up the final try) —
     mirrors guessHistogram.ts's recordLoss. Deliberately doesn't touch
     current_streak/last_win_date, same as the guest side: a loss doesn't
     extend a streak, but a lapsed one is read as 0 lazily (see

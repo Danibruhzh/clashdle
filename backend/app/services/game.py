@@ -19,7 +19,7 @@ from app.models.card import Card
 # server-side in routers/game.py (not just hidden client-side once reached),
 # since a guest session is trivially replayable by anyone hitting the API
 # directly.
-MAX_GUESSES = 8
+MAX_GUESSES = 7
 
 
 class StatComparison(str, Enum):

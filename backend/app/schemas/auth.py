@@ -12,10 +12,11 @@ class GuestStatsPayload(BaseModel):
 
     # {"<guess count 1-8>": <times achieved>} — mirrors guessHistogram.ts's
     # Histogram shape as JSON.stringify actually produces it (numeric keys
-    # become strings). Anything outside 1-8 (e.g. a stray pre-guess-cap
-    # entry from old data) is silently dropped in the router rather than
-    # rejected — it's not this endpoint's job to validate the guest's own
-    # history, just to fold in whatever's usable from it.
+    # become strings). Bucket 8 is legacy data from the old cap. Anything
+    # outside 1-8 (e.g. a stray pre-guess-cap entry from old data) is
+    # silently dropped in the router rather than rejected — it's not this
+    # endpoint's job to validate the guest's own history, just to fold in
+    # whatever's usable from it.
     histogram: dict[str, int] = Field(default_factory=dict)
     loss_count: int = 0
     streak_count: int = 0
@@ -74,7 +75,7 @@ class UserStatsOut(BaseModel):
     wins: int
     current_streak: int
     best_streak: int
-    # {"1": times, ..., "8": times} — same shape the frontend already reads
-    # off getHistogram(), so StatsPanel's chart logic doesn't need a second
-    # code path for the logged-in case.
+    # {"1": times, ..., "8": times} — bucket 8 is retained for legacy wins
+    # even though the visible chart now folds it into the final displayed
+    # bar.
     histogram: dict[str, int]

@@ -40,7 +40,7 @@ import './UnlimitedPage.css'
 // rounds play by (see services/unlimited_stats.py's own docstring on why
 // that's true even though the mode name suggests otherwise: "Unlimited"
 // means unlimited *rounds*, not unlimited guesses within one).
-const MAX_GUESSES = 8
+const MAX_GUESSES = 7
 
 // Same reasoning as App.tsx's own copy of this constant.
 const FLIP_ANIMATION_TOTAL_MS = 1800

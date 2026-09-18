@@ -7,6 +7,9 @@ from sqlalchemy.orm import Session
 
 from app.models.unlimited_stats import UnlimitedStats
 
+# Bucket 8 is legacy storage from the old cap. New rounds use the current
+# MAX_GUESSES from services/game.py, but old 8-guess wins still contribute
+# to averages and profile stats.
 GUESS_BUCKET_COLUMNS = {n: f"guesses_{n}" for n in range(1, 9)}
 
 

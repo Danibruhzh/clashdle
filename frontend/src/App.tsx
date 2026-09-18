@@ -47,7 +47,7 @@ const SHOW_WINNERS_COUNT = false
 // Mirrors backend/app/services/game.py's MAX_GUESSES — kept in sync manually
 // since the frontend needs it before the first guess ever round-trips (to
 // know when to stop rendering the search bar).
-const MAX_GUESSES = 8
+const MAX_GUESSES = 7
 
 // The "Need help?" nudge (see needHelpHint below) shows starting from this
 // many unsuccessful guesses.
@@ -109,7 +109,7 @@ function App() {
   const [previousAnswer, setPreviousAnswer] = useState<string | null>(null)
   const [winnersCount, setWinnersCount] = useState<number | null>(null)
   const [streak, setStreak] = useState(() => getStreak())
-  // Set once this session has used all 8 guesses without winning — holds
+  // Set once this session has used all guesses without winning — holds
   // today's revealed card name, same as Wordle showing the answer on a loss.
   const [lossAnswer, setLossAnswer] = useState<string | null>(null)
   // Nudges the player toward Card Browser after enough unsuccessful
@@ -342,7 +342,9 @@ function App() {
         {hasFinishedDaily && (
           <div className="app-daily-countdown" aria-live="polite">
             <span className="app-daily-countdown-label">Next daily in</span>
-            <span className="app-daily-countdown-time">{nextDailyCountdown}</span>
+            <span className="app-daily-countdown-time" key={nextDailyCountdown}>
+              {nextDailyCountdown}
+            </span>
           </div>
         )}
         {hasFinishedDaily && (
