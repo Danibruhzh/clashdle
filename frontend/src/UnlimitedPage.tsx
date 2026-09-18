@@ -63,8 +63,10 @@ type Gate = 'checking' | 'logged-out' | 'daily-unfinished' | 'unlocked'
 function UnlimitedPage() {
   const [loggedIn, setLoggedIn, authVerified] = useAuthStatus()
   const [gate, setGate] = useState<Gate>('checking')
+  const [isGateRetrying, setIsGateRetrying] = useState(false)
 
   const [hasActiveRound, setHasActiveRound] = useState<boolean | null>(null)
+  const [isRoundRestoreRetrying, setIsRoundRestoreRetrying] = useState(false)
   const [roundGuesses, setRoundGuesses] = useState<RoundGuess[]>([])
   const [roundResult, setRoundResult] = useState<'win' | 'loss' | null>(null)
   const [revealAnswer, setRevealAnswer] = useState<string | null>(null)
@@ -88,22 +90,39 @@ function UnlimitedPage() {
   // page reload.
   useEffect(() => {
     let cancelled = false
+    let retryTimer: number | undefined
     if (!loggedIn) {
       setGate('logged-out')
+      setIsGateRetrying(false)
       return
     }
     setGate('checking')
-    fetchTodayGuesses()
+    setIsGateRetrying(false)
+
+    const checkDailyGate = (attempt: number) => {
+      fetchTodayGuesses()
       .then(({ guesses, reveal_answer }) => {
         if (cancelled) return
+        setIsGateRetrying(false)
         const finishedDaily = guesses.some((g) => g.is_correct) || reveal_answer !== null
         setGate(finishedDaily ? 'unlocked' : 'daily-unfinished')
       })
-      .catch(() => {
-        if (!cancelled) setGate('daily-unfinished')
+      .catch((err) => {
+        if (cancelled) return
+        console.error('Failed to check Unlimited gate:', err)
+        if (attempt >= 3) setIsGateRetrying(true)
+        retryTimer = window.setTimeout(
+          () => checkDailyGate(attempt + 1),
+          Math.min(1000 * 2 ** (attempt - 1), 8000),
+        )
       })
+    }
+
+    checkDailyGate(1)
+
     return () => {
       cancelled = true
+      if (retryTimer !== undefined) window.clearTimeout(retryTimer)
     }
   }, [loggedIn])
 
@@ -112,10 +131,15 @@ function UnlimitedPage() {
   useEffect(() => {
     if (gate !== 'unlocked') return
     let cancelled = false
+    let retryTimer: number | undefined
+    setHasActiveRound(null)
+    setIsRoundRestoreRetrying(false)
 
-    fetchCurrentUnlimitedRound()
+    const restoreUnlimitedRound = (attempt: number) => {
+      fetchCurrentUnlimitedRound()
       .then(({ guesses, has_active_round }) => {
         if (cancelled) return
+        setIsRoundRestoreRetrying(false)
         setHasActiveRound(has_active_round)
         setRoundGuesses(
           guesses
@@ -129,7 +153,18 @@ function UnlimitedPage() {
             .reverse(),
         )
       })
-      .catch((err) => console.error('Failed to restore Unlimited round:', err))
+      .catch((err) => {
+        if (cancelled) return
+        console.error('Failed to restore Unlimited round:', err)
+        if (attempt >= 3) setIsRoundRestoreRetrying(true)
+        retryTimer = window.setTimeout(
+          () => restoreUnlimitedRound(attempt + 1),
+          Math.min(1000 * 2 ** (attempt - 1), 8000),
+        )
+      })
+    }
+
+    restoreUnlimitedRound(1)
 
     fetchUnlimitedStats()
       .then((s) => !cancelled && setStats(s))
@@ -137,6 +172,7 @@ function UnlimitedPage() {
 
     return () => {
       cancelled = true
+      if (retryTimer !== undefined) window.clearTimeout(retryTimer)
     }
   }, [gate])
 
@@ -216,7 +252,7 @@ function UnlimitedPage() {
       <>
         <Background />
         <div className="unlimited-gate-page">
-          <p className="unlimited-gate-message">Loading…</p>
+          <p className="unlimited-gate-message">{isGateRetrying ? 'Trying to connect…' : 'Loading…'}</p>
         </div>
       </>
     )
@@ -302,6 +338,15 @@ function UnlimitedPage() {
           <button className="unlimited-start-button" onClick={handleStart} disabled={isStarting}>
             {isStarting ? 'Starting…' : roundResult ? 'Play Again' : 'Start Playing'}
           </button>
+        )}
+
+        {hasActiveRound === null && (
+          <SearchBar
+            onSelectCard={handleSelectCard}
+            guessedNames={guessedNames}
+            loading
+            loadingLabel={isRoundRestoreRetrying ? 'Trying to connect...' : 'Loading...'}
+          />
         )}
 
         {hasActiveRound && (

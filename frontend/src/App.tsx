@@ -53,6 +53,30 @@ const MAX_GUESSES = 8
 // many unsuccessful guesses.
 const NEED_HELP_AFTER_GUESSES = 4
 
+function getNextLocalMidnightMs(nowMs: number): number {
+  const now = new Date(nowMs)
+  return new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1).getTime()
+}
+
+function formatCountdown(ms: number): string {
+  const totalSeconds = Math.max(0, Math.ceil(ms / 1000))
+  const hours = Math.floor(totalSeconds / 3600)
+  const minutes = Math.floor((totalSeconds % 3600) / 60)
+  const seconds = totalSeconds % 60
+  return [hours, minutes, seconds].map((part) => String(part).padStart(2, '0')).join(':')
+}
+
+function useSecondTicker(): number {
+  const [nowMs, setNowMs] = useState(() => Date.now())
+
+  useEffect(() => {
+    const interval = window.setInterval(() => setNowMs(Date.now()), 1000)
+    return () => window.clearInterval(interval)
+  }, [])
+
+  return nowMs
+}
+
 interface Guess {
   id: number
   cardName: string
@@ -81,6 +105,7 @@ function App() {
   const [showHowToPlay, setShowHowToPlay] = useState(() => !hasEverWon())
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isRestoring, setIsRestoring] = useState(true)
+  const [isRestoreRetrying, setIsRestoreRetrying] = useState(false)
   const [previousAnswer, setPreviousAnswer] = useState<string | null>(null)
   const [winnersCount, setWinnersCount] = useState<number | null>(null)
   const [streak, setStreak] = useState(() => getStreak())
@@ -115,14 +140,18 @@ function App() {
   // while the new identity's own data is still in flight.
   useEffect(() => {
     let cancelled = false
+    let retryTimer: number | undefined
     setIsRestoring(true)
+    setIsRestoreRetrying(false)
     setGuesses([])
     setLossAnswer(null)
     setShowNeedHelpHint(false)
 
-    fetchTodayGuesses()
+    const restoreTodayGuesses = (attempt: number) => {
+      fetchTodayGuesses()
       .then(({ guesses: past, reveal_answer }) => {
         if (cancelled) return
+        setIsRestoreRetrying(false)
         // backend returns oldest-first; the UI prepends newest-first
         const restored = past
           .map((g) => ({
@@ -155,11 +184,20 @@ function App() {
             setShowStats(true)
           }, FLIP_ANIMATION_TOTAL_MS)
         }
+        setIsRestoring(false)
       })
-      .catch((err) => console.error('Failed to restore past guesses:', err))
-      .finally(() => {
-        if (!cancelled) setIsRestoring(false)
+      .catch((err) => {
+        if (cancelled) return
+        console.error('Failed to restore past guesses:', err)
+        if (attempt >= 3) setIsRestoreRetrying(true)
+        retryTimer = window.setTimeout(
+          () => restoreTodayGuesses(attempt + 1),
+          Math.min(1000 * 2 ** (attempt - 1), 8000),
+        )
       })
+    }
+
+    restoreTodayGuesses(1)
 
     // The toolbar streak number is account/guest-specific too — refreshed
     // alongside the guesses restore above rather than as its own effect, so
@@ -174,6 +212,7 @@ function App() {
 
     return () => {
       cancelled = true
+      if (retryTimer !== undefined) window.clearTimeout(retryTimer)
     }
   }, [loggedIn])
 
@@ -247,6 +286,9 @@ function App() {
   const guessedNames = new Set(guesses.map((guess) => guess.cardName))
   const hasWon = guesses.some((guess) => guess.result.is_correct)
   const hasLost = lossAnswer !== null
+  const hasFinishedDaily = hasWon || hasLost
+  const countdownNowMs = useSecondTicker()
+  const nextDailyCountdown = formatCountdown(getNextLocalMidnightMs(countdownNowMs) - countdownNowMs)
 
   return (
     <>
@@ -292,19 +334,30 @@ function App() {
             <img className="app-title-image app-title-image-daily" src={clashdleTitle} alt="" />
           </Link>
         </h1>
-        <p className="app-description">Guess today's Clash Royale entity!</p>
-        {(hasWon || hasLost) && (
+        <p className="app-description">
+          {hasFinishedDaily
+            ? 'Come back tomorrow to play again, or log in to play Unlimited!'
+            : "Guess today's Clash Royale entity!"}
+        </p>
+        {hasFinishedDaily && (
+          <div className="app-daily-countdown" aria-live="polite">
+            <span className="app-daily-countdown-label">Next daily in</span>
+            <span className="app-daily-countdown-time">{nextDailyCountdown}</span>
+          </div>
+        )}
+        {hasFinishedDaily && (
           <Link className="unlimited-start-button" to="/unlimited">
             {loggedIn ? 'Play Unlimited' : 'Log in to play Unlimited'}
           </Link>
         )}
-        {!hasWon && !hasLost && (
+        {!hasFinishedDaily && (
           <>
             <SearchBar
               onSelectCard={handleSelectCard}
               guessedNames={guessedNames}
               disabled={isSubmitting}
               loading={isRestoring}
+              loadingLabel={isRestoreRetrying ? 'Trying to connect...' : 'Loading...'}
             />
             <p className="app-guess-counter">
               {guesses.length}/{MAX_GUESSES} guesses

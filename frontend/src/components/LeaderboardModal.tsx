@@ -75,9 +75,9 @@ function LeaderboardModal({ onClose, refreshKey = 0 }: LeaderboardModalProps) {
         <p className="leaderboard-modal-subtitle">{TAB_SUBTITLES[tab]}</p>
 
         {error ? (
-          <p className="leaderboard-modal-loading">Couldn't load the leaderboard.</p>
+          <p className="leaderboard-modal-loading">Still can't connect. Try again in a moment.</p>
         ) : rows === null ? (
-          <p className="leaderboard-modal-loading">Loading…</p>
+          <p className="leaderboard-modal-loading">Trying to connect…</p>
         ) : rows.length === 0 ? (
           <p className="leaderboard-modal-loading">No qualifying players yet.</p>
         ) : (

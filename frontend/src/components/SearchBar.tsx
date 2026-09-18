@@ -40,9 +40,16 @@ interface SearchBarProps {
   // Genuinely can't be used yet (initial restore of today's past guesses) —
   // this one does disable the input, since nothing's been typed yet anyway.
   loading?: boolean
+  loadingLabel?: string
 }
 
-function SearchBar({ onSelectCard, guessedNames, disabled = false, loading = false }: SearchBarProps) {
+function SearchBar({
+  onSelectCard,
+  guessedNames,
+  disabled = false,
+  loading = false,
+  loadingLabel = 'Loading...',
+}: SearchBarProps) {
   const [query, setQuery] = useState('')
   const [showMatches, setShowMatches] = useState(false)
 
@@ -96,7 +103,7 @@ function SearchBar({ onSelectCard, guessedNames, disabled = false, loading = fal
           // a card, the query clears (see handleSelect) before that guess's
           // fetch resolves, and the empty input would briefly show "Guess a
           // card..." again as if nothing had been picked yet.
-          placeholder={blocked ? 'Loading...' : 'Guess a card...'}
+          placeholder={blocked ? loadingLabel : 'Guess a card...'}
         />
         <button
           className="search-bar-submit"
