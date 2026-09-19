@@ -551,7 +551,9 @@
     "Damage": "179",
     "Damage Per Second": "105",
     "Hit Speed": "1.7 sec",
-    "Special Damage": "N/A"
+    "Special Damage": {
+      "Fire Spirit Damage": "215"
+    }
   },
   "General Gerry": {
     "Cost": "3",

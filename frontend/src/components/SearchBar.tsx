@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import type { KeyboardEvent } from 'react'
+import { cardAliases } from '../data/cardAliases'
 import { cardNames } from '../data/cards'
 import { getCardImagePath } from '../utils/cardImage'
 import { playSound } from '../utils/sound'
@@ -11,20 +12,40 @@ function normalize(value: string): string {
 
 const cardNameByLower = new Map(cardNames.map((name) => [normalize(name), name]))
 const searchCardNames = [...cardNames].sort()
+const searchableTermsByCardName = new Map(
+  cardNames.map((name) => [
+    name,
+    [
+      { value: name, isAlias: false },
+      ...(cardAliases[name] ?? []).map((alias) => ({ value: alias, isAlias: true })),
+    ],
+  ]),
+)
 
-function matchesQuery(name: string, query: string): boolean {
-  const nameWords = normalize(name).split(' ')
+function matchesQuery(searchTerm: string, query: string, isAlias: boolean): boolean {
+  const searchTermWords = normalize(searchTerm).split(' ')
   const queryWords = normalize(query.trim()).split(/\s+/)
-  let nextNameWordIndex = 0
+  let nextSearchTermWordIndex = 0
+  let hasLongAliasPrefix = false
 
   for (const queryWord of queryWords) {
-    const matchedIndex = nameWords.findIndex(
-      (nameWord, index) => index >= nextNameWordIndex && nameWord.startsWith(queryWord),
+    const matchedIndex = searchTermWords.findIndex(
+      (searchTermWord, index) =>
+        index >= nextSearchTermWordIndex && searchTermWord.startsWith(queryWord),
     )
     if (matchedIndex === -1) return false
-    nextNameWordIndex = matchedIndex + 1
+    if (queryWord.length >= 3) hasLongAliasPrefix = true
+    nextSearchTermWordIndex = matchedIndex + 1
   }
-  return true
+  return !isAlias || hasLongAliasPrefix
+}
+
+function cardMatchesQuery(name: string, query: string): boolean {
+  return (
+    searchableTermsByCardName
+      .get(name)
+      ?.some((searchTerm) => matchesQuery(searchTerm.value, query, searchTerm.isAlias)) ?? false
+  )
 }
 
 interface SearchBarProps {
@@ -61,7 +82,7 @@ function SearchBar({
   const matches =
     blocked || query.trim().length === 0
       ? []
-      : searchCardNames.filter((name) => !guessedNames.has(name) && matchesQuery(name, query))
+      : searchCardNames.filter((name) => !guessedNames.has(name) && cardMatchesQuery(name, query))
 
   const handleSelect = (name: string) => {
     setQuery(name)
