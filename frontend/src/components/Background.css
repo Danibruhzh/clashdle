@@ -10,13 +10,35 @@
      the plain vh line stays first as a fallback for browsers without it. */
   height: 100vh;
   height: 100dvh;
+  overflow: hidden;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  isolation: isolate;
+  z-index: -10000;
+  border: none;
+}
+
+.background::before,
+.background::after {
+  position: absolute;
+  content: "";
+  inset: 0;
+}
+
+.background::before {
+  inset: -3vmax;
+  background-image: inherit;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  filter: brightness(60%);
-  animation: background-drift 28s ease-in-out infinite alternate;
-  z-index: -10000;
-  border: none;
+  transform: translate3d(-0.7%, 0.5%, 0) scale(1.025);
+  animation: background-drift 32s linear infinite alternate;
+  will-change: transform;
+}
+
+.background::after {
+  background: rgba(0, 0, 0, 0.4);
 }
 
 .background-credit {
@@ -34,17 +56,15 @@
 
 @keyframes background-drift {
   from {
-    transform: scale(1);
-    background-position: center;
+    transform: translate3d(-0.7%, 0.5%, 0) scale(1.025);
   }
   to {
-    transform: scale(1.03);
-    background-position: 52% 48%;
+    transform: translate3d(0.7%, -0.5%, 0) scale(1.025);
   }
 }
 
 @media (max-width: 640px), (prefers-reduced-motion: reduce) {
-  .background {
+  .background::before {
     animation: none;
   }
 }

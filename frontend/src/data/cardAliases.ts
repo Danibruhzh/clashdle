@@ -3,7 +3,7 @@
 // names players can type, but aliases are never displayed or submitted.
 // Alias matches require at least one typed alias word prefix to be 3+ letters.
 export const cardAliases: Record<string, string[]> = {
-  'General Gerry': ['Evolution Skeleton Army'],
+  'General Gerry': ['Evolution Skeleton Army', 'Evolution Skarmy'],
   'Ghost': ['Evolution Lumberjack'],
   'Runner': ['Evolution Wall Breakers'],
   'Bush Goblin': ['Suspicious Bush'],
