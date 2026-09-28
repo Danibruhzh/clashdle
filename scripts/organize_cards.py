@@ -14,7 +14,7 @@ NEST_PATTERNS = [
 MULTIPLIER_PATTERN = re.compile(r"^(\d+) x(\d+) \((\d+)\)$")
 NUMBER_COMMA_PATTERN = re.compile(r"(?<=\d),(?=\d)")
 
-# Matches ONLY a primary Damage key — plain "Damage" or "Damage (Stage X)" —
+# Matches ONLY a primary Damage key: plain "Damage" or "Damage (Stage X)".
 # never "Special Damage ..." or "Damage Per Second ...", since those aren't
 # the base damage a DPS figure should be derived from.
 DAMAGE_KEY_PATTERN = re.compile(r"^Damage(?: \((.+)\))?$")
@@ -36,11 +36,9 @@ CATEGORY_ORDER = [
     "Special Damage",
 ]
 
-# Dev-only stat, not derived from any player-facing category — see
-# scraper.py and load_cards.py for where this gets scraped/loaded. Never
-# add this to frontend/src/data/all_cards.json; CardDisplay.tsx renders
-# every key in a card's stats generically, so anything added there is
-# shown to players.
+# Dev-only stat, not derived from any player-facing category. See scraper.py
+# and load_cards.py for where this gets scraped and loaded. Never add this to
+# frontend/src/data/all_cards.json; CardDisplay.tsx renders every key there.
 def categorize(key: str) -> int:
     if key == "__NOTE__":
         return 0
@@ -116,7 +114,7 @@ def recalculate_dps(cards: dict) -> dict:
             hit_speed_value = stats.get(hit_speed_key, stats.get("Hit Speed"))
             hit_speed = parse_hit_speed(hit_speed_value)
             if hit_speed is None:
-                continue  # "N/A" or missing Hit Speed — skip this stat
+                continue  # "N/A" or missing Hit Speed; skip this stat
 
             dps_key = f"Damage Per Second ({stage_suffix})" if stage_suffix else "Damage Per Second"
             recalculated = round(damage / hit_speed)

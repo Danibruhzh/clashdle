@@ -6,7 +6,7 @@ from app.db.base import Base
 
 
 class UserStats(Base):
-    """One row per registered user — the server-side mirror of what guests
+    """One row per registered user. the server-side mirror of what guests
     keep in localStorage (guessHistogram.ts + streak.ts). Seeded once from a
     guest's localStorage numbers at registration (see routers/auth.py); from
     then on this is the sole source of truth for that account, the same way
@@ -29,7 +29,7 @@ class UserStats(Base):
     current_streak = Column(Integer, nullable=False, default=0)
     best_streak = Column(Integer, nullable=False, default=0)
     # The player's own local date (see core/time.py's get_client_today) of
-    # their most recent win — read-time self-correcting streak logic (same
+    # their most recent win. read-time self-correcting streak logic (same
     # trick as streak.ts's getStreak): current_streak only counts if this is
     # today or yesterday, otherwise it's read as lapsed without needing a
     # write to record that.

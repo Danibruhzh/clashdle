@@ -1,26 +1,28 @@
 from bs4 import BeautifulSoup
+from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
-# from selenium.webdriver.support.ui import WebDriverWait
-# from selenium.webdriver.support import expected_conditions as EC
-# from selenium.webdriver.common.by import By
-# from selenium.common.exceptions import TimeoutException
-# from itertools import islice
 import time
 import os
+from pathlib import Path
 import json
 import re
 
 from organize_cards import strip_number_commas, nest_stat_variants, reformat_damage_values
 
-os.environ['WDM_LOCAL'] = '1'
+load_dotenv(Path(__file__).with_name(".env"))
+
+os.environ.setdefault("WDM_LOCAL", "1")
+CHROMEDRIVER_PATH = os.getenv("CLASHDLE_CHROMEDRIVER_PATH")
+CHROME_PROFILE_DIR = os.getenv("CLASHDLE_CHROME_PROFILE_DIR")
 
 options = Options()
 options.add_argument("--disable-blink-features=AutomationControlled")
 options.add_experimental_option("excludeSwitches", ["enable-automation"])
 options.add_experimental_option("useAutomationExtension", False)
-options.add_argument(r"--user-data-dir=C:\Users\danie\chrome-selenium-profile")
+if CHROME_PROFILE_DIR:
+    options.add_argument(f"--user-data-dir={CHROME_PROFILE_DIR}")
 
 url = None
 driver = None
@@ -95,23 +97,20 @@ REQUIRED_STATS = (
 )
 
 def normalize_card(stats: dict) -> dict:
-    """Runs the same per-card transforms organize_cards.py applies (strip
-    number commas, nest "X (Y)"-style keys like Special Damage into a sub-
-    dict, reformat multiplier values) so a freshly-scraped raw card can be
-    diffed against the already-organized all_cards.json on equal footing.
-    Without this, e.g. raw "Special Damage (Death Damage)": "225" would
-    never match the organized {"Special Damage": {"Death Damage": "225"}},
-    since they're different keys/shapes for the same field — every card
-    would look "changed" even when nothing actually is."""
+    """Apply the same cleanup that organize_cards.py applies.
+
+    This lets freshly scraped cards compare cleanly against all_cards.json.
+    For example, raw "Special Damage (Death Damage)" should match the nested
+    organized shape instead of looking like a real data change.
+    """
     return reformat_damage_values(nest_stat_variants(strip_number_commas(stats)))
 
 def merge_cards(old_cards: dict, new_cards: dict) -> tuple[dict, int, int, int]:
-    """Merges freshly-scraped data into the existing all_cards.json instead
-    of overwriting it wholesale — only fields that actually differ get
-    updated. A card scraped this run but missing from the old file gets
-    added in full; a card in the old file but not scraped this run (e.g. a
-    transient failure, or a wiki page that's gone) is left untouched rather
-    than dropped. Returns (merged, cards_added, cards_updated, fields_changed).
+    """Merge freshly scraped data into the existing all_cards.json.
+
+    Only changed fields are updated. New cards are added, and cards missing
+    from this scrape are left alone so a transient scrape failure does not
+    delete existing data.
     """
     merged = dict(old_cards)
     cards_added = 0
@@ -340,7 +339,8 @@ def get_card_info(url, retries: int, name: str):
             time.sleep(2)
     
 try:
-    driver = webdriver.Chrome(service=Service(r"C:\Users\danie\.wdm\drivers\chromedriver\win64\153.0.8010.36\chromedriver-win64\chromedriver.exe"), options=options)
+    service = Service(CHROMEDRIVER_PATH) if CHROMEDRIVER_PATH else Service()
+    driver = webdriver.Chrome(service=service, options=options)
     
     driver.execute_cdp_cmd("Network.enable", {})
     driver.execute_cdp_cmd("Network.setBlockedURLs", {"urls": [
@@ -452,8 +452,7 @@ try:
         time.sleep(1)
 
     # print(cards)
-    # Update the existing file in place instead of overwriting it wholesale
-    # — only fields that actually changed get touched.
+    # Update the existing file in place. Only changed fields get touched.
     try:
         with open("all_cards.json", encoding="utf-8") as f:
             existing_cards = json.load(f)
@@ -465,7 +464,7 @@ try:
     with open("all_cards.json", "w", encoding="utf-8") as f:
         json.dump(merged_cards, f, indent=2)
     print(
-        f"Saved to all_cards.json — {cards_added} new card(s), "
+        f"Saved to all_cards.json: {cards_added} new card(s), "
         f"{cards_updated} card(s) updated ({fields_changed} field(s) changed)"
     )
 
@@ -473,4 +472,5 @@ except Exception as e:
     print(f"Error scraping {url}: {e}")
 
 finally:
-    driver.quit()
+    if driver is not None:
+        driver.quit()

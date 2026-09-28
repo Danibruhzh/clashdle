@@ -1,4 +1,4 @@
-"""Unlimited-mode equivalent of services/user_stats.py — see
+"""Unlimited-mode equivalent of services/user_stats.py. See
 models/unlimited_stats.py for why there's no date logic here at all: the
 streak is purely round-based (breaks on a loss, not on a missed day), so
 unlike the daily game's current_streak there's no "effective" value to

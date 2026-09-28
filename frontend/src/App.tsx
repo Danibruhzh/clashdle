@@ -30,22 +30,22 @@ import { useAuthStatus } from './utils/useAuthStatus'
 import { useSeoMeta } from './utils/seo'
 import { fetchUserStats } from './api/auth'
 import './App.css'
-// Just for .unlimited-start-button's look — UnlimitedPage.tsx imports
+// Just for .unlimited-start-button's look. UnlimitedPage.tsx imports
 // App.css the same way, for its own shared page-shell classes.
 import './UnlimitedPage.css'
 
 // Matches CardDisplay.css's flip-in animation: 9 cells (name + 8 stats),
 // each delayed (index * 0.2s) after the row mounts, animation itself takes
-// 0.2s — so the last cell finishes at 8 * 0.2s + 0.2s. Opening the stats
+// 0.2s. So the last cell finishes at 8 * 0.2s + 0.2s. Opening the stats
 // panel before then would visibly cut the winning row's flip animation off.
 const FLIP_ANIMATION_TOTAL_MS = 1800
 
-// Hidden for now — numbers are still low enough that showing them undersells
+// Hidden for now. numbers are still low enough that showing them undersells
 // the game. Flip back to true once there's a healthier player count. Fetch
 // still runs underneath so the count stays accurate whenever this flips.
 const SHOW_WINNERS_COUNT = false
 
-// Mirrors backend/app/services/game.py's MAX_GUESSES — kept in sync manually
+// Mirrors backend/app/services/game.py's MAX_GUESSES. kept in sync manually
 // since the frontend needs it before the first guess ever round-trips (to
 // know when to stop rendering the search bar).
 const MAX_GUESSES = 7
@@ -82,8 +82,8 @@ interface Guess {
   id: number
   cardName: string
   result: GuessResult
-  // True for a row loaded from a page reload rather than just guessed live
-  // — CardDisplay uses this to skip its flip sound for restored rows.
+  // True for rows restored after a reload. CardDisplay skips flip sounds for
+  // these so old guesses do not replay audio.
   isRestored: boolean
 }
 
@@ -102,12 +102,12 @@ function App() {
   const [showProfile, setShowProfile] = useState(false)
   const [showLeaderboard, setShowLeaderboard] = useState(false)
   const [leaderboardRefreshKey, setLeaderboardRefreshKey] = useState(0)
-  // Only tracks *whether* someone's logged in (for the toolbar badge) — the
+  // Only tracks *whether* someone's logged in (for the toolbar badge). the
   // token itself is read fresh from storage wherever it's actually needed,
   // same as guest-session/timezone headers elsewhere in this app.
   const [loggedIn, setLoggedIn, authVerified] = useAuthStatus()
   // Auto-opens on every load (including reloads) until the player's first
-  // ever win, then never again — see hasEverWon()'s own comment. Read once,
+  // ever win, then never again. See hasEverWon()'s own comment. Read once,
   // lazily, so it's already correct on the very first render rather than
   // flashing closed-then-open.
   const [showHowToPlay, setShowHowToPlay] = useState(() => !hasEverWon())
@@ -117,11 +117,11 @@ function App() {
   const [previousAnswer, setPreviousAnswer] = useState<string | null>(null)
   const [winnersCount, setWinnersCount] = useState<number | null>(null)
   const [streak, setStreak] = useState(() => getStreak())
-  // Set once this session has used all guesses without winning — holds
+  // Set once this session has used all guesses without winning. holds
   // today's revealed card name, same as Wordle showing the answer on a loss.
   const [lossAnswer, setLossAnswer] = useState<string | null>(null)
   // Nudges the player toward Card Browser after enough unsuccessful
-  // guesses. Deliberately never set from the restore effect — only a *live*
+  // guesses. Deliberately never set from the restore effect. Only a *live*
   // unsuccessful guess turns it on (see handleSelectCard), so a reload right
   // after it appeared doesn't just bring it right back; it waits for the
   // next unsuccessful guess made after that reload, same as a first-ever
@@ -130,7 +130,7 @@ function App() {
   const nextId = useRef(0)
 
   // Start fetching the sound files immediately instead of waiting for the
-  // first hover/flip/win to trigger it — otherwise that first play has to
+  // first hover/flip/win to trigger it. Otherwise that first play has to
   // queue behind everything else the page is loading at once (card images,
   // fonts, etc.), which is what made sounds feel laggy right after a load.
   useEffect(() => {
@@ -139,7 +139,7 @@ function App() {
 
   // Refresh-proof guesses, re-run on every identity change: on mount, and
   // again any time loggedIn flips (ProfileModal's onAuthChange, wired to
-  // setLoggedIn directly below) — replays whatever *this identity* (guest
+  // setLoggedIn directly below). replays whatever *this identity* (guest
   // session, or the logged-in account) has
   // already guessed today, so logging into an account that already won/lost
   // shows its actual guesses and locks play, and logging back out reverts
@@ -171,19 +171,19 @@ function App() {
           .reverse()
         setGuesses(restored)
         // Already won today (before this reload, or under this account
-        // already) — reopen the stats panel the same way a live win does,
+        // already). reopen the stats panel the same way a live win does,
         // once the restored rows' flip animations (which replay on every
         // mount, restored or not) finish.
         if (restored.some((g) => g.result.is_correct)) {
           window.setTimeout(() => {
-            // Stats takes priority over the How to Play/Profile modals —
+            // Stats takes priority over the How to Play/Profile modals -
             // guards against either landing open at the same time as this.
             setShowHowToPlay(false)
             setShowProfile(false)
             setShowStats(true)
           }, FLIP_ANIMATION_TOTAL_MS)
         } else if (reveal_answer) {
-          // Already lost today under this identity — same reopen, but with
+          // Already lost today under this identity. Same reopen, but with
           // the loss message instead of the win one.
           setLossAnswer(reveal_answer)
           window.setTimeout(() => {
@@ -207,7 +207,7 @@ function App() {
 
     restoreTodayGuesses(1)
 
-    // The toolbar streak number is account/guest-specific too — refreshed
+    // The toolbar streak number is account/guest-specific too. refreshed
     // alongside the guesses restore above rather than as its own effect, so
     // both update together on every identity change instead of drifting out
     // of sync with each other.
@@ -241,7 +241,7 @@ function App() {
     try {
       const result = await submitGuess(cardName)
       // Read before the state update so this reflects "guesses so far,
-      // including this one" — not affected by React 18 Strict Mode
+      // including this one". Not affected by React 18 Strict Mode
       // double-invoking a setState updater, since this runs once as a
       // plain side effect rather than inside setGuesses itself.
       const newGuessCount = guesses.length + 1
@@ -250,7 +250,7 @@ function App() {
         setLeaderboardRefreshKey((key) => key + 1)
         if (loggedIn) {
           // Server already recorded this win (see routers/game.py's
-          // record_win) — refetch rather than guess at the new number
+          // record_win). refetch rather than guess at the new number
           // locally, since whether this extends a streak or starts a fresh
           // one depends on the account's own last-win date, which this
           // browser doesn't otherwise know. Best-effort: the toolbar just
@@ -268,14 +268,14 @@ function App() {
           setShowStats(true)
           playSound('/win%20sound.mp3')
         }, FLIP_ANIMATION_TOTAL_MS)
-        // Optimistic — this browser's own win just happened server-side, no
+        // Optimistic. this browser's own win just happened server-side, no
         // need to round-trip and refetch the count for it to show up.
         setWinnersCount((prev) => (prev === null ? prev : prev + 1))
       } else if (result.reveal_answer) {
         setLeaderboardRefreshKey((key) => key + 1)
-        // This guess used up the last try — same reveal, same delay, just
+        // This guess used up the last try. Same reveal, same delay, just
         // no win sound/streak. The loss itself is only recorded to
-        // localStorage as a guest — logged in, routers/game.py's guess()
+        // localStorage as a guest. logged in, routers/game.py's guess()
         // already recorded it against the account.
         if (!loggedIn) recordLoss()
         setLossAnswer(result.reveal_answer)

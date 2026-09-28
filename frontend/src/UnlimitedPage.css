@@ -1,6 +1,6 @@
 /* Not-logged-in gate: bare page, background image only, login/signup
    centered (plus a way back out for a guest who'd rather not create an
-   account) — reuses .profile-modal's own box styling (imported via
+   account). reuses .profile-modal's own box styling (imported via
    ProfileModal.css through AuthForm's shared classnames) rather than
    redefining it, so it looks identical to the modal everywhere else. */
 .unlimited-auth-page {
@@ -83,7 +83,7 @@
   }
 }
 
-/* Unlocked gameplay state — like .app-toolbar, but with Back to Daily
+/* Unlocked gameplay state. like .app-toolbar, but with Back to Daily
    pinned to the left instead of only ever having icons on the right. */
 .unlimited-toolbar {
   display: flex;

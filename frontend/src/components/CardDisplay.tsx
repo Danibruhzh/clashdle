@@ -7,8 +7,8 @@ import upArrow from '../images/up-arrow.png'
 import downArrow from '../images/down-arrow.png'
 import './CardDisplay.css'
 
-// onAnimationStart fires when the CSS flip-in animation actually begins —
-// i.e. after its animation-delay elapses — so this naturally lines each
+// onAnimationStart fires when the CSS flip-in animation actually begins -
+// i.e. after its animation-delay elapses. So this naturally lines each
 // box's sound up with its own staggered flip without redoing the timing
 // math (index * 0.2s, see the delay below) in JS.
 function playFlipSound() {
@@ -18,7 +18,7 @@ function playFlipSound() {
 interface CardDisplayProps {
   cardName: string
   comparisons: Record<string, StatComparison>
-  // False for a row restored from a page reload — only a live, first-time
+  // False for a row restored from a page reload. Only a live, first-time
   // guess should sound its flip. Defaults to true for a normal live guess.
   playFlipSounds?: boolean
 }

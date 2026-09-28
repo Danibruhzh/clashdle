@@ -23,7 +23,7 @@
   width: 100%;
   /* Wider than the original 360px so the logged-in view can put username
      and email side by side (see .profile-modal-identity) instead of
-     stacked — shared with the logged-out login/signup view too, rather
+     stacked. shared with the logged-out login/signup view too, rather
      than the modal changing width depending on which view is showing. */
   max-width: 440px;
   background: var(--bg);
@@ -94,18 +94,18 @@
 }
 
 /* Username and email side by side on the wider modal above, rather than
-   each stacked full-width — email gets more of the row since it's the one
+   each stacked full-width. email gets more of the row since it's the one
    likelier to run long. */
 .profile-modal-identity {
   display: flex;
   gap: 10px;
 }
 
-/* Label above value within each — a long email address would otherwise
+/* Label above value within each. a long email address would otherwise
    collide with its own label side-by-side instead of wrapping onto its
    own line underneath it. min-width: 0 overrides a flex item's default
    min-width: auto, which otherwise refuses to shrink narrower than the
-   email's own unbroken width and defeats overflow-wrap below — the text
+   email's own unbroken width and defeats overflow-wrap below. the text
    just overflows the box instead of wrapping inside it. */
 .profile-modal-account-row {
   display: flex;
@@ -140,7 +140,7 @@
   overflow-wrap: break-word;
 }
 
-/* The middle stats block — daily wins / Unlimited wins / combined average
+/* The middle stats block. daily wins / Unlimited wins / combined average
    guesses to win. Mirrors StatsPanel's own summary-stat look (value over
    label in a rounded box) without importing that stylesheet, since this
    has three columns instead of two and slightly different content. */

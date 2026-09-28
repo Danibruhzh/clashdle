@@ -30,7 +30,7 @@ function groupBy(names: string[], keyOf: (name: string) => string): Map<string, 
 }
 
 // Ranks buckets by their position in a fixed order list (falling back to
-// alphabetical for anything unlisted, appended after every listed label) —
+// alphabetical for anything unlisted, appended after every listed label) -
 // used where a meaningful fixed order exists (Type, Target), as opposed to
 // elixirCategories/rarityCategories's own numeric/rank-based ordering.
 function sortByOrder(groups: Map<string, string[]>, order: string[]): Category[] {
@@ -102,7 +102,7 @@ function targetCategories(names: string[]): Category[] {
   const groups = groupBy(names, (name) => {
     const target = extractValueString(cards[name]?.Target) ?? MISSING_LABEL
     // Pre-existing scrape inconsistency: Rune Giant is "Building" (singular)
-    // while every other building-targeting card is "Buildings" (plural) —
+    // while every other building-targeting card is "Buildings" (plural) -
     // same real category, so they're folded into one bucket here.
     return target === 'Building' ? 'Buildings' : target
   })
@@ -110,7 +110,7 @@ function targetCategories(names: string[]): Category[] {
 }
 
 // Splits a card list into visually separate categories along one dimension.
-// A card only ever belongs to one category — including the Target
+// A card only ever belongs to one category. including the Target
 // dimension's Clone/Rage special case above.
 export function categorizeCards(names: string[], dimension: CategoryDimension): Category[] {
   switch (dimension) {

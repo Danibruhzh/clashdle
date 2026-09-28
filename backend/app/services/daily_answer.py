@@ -15,7 +15,7 @@ from app.services.game import MAX_GUESSES
 def get_or_create_daily_answer(db: Session, today: date) -> DailyAnswer:
     # joinedload fetches the related Card in the same query (one JOIN) instead
     # of the relationship lazy-loading it as a separate round-trip the first
-    # time .card is accessed — each round-trip to a remote DB costs real time.
+    # time .card is accessed. each round-trip to a remote DB costs real time.
     existing = (
         db.query(DailyAnswer)
         .options(joinedload(DailyAnswer.card))
@@ -47,7 +47,7 @@ def get_or_create_daily_answer(db: Session, today: date) -> DailyAnswer:
         db.commit()
     except IntegrityError:
         # Someone else's request for this same date won the race and
-        # committed first — daily_answers.date is unique, so ours just
+        # committed first. daily_answers.date is unique, so ours just
         # failed instead of creating a duplicate. Not an error from the
         # caller's point of view: their request just arrived a moment too
         # late to be the one that creates the row, and the actual row is
@@ -63,7 +63,7 @@ def get_or_create_daily_answer(db: Session, today: date) -> DailyAnswer:
 
 
 def has_finished_daily(db: Session, user_id: int, today: date) -> bool:
-    """Gate for Unlimited access (routers/unlimited.py) — mirrors the same
+    """Gate for Unlimited access (routers/unlimited.py). mirrors the same
     "won or ran out of guesses" check routers/game.py's today_guesses()
     implies, but for a specific logged-in user_id rather than whoever's
     making the request. Enforced server-side (not just hidden client-side

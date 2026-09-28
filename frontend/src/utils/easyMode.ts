@@ -1,7 +1,5 @@
-// Whether Card Browser's Easy Mode toggle is on. CardBrowser fully unmounts
-// when closed (App only renders it while showCardBrowser is true), so its
-// own useState resets on every reopen — this persists the choice the same
-// way streak.ts/guessHistogram.ts persist other guest-side preferences.
+// Persists Card Browser's Easy Mode toggle. The browser modal unmounts when it
+// closes, so component state alone would reset the choice on every reopen.
 
 const EASY_MODE_KEY = 'clashdle-easy-mode'
 
@@ -9,7 +7,7 @@ export function getEasyMode(): boolean {
   try {
     return localStorage.getItem(EASY_MODE_KEY) === 'true'
   } catch {
-    // localStorage unavailable (private browsing, etc.) — just default off.
+    // If localStorage is unavailable, default to off.
     return false
   }
 }
@@ -18,6 +16,6 @@ export function setEasyMode(value: boolean): void {
   try {
     localStorage.setItem(EASY_MODE_KEY, String(value))
   } catch {
-    // Storage full/unavailable — the toggle just won't persist this time.
+    // If storage is full or unavailable, the toggle just will not persist.
   }
 }

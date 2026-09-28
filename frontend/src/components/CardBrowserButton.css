@@ -44,7 +44,7 @@
   z-index: 3;
 }
 
-/* Hover-capable devices only — matches CardBrowser's hover/tap split
+/* Hover-capable devices only. matches CardBrowser's hover/tap split
    elsewhere in the app (computers have cursors, phones don't). */
 @media (hover: hover) {
   .card-browser-button:hover .card-browser-button-tooltip {
@@ -67,7 +67,7 @@
 }
 
 /* Anchored to the button's own top-right corner (right: 0) rather than
-   centered — the box is wider than the 38.4px icon, so it naturally spills
+   centered. the box is wider than the 38.4px icon, so it naturally spills
    out to the left ("off to the side") while the arrow, hugging the same
    right edge, stays lined up under the icon it's pointing at. */
 .card-browser-need-help {

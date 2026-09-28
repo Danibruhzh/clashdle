@@ -39,7 +39,7 @@ CORE_CATEGORIES = [
     "Cost", "Type", "Rarity", "Target",
     "Hitpoints", "Damage", "Damage Per Second", "Special Damage",
 ]
-# Dev-only stat (see app/models/card.py) — intentionally left out of
+# Dev-only stat (see app/models/card.py). intentionally left out of
 # CORE_CATEGORIES so an unscraped stub card isn't considered "scraped"
 # just because Hit Speed happens to be filled in.
 
@@ -73,7 +73,7 @@ def categorize(key: str) -> str:
 
 def pick(stats: dict, category: str):
     """Returns the value for a category, preferring an exact-name key match
-    over a sub-entity variant (e.g. plain "Target" over "Zap Target") — but
+    over a sub-entity variant (e.g. plain "Target" over "Zap Target"). But
     only when that exact match actually has data. A multi-entity card (e.g.
     Rascal Girl) can end up with a real value only under an entity-prefixed
     key ("Rascal Girl Hit Speed") while the plain key sits at its "N/A"
@@ -111,7 +111,7 @@ def clean(text):
 
 def is_unscraped(stats: dict) -> bool:
     """True if every core stat is missing or 'N/A' (mirrors the frontend's
-    hasAllStatsMissing() filter in data/cards.ts) — these are stub entries
+    hasAllStatsMissing() filter in data/cards.ts). these are stub entries
     with no real data, not playable cards."""
     return all(stats.get(category, "N/A") == "N/A" for category in CORE_CATEGORIES)
 
@@ -192,7 +192,7 @@ def main():
         db.flush()
 
         # any card currently in the JSON that's missing from BOTH answer_pool
-        # and daily_answers needs to go in the pool — covers brand new cards
+        # and daily_answers needs to go in the pool. covers brand new cards
         # AND existing cards that never got added (like the Ronin gap)
         pool_card_ids = {row.card_id for row in db.query(AnswerPool.card_id).all()}
         history_card_ids = {row.card_id for row in db.query(DailyAnswer.card_id).all()}

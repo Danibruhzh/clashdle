@@ -1,8 +1,6 @@
-// Where a logged-in player's JWT lives on this browser. localStorage + a
-// header (see api/auth.ts's Authorization: Bearer usage), not a cookie —
-// same reasoning as utils/guestSession.ts: the frontend and backend are on
-// different domains, and Safari's ITP silently blocks cross-site cookies
-// regardless of SameSite=None; Secure. One consistent pattern for both.
+// Logged-in sessions live in localStorage and travel as an Authorization
+// header. We use the same pattern as guestSession.ts because Safari can block
+// cross-site cookies when the frontend and backend are on different domains.
 
 const AUTH_TOKEN_KEY = 'clashdle-auth-token'
 export const AUTH_SESSION_EVENT = 'clashdle-auth-session-change'
@@ -23,8 +21,7 @@ export function setAuthToken(token: string): void {
   try {
     localStorage.setItem(AUTH_TOKEN_KEY, token)
   } catch {
-    // Storage full/unavailable — login just won't persist past this page
-    // load, same tradeoff as every other localStorage write in this app.
+    // If storage is full or unavailable, login still works for this page load.
   }
   notifyAuthSessionChange()
 }

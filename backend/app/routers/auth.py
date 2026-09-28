@@ -23,7 +23,7 @@ from app.services.user_stats import get_effective_current_streak
 
 router = APIRouter(tags=["auth"])
 
-# Mirrors services/game.py's MAX_GUESSES — the histogram only ever has
+# Mirrors services/game.py's MAX_GUESSES. the histogram only ever has
 # buckets 1-8, so anything else in a guest's localStorage data (e.g. a stray
 # pre-guess-cap entry from before that cap existed) is dropped rather than
 # rejected at signup.
@@ -46,8 +46,8 @@ def _build_seeded_stats(user_id: int, guest_stats: GuestStatsPayload | None) -> 
     stats.games_played = wins + max(guest_stats.loss_count, 0)
     stats.current_streak = max(guest_stats.streak_count, 0)
     # Never less than the current streak, even if the guest's own stored
-    # data was somehow inconsistent (e.g. best never got bumped for some
-    # reason) — best is a floor, not just a passthrough.
+    # data was somehow inconsistent (e.g. Best never got bumped for some
+    # reason). Best is a floor, not just a passthrough.
     stats.best_streak = max(guest_stats.best_streak, stats.current_streak)
     stats.last_win_date = guest_stats.last_win_date
     return stats
@@ -116,7 +116,7 @@ def read_stats(
     if stats is None:
         # Shouldn't happen (register() always creates one alongside the
         # user), but a registered account with no row yet reads as all
-        # zeros rather than a 404 — nothing meaningfully "missing" from the
+        # zeros rather than a 404. Nothing meaningfully "missing" from the
         # caller's point of view.
         return UserStatsOut(games_played=0, wins=0, current_streak=0, best_streak=0, histogram={})
 
@@ -125,7 +125,7 @@ def read_stats(
         games_played=stats.games_played,
         wins=stats.wins,
         # Self-corrected the same way streak.ts's getStreak() reads the
-        # guest value — the raw stored current_streak only updates on an
+        # guest value. the raw stored current_streak only updates on an
         # actual win, so a lapsed streak needs this to read as 0 without a
         # write having to happen first.
         current_streak=get_effective_current_streak(stats, today),

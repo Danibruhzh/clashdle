@@ -1,4 +1,4 @@
-// Mirrors backend/app/schemas/guess.py — keep these in sync if that changes.
+// Mirrors backend/app/schemas/guess.py. keep these in sync if that changes.
 
 import { getGuestSessionId } from '../utils/guestSession'
 import { getAuthToken } from '../utils/authSession'
@@ -35,18 +35,18 @@ export interface TodayWinners {
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8000'
 
 // Which day's card this browser plays is decided by this timezone, not a
-// fixed one on the backend — see core/time.py's get_client_today. Read once;
+// fixed one on the backend. See core/time.py's get_client_today. Read once;
 // a player's timezone doesn't change mid-session.
 const TIMEZONE_HEADERS = { 'X-Timezone': Intl.DateTimeFormat().resolvedOptions().timeZone }
 
-// Identifies this browser's guesses to the backend — see guestSession.ts for
+// Identifies this browser's guesses to the backend. See guestSession.ts for
 // why this is a header the client attaches itself rather than a cookie the
 // backend sets. Read once; stable for the life of the page the same way
 // TIMEZONE_HEADERS is.
 const GUEST_SESSION_HEADERS = { 'X-Guest-Session-Id': getGuestSessionId() }
 
 // Unlike the two headers above, login state can change mid-session (a live
-// log in/out, no reload needed) — so this is read fresh on every call
+// log in/out, no reload needed). So this is read fresh on every call
 // rather than captured once at module load. Backend ignores the guest
 // session header whenever this is present and valid (see
 // get_optional_current_user in routers/game.py), so both are always sent;
@@ -96,7 +96,7 @@ export async function fetchPreviousAnswer(): Promise<PreviousAnswer> {
 }
 
 export async function fetchTodayWinners(): Promise<TodayWinners> {
-  // Public count, not tied to this browser's guest session — no cookie needed.
+  // Public count, not tied to this browser's guest session. No cookie needed.
   // Still needs the timezone header though, since "today" now depends on it.
   const response = await fetch(`${API_BASE_URL}/game/today/winners`, {
     headers: TIMEZONE_HEADERS,

@@ -173,7 +173,7 @@ function HowToPlayModal({ onClose }: HowToPlayModalProps) {
 
         <h3 className="how-to-play-section-title">Example</h3>
         <p className="how-to-play-example-intro">
-          Say you guess <strong>Hero Mega Minion</strong> — this is what the row of feedback looks like:
+          Say you guess <strong>Hero Mega Minion</strong>. This is what the row of feedback looks like:
         </p>
         <div className="how-to-play-example-card">
           <div className="how-to-play-mini-stat how-to-play-mini-stat--name">
@@ -202,7 +202,7 @@ function HowToPlayModal({ onClose }: HowToPlayModalProps) {
             <span className="how-to-play-mini-name-overlay">Archers</span>
           </div>
           {EXAMPLE_ROWS.map(({ stat, secretValue }) => (
-            // Guessing Archers itself would be a win — every stat matches
+            // Guessing Archers itself would be a win. every stat matches
             // itself by definition, so this row is all green.
             <div className="how-to-play-mini-stat how-to-play-mini-stat--match" key={stat}>
               <span className="how-to-play-mini-stat-label">{stat}</span>

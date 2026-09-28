@@ -15,7 +15,7 @@ interface CardBrowserProps {
 }
 
 // Same hover-capability check CardBrowser.css already splits behavior on
-// (computers have cursors, phones don't) — used here to decide whether a
+// (computers have cursors, phones don't). used here to decide whether a
 // card's sound plays on mouse-enter (desktop) or on tap (touch), not both,
 // so a desktop click right after a hover doesn't double it up.
 function isHoverCapable(): boolean {
@@ -27,12 +27,12 @@ function playCardSound() {
 }
 
 function CardBrowser({ onClose }: CardBrowserProps) {
-  // Only affects touch devices (hover: none) — see CardBrowser.css. Tapping
+  // Only affects touch devices (hover: none). See CardBrowser.css. Tapping
   // the same card again clears it; tapping a different card switches to it,
   // so at most one name is pinned open at a time.
   const [tappedCard, setTappedCard] = useState<string | null>(null)
   // Seeded from the in-memory session (see cardBrowserSession.ts) rather than
-  // a fixed default — so reopening the browser within the same page load
+  // a fixed default. So reopening the browser within the same page load
   // picks up wherever these were left, but a real reload still starts fresh.
   const [sortField, setSortFieldState] = useState<SortField>(() => getCardBrowserSession().sortField)
   const [sortDirection, setSortDirectionState] = useState<SortDirection>(
@@ -65,22 +65,22 @@ function CardBrowser({ onClose }: CardBrowserProps) {
 
   const handleCardTap = (name: string) => {
     // Touch devices have no hover to play the sound on, so the tap itself
-    // does it instead. Desktop already gets it from onMouseEnter below —
+    // does it instead. Desktop already gets it from onMouseEnter below -
     // skip it here so a click right after a hover doesn't play it twice.
     if (!isHoverCapable()) playCardSound()
     setTappedCard((prev) => (prev === name ? null : name))
   }
 
-  // Sort field/direction only matter in Easy Mode now — with it off there's
+  // Sort field/direction only matter in Easy Mode now. with it off there's
   // no grouping to sort within, so the flat list is just fixed alphabetical.
   const sortedNames = useMemo(() => sortCardNames(cardNames, 'name', 'asc'), [])
 
   // Easy Mode: same card list, split into visually separate categories along
-  // one dimension (Elixir Cost/Type/Rarity/Target) — every card still lands
+  // one dimension (Elixir Cost/Type/Rarity/Target). every card still lands
   // in exactly one category. The chosen sort applies *within* each category
   // rather than across the whole list. Sorting a category by the same stat
   // it's grouped by (e.g. an Elixir Cost sort inside Elixir Cost grouping)
-  // isn't a special case — every card in that bucket already shares the same
+  // isn't a special case. every card in that bucket already shares the same
   // value, so sortCardNames's alphabetical tie-break naturally takes over.
   const categories = useMemo(
     () =>
@@ -168,7 +168,7 @@ function CardBrowser({ onClose }: CardBrowserProps) {
                 type="button"
                 className="card-browser-sort-direction"
                 onClick={() => handleSortDirectionChange(sortDirection === 'asc' ? 'desc' : 'asc')}
-                aria-label={sortDirection === 'asc' ? 'Ascending — click for descending' : 'Descending — click for ascending'}
+                aria-label={sortDirection === 'asc' ? 'Ascending, click for descending' : 'Descending, click for ascending'}
               >
                 {sortDirection === 'asc' ? '↑' : '↓'}
               </button>

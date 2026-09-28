@@ -1,7 +1,7 @@
 """Starts/fetches a user's current Unlimited round. Unlike daily_answer.py,
 selection here is genuinely random on every call (see the "completely
 random" requirement this was built to) rather than a no-repeat-until-
-exhausted pool — repeats across rounds are expected and fine."""
+exhausted pool. repeats across rounds are expected and fine."""
 import random
 
 from sqlalchemy.exc import IntegrityError
@@ -23,7 +23,7 @@ def get_active_round(db: Session, user_id: int) -> UnlimitedAnswer | None:
 def start_new_round(db: Session, user_id: int) -> UnlimitedAnswer:
     """Idempotent: if a round is somehow already active for this user (a
     double-clicked Play Again, two tabs), returns that one instead of
-    erroring or creating a second — unlimited_answers.user_id is unique, so
+    erroring or creating a second. unlimited_answers.user_id is unique, so
     a genuine race just loses to whichever request commits first."""
     existing = get_active_round(db, user_id)
     if existing:

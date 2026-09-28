@@ -284,8 +284,8 @@
 }
 
 /* First one after the chart keeps the larger gap; a second stacked right
-   under it (shouldn't happen today — see showUnlimitedCta/onPlayAgain's
-   own comments on why they're mutually exclusive — but kept in case that
+   under it (shouldn't happen today. See showUnlimitedCta/onPlayAgain's
+   own comments on why they're mutually exclusive. But kept in case that
    ever changes) only needs the smaller default margin above. */
 .stats-panel-chart + .stats-panel-action {
   margin-top: 20px;

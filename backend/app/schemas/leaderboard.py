@@ -17,11 +17,7 @@ class AvgGuessesEntry(BaseModel):
 
 
 class LeaderboardResponse(BaseModel):
-    # Unlimited-only — see services/leaderboard.py's own docstring for why
-    # these two specifically don't fold in the daily game the way
-    # top_avg_guesses does.
+    # All leaderboard categories are Unlimited-only.
     top_streak: list[StreakEntry]
     top_wins: list[WinsEntry]
-    # Combines daily + Unlimited wins, same as ProfileModal's own
-    # averageGuessesToWin on the frontend.
     top_avg_guesses: list[AvgGuessesEntry]

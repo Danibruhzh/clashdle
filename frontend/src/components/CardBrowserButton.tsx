@@ -4,7 +4,7 @@ import './CardBrowserButton.css'
 interface CardBrowserButtonProps {
   onOpen: () => void
   // Shown from the 4th unsuccessful live guess onward, until the player
-  // opens Card Browser — see App.tsx's needHelpHint state for the full rule
+  // opens Card Browser. See App.tsx's needHelpHint state for the full rule
   // (including why a page reload doesn't bring it back on its own).
   showNeedHelpHint?: boolean
 }

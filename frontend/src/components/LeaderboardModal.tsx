@@ -16,12 +16,10 @@ const TAB_LABELS: Record<Tab, string> = {
   avg: 'Avg Guesses',
 }
 
-// Shown under the tab bar — see services/leaderboard.py's own docstring for
-// why streak/wins are Unlimited-only while avg guesses combines both modes.
 const TAB_SUBTITLES: Record<Tab, string> = {
   streak: 'Unlimited mode only',
   wins: 'Unlimited mode only',
-  avg: 'Daily + Unlimited combined',
+  avg: 'Unlimited mode only',
 }
 
 function LeaderboardModal({ onClose, refreshKey = 0 }: LeaderboardModalProps) {

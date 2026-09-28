@@ -25,7 +25,7 @@
   }
 }
 
-/* Small green "logged in" indicator — top-right of the icon, same corner a
+/* Small green "logged in" indicator. top-right of the icon, same corner a
    notification dot usually sits in. */
 .profile-button-badge {
   position: absolute;
@@ -57,7 +57,7 @@
   z-index: 3;
 }
 
-/* Hover-capable devices only — matches every other menu icon's tooltip
+/* Hover-capable devices only. matches every other menu icon's tooltip
    split elsewhere in the app (computers have cursors, phones don't). */
 @media (hover: hover) {
   .profile-button:hover .profile-button-tooltip {

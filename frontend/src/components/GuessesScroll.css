@@ -18,7 +18,7 @@
 
 /* Dark edge-fade hint, strength driven from GuessesScroll.tsx via inline
    `opacity` (0-1, based on how much there is left to scroll that direction)
-   — positioned outside .guesses-scroll itself so it stays pinned to the
+  . positioned outside .guesses-scroll itself so it stays pinned to the
    viewport edge instead of scrolling away with the content. It reaches just
    above the scrollbar strip so the lowest row still gets covered, without
    washing out the bar. pointer-events: none so it never blocks the actual
@@ -34,14 +34,14 @@
     to bottom,
     transparent 0,
     #000 8px,
-    #000 calc(100% - 8px),
+    #000 calc(100%. 8px),
     transparent 100%
   );
   mask-image: linear-gradient(
     to bottom,
     transparent 0,
     #000 8px,
-    #000 calc(100% - 8px),
+    #000 calc(100%. 8px),
     transparent 100%
   );
 }

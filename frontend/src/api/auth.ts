@@ -1,4 +1,4 @@
-// Mirrors backend/app/schemas/auth.py — keep these in sync if that changes.
+// Mirrors backend/app/schemas/auth.py. keep these in sync if that changes.
 
 import { getHistogram, getLossCount } from '../utils/guessHistogram'
 import { getStreak, getBestStreak, getLastWinDate } from '../utils/streak'
@@ -44,7 +44,7 @@ async function parseOrThrow<T>(response: Response, fallbackMessage: string): Pro
   return response.json()
 }
 
-// This browser's current guest-side numbers, read once at signup time —
+// This browser's current guest-side numbers, read once at signup time -
 // called fresh on every register() rather than cached, since a guest might
 // play more between opening the signup form and actually submitting it.
 function readGuestStatsSnapshot(): GuestStatsSnapshot {
@@ -59,7 +59,7 @@ function readGuestStatsSnapshot(): GuestStatsSnapshot {
 
 export async function register(username: string, email: string, password: string): Promise<TokenResponse> {
   // Only the portion of this browser's guest stats not already credited to
-  // an earlier account gets sent — see guestStatsCredit.ts for why (repeat
+  // an earlier account gets sent. See guestStatsCredit.ts for why (repeat
   // registrations on one browser would otherwise each claim the same guest
   // history as their own).
   const current = readGuestStatsSnapshot()
@@ -84,7 +84,7 @@ export async function register(username: string, email: string, password: string
     }),
   })
   const result = await parseOrThrow<TokenResponse>(response, 'Registration failed')
-  // Only mark credited once the account actually exists — a failed
+  // Only mark credited once the account actually exists. a failed
   // registration (duplicate username, network error, etc.) leaves this
   // browser's guest stats fully available to try again.
   markGuestStatsCredited(current)

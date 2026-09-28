@@ -1,18 +1,25 @@
 from bs4 import BeautifulSoup
+from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 import time
 import os
+from pathlib import Path
 import re
 
-os.environ['WDM_LOCAL'] = '1'
+load_dotenv(Path(__file__).with_name(".env"))
+
+os.environ.setdefault("WDM_LOCAL", "1")
+CHROMEDRIVER_PATH = os.getenv("CLASHDLE_CHROMEDRIVER_PATH")
+CHROME_PROFILE_DIR = os.getenv("CLASHDLE_CHROME_PROFILE_DIR")
 
 options = Options()
 options.add_argument("--disable-blink-features=AutomationControlled")
 options.add_experimental_option("excludeSwitches", ["enable-automation"])
 options.add_experimental_option("useAutomationExtension", False)
-options.add_argument(r"--user-data-dir=C:\Users\danie\chrome-selenium-profile")
+if CHROME_PROFILE_DIR:
+    options.add_argument(f"--user-data-dir={CHROME_PROFILE_DIR}")
 
 url = None
 driver = None
@@ -291,7 +298,8 @@ def get_card_info(url, retries: int, name: str):
             time.sleep(2)
 
 try:
-    driver = webdriver.Chrome(service=Service(r"C:\Users\danie\.wdm\drivers\chromedriver\win64\153.0.8010.36\chromedriver-win64\chromedriver.exe"), options=options)
+    service = Service(CHROMEDRIVER_PATH) if CHROMEDRIVER_PATH else Service()
+    driver = webdriver.Chrome(service=service, options=options)
     
     driver.execute_cdp_cmd("Network.enable", {})
     driver.execute_cdp_cmd("Network.setBlockedURLs", {"urls": [
@@ -338,4 +346,5 @@ except Exception as e:
     print(f"Error scraping {url}: {e}")
 
 finally:
-    driver.quit()
+    if driver is not None:
+        driver.quit()

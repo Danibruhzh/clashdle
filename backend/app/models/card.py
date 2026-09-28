@@ -12,7 +12,7 @@ class Card(Base):
     cost = Column(Integer, nullable=True)
     type = Column(String, nullable=True)
     rarity = Column(String, nullable=True)
-    # Common < Rare < Epic < Legendary < Champion — lets rarity be compared
+    # Common < Rare < Epic < Legendary < Champion. lets rarity be compared
     # higher/lower like the numeric stats instead of just match/no-match.
     rarity_rank = Column(Integer, nullable=True)
     target = Column(String, nullable=True)
@@ -23,7 +23,7 @@ class Card(Base):
     dps = Column(Integer, nullable=True)
     special_damage = Column(Integer, nullable=True)
 
-    # Dev-only reference stat — never part of guess comparison, never
+    # Dev-only reference stat. Never part of guess comparison, never
     # returned by any API response. Stored as raw text (e.g. "1.1sec")
     # since nothing here needs it as a number.
     hit_speed = Column(String, nullable=True)

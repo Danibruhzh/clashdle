@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { register, login } from '../api/auth'
 import { setAuthToken } from '../utils/authSession'
 // Imported here (not just by ProfileModal) since this component also
-// renders standalone on UnlimitedPage, which never mounts ProfileModal —
+// renders standalone on UnlimitedPage, which never mounts ProfileModal -
 // without this import there, the profile-modal-tabs/-form/-input classnames
 // below would be unstyled on that route. Vite dedupes a CSS file imported
 // from multiple modules, so ProfileModal.tsx keeping its own import too is
@@ -10,7 +10,7 @@ import { setAuthToken } from '../utils/authSession'
 import './ProfileModal.css'
 
 // The tabbed login/signup form itself, factored out of ProfileModal so it
-// can also render standalone — full-page, no backdrop/close button — as
+// can also render standalone. full-page, no backdrop/close button. as
 // UnlimitedPage's not-logged-in gate. Shares ProfileModal.css's classnames
 // (profile-modal-tabs/-form/-input/etc.) rather than a separate stylesheet,
 // since both call sites want the exact same look.
@@ -18,7 +18,7 @@ import './ProfileModal.css'
 interface AuthFormProps {
   // Called right after a successful login/register so the caller's own
   // "is someone logged in" state stays in sync without this component
-  // needing to own that state itself — same contract as ProfileModal's
+  // needing to own that state itself. Same contract as ProfileModal's
   // own onAuthChange prop, since that's just passed straight through.
   onAuthChange: (loggedIn: boolean) => void
   mode?: Mode
@@ -75,7 +75,7 @@ function AuthForm({ onAuthChange, mode: controlledMode, onModeChange, showTitle 
     }
   }
 
-  // Drives the submit buttons' disabled state below — native HTML
+  // Drives the submit buttons' disabled state below. native HTML
   // validation (required/minLength/type="email") is deliberately not used
   // here instead, since that's what pops up the browser's own "Please fill
   // out this field" bubble; disabling the button until these are true

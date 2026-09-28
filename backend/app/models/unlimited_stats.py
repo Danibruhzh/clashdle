@@ -6,11 +6,11 @@ from app.db.base import Base
 
 
 class UnlimitedStats(Base):
-    """One row per registered user — the Unlimited-mode equivalent of
+    """One row per registered user. the Unlimited-mode equivalent of
     UserStats, kept entirely separate from the daily game's numbers. No
     last_win_date/self-correcting-streak logic like UserStats has: that
     exists there because the daily streak is date-based ("did you win
-    yesterday or today"), but Unlimited has no day-based cadence at all —
+    yesterday or today"), but Unlimited has no day-based cadence at all -
     rounds can happen any number of times in a row, so current_streak here
     is just "consecutive round wins", written directly on every win/loss
     with nothing to self-correct at read time.

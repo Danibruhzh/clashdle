@@ -1,5 +1,5 @@
-// Mirrors backend/app/schemas/leaderboard.py — keep in sync if that changes.
-// Public, unauthenticated, same as fetchTodayWinners in api/game.ts — no
+// Mirrors backend/app/schemas/leaderboard.py. keep in sync if that changes.
+// Public, unauthenticated, same as fetchTodayWinners in api/game.ts. No
 // headers needed at all, not even the timezone one (nothing here depends
 // on "today").
 

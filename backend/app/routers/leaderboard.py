@@ -11,7 +11,7 @@ router = APIRouter(tags=["leaderboard"])
 @router.get("/leaderboard", response_model=LeaderboardResponse)
 def leaderboard(response: Response, db: Session = Depends(get_db)):
     response.headers["Cache-Control"] = "no-store"
-    # Public — no login required to view (same as /game/today/winners),
+    # Public. No login required to view (same as /game/today/winners),
     # even though only registered accounts ever appear in it (guests have
     # no server-side stats to rank at all).
     return LeaderboardResponse(

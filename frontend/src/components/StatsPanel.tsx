@@ -16,24 +16,24 @@ const LEGACY_HISTOGRAM_BUCKETS = [8]
 
 interface StatsPanelProps {
   onClose: () => void
-  // Set whenever today's game is already won — shows the win message above
+  // Set whenever today's game is already won. shows the win message above
   // the histogram, whether the panel just auto-opened from that win or was
   // reopened manually afterward.
   guessCount?: number
   // Set whenever today's game is already lost (all guesses used, none
-  // correct) — holds the revealed card name, shown instead of the win
+  // correct). holds the revealed card name, shown instead of the win
   // message. Mutually exclusive with guessCount.
   lossAnswer?: string
   dailyShareGuesses?: Record<string, StatComparison>[]
   // UnlimitedPage already has its own (Unlimited-specific, not daily)
-  // stats loaded elsewhere on that page — passing it here skips this
+  // stats loaded elsewhere on that page. passing it here skips this
   // component's own fetch/guest-fallback entirely, using this instead.
   // Omitted entirely (the home page's usage) means "fetch the daily
   // account's stats, or read the guest's own"; null means "loading" (the
   // caller's own fetch hasn't resolved yet), not "logged out".
   statsOverride?: ResolvedStats | null
   title?: string
-  // App.tsx sets this once today's daily is finished — shows a "Play
+  // App.tsx sets this once today's daily is finished. shows a "Play
   // Unlimited"/"Log in to play Unlimited" link out of this panel.
   // UnlimitedPage never sets it: that link would just point back at the
   // page it's already on.
@@ -41,17 +41,17 @@ interface StatsPanelProps {
   // UnlimitedPage only: renders a Play Again button when set, for
   // replaying right from the panel that just showed this round's result
   // (see onPlayAgain's own call site for why it also closes the panel).
-  // Undefined hides the button entirely — the daily game has no replay.
+  // Undefined hides the button entirely. the daily game has no replay.
   onPlayAgain?: () => void
   playAgainDisabled?: boolean
 }
 
-// Same shape either way, just sourced differently — from localStorage for a
+// Same shape either way, just sourced differently. from localStorage for a
 // guest, from /me/stats for a logged-in account (see App.tsx's own gating of
 // recordWin/recordLoss/recordStreakWin: once logged in those stop writing
 // locally entirely, so this is the only place server stats actually get
 // read back in). gamesPlayed/wins are carried as their own fields rather
-// than re-derived from histogram at render time — the two happen to always
+// than re-derived from histogram at render time. the two happen to always
 // agree today (the backend increments them in lockstep; see
 // services/user_stats.py's record_win), but the summary numbers shouldn't
 // silently depend on that holding forever when the real fields are right
@@ -106,7 +106,7 @@ function StatsPanel({
 }: StatsPanelProps) {
   const [copiedShare, setCopiedShare] = useState(false)
   const { ref: panelRef, showScrollHint } = useScrollHint()
-  // Whether this instance owns fetching its own stats at all — decided
+  // Whether this instance owns fetching its own stats at all. decided
   // once, from whether the caller passed statsOverride in the first place
   // (regardless of its value), not from what that value currently is.
   const usesOverride = statsOverride !== undefined
@@ -118,7 +118,7 @@ function StatsPanel({
   })
 
   useEffect(() => {
-    if (usesOverride) return // caller owns this data — see UnlimitedPage.tsx
+    if (usesOverride) return // caller owns this data; see UnlimitedPage.tsx
     const token = getAuthToken()
     if (!token) return // already resolved synchronously above
     let cancelled = false
@@ -127,7 +127,7 @@ function StatsPanel({
         if (!cancelled) setFetched({ histogram: s.histogram, gamesPlayed: s.games_played, wins: s.wins })
       })
       .catch(() => {
-        // Token expired/invalid, request failed, etc. — fall back to this
+        // Token expired/invalid, request failed, etc.. fall back to this
         // browser's own guest numbers rather than showing nothing.
         if (!cancelled) setFetched(readGuestStats())
       })
@@ -136,7 +136,7 @@ function StatsPanel({
     }
     // usesOverride can't actually change after mount (callers don't toggle
     // whether they pass the prop), so listing it changes nothing behaviorally
-    // — just satisfies the lint rule without a disable comment.
+    // This only satisfies the lint rule without a disable comment.
   }, [usesOverride])
 
   const stats = usesOverride ? statsOverride : fetched
@@ -241,7 +241,7 @@ function StatsPanel({
               <span className="stats-panel-summary-label">Games Played</span>
             </div>
             <div className="stats-panel-summary-stat">
-              <span className="stats-panel-summary-value">{winRate === null ? '—' : `${winRate}%`}</span>
+              <span className="stats-panel-summary-value">{winRate === null ? '-' : `${winRate}%`}</span>
               <span className="stats-panel-summary-label">Win Rate</span>
             </div>
           </div>

@@ -1,5 +1,5 @@
 """Server-side mirror of what guests keep in localStorage (guessHistogram.ts
-+ streak.ts) — see routers/game.py for where these get called, and
++ streak.ts). See routers/game.py for where these get called, and
 UserStats's own docstring for why stats live as one row per user rather
 than a child table."""
 from datetime import date, timedelta
@@ -24,7 +24,7 @@ def get_or_create_stats(db: Session, user_id: int) -> UserStats:
 
 
 def record_win(stats: UserStats, guess_count: int, today: date) -> None:
-    """Call once per completed win — mirrors guessHistogram.ts's recordWin
+    """Call once per completed win. mirrors guessHistogram.ts's recordWin
     (histogram) and streak.ts's recordStreakWin (streak) in one step, since
     the backend has no equivalent split between "live win" and "restore"
     call sites to keep separate; routers/game.py only ever calls this from
@@ -40,7 +40,7 @@ def record_win(stats: UserStats, guess_count: int, today: date) -> None:
 
 
 def record_loss(stats: UserStats) -> None:
-    """Call once per completed loss (the guess that uses up the final try) —
+    """Call once per completed loss (the guess that uses up the final try) -
     mirrors guessHistogram.ts's recordLoss. Deliberately doesn't touch
     current_streak/last_win_date, same as the guest side: a loss doesn't
     extend a streak, but a lapsed one is read as 0 lazily (see

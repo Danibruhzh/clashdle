@@ -30,14 +30,9 @@ def guess(
     payload: GuessRequest,
     db: Session = Depends(get_db),
     today: date = Depends(get_client_today),
-    # Identifies this browser without requiring login — generated and stored
-    # by the client itself (see frontend/src/utils/guestSession.ts), not a
-    # cookie the backend sets. A cross-site cookie here (frontend and backend
-    # are on different domains) gets silently blocked by Safari's Intelligent
-    # Tracking Prevention regardless of SameSite=None; Secure, which broke
-    # guess-restore-on-refresh for some iOS players; a plain header isn't
-    # subject to that at all. Ignored (may be omitted) once logged in — see
-    # current_user below, which takes priority when both are present.
+    # Browser-generated guest id. It lets guests restore today's guesses
+    # without relying on cross-site cookies. Logged-in users ignore it because
+    # current_user takes priority.
     guest_session_id: str | None = Header(default=None, alias="X-Guest-Session-Id"),
     current_user: User | None = Depends(get_optional_current_user),
 ):
@@ -74,8 +69,7 @@ def guess(
         )
     )
 
-    # This guess is the one that used up the last try without winning —
-    # reveal the answer now instead of waiting for a refresh.
+    # If this guess used the final try, reveal the answer immediately.
     out_of_guesses = not correct and guess_number >= MAX_GUESSES
     reveal_answer = secret_card.name if out_of_guesses else None
 
@@ -98,14 +92,13 @@ def today_guesses(
     guest_session_id: str | None = Header(default=None, alias="X-Guest-Session-Id"),
     current_user: User | None = Depends(get_optional_current_user),
 ):
-    """Replays this player's guesses for today's answer, so a page refresh
-    doesn't lose progress. Comparisons aren't stored on the Guess row — they're
-    just recomputed here the same way /guess computed them originally, since
-    they're a pure function of (secret card, guessed card)."""
+    """Replay this player's guesses for today's answer after a refresh.
+
+    Comparisons are not stored on Guess rows. They are a pure function of the
+    secret card and guessed card, so we recompute them here.
+    """
     if current_user is None and not guest_session_id:
-        # Never guessed on this browser before (or an old cached client that
-        # predates the guest-session header — see guess() above) — nothing
-        # to restore, and nothing worth touching the DB for yet.
+        # Nothing to restore yet, and no need to touch the database.
         return TodayGuessesResponse(guesses=[])
 
     daily_answer = get_or_create_daily_answer(db, today)
@@ -139,16 +132,12 @@ def today_guesses(
 
 @router.get("/today/winners", response_model=TodayWinnersResponse)
 def today_winners(db: Session = Depends(get_db), today: date = Depends(get_client_today)):
-    """How many distinct players have correctly guessed today's secret card
-    so far — public, not tied to this browser's own guest session or
-    account. Guests and registered users are attributed on different
-    columns (guest_session_id vs user_id, see models/guess.py), so this
-    counts unclaimed guest winners plus registered winners. Guest guesses
-    claimed during signup are counted on the registered side only.
-    "Today" is this requesting client's own timezone (see core/time.py), so
-    this is specifically "winners of the card you're playing", not a single
-    worldwide count — players in other timezones may be on a different card
-    entirely right now."""
+    """Count distinct winners for the requesting player's daily card.
+
+    Guests and registered users are attributed with different columns, so this
+    counts unclaimed guest winners plus registered winners. Guest guesses moved
+    into an account during signup count on the registered side only.
+    """
     daily_answer = get_or_create_daily_answer(db, today)
 
     guest_winners = (
@@ -174,10 +163,7 @@ def today_winners(db: Session = Depends(get_db), today: date = Depends(get_clien
 
 @router.get("/previous-answer", response_model=PreviousAnswerResponse)
 def previous_answer(db: Session = Depends(get_db), today: date = Depends(get_client_today)):
-    """Yesterday's secret card, for the small footer line. Looked up directly
-    rather than via get_or_create_daily_answer — a missing row here just means
-    nothing to show, not something to generate (unlike today's answer, which
-    the game needs to exist)."""
+    """Return yesterday's secret card for the footer, if one exists."""
     yesterday = today - timedelta(days=1)
     daily_answer = (
         db.query(DailyAnswer)

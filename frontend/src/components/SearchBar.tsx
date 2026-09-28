@@ -52,16 +52,16 @@ interface SearchBarProps {
   onSelectCard: (cardName: string) => void
   guessedNames: Set<string>
   // Blocks submitting a new guess (e.g. one is already in flight) without
-  // disabling the <input> itself — a disabled input loses DOM focus, and the
+  // disabling the <input> itself. a disabled input loses DOM focus, and the
   // browser doesn't hand focus back once it's re-enabled, which is what used
   // to force a re-click after every guess. Typing stays live the whole time;
   // this just ignores Enter/selection until it clears. Also swaps the
-  // placeholder to "Loading..." — the query itself already clears the
+  // placeholder to "Loading...". the query itself already clears the
   // instant a card's picked (see handleSelect), so without this the empty
   // input would misleadingly read "Guess a card..." again while that guess
   // is still in flight.
   disabled?: boolean
-  // Genuinely can't be used yet (initial restore of today's past guesses) —
+  // Genuinely can't be used yet (initial restore of today's past guesses) -
   // this one does disable the input, since nothing's been typed yet anyway.
   loading?: boolean
   loadingLabel?: string
@@ -99,7 +99,7 @@ function SearchBar({
     }
 
     // Not the full name, but if the preview's already narrowed down to a
-    // single card, that's unambiguous — no reason to make the player type
+    // single card, that's unambiguous. No reason to make the player type
     // the rest of it out or reach for the mouse just to confirm it.
     if (matches.length === 1) {
       handleSelect(matches[0])
@@ -123,7 +123,7 @@ function SearchBar({
           onFocus={() => setShowMatches(true)}
           onBlur={() => setShowMatches(false)}
           disabled={loading}
-          // blocked (not just loading) here — otherwise, right after picking
+          // blocked (not just loading) here. Otherwise, right after picking
           // a card, the query clears (see handleSelect) before that guess's
           // fetch resolves, and the empty input would briefly show "Guess a
           // card..." again as if nothing had been picked yet.
@@ -146,7 +146,7 @@ function SearchBar({
               // preventDefault stops the browser's default mousedown
               // behavior of shifting focus off the input (to this
               // non-focusable li, effectively nowhere) before the click
-              // even registers — without it the input blurs the instant you
+              // even registers. Without it the input blurs the instant you
               // click a suggestion, forcing a re-click to keep typing.
               onMouseDown={(e) => {
                 e.preventDefault()

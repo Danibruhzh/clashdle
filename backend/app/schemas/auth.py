@@ -4,17 +4,17 @@ from pydantic import BaseModel, EmailStr, Field, field_validator
 
 
 class GuestStatsPayload(BaseModel):
-    """Optional — the frontend reads this browser's localStorage numbers
+    """Optional. the frontend reads this browser's localStorage numbers
     once at signup and sends them here so a brand-new account doesn't start
     at zero. Absent entirely (or any field on it) just means "nothing to
-    seed with", never an error — a signup with no prior guest play is just
+    seed with", never an error. a signup with no prior guest play is just
     as valid as one with years of it."""
 
-    # {"<guess count 1-8>": <times achieved>} — mirrors guessHistogram.ts's
+    # {"<guess count 1-8>": <times achieved>}. mirrors guessHistogram.ts's
     # Histogram shape as JSON.stringify actually produces it (numeric keys
     # become strings). Bucket 8 is legacy data from the old cap. Anything
     # outside 1-8 (e.g. a stray pre-guess-cap entry from old data) is
-    # silently dropped in the router rather than rejected — it's not this
+    # silently dropped in the router rather than rejected. it's not this
     # endpoint's job to validate the guest's own history, just to fold in
     # whatever's usable from it.
     histogram: dict[str, int] = Field(default_factory=dict)
@@ -22,7 +22,7 @@ class GuestStatsPayload(BaseModel):
     streak_count: int = 0
     best_streak: int = 0
     # The player's own local date their current streak's last win landed
-    # on — same meaning as streak.ts's lastWinDate. None if they have no
+    # on. Same meaning as streak.ts's lastWinDate. None if they have no
     # streak going (or never had one).
     last_win_date: date | None = None
 
@@ -32,7 +32,7 @@ class RegisterRequest(BaseModel):
     email: EmailStr
     password: str = Field(min_length=8, max_length=128)
     guest_stats: GuestStatsPayload | None = None
-    # This browser's guestSession.ts id, if any — lets the router reassign
+    # This browser's guestSession.ts id, if any. lets the router reassign
     # any Guess rows already made under it (e.g. today's win) onto the new
     # account, so the game doesn't look unplayed/repeatable right after
     # signing up. None just means "no guest play on this browser", not an
@@ -49,7 +49,7 @@ class RegisterRequest(BaseModel):
 
 
 class LoginRequest(BaseModel):
-    # Either a username or an email — see login() in routers/auth.py for how
+    # Either a username or an email. See login() in routers/auth.py for how
     # this gets resolved to one or the other.
     identifier: str
     password: str
@@ -75,7 +75,7 @@ class UserStatsOut(BaseModel):
     wins: int
     current_streak: int
     best_streak: int
-    # {"1": times, ..., "8": times} — bucket 8 is retained for legacy wins
+    # {"1": times, ..., "8": times}. bucket 8 is retained for legacy wins
     # even though the visible chart now folds it into the final displayed
     # bar.
     histogram: dict[str, int]

@@ -1,17 +1,14 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app import models  # noqa: F401 — registers every model on Base.metadata before any request runs
+from app import models  # noqa: F401, load models before request handling
 from app.routers import auth, game, leaderboard, unlimited
 
 app = FastAPI(title="Clashdle API")
 
-# The frontend runs on Vite's dev server locally and on Vercel in production.
-# Guests call this API directly from the browser with no auth, so CORS has
-# to explicitly allow both origins. Guest identity travels as a plain header
-# (see routers/game.py) rather than a cookie — cross-site cookies get
-# silently blocked by Safari's ITP regardless of SameSite=None; Secure — so
-# allow_credentials isn't needed here; nothing crosses the wire that requires it.
+# The frontend calls this API from Vite locally and Vercel in production.
+# Guest identity travels as a plain header instead of a cookie, so these
+# browser calls do not need credentialed CORS.
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[

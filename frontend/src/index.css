@@ -1,13 +1,13 @@
 :root {
-  /* One fixed appearance for every device, no system-theme branching — the
+  /* One fixed appearance for every device, no system-theme branching. the
      app's background is a single fixed image that never changes, so the
      UI chrome on top of it shouldn't either. This is the dark-surface
      variant (what used to only show under prefers-color-scheme: dark).
      --header: title + statsheader text, sits directly on
      the background image itself, unrelated to the dark UI surfaces below.
-     --text: stat values/sublabels inside the colored comparison boxes —
+     --text: stat values/sublabels inside the colored comparison boxes -
      always white, same reasoning.
-     --text-h: text on the app's (now permanently dark) UI surfaces —
+     --text-h: text on the app's (now permanently dark) UI surfaces -
      buttons, modals, search bar. */
   --header: #fff;
   --text: #fff;
@@ -15,7 +15,7 @@
   --subhead: #cdcbcb;
   --bg: #16171d;
   --border: #9093a4;
-  /* Fully transparent (alpha 00) — nothing rendering behind the card PNGs'
+  /* Fully transparent (alpha 00). Nothing rendering behind the card PNGs'
      own transparency, on the buttons/modals/stat boxes that use this. */
   --code-bg: #ffffff00;
   --royal-blue: #002a74;
@@ -46,7 +46,7 @@
 
   font: 15px/135% var(--sans);
   letter-spacing: 0.18px;
-  /* dark only, deliberately (matches the permanent dark UI chrome above) —
+  /* dark only, deliberately (matches the permanent dark UI chrome above) -
      not "light dark", which would let the browser's native UI (scrollbars,
      form controls) branch off system theme independently of everything
      else here. */

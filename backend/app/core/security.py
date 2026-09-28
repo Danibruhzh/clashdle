@@ -1,8 +1,7 @@
-"""Password hashing + JWT issuing/verification for registered accounts.
+"""Password hashing and JWT handling for registered accounts.
 
-Guests never touch any of this — see routers/game.py's guest-session header
-for that separate, login-free identity. This is only for the optional
-account layer on top.
+Guest identity is separate from this. See routers/game.py for the
+guest-session header flow.
 """
 from datetime import datetime, timedelta, timezone
 
@@ -45,10 +44,12 @@ def get_current_user(
     credentials: HTTPAuthorizationCredentials | None = Depends(_bearer_scheme),
     db: Session = Depends(get_db),
 ) -> User:
-    """Depends() target for any route that requires a logged-in account —
-    stored client-side as a plain localStorage token sent via this header
-    (not a cookie; see CLAUDE.md / the guest-session header for why cross-site
-    cookies are a dead end here)."""
+    """Dependency for routes that require a logged-in account.
+
+    The frontend stores this token in localStorage and sends it as a bearer
+    token. It is not cookie-based, for the same cross-site cookie reasons as
+    guest sessions.
+    """
     unauthorized = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authenticated")
     if credentials is None:
         raise unauthorized
@@ -69,9 +70,11 @@ def get_optional_current_user(
     credentials: HTTPAuthorizationCredentials | None = Depends(_bearer_scheme),
     db: Session = Depends(get_db),
 ) -> User | None:
-    """Same as get_current_user, but for routes that work for guests too
-    (see routers/game.py) — a missing/invalid/expired token just means
-    "play as guest" here rather than a 401. Never raises."""
+    """Return the account user when there is a valid token.
+
+    Routes that also support guests use this so a missing or invalid token can
+    simply fall back to guest play instead of returning a 401.
+    """
     if credentials is None:
         return None
     try:

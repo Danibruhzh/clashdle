@@ -44,7 +44,7 @@
   z-index: 3;
 }
 
-/* Hover-capable devices only — matches CardBrowser's hover/tap split
+/* Hover-capable devices only. matches CardBrowser's hover/tap split
    elsewhere in the app (computers have cursors, phones don't). */
 @media (hover: hover) {
   .stats-button:hover .stats-button-tooltip {

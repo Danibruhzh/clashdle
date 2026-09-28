@@ -27,7 +27,7 @@ router = APIRouter(prefix="/unlimited", tags=["unlimited"])
 
 @router.get("/current", response_model=UnlimitedRoundResponse)
 def current_round(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
-    """Restores an in-progress round's guesses so far — e.g. after a page
+    """Restores an in-progress round's guesses so far. For example, after a page
     refresh. A finished round never shows up here: /guess below deletes a
     round's rows the instant it's won or lost, so "no active round" just
     means "nothing in progress right now", not "lost/won and hidden"."""
@@ -76,7 +76,7 @@ def guess(
 ):
     round_ = get_active_round(db, current_user.id)
     if round_ is None:
-        raise HTTPException(status_code=400, detail="No active Unlimited round — start one first")
+        raise HTTPException(status_code=400, detail="No active Unlimited round. Start one first")
 
     guessed_card = db.query(Card).filter(Card.name == payload.guess_name).first()
     if guessed_card is None:
@@ -92,7 +92,7 @@ def guess(
     out_of_guesses = not correct and guess_number >= MAX_GUESSES
 
     if correct or out_of_guesses:
-        # Round's over — record the aggregate stats, then discard every row
+        # Round's over. record the aggregate stats, then discard every row
         # for this round (including this final guess: there's no point
         # persisting a guess that's about to be deleted anyway) rather than
         # keeping any per-round history, per how this was scoped.
@@ -121,7 +121,7 @@ def guess(
 
 @router.get("/stats", response_model=UnlimitedStatsOut)
 def read_stats(current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
-    # Read-only, like /me/stats — a GET shouldn't write, so a player with no
+    # Read-only, like /me/stats. a GET shouldn't write, so a player with no
     # rounds finished yet just reads back as all zeros rather than this
     # route creating a row for them (that only ever happens where a row is
     # actually needed: see services/unlimited_stats.get_or_create_stats,

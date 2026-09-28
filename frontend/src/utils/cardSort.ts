@@ -26,7 +26,7 @@ export const RARITY_RANK: Record<string, number> = {
 
 // Mirrors CardDisplay.tsx's renderStatValue unwrapping: a stat can be a
 // plain string or a {label: value} dict (multi-stage/sub-entity cards, e.g.
-// Evolution Inferno Dragon's Damage: {"Stage 4": "844"}) — take whichever
+// Evolution Inferno Dragon's Damage: {"Stage 4": "844"}). take whichever
 // string is actually there before parsing a number out of it. Exported for
 // cardCategories.ts, so both read categorical fields (Type, Target, Rarity)
 // the same way.
@@ -48,7 +48,7 @@ function rarityRank(name: string): number | null {
 }
 
 // A card's own name for sorting purposes, plus how it ranks against its own
-// base/Evolution/Hero siblings — e.g. "Evolution Valkyrie" strips down to
+// base/Evolution/Hero siblings. For example, "Evolution Valkyrie" strips down to
 // "Valkyrie" (so it alphabetizes next to the base card instead of off under
 // "E"), variantRank 1 keeps it right after the base card (0) and before the
 // Hero version (2). A card with no such prefix, or a prefixed name with no
@@ -59,7 +59,7 @@ function nameSortKey(name: string): { base: string; variantRank: number } {
   return { base: name, variantRank: 0 }
 }
 
-// The one place "alphabetical" actually means anything in this file — used
+// The one place "alphabetical" actually means anything in this file. used
 // directly for the Name field, and as every other field's tie-break (two
 // cards with the same Elixir/Hitpoints/etc., or both missing a value). A
 // card's rank among its own base/Evolution/Hero siblings never flips with
@@ -78,9 +78,9 @@ function statNumber(
 }
 
 // Cards missing a value for the chosen stat always sort after cards that
-// have one, regardless of direction — never lets a "no data" card look like
+// have one, regardless of direction. Never lets a "no data" card look like
 // the strongest or weakest. Ties (including two missing values) fall back
-// to compareNames, so the order stays stable and predictable either way —
+// to compareNames, so the order stays stable and predictable either way -
 // and still groups a card with its own Evolution/Hero siblings even when this is
 // only a tie-break, not the primary sort.
 function compareByStat(

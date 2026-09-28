@@ -7,7 +7,7 @@
   gap: 16px;
   /* border-box, not the default content-box: otherwise the 64px of vertical
      padding below gets added ON TOP of min-height: 100vh instead of being
-     included in it, so the page is always 64px taller than the viewport —
+     included in it, so the page is always 64px taller than the viewport -
      a permanent, pointless scrollbar even with zero guesses on screen. */
   box-sizing: border-box;
   min-height: 100vh;
@@ -199,7 +199,7 @@
   margin: 4px 0 -10px 0px;
 }
 
-/* .guesses-scroll* styling now lives in components/GuessesScroll.css —
+/* .guesses-scroll* styling now lives in components/GuessesScroll.css -
    that component is shared with UnlimitedPage.tsx. */
 
 .app-seo-section {

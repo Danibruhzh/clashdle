@@ -77,7 +77,7 @@
   margin: 8px 0 0;
 }
 
-/* Left/right halves, as asked — each an equal-width stat box, same visual
+/* Left/right halves, as asked. each an equal-width stat box, same visual
    language as StatsPanel.css's Games Played / Win Rate pair. */
 .streak-modal-summary {
   display: flex;

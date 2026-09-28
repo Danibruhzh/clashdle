@@ -6,7 +6,7 @@ from app.db.base import Base
 
 
 class UnlimitedGuess(Base):
-    """One guess within a user's current Unlimited round — mirrors the
+    """One guess within a user's current Unlimited round. mirrors the
     daily Guess model, but simpler: Unlimited requires login (see
     routers/unlimited.py), so there's no guest_session_id branch, and rows
     here get deleted along with their UnlimitedAnswer the moment the round

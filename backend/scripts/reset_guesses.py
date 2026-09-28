@@ -1,12 +1,12 @@
 """EMERGENCY dev-side tool for clearing Guess rows.
 
-Deliberately not wired to any button or API endpoint — there's no auth yet,
+Deliberately not wired to any button or API endpoint. there's no auth yet,
 so anything reachable over HTTP that can delete data is reachable by anyone
 who finds it. This only runs when you run it, against whatever DB
 SessionLocal / DATABASE_URL points at.
 
 Players are now on whatever date their own timezone reports (see
-core/time.py's get_client_today), not one shared server date — so "today"
+core/time.py's get_client_today), not one shared server date. So "today"
 below just means the fallback timezone's date. Pass --date explicitly if
 you're targeting a specific player's card and it might be a different date
 where they are.
@@ -78,7 +78,7 @@ def main():
     try:
         daily_answer = db.query(DailyAnswer).filter(DailyAnswer.date == target_date).first()
         if daily_answer is None:
-            print(f"No daily answer exists for {target_date} — nothing to delete.")
+            print(f"No daily answer exists for {target_date}. Nothing to delete.")
             return
 
         query = db.query(Guess).filter(Guess.daily_answer_id == daily_answer.id)

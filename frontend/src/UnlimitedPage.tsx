@@ -31,13 +31,13 @@ import type { UnlimitedStats } from './api/unlimited'
 import { useAuthStatus } from './utils/useAuthStatus'
 import { useSeoMeta } from './utils/seo'
 // .app-content/.app-toolbar/.app-title/.app-guess-counter are App.tsx's
-// page-shell classes, reused verbatim here rather than duplicated — this
+// page-shell classes, reused verbatim here rather than duplicated. this
 // page's unlocked state mirrors that layout on purpose. UnlimitedPage.css
 // holds only what's actually specific to this page.
 import './App.css'
 import './UnlimitedPage.css'
 
-// Mirrors backend/app/services/game.py's MAX_GUESSES — same cap Unlimited
+// Mirrors backend/app/services/game.py's MAX_GUESSES. Same cap Unlimited
 // rounds play by (see services/unlimited_stats.py's own docstring on why
 // that's true even though the mode name suggests otherwise: "Unlimited"
 // means unlimited *rounds*, not unlimited guesses within one).
@@ -55,7 +55,7 @@ interface RoundGuess {
 }
 
 // One of three gates gets checked, in order, every time this page loads or
-// the login state changes — see the three-state spec this was built from:
+// the login state changes. See the three-state spec this was built from:
 // not logged in -> bare login/signup; logged in but today's daily not
 // finished -> sent back to play it; logged in and finished -> Unlimited
 // itself.
@@ -93,7 +93,7 @@ function UnlimitedPage() {
   const [leaderboardRefreshKey, setLeaderboardRefreshKey] = useState(0)
 
   // Re-checks the gate on mount and on every login/logout, same pattern as
-  // App.tsx's own guesses-restore effect — logging in (or out) can flip
+  // App.tsx's own guesses-restore effect. logging in (or out) can flip
   // straight from "logged-out" to either of the other two gates without a
   // page reload.
   useEffect(() => {
@@ -135,7 +135,7 @@ function UnlimitedPage() {
   }, [loggedIn])
 
   // Restores an in-progress round (if any) and this account's Unlimited
-  // stats once unlocked — mirrors App.tsx restoring today's guesses on load.
+  // stats once unlocked. mirrors App.tsx restoring today's guesses on load.
   useEffect(() => {
     if (gate !== 'unlocked') return
     let cancelled = false
@@ -199,7 +199,7 @@ function UnlimitedPage() {
     }
   }
 
-  // Passed to StatsPanel's own Play Again button — closes the panel first
+  // Passed to StatsPanel's own Play Again button. closes the panel first
   // so the player lands back on the search bar for the new round underneath
   // it, rather than starting the round while still staring at the old one's
   // result.
@@ -228,7 +228,7 @@ function UnlimitedPage() {
           setShowStats(true)
         }, FLIP_ANIMATION_TOTAL_MS)
         // The round's rows (and this account's stats) already updated
-        // server-side (see routers/unlimited.py) — refetch rather than
+        // server-side (see routers/unlimited.py). refetch rather than
         // guess at the new streak locally.
         fetchUnlimitedStats().then(setStats).catch(() => {})
       }
@@ -295,7 +295,7 @@ function UnlimitedPage() {
           title="Unlimited Stats"
           guessCount={roundResult === 'win' ? roundGuesses.length : undefined}
           lossAnswer={roundResult === 'loss' ? revealAnswer ?? undefined : undefined}
-          // Only once this round is actually over — opening Stats mid-round
+          // Only once this round is actually over. opening Stats mid-round
           // (via the toolbar button, not the auto-open) shouldn't offer a
           // Play Again for a round that's still in progress underneath it.
           onPlayAgain={roundResult ? handlePlayAgainFromPanel : undefined}
@@ -340,7 +340,7 @@ function UnlimitedPage() {
         </h1>
 
         {/* The result itself (win/loss message) only ever shows via the
-            auto-opened stats panel above — see handleSelectCard — not here.
+            auto-opened stats panel above. See handleSelectCard. Not here.
             This stays as a fallback entry point for starting a new round
             after closing that panel without using its own Play Again. */}
         {hasActiveRound === false && (

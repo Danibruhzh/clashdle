@@ -15,9 +15,9 @@ interface ProfileModalProps {
   onAuthChange: (loggedIn: boolean) => void
 }
 
-// Combines both modes' histograms into one weighted average guess count —
+// Combines both modes' histograms into one weighted average guess count -
 // "totals the daily game and Unlimited stats" together rather than showing
-// two separate averages. null (rendered as "—") only when there are zero
+// two separate averages. null (rendered as "-") only when there are zero
 // wins in either mode to average over.
 function averageGuessesToWin(daily: UserStats | null, unlimited: UnlimitedStats | null): number | null {
   let totalGuesses = 0
@@ -39,7 +39,7 @@ function ProfileModal({ onClose, onAuthChange }: ProfileModalProps) {
   const [loadingProfile, setLoadingProfile] = useState(true)
   const [authMode, setAuthMode] = useState<'login' | 'register'>('login')
 
-  // On open, check whether a token already exists and still works — a
+  // On open, check whether a token already exists and still works. a
   // token that's invalidated or belongs to a deleted account just falls
   // back to the logged-out view instead of showing a broken profile. The two stats
   // fetches are best-effort alongside it: a failure there shouldn't log the
@@ -73,7 +73,7 @@ function ProfileModal({ onClose, onAuthChange }: ProfileModalProps) {
     }
   }, [])
 
-  // AuthForm only knows "login/register just succeeded" — it doesn't fetch
+  // AuthForm only knows "login/register just succeeded". it doesn't fetch
   // or hold onto the profile itself, so this fetches it here once that
   // happens, in addition to passing the change up to App.tsx.
   const handleAuthChange = (nowLoggedIn: boolean) => {
@@ -133,7 +133,7 @@ function ProfileModal({ onClose, onAuthChange }: ProfileModalProps) {
                 <span className="profile-modal-stat-label">Unlimited Wins</span>
               </div>
               <div className="profile-modal-stat">
-                <span className="profile-modal-stat-value">{avgGuesses === null ? '—' : avgGuesses.toFixed(2)}</span>
+                <span className="profile-modal-stat-value">{avgGuesses === null ? '-' : avgGuesses.toFixed(2)}</span>
                 <span className="profile-modal-stat-label">Avg Guesses</span>
               </div>
             </div>

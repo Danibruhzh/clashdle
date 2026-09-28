@@ -1,20 +1,15 @@
-// Guest daily-win streak, stored client-side only (localStorage, no backend)
-// — same guest-first design as guessHistogram.ts. Kept as a plain
-// {count, lastWinDate} shape specifically so it's an easy, obvious column to
-// carry over once an account exists to merge it into (per CLAUDE.md's
-// planned register-seeds-from-localStorage flow).
+// Guest daily-win streak, stored in this browser only. The simple
+// {count, lastWinDate, best} shape makes it easy to seed a new account from
+// guest history during registration.
 
 const STREAK_KEY = 'clashdle-streak'
 
 interface StreakData {
   count: number
-  // YYYY-MM-DD in the player's own local date — deliberately not a server
-  // date; a streak is about the player's own daily rhythm; see
-  // core/time.py's equivalent per-client reasoning on the backend.
+  // YYYY-MM-DD in the player's local date. A streak follows the player's day,
+  // not the server's.
   lastWinDate: string
-  // Highest count ever reached, kept separately from count itself — count
-  // resets to 1 the moment a lapsed streak's next win happens (see
-  // recordStreakWin below), which would otherwise lose the historical peak.
+  // Highest count ever reached. This survives current-streak resets.
   best: number
 }
 
@@ -43,22 +38,17 @@ function readStreak(): StreakData {
     if (!raw) return EMPTY_STREAK
     const parsed = JSON.parse(raw)
     if (typeof parsed?.count !== 'number' || typeof parsed?.lastWinDate !== 'string') return EMPTY_STREAK
-    // Data saved before "best" existed only ever recorded the current
-    // streak — its own count is the closest thing to a historical peak
-    // available for it, so that's the fallback rather than 0.
+    // Older data did not have "best", so use count as the closest fallback.
     const best = typeof parsed.best === 'number' ? parsed.best : parsed.count
     return { count: parsed.count, lastWinDate: parsed.lastWinDate, best }
   } catch {
-    // Missing/corrupt data, or localStorage unavailable — treat as empty
-    // rather than breaking the game over a streak read.
+    // Missing, corrupt, or unavailable storage counts as no streak history.
     return EMPTY_STREAK
   }
 }
 
-// The streak as of right now — self-corrects to 0 once the last win is
-// neither today nor yesterday, without needing anything to have explicitly
-// "broken" it (no background job, no login-triggered check — just computed
-// lazily whenever this is read).
+// Current streak, computed lazily. If the last win was not today or yesterday,
+// the streak has lapsed and reads as 0.
 export function getStreak(): number {
   const { count, lastWinDate } = readStreak()
   if (lastWinDate !== todayString() && lastWinDate !== yesterdayString()) return 0
@@ -71,20 +61,16 @@ export function getBestStreak(): number {
   return readStreak().best
 }
 
-// Raw YYYY-MM-DD of the last recorded win, or null if there's never been
-// one — needed alongside getStreak()'s already-self-corrected count when
-// seeding a new account at registration, so the server can keep applying
-// the same self-correcting logic going forward (see user_stats.last_win_date
-// on the backend). '' (the empty-streak sentinel) reads as null here.
+// Raw YYYY-MM-DD of the last recorded win, or null if there has never been
+// one. Registration sends this to the server so account streaks can use the
+// same date-based logic.
 export function getLastWinDate(): string | null {
   const { lastWinDate } = readStreak()
   return lastWinDate || null
 }
 
-// Call once per live win (mirrors guessHistogram.ts's recordWin — only the
-// live-win path, never the page-load restore path, so reloading an
-// already-won day doesn't double-count). Returns the streak after this win,
-// for the caller to render immediately without a second read.
+// Call once per live win, never for restored guesses. Returns the updated
+// streak so the caller can render it immediately.
 export function recordStreakWin(): number {
   const { count, lastWinDate, best } = readStreak()
   const today = todayString()
@@ -95,8 +81,7 @@ export function recordStreakWin(): number {
   try {
     localStorage.setItem(STREAK_KEY, JSON.stringify({ count: newCount, lastWinDate: today, best: newBest }))
   } catch {
-    // Storage full, private-browsing restrictions, etc. — the streak is a
-    // nice-to-have and never worth breaking the game over.
+    // Streaks are best-effort; storage problems should never block the game.
   }
   return newCount
 }

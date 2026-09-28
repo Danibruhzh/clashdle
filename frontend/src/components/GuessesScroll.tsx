@@ -3,7 +3,7 @@ import './GuessesScroll.css'
 
 // Horizontal-scroll wrapper for a row of CardDisplay boxes, with a dark
 // edge-fade hint on whichever side still has more to scroll to (see
-// GuessesScroll.css) — the scrollbar itself doesn't render on iOS Safari,
+// GuessesScroll.css). the scrollbar itself doesn't render on iOS Safari,
 // so this is the only persistent "there's more this way" cue there. Shared
 // between App.tsx (the daily game) and UnlimitedPage.tsx rather than
 // duplicated, since both need the exact same behavior.
@@ -13,7 +13,7 @@ const FADE_DISTANCE = 120
 
 interface GuessesScrollProps {
   children: React.ReactNode
-  // Re-checks the fade whenever this changes (pass e.g. guesses.length) —
+  // Re-checks the fade whenever this changes (pass e.g. guesses.length) -
   // adding a row can flip whether the content is scrollable at all.
   watch: unknown
 }

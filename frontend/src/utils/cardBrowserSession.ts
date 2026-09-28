@@ -1,10 +1,6 @@
-// Card Browser's Easy Mode category/sort selections, held in a plain module
-// variable rather than localStorage — CardBrowser fully unmounts on close
-// (see easyMode.ts), which would otherwise reset these back to their
-// defaults every reopen. A module variable survives that remount (it's
-// outside React state entirely) but still resets to the defaults on a real
-// page reload/new tab, unlike the Easy Mode toggle itself, which is meant to
-// stick around across sessions.
+// Card Browser's Easy Mode category and sort selections live in this module
+// instead of localStorage. That keeps them around while the browser modal
+// opens and closes, but still resets them on a real page reload.
 
 import type { SortDirection, SortField } from './cardSort'
 import type { CategoryDimension } from './cardCategories'

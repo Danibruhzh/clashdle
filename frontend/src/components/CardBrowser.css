@@ -28,7 +28,7 @@
   /* Explicit, not left to default: setting only overflow-y otherwise makes
      the browser silently treat overflow-x as auto too (per the CSS
      Overflow spec), which lets the grid's occasional few-px rounding
-     overflow (see .card-browser-grid) turn into real horizontal scroll —
+     overflow (see .card-browser-grid) turn into real horizontal scroll -
      very noticeable on mobile touch-drag even when barely visible on
      desktop. */
   overflow-x: hidden;
@@ -114,7 +114,7 @@
 }
 
 /* The real checkbox stays in place (and keyboard/screen-reader accessible)
-   but invisible — .card-browser-toggle-track is the visible track/thumb,
+   but invisible. .card-browser-toggle-track is the visible track/thumb,
    styled purely off the checkbox's :checked state next to it. */
 .card-browser-toggle input {
   position: absolute;
@@ -317,9 +317,9 @@
   background: rgba(0, 0, 0, 0.2);
 }
 
-/* Devices with a real cursor (hover: hover) — reveal on hover, same as
+/* Devices with a real cursor (hover: hover). reveal on hover, same as
    before. Touch-only devices (hover: none) get a tap-to-toggle instead,
-   driven by CardBrowser.tsx's tappedCard state — see the --tapped rule
+   driven by CardBrowser.tsx's tappedCard state. See the --tapped rule
    below. A :hover rule left unscoped would otherwise "stick" oddly on
    touch after a tap in many mobile browsers, which is exactly what the
    media-query split avoids. */

@@ -19,7 +19,7 @@
 }
 
 /* Shrinks alongside the page title (index.css's own h1 rule) rather than
-   staying full-size once the layout's already gone to its mobile scale —
+   staying full-size once the layout's already gone to its mobile scale -
    the icon itself is sized off this via 100%/100% above, so only the
    button and its count text (would otherwise look oversized relative to
    the smaller icon) need their own rule here. */
@@ -35,7 +35,7 @@
 }
 
 /* brightness(0) turns every visible pixel black while leaving the PNG's
-   transparency alone — a silhouette without needing a separate black asset. */
+   transparency alone. a silhouette without needing a separate black asset. */
 .streak-display--inactive .streak-display-icon {
   filter: brightness(0);
 }
@@ -46,7 +46,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   /* Buttons don't inherit the body's font by default (same reason the
-     tooltip below sets this explicitly) — without it this fell back to the
+     tooltip below sets this explicitly). Without it this fell back to the
      browser's default button font once .streak-display became a <button>. */
   font-family: var(--sans);
   font-size: 14px;
@@ -80,7 +80,7 @@
   z-index: 3;
 }
 
-/* Hover-capable devices only — matches StatsButton/CardBrowserButton's
+/* Hover-capable devices only. matches StatsButton/CardBrowserButton's
    tooltip split elsewhere in the app (computers have cursors, phones don't). */
 @media (hover: hover) {
   .streak-display:hover .streak-display-tooltip {

@@ -8,7 +8,7 @@ class UnlimitedGuessRequest(BaseModel):
 class UnlimitedGuessResponse(BaseModel):
     comparisons: dict[str, str]
     is_correct: bool
-    # Set only on the guess that uses up the last try without winning —
+    # Set only on the guess that uses up the last try without winning -
     # same meaning as GuessResponse.reveal_answer. By the time this response
     # goes out the round's rows are already deleted (see routers/unlimited.py),
     # so this is the only place the frontend ever sees this round's card.
@@ -22,7 +22,7 @@ class UnlimitedPastGuess(BaseModel):
 
 
 class UnlimitedRoundResponse(BaseModel):
-    # None means "no round in progress" — the frontend shows a Play Again /
+    # None means "no round in progress". the frontend shows a Play Again /
     # Start button in that case rather than a card search bar.
     guesses: list[UnlimitedPastGuess]
     has_active_round: bool

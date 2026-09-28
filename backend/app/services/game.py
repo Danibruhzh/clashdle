@@ -6,7 +6,7 @@ piece the whole backend exists for: the secret card's actual values must
 never be sent to the client, only this comparison result.
 
 Unlike the frontend version, this doesn't need to parse strings like
-"230 (115 x2)" out of a raw StatValue — load_cards.py already did that when
+"230 (115 x2)" out of a raw StatValue. load_cards.py already did that when
 populating the `cards` table, so every field here is a plain int-or-None or
 str-or-None column read straight off the Card model.
 """
@@ -30,8 +30,8 @@ class StatComparison(str, Enum):
     LOWER = "lower"
 
 
-# Compared as higher/lower/match. rarity_rank stands in for `rarity` here —
-# Common < Rare < Epic < Legendary < Champion — see the comment on that
+# Compared as higher/lower/match. rarity_rank stands in for `rarity` here -
+# Common < Rare < Epic < Legendary < Champion. See the comment on that
 # column in models/card.py.
 NUMERIC_FIELDS = ["cost", "hitpoints", "damage", "dps", "special_damage", "rarity_rank"]
 
@@ -103,5 +103,5 @@ def compare_cards(secret: Card, guess: Card) -> dict[str, StatComparison]:
 
 
 def is_correct_guess(comparisons: dict[str, StatComparison]) -> bool:
-    """True once every stat is a match — the win condition."""
+    """True once every stat is a match. the win condition."""
     return all(value == StatComparison.MATCH for value in comparisons.values())

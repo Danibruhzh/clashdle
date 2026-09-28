@@ -1,4 +1,4 @@
-// Every sound effect used anywhere in the app — kept in one place so
+// Every sound effect used anywhere in the app. kept in one place so
 // preloadSounds() doesn't drift out of sync with what playSound() actually
 // gets called with.
 const SOUND_PATHS = ['/grabcard.mp3', '/flip%20sound.mp3', '/win%20sound.mp3']
@@ -24,7 +24,7 @@ function getAudioContext(): AudioContext {
 }
 
 // One shared GainNode every source routes through instead of straight to
-// destination — a single volume knob for every sound, rather than setting
+// destination. a single volume knob for every sound, rather than setting
 // it on each transient source node individually.
 function getMasterGain(): GainNode {
   if (!masterGain) {
@@ -36,7 +36,7 @@ function getMasterGain(): GainNode {
   return masterGain
 }
 
-// Each file is fetched and decoded into a raw AudioBuffer exactly once —
+// Each file is fetched and decoded into a raw AudioBuffer exactly once -
 // cached by path so preloadSounds() and every later playSound() call for
 // that same path share one decode instead of redoing it per play.
 const bufferCache = new Map<string, Promise<AudioBuffer>>()
@@ -58,26 +58,26 @@ function getBuffer(path: string): Promise<AudioBuffer> {
 
 // Fetches + decodes every sound file up front, so the very first real play
 // (a hover, a flip, a win) just reads an already-decoded buffer instead of
-// starting its own fetch from scratch — competing with everything else the
+// starting its own fetch from scratch. competing with everything else the
 // page loads at once (~190 card images, fonts, etc.). Call once, e.g. on
 // App mount.
 export function preloadSounds(): void {
   for (const path of SOUND_PATHS) {
     getBuffer(path).catch(() => {
-      // Best-effort — a failed fetch/decode here just means playSound()
+      // Best-effort. a failed fetch/decode here just means playSound()
       // fails the same way, later, when actually called.
     })
   }
 }
 
-// Plays a sound via a fresh AudioBufferSourceNode per call — cheap to
+// Plays a sound via a fresh AudioBufferSourceNode per call. cheap to
 // create/destroy (unlike a whole new HTMLAudioElement per play) and lets
 // overlapping triggers (e.g. several flip sounds a fraction of a second
 // apart) play independently, all reading the one shared decoded buffer.
 export function playSound(path: string): void {
   const ctx = getAudioContext()
   // Browsers keep AudioContext suspended until a real user gesture (a hover
-  // doesn't count) — resume() is a cheap no-op once it's already running,
+  // doesn't count). resume() is a cheap no-op once it's already running,
   // and does nothing if this call itself isn't gesture-driven either; the
   // context still starts working the moment a real interaction happens
   // elsewhere on the page.
@@ -91,6 +91,6 @@ export function playSound(path: string): void {
       source.start()
     })
     .catch(() => {
-      // Fetch/decode failure — nothing to surface here.
+      // Fetch/decode failure. Nothing to surface here.
     })
 }

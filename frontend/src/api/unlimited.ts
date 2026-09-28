@@ -1,4 +1,4 @@
-// Mirrors backend/app/schemas/unlimited.py — keep these in sync if that changes.
+// Mirrors backend/app/schemas/unlimited.py. keep these in sync if that changes.
 // Unlike api/game.ts, every call here requires login (Unlimited has no
 // guest mode at all), so there's no guest-session header, only the auth one.
 
@@ -34,7 +34,7 @@ export interface UnlimitedStats {
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8000'
 
 // Only /start actually needs this (it checks whether today's daily is
-// finished, which depends on the client's own "today" — see
+// finished, which depends on the client's own "today". See
 // core/time.py's get_client_today) but sending it on every call is
 // harmless and keeps this consistent with api/game.ts.
 const TIMEZONE_HEADERS = { 'X-Timezone': Intl.DateTimeFormat().resolvedOptions().timeZone }
