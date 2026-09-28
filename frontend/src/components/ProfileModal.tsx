@@ -40,8 +40,8 @@ function ProfileModal({ onClose, onAuthChange }: ProfileModalProps) {
   const [authMode, setAuthMode] = useState<'login' | 'register'>('login')
 
   // On open, check whether a token already exists and still works — a
-  // token that's since expired or been invalidated just falls back to the
-  // logged-out view instead of showing a broken profile. The two stats
+  // token that's invalidated or belongs to a deleted account just falls
+  // back to the logged-out view instead of showing a broken profile. The two stats
   // fetches are best-effort alongside it: a failure there shouldn't log the
   // account out the way a failed profile fetch does, just leave those
   // numbers reading as zero (see averageGuessesToWin/the render below).
