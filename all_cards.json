@@ -88,7 +88,7 @@
     "Rarity": "Epic",
     "Target": "Ground",
     "Hitpoints": "N/A",
-    "Damage": "232",
+    "Damage": "215",
     "Damage Per Second": "N/A",
     "Hit Speed": "N/A",
     "Special Damage": "N/A"
@@ -539,7 +539,7 @@
     "Damage Per Second": "N/A",
     "Hit Speed": "N/A",
     "Special Damage": {
-      "Spawn Damage": "89"
+      "Spawn Damage": "46"
     }
   },
   "Furnace": {
@@ -695,7 +695,9 @@
     "Damage": "N/A",
     "Damage Per Second": "N/A",
     "Hit Speed": "N/A",
-    "Special Damage": "N/A"
+    "Special Damage": {
+      "Crown Tower Spawn Damage": "20"
+    }
   },
   "Goblin Giant": {
     "Cost": "6",
@@ -777,7 +779,7 @@
     "Rarity": "Champion",
     "Target": "Ground",
     "Hitpoints": "1799",
-    "Damage": "161",
+    "Damage": "161=8",
     "Damage Per Second": "178",
     "Hit Speed": "0.9 sec",
     "Special Damage": {
@@ -976,9 +978,9 @@
     "Rarity": "Legendary",
     "Target": "Buildings",
     "Hitpoints": "3581",
-    "Damage": "53",
-    "Damage Per Second": "40",
-    "Hit Speed": "1.3 sec",
+    "Damage": "71",
+    "Damage Per Second": "47",
+    "Hit Speed": "1.5 sec",
     "Special Damage": "N/A"
   },
   "Lava Pup": {
@@ -1110,8 +1112,8 @@
     "Target": "Buildings",
     "Hitpoints": "1817",
     "Damage": "168",
-    "Damage Per Second": "126",
-    "Hit Speed": "1.5 sec",
+    "Damage Per Second": "99",
+    "Hit Speed": "1.7 sec",
     "Special Damage": "N/A"
   },
   "Minion Horde": {
@@ -1286,8 +1288,8 @@
     "Rarity": "Legendary",
     "Target": "Buildings",
     "Hitpoints": "1766",
-    "Damage": "250",
-    "Damage Per Second": "147",
+    "Damage": "271",
+    "Damage Per Second": "159",
     "Hit Speed": "1.7 sec",
     "Special Damage": {
       "Charge Damage": "501"
@@ -1390,9 +1392,9 @@
     "Type": "Troop, Normal",
     "Rarity": "Legendary",
     "Target": "Ground",
-    "Hitpoints": "1210",
-    "Damage": "261",
-    "Damage Per Second": "145",
+    "Hitpoints": "1152",
+    "Damage": "263",
+    "Damage Per Second": "146",
     "Hit Speed": "1.8 sec",
     "Special Damage": "N/A"
   },
@@ -1598,7 +1600,7 @@
     "Type": "Troop, Normal",
     "Rarity": "Rare",
     "Target": "Air & Ground",
-    "Hitpoints": "883",
+    "Hitpoints": "906",
     "Damage": "204",
     "Damage Per Second": "156",
     "Hit Speed": "1.3 sec",
@@ -1708,7 +1710,7 @@
     "Rarity": "Epic",
     "Target": "Buildings",
     "Hitpoints": "330",
-    "Damage": "281",
+    "Damage": "302",
     "Damage Per Second": "N/A",
     "Hit Speed": "N/A",
     "Special Damage": "N/A"
@@ -1741,8 +1743,8 @@
     "Rarity": "Epic",
     "Target": "Ground",
     "Hitpoints": "1600",
-    "Damage": "58",
-    "Damage Per Second": "143",
+    "Damage": "61",
+    "Damage Per Second": "153",
     "Hit Speed": "0.4 sec",
     "Special Damage": "N/A"
   },
@@ -1830,7 +1832,7 @@
     "Damage Per Second": "202",
     "Hit Speed": "1 sec",
     "Special Damage": {
-      "Barrage Damage": "281"
+      "Barrage Damage": "261"
     }
   },
   "Evolution Dart Goblin": {
@@ -1977,7 +1979,7 @@
     "Type": "Troop, Evolution",
     "Rarity": "Legendary",
     "Target": "Ground",
-    "Hitpoints": "1210",
+    "Hitpoints": "1152",
     "Damage": "261",
     "Damage Per Second": "145",
     "Hit Speed": "1.8 sec",
@@ -2069,7 +2071,7 @@
     "Rarity": "Epic",
     "Target": "Buildings",
     "Hitpoints": "330",
-    "Damage": "281",
+    "Damage": "302",
     "Damage Per Second": "N/A",
     "Hit Speed": "N/A",
     "Special Damage": {
@@ -2119,7 +2121,7 @@
     "Rarity": "Epic",
     "Target": "Ground",
     "Hitpoints": "N/A",
-    "Damage": "232",
+    "Damage": "215",
     "Damage Per Second": "N/A",
     "Hit Speed": "N/A",
     "Special Damage": {
