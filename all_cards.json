@@ -237,8 +237,8 @@
     "Rarity": "Epic",
     "Target": "Ground",
     "Hitpoints": "1809",
-    "Damage": "212",
-    "Damage Per Second": "235",
+    "Damage": "202",
+    "Damage Per Second": "224",
     "Hit Speed": "0.9 sec",
     "Special Damage": "N/A"
   },
@@ -305,8 +305,8 @@
     "Rarity": "Rare",
     "Target": "Air & Ground",
     "Hitpoints": "261",
-    "Damage": "151",
-    "Damage Per Second": "189",
+    "Damage": "143",
+    "Damage Per Second": "179",
     "Hit Speed": "0.8 sec",
     "Special Damage": "N/A"
   },
@@ -511,8 +511,8 @@
     "Rarity": "Rare",
     "Target": "Air & Ground",
     "Hitpoints": "614",
-    "Damage": "171",
-    "Damage Per Second": "155",
+    "Damage": "179",
+    "Damage Per Second": "163",
     "Hit Speed": "1.1 sec",
     "Special Damage": "N/A"
   },
@@ -1111,8 +1111,8 @@
     "Rarity": "Rare",
     "Target": "Buildings",
     "Hitpoints": "1817",
-    "Damage": "168",
-    "Damage Per Second": "99",
+    "Damage": "153",
+    "Damage Per Second": "90",
     "Hit Speed": "1.7 sec",
     "Special Damage": "N/A"
   },
@@ -1476,7 +1476,7 @@
     "Damage Per Second": "N/A",
     "Hit Speed": "N/A",
     "Special Damage": {
-      "Death Damage": "145"
+      "Death Damage": "163"
     }
   },
   "Skeleton Dragons": {
@@ -2036,7 +2036,7 @@
     "Damage Per Second": "N/A",
     "Hit Speed": "N/A",
     "Special Damage": {
-      "Death Damage": "384 (192 x2)"
+      "Death Damage": "326 (163 x2)"
     }
   },
   "Evolution Tesla": {
